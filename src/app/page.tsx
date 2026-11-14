@@ -6,6 +6,7 @@ import { CHAPTERS, ALL_LESSONS } from '../data/lessons'
 import { TRAPS } from '../data/traps'
 import { OPENINGS } from '../data/openings'
 import { GAMES } from '../data/games'
+import { ENDGAMES } from '../data/endgames'
 import { PUZZLES } from '../data/puzzles'
 import { ARTICLES } from '../data/encyclopedia'
 import { SITE } from '../lib/site'
@@ -21,6 +22,7 @@ const SECTIONS = [
   { href: '/traps', icon: 'trap', title: 'فخاخ الافتتاح', desc: `${TRAPS.length} فخ مشهور: إزاي تنصبه وإزاي ماتقعش فيه.` },
   { href: '/encyclopedia', icon: 'book', title: 'الموسوعة', desc: `${ARTICLES.length} مقال عن القواعد والافتتاحات والتكتيك والتاريخ، وقاموس مصطلحات.` },
   { href: '/play/computer', icon: 'cpu', title: 'ضد الكمبيوتر', desc: '8 مستويات من مبتدئ خالص لحد Stockfish بكل قوته، مع تلميحات.' },
+  { href: '/endgames', icon: 'flag', title: 'معمل النهايات', desc: `${ENDGAMES.length} مواقف نهاية حاسمة تحلها بإيدك: مات، ترقية، ومقابلة ملوك.` },
   { href: '/rush', icon: 'clock', title: 'سباق الألغاز', desc: 'حل أكبر عدد ألغاز من غير 3 غلطات. كل جولة بتقيس سرعة تكتيكك.' },
   { href: '/squares', icon: 'search', title: 'تمرين الخانات', desc: '30 ثانية تجيب فيها أكبر عدد خانات: التمرين اللي بيبني عين اللاعب المحترف.' },
   { href: '/daily', icon: 'star', title: 'لغز اليوم', desc: 'لغز جديد كل يوم، نفس اللغز لكل الناس. حافظ على سلسلة أيامك 🔥' },
