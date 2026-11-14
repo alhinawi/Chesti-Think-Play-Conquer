@@ -1,4 +1,5 @@
 import type { Trap } from './types'
+import { TRAPS2 } from './ch-traps2'
 
 // Every line here is checked move by move by src/data/data.test.ts.
 export const TRAPS: Trap[] = [
@@ -341,5 +342,7 @@ export const TRAPS: Trap[] = [
     avoid: 'قبل ما تاكل قطعة، بص على المربعات اللي جنب ملكك: لو ملكك محبوس بقطعه، أي كش بالحصان ممكن يبقى مات.',
   },
 ]
+
+TRAPS.push(...TRAPS2)
 
 export const TRAP_LEVELS = ['سهل', 'متوسط', 'متقدم'] as const
