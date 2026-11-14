@@ -12,6 +12,8 @@ export const RANKS = [
   { xp: 2200, name: 'معلّم القهوة', icon: '♛' },
   { xp: 3500, name: 'الباشا', icon: '♚' },
   { xp: 5000, name: 'أسطورة المحروسة', icon: '♔' },
+  { xp: 7000, name: 'جراند ماستر القهوة', icon: '♔' },
+  { xp: 10000, name: 'فخر مصر', icon: '♔' },
 ] as const
 
 export function totalWins(p: Progress) {
@@ -81,6 +83,23 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'daily-3', name: 'مواظب', desc: 'حل لغز اليوم 3 مرات', icon: '📅', test: (p) => (p.daily || []).length >= 3 },
   { id: 'streak-3', name: 'نار ولعة', desc: '3 أيام ورا بعض', icon: '🔥', test: (p) => bestStreakOf(p.days || []) >= 3 },
   { id: 'streak-7', name: 'أسبوع كامل', desc: '7 أيام ورا بعض', icon: '🌟', test: (p) => bestStreakOf(p.days || []) >= 7 },
+  { id: 'ten-lessons', name: 'عاشر درس', desc: 'خلّص 10 دروس', icon: '✏️', test: (p) => p.lessons.length >= 10 },
+  { id: 'twenty-lessons', name: 'نص الطريق', desc: 'خلّص 20 درس', icon: '🧭', test: (p) => p.lessons.length >= 20 },
+  { id: 'half-lessons', name: 'نص المكتبة', desc: 'خلّص نص الدروس', icon: '📚', test: (p, t) => p.lessons.length >= Math.ceil(t.lessons / 2) },
+  { id: 'twenty-puzzles', name: 'فكّاك الألغاز', desc: 'حل 20 لغز', icon: '🔓', test: (p) => p.puzzles.length >= 20 },
+  { id: 'fifty-puzzles', name: 'نص المية', desc: 'حل 50 لغز', icon: '💡', test: (p) => p.puzzles.length >= 50 },
+  { id: 'hundred-puzzles', name: 'مية مية', desc: 'حل 100 لغز', icon: '💯', test: (p) => p.puzzles.length >= 100 },
+  { id: 'five-traps', name: 'جامع الفخاخ', desc: 'اتعلم 5 فخاخ', icon: '🎯', test: (p) => p.traps.length >= 5 },
+  { id: 'half-traps', name: 'صياد محترف', desc: 'اتعلم نص الفخاخ', icon: '🏹', test: (p, t) => p.traps.length >= Math.ceil(t.traps / 2) },
+  { id: 'daily-7', name: 'عادة يومية', desc: 'حل لغز اليوم 7 مرات', icon: '🗓️', test: (p) => (p.daily || []).length >= 7 },
+  { id: 'daily-30', name: 'جزء من اليوم', desc: 'حل لغز اليوم 30 مرة', icon: '📆', test: (p) => (p.daily || []).length >= 30 },
+  { id: 'streak-14', name: 'أسبوعين نار', desc: '14 يوم ورا بعض', icon: '☄️', test: (p) => bestStreakOf(p.days || []) >= 14 },
+  { id: 'streak-30', name: 'شهر كامل', desc: '30 يوم ورا بعض', icon: '🏅', test: (p) => bestStreakOf(p.days || []) >= 30 },
+  { id: 'ten-games', name: 'مجرب جاد', desc: 'العب 10 أدوار ضد الكمبيوتر', icon: '🎮', test: (p) => (p.games || 0) >= 10 },
+  { id: 'fifty-games', name: 'ابن الترابيزة', desc: 'العب 50 دور ضد الكمبيوتر', icon: '🕹️', test: (p) => (p.games || 0) >= 50 },
+  { id: 'wins-10', name: '10 انتصارات', desc: 'اكسب 10 أدوار ضد الكمبيوتر', icon: '🥇', test: (p) => totalWins(p) >= 10 },
+  { id: 'three-bots', name: 'مسح الحتة', desc: 'اكسب 3 شخصيات مختلفة من أهل الحتة', icon: '🧹', test: (p) => Object.values(p.wins || {}).filter((n) => n > 0).length >= 3 },
+  { id: 'all-bots', name: 'زعيم الحتة', desc: 'اكسب كل شخصيات الحتة', icon: '👑', test: (p) => ['am-sayed', 'om-karim', 'mido', 'shawky', 'captain-adel', 'metwally', 'zaki', 'el-wahsh'].every((b) => (p.wins?.[b] || 0) > 0) },
 ]
 
 /** Same puzzle for everyone on the same local date. */
