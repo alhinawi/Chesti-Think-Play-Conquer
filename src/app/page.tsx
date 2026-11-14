@@ -21,6 +21,7 @@ const SECTIONS = [
   { href: '/traps', icon: 'trap', title: 'فخاخ الافتتاح', desc: `${TRAPS.length} فخ مشهور: إزاي تنصبه وإزاي ماتقعش فيه.` },
   { href: '/encyclopedia', icon: 'book', title: 'الموسوعة', desc: `${ARTICLES.length} مقال عن القواعد والافتتاحات والتكتيك والتاريخ، وقاموس مصطلحات.` },
   { href: '/play/computer', icon: 'cpu', title: 'ضد الكمبيوتر', desc: '8 مستويات من مبتدئ خالص لحد Stockfish بكل قوته، مع تلميحات.' },
+  { href: '/squares', icon: 'search', title: 'تمرين الخانات', desc: '30 ثانية تجيب فيها أكبر عدد خانات: التمرين اللي بيبني عين اللاعب المحترف.' },
   { href: '/daily', icon: 'star', title: 'لغز اليوم', desc: 'لغز جديد كل يوم، نفس اللغز لكل الناس. حافظ على سلسلة أيامك 🔥' },
   { href: '/play/friend', icon: 'users', title: 'مع صاحبك', desc: 'العبوا على نفس الجهاز، أو ابعت لينك والعبوا أونلاين.' },
 ]
