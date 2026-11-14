@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { GAMES } from '../data/games'
 import { replay, START_FEN, toUci, turnName, type UciMove } from '../lib/chess'
+import { readProgress, recordGuess } from '../lib/progress'
 import { play } from '../lib/sound'
 import ChessBoard from './ChessBoard'
 import { Button } from './ui'
@@ -29,6 +30,7 @@ export default function GuessTheMove({ gameId }: { gameId: string }) {
 
   const [ply, setPly] = useState(0)
   const [phase, setPhase] = useState<Phase>('guess')
+  const [savedBest, setSavedBest] = useState(() => readProgress().guesses?.[gameId]?.score ?? 0)
   const [score, setScore] = useState(0)
   const [hits, setHits] = useState(0)
   const [run, setRun] = useState(0) // current streak of first-try hits
@@ -110,6 +112,13 @@ export default function GuessTheMove({ gameId }: { gameId: string }) {
     setMarks({})
   }, [])
 
+  // سجّل أفضل نتيجة لما الدور يخلص
+  useEffect(() => {
+    if (phase !== 'done') return
+    recordGuess(gameId, hits, totalGuesses, score)
+    setSavedBest((b) => Math.max(b, score))
+  }, [phase]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const note = ply > 0 && phase !== 'done' ? g.notes[ply - 1] : undefined
 
   return (
@@ -135,6 +144,7 @@ export default function GuessTheMove({ gameId }: { gameId: string }) {
             <span className="text-sm text-muted" dir="ltr">{hits}/{totalGuesses} من أول مرة</span>
           </div>
           {run >= 3 && <p className="mt-1 text-sm text-emerald-400">سلسلة {run} صح ورا بعض!</p>}
+          {savedBest > 0 && phase !== 'done' && <p className="mt-1 text-xs text-muted">أحسن نتيجة ليك في الدور ده: <bdi dir="ltr">{savedBest}</bdi> نقطة.</p>}
         </div>
 
         <div className="min-h-20 rounded-2xl border border-line bg-surface p-4 text-sm" aria-live="polite">
