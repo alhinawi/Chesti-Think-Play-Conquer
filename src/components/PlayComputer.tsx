@@ -1,0 +1,320 @@
+'use client'
+
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import ChessBoard, { type BoardArrow } from './ChessBoard'
+import { ConfirmButton, MoveList, PlayerBar, ResultCard } from './GameParts'
+import { Badge, Button, Icon } from './ui'
+import { gameResult, soundFor, toUci, type UciMove } from '../lib/chess'
+import { Engine, LEVELS } from '../lib/engine'
+import { formatEval, pickComputerMove, playUci } from '../lib/game'
+import { play } from '../lib/sound'
+
+const SAVE_KEY = 'chesti-vs-computer'
+
+interface Saved {
+  level: number
+  color: 'w' | 'b'
+  moves: string[]
+  resigned: boolean
+  started: boolean
+  hints: number
+}
+
+const FRESH: Saved = { level: 2, color: 'w', moves: [], resigned: false, started: false, hints: 0 }
+
+function load(): Saved {
+  try {
+    const s = { ...FRESH, ...JSON.parse(localStorage.getItem(SAVE_KEY) || '{}') }
+    if (!LEVELS.some((l) => l.id === s.level)) s.level = FRESH.level
+    return s
+  } catch {
+    return FRESH
+  }
+}
+
+export default function PlayComputer() {
+  const [s, setS] = useState<Saved>(FRESH)
+  const [loaded, setLoaded] = useState(false)
+  const [pickColor, setPickColor] = useState<'w' | 'b' | 'random'>('w')
+  const [thinking, setThinking] = useState(false)
+  const [hint, setHint] = useState<BoardArrow | null>(null)
+  const [evalText, setEvalText] = useState<string | null>(null)
+  const [engineError, setEngineError] = useState(false)
+  const [flipped, setFlipped] = useState(false)
+  const [shake, setShake] = useState(0)
+  const engineRef = useRef<Engine | null>(null)
+  const gen = useRef(0)
+
+  useEffect(() => {
+    const saved = load()
+    setS(saved)
+    setPickColor(saved.color)
+    setLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (loaded) localStorage.setItem(SAVE_KEY, JSON.stringify(s))
+  }, [s, loaded])
+
+  const engine = useCallback(() => {
+    if (!engineRef.current) {
+      const e = new Engine()
+      e.onError = () => setEngineError(true)
+      engineRef.current = e
+    }
+    return engineRef.current
+  }, [])
+
+  useEffect(() => () => engineRef.current?.terminate(), [])
+
+  const level = LEVELS.find((l) => l.id === s.level) ?? LEVELS[0]
+  const { game, sans, lastMove } = useMemo(() => playUci(s.moves), [s.moves])
+  const fen = game.fen()
+  const turn = game.turn()
+  const result = gameResult(game)
+  const over = result.over || s.resigned
+  const userTurn = s.started && !over && turn === s.color
+
+  // the computer's move
+  useEffect(() => {
+    if (!s.started || over || turn === s.color || engineError) return
+    const myGen = ++gen.current
+    setThinking(true)
+    const t0 = Date.now()
+    engine()
+      .search(fen, { skill: level.skill, depth: level.depth, movetime: level.movetime })
+      .then(async ({ best }) => {
+        const mv = pickComputerMove(fen, best, level.randomness)
+        const wait = 450 - (Date.now() - t0)
+        if (wait > 0) await new Promise((r) => setTimeout(r, wait))
+        if (myGen !== gen.current || !mv) return
+        setS((cur) => (cur.moves.length === s.moves.length ? { ...cur, moves: [...cur.moves, mv] } : cur))
+      })
+      .catch(() => setEngineError(true))
+      .finally(() => {
+        if (myGen === gen.current) setThinking(false)
+      })
+  }, [s.started, s.moves.length, over, turn, s.color, fen, level, engine, engineError, s.moves])
+
+  // sound for each new move
+  const prevLen = useRef(0)
+  useEffect(() => {
+    if (s.moves.length > prevLen.current && s.moves.length > 0) {
+      const last = game.history({ verbose: true }).at(-1)
+      if (last) soundFor(last, game)
+    }
+    prevLen.current = s.moves.length
+    setHint(null)
+    setEvalText(null)
+  }, [s.moves.length, game])
+
+  // win / lose sound
+  useEffect(() => {
+    if (!s.started) return
+    if (result.over && result.winner === s.color) play('success')
+  }, [result.over, result.winner, s.color, s.started])
+
+  function onMove(m: UciMove) {
+    if (!userTurn) return false
+    const uci = toUci(m)
+    const r = playUci([...s.moves, uci])
+    if (r.moves.length !== s.moves.length + 1) {
+      setShake((x) => x + 1)
+      play('error')
+      return false
+    }
+    setS((cur) => ({ ...cur, moves: [...cur.moves, uci] }))
+    return true
+  }
+
+  function start() {
+    const color = pickColor === 'random' ? (Math.random() < 0.5 ? 'w' : 'b') : pickColor
+    gen.current++
+    setFlipped(false)
+    setEngineError(false)
+    setS((cur) => ({ ...cur, color, moves: [], resigned: false, started: true, hints: 0 }))
+    engine() // warm up the engine while the user thinks
+  }
+
+  function undo() {
+    gen.current++
+    engineRef.current?.stop()
+    setThinking(false)
+    setS((cur) => {
+      // take back to the last position where it was the user's turn
+      let n = cur.moves.length - 1
+      while (n > 0 && n % 2 !== (cur.color === 'w' ? 0 : 1)) n--
+      if (cur.color === 'b' && n < 1) n = Math.min(1, cur.moves.length)
+      return { ...cur, moves: cur.moves.slice(0, Math.max(0, n)), resigned: false }
+    })
+  }
+
+  async function askHint() {
+    if (!userTurn) return
+    setThinking(true)
+    try {
+      const { best, lines } = await engine().search(fen, { skill: 20, depth: 12 })
+      if (best && best !== '(none)') setHint({ from: best.slice(0, 2), to: best.slice(2, 4), color: 'green' })
+      if (lines[0]) setEvalText(formatEval(lines[0], turn))
+      setS((cur) => ({ ...cur, hints: cur.hints + 1 }))
+    } catch {
+      setEngineError(true)
+    } finally {
+      setThinking(false)
+    }
+  }
+
+  if (!loaded) return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
+
+  if (!s.started) {
+    return (
+      <div className="mx-auto max-w-3xl">
+        <h2 className="mb-3 font-display text-xl font-bold">اختار مستوى الكمبيوتر</h2>
+        <div role="radiogroup" aria-label="المستوى" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {LEVELS.map((l) => (
+            <button
+              key={l.id}
+              type="button"
+              role="radio"
+              aria-checked={s.level === l.id}
+              onClick={() => setS((cur) => ({ ...cur, level: l.id }))}
+              className={`rounded-2xl border p-3 text-start transition ${s.level === l.id ? 'border-gold bg-gold-soft shadow-[0_0_0_1px_var(--gold)]' : 'border-line bg-surface hover:border-gold/50'}`}
+            >
+              <span className="flex items-center justify-between">
+                <span className="font-bold">{l.name}</span>
+                <span className="ltr text-xs text-muted">{l.id}/8</span>
+              </span>
+              <span className="mt-1 flex gap-0.5" aria-hidden>
+                {LEVELS.map((x) => (
+                  <span key={x.id} className={`h-1 flex-1 rounded-full ${x.id <= l.id ? 'bg-gold' : 'bg-line'}`} />
+                ))}
+              </span>
+              <span className="mt-2 block text-xs text-muted">{l.desc}</span>
+            </button>
+          ))}
+        </div>
+
+        <h2 className="mt-6 mb-3 font-display text-xl font-bold">هتلعب بأنهي لون؟</h2>
+        <div role="radiogroup" aria-label="اللون" className="grid grid-cols-3 gap-2">
+          {(
+            [
+              ['w', 'الأبيض', '♔'],
+              ['random', 'عشوائي', '?'],
+              ['b', 'الأسود', '♚'],
+            ] as const
+          ).map(([v, label, g]) => (
+            <button
+              key={v}
+              type="button"
+              role="radio"
+              aria-checked={pickColor === v}
+              onClick={() => setPickColor(v)}
+              className={`flex flex-col items-center gap-1 rounded-2xl border p-3 transition ${pickColor === v ? 'border-gold bg-gold-soft' : 'border-line bg-surface hover:border-gold/50'}`}
+            >
+              <span className="text-3xl leading-none" aria-hidden>{g}</span>
+              <span className="text-sm font-bold">{label}</span>
+            </button>
+          ))}
+        </div>
+
+        <Button onClick={start} className="mt-6 w-full py-3.5 text-base">
+          <Icon name="play" /> {s.moves.length > 0 && !over ? 'ابدأ دور جديد' : 'يلا نلعب'}
+        </Button>
+        {s.moves.length > 0 && !over && (
+          <Button variant="outline" onClick={() => setS((cur) => ({ ...cur, started: true }))} className="mt-2 w-full py-3">
+            كمّل الدور اللي فات ({Math.ceil(s.moves.length / 2)} نقلة)
+          </Button>
+        )}
+        <p className="mt-3 text-center text-xs text-muted">المحرك Stockfish 19 بيشتغل جوه متصفحك، من غير نت بعد ما الصفحة تحمّل.</p>
+      </div>
+    )
+  }
+
+  const orientation = (s.color === 'w') !== flipped ? 'white' : 'black'
+  const top: 'w' | 'b' = orientation === 'white' ? 'b' : 'w'
+  const bar = (c: 'w' | 'b') =>
+    c === s.color ? (
+      <PlayerBar fen={fen} color={c} name="إنت" active={userTurn} />
+    ) : (
+      <PlayerBar
+        fen={fen}
+        color={c}
+        icon="cpu"
+        name={`الكمبيوتر — ${level.name}`}
+        active={thinking && turn !== s.color}
+        sub={thinking && turn !== s.color ? <span>بيفكر…</span> : null}
+      />
+    )
+
+  let outcome: { title: string; text?: string; tone: 'win' | 'lose' | 'draw' } | null = null
+  if (s.resigned) outcome = { title: 'استسلمت', text: 'مش مشكلة، الدور الجاي أحسن.', tone: 'lose' }
+  else if (result.over)
+    outcome =
+      result.winner === null
+        ? { title: 'تعادل', text: result.text, tone: 'draw' }
+        : result.winner === s.color
+          ? { title: 'كسبت! برافو عليك', text: `كش مات في ${Math.ceil(s.moves.length / 2)} نقلة${s.hints ? ` واستخدمت ${s.hints} تلميح` : ''}.`, tone: 'win' }
+          : { title: 'الكمبيوتر كسب', text: 'كش مات. جرب مستوى أسهل أو العب تاني.', tone: 'lose' }
+
+  return (
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:gap-8">
+      <div className="mx-auto flex w-full max-w-[560px] flex-col gap-2">
+        {bar(top)}
+        <ChessBoard fen={fen} orientation={orientation} movable={userTurn ? s.color : false} onMove={onMove} lastMove={lastMove} arrows={hint ? [hint] : undefined} shake={shake} />
+        {bar(top === 'w' ? 'b' : 'w')}
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge>{level.name}</Badge>
+          <Badge tone="muted">بتلعب بـ{s.color === 'w' ? 'الأبيض' : 'الأسود'}</Badge>
+          {game.inCheck() && !over && <Badge tone="danger">كش!</Badge>}
+        </div>
+
+        {engineError && (
+          <div role="alert" className="rounded-2xl border border-danger/50 bg-danger/10 p-4 text-sm">
+            المحرك ما اشتغلش على الجهاز ده. جرب تحدّث الصفحة، أو افتحها من متصفح تاني.
+          </div>
+        )}
+
+        {outcome ? (
+          <ResultCard {...outcome}>
+            <Button onClick={start}>
+              <Icon name="reset" /> دور تاني
+            </Button>
+            <Button variant="soft" onClick={() => setS((cur) => ({ ...cur, started: false }))}>
+              غيّر المستوى
+            </Button>
+          </ResultCard>
+        ) : (
+          <p className="rounded-xl border border-line bg-surface p-3 text-sm" aria-live="polite">
+            {thinking && turn !== s.color ? 'الكمبيوتر بيفكر…' : userTurn ? (s.moves.length === 0 ? 'دورك. ابدأ بأي نقلة.' : 'دورك.') : '…'}
+            {evalText && <span className="ms-2 text-muted">تقييم المحرك: <bdi className="font-bold text-gold">{evalText}</bdi></span>}
+          </p>
+        )}
+
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <Button variant="soft" onClick={askHint} disabled={!userTurn || thinking}>
+            <Icon name="bulb" /> تلميح
+          </Button>
+          <Button variant="soft" onClick={undo} disabled={s.moves.length === 0 || (s.color === 'b' && s.moves.length <= 1)}>
+            <Icon name="undo" /> رجوع
+          </Button>
+          <Button variant="soft" onClick={() => setFlipped((f) => !f)}>
+            <Icon name="flip" /> اقلب
+          </Button>
+          <ConfirmButton icon="flag" label="استسلم" confirm="متأكد إنك عايز تستسلم؟" disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: true }))} />
+        </div>
+
+        <MoveList sans={sans} />
+
+        <div className="flex flex-wrap gap-2">
+          <ConfirmButton icon="reset" label="دور جديد" confirm="تبدأ دور جديد؟ الدور ده هيتمسح." disabled={s.moves.length === 0 && !over} onConfirm={start} />
+          <Button variant="ghost" onClick={() => setS((cur) => ({ ...cur, started: false }))}>
+            غيّر المستوى أو اللون
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}

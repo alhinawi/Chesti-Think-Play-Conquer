@@ -1,0 +1,111 @@
+import { describe, expect, it } from 'vitest'
+import { formatEval, material, movePairs, pickComputerMove, playUci } from './game'
+import { assignSeat, makeRoomCode, mergeGame, mergeSeats, newGame, normalizeRoomCode, onlineEnabled } from './online'
+
+const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+
+describe('material', () => {
+  it('is level at the start', () => {
+    expect(material(START)).toEqual({ capturedBy: { w: [], b: [] }, diff: 0 })
+  })
+  it('counts a captured knight for white', () => {
+    const { game } = playUci(['e2e4', 'g8f6', 'e4e5', 'f6d5', 'c2c4', 'd5b4', 'd2d3', 'b4c2', 'd1c2'])
+    const m = material(game.fen())
+    expect(m.capturedBy.w).toEqual(['n'])
+    expect(m.diff).toBe(3)
+  })
+})
+
+describe('movePairs', () => {
+  it('groups moves by number', () => {
+    expect(movePairs(['e4', 'e5', 'Nf3'])).toEqual([
+      [1, 'e4', 'e5'],
+      [2, 'Nf3', undefined],
+    ])
+  })
+})
+
+describe('pickComputerMove', () => {
+  it('keeps the engine move when there is no randomness', () => {
+    expect(pickComputerMove(START, 'e2e4', 0, () => 0.99)).toBe('e2e4')
+  })
+  it('falls back to a legal move when the engine move is not legal', () => {
+    const m = pickComputerMove(START, 'e2e5', 0, () => 0)
+    expect(playUci([m]).moves).toEqual([m])
+  })
+  it('returns nothing when there are no legal moves', () => {
+    expect(pickComputerMove('7k/5Q2/6K1/8/8/8/8/8 b - - 0 1', '', 0)).toBe('')
+  })
+})
+
+describe('playUci', () => {
+  it('stops at the first illegal move', () => {
+    const r = playUci(['e2e4', 'e7e5', 'e4e5', 'g1f3'])
+    expect(r.moves).toEqual(['e2e4', 'e7e5'])
+    expect(r.sans).toEqual(['e4', 'e5'])
+    expect(r.lastMove).toEqual(['e7', 'e5'])
+  })
+  it('handles promotion', () => {
+    const r = playUci(['a7a8q'], '8/P7/8/8/8/8/8/k6K w - - 0 1')
+    expect(r.sans).toEqual(['a8=Q+'])
+  })
+})
+
+describe('formatEval', () => {
+  it('shows white-relative scores', () => {
+    expect(formatEval({ cp: 140 }, 'w')).toBe('+1.4')
+    expect(formatEval({ cp: 140 }, 'b')).toBe('-1.4')
+    expect(formatEval({ mate: 2 }, 'b')).toBe('الأسود يمات في 2')
+  })
+})
+
+describe('online rooms', () => {
+  it('makes readable codes', () => {
+    const c = makeRoomCode()
+    expect(c).toMatch(/^[A-HJ-NP-Z2-9]{6}$/)
+    expect(normalizeRoomCode(` ${c.toLowerCase()} `)).toBe(c)
+    expect(normalizeRoomCode('ab')).toBeNull()
+    expect(normalizeRoomCode(null)).toBeNull()
+  })
+
+  it('keeps the longer copy of the same game', () => {
+    const g = { ...newGame(), moves: ['e2e4'] }
+    const longer = { ...g, moves: ['e2e4', 'e7e5'] }
+    expect(mergeGame(g, longer).moves).toEqual(['e2e4', 'e7e5'])
+    expect(mergeGame(longer, g).moves).toEqual(['e2e4', 'e7e5'])
+  })
+
+  it('ignores a copy that went a different way', () => {
+    const g = { ...newGame(), moves: ['e2e4', 'e7e5'] }
+    expect(mergeGame(g, { ...g, moves: ['d2d4', 'd7d5', 'c2c4'] })).toBe(g)
+  })
+
+  it('prefers the newer game after a rematch', () => {
+    const old = { ...newGame(Math.random, 1000), moves: ['e2e4'] }
+    const fresh = newGame(Math.random, 2000)
+    expect(mergeGame(old, fresh)).toBe(fresh)
+    expect(mergeGame(fresh, old)).toBe(fresh)
+  })
+
+  it('carries a resignation over', () => {
+    const g = newGame()
+    expect(mergeGame(g, { ...g, resigned: 'b' }).resigned).toBe('b')
+  })
+
+  it('gives the free colour to the first newcomer only', () => {
+    let seats = { host: 'b' as const } as Record<string, 'w' | 'b'>
+    seats = assignSeat(seats, 'guest')
+    expect(seats).toEqual({ host: 'b', guest: 'w' })
+    expect(assignSeat(seats, 'third')).toEqual(seats)
+    expect(assignSeat(seats, 'guest')).toBe(seats)
+  })
+
+  it('merges seats without giving one colour twice', () => {
+    expect(mergeSeats({ a: 'w' }, { b: 'b', c: 'w' })).toEqual({ a: 'w', b: 'b' })
+  })
+
+  it('knows when online play is configured', () => {
+    expect(onlineEnabled('', '')).toBe(false)
+    expect(onlineEnabled('https://x.supabase.co', 'key')).toBe(true)
+  })
+})

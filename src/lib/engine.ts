@@ -23,12 +23,18 @@ export class Engine {
   private busy: Promise<unknown> = Promise.resolve()
   private currentSkill = -1
   private currentMultiPv = 1
+  /** called when the worker fails to load or crashes */
+  onError?: (message: string) => void
 
   constructor() {
     this.worker = new Worker('/engine/stockfish-19-lite-single.js')
     this.worker.onmessage = (e: MessageEvent) => {
       const line = typeof e.data === 'string' ? e.data : String(e.data)
       this.listeners.forEach((l) => l(line))
+    }
+    this.worker.onerror = (e: ErrorEvent) => {
+      e.preventDefault?.()
+      this.onError?.(e.message || 'engine failed')
     }
     this.ready = (async () => {
       await this.waitFor('uci', 'uciok')
