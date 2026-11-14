@@ -425,14 +425,11 @@ export default function World3DPro() {
     // اللمس/الدوس
     const ray = new THREE.Raycaster()
     const ptr = new THREE.Vector2()
-    let downAt = 0
     let downXY: [number, number] = [0, 0]
     const onDown = (e: PointerEvent) => {
-      downAt = performance.now()
       downXY = [e.clientX, e.clientY]
     }
     const onUp = (e: PointerEvent) => {
-      if (performance.now() - downAt > 900) return
       if (Math.hypot(e.clientX - downXY[0], e.clientY - downXY[1]) > 12) return
       if (currentMode !== 'play') return
       const rect = renderer.domElement.getBoundingClientRect()
