@@ -29,7 +29,7 @@ export default function EncyclopediaPage() {
 
       {cats.map((c) => (
         <section key={c.id} id={c.id} aria-labelledby={`h-${c.id}`} className="mb-10 scroll-mt-24">
-          <h2 id={`h-${c.id}`} className="font-display text-xl font-bold">{c.name}</h2>
+          <h2 id={`h-${c.id}`} className="text-xl font-bold">{c.name}</h2>
           <p className="mb-3 text-sm text-muted">{c.desc}</p>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {ARTICLES.filter((a) => a.category === c.id).map((a) => (

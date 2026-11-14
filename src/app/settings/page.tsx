@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHeader kicker="الإعدادات" title="ظبّط شطرنجي على مزاجك" />
+      <PageHeader kicker="الإعدادات" title="ظبّط Chesti على مزاجك" />
       <SettingsPanel />
     </>
   )

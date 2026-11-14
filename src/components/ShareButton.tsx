@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Button, Icon } from './ui'
+import { SITE } from '../lib/site'
 
 /** Native share sheet on phones, copy to clipboard elsewhere. */
 export default function ShareButton({ text, path, label = 'شَيّر النتيجة' }: { text: string; path: string; label?: string }) {
@@ -10,7 +11,7 @@ export default function ShareButton({ text, path, label = 'شَيّر النتي
     const url = `${window.location.origin}${path}`
     try {
       if (navigator.share) {
-        await navigator.share({ title: 'شطرنجي', text, url })
+        await navigator.share({ title: SITE.name, text, url })
         return
       }
     } catch {

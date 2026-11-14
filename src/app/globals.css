@@ -4,10 +4,6 @@
 @import "@fontsource/ibm-plex-sans-arabic/arabic-700.css";
 @import "@fontsource/ibm-plex-sans-arabic/latin-400.css";
 @import "@fontsource/ibm-plex-sans-arabic/latin-700.css";
-@import "@fontsource/reem-kufi/arabic-500.css";
-@import "@fontsource/reem-kufi/arabic-700.css";
-@import "@fontsource/reem-kufi/latin-700.css";
-@import "@fontsource/aref-ruqaa/arabic-700.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -56,8 +52,6 @@
   --color-emerald: var(--emerald);
   --color-danger: var(--danger);
   --font-sans: "IBM Plex Sans Arabic", system-ui, sans-serif;
-  --font-display: "Reem Kufi", "IBM Plex Sans Arabic", serif;
-  --font-ruqaa: "Aref Ruqaa", "Reem Kufi", serif;
   --shadow-luxe: var(--shadow);
 }
 
@@ -75,20 +69,22 @@ body {
     radial-gradient(900px 500px at -10% 110%, var(--gold-soft), transparent 60%),
     var(--bg);
   background-attachment: fixed;
-  line-height: 1.75;
+  line-height: 1.8;
+  letter-spacing: 0;
   text-rendering: optimizeLegibility;
+}
+/* One calm font everywhere: headings differ only by size and weight. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0;
 }
 ::selection {
   background: var(--gold);
   color: #111;
 }
 
-.text-gold-grad {
-  background: linear-gradient(120deg, var(--gold-2), var(--gold) 55%, #8a6326);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
 .gold-ring {
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent), var(--shadow);
 }

@@ -12,7 +12,7 @@ export default function ArticleBlocks({ blocks }: { blocks: Block[] }) {
       {blocks.map((b, i) => {
         if ('h' in b)
           return (
-            <h2 key={i} className="pt-3 font-display text-xl font-bold text-gold">
+            <h2 key={i} className="pt-3 text-xl font-bold text-gold">
               {b.h}
             </h2>
           )

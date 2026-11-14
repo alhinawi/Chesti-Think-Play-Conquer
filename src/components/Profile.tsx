@@ -33,7 +33,7 @@ export default function Profile() {
           </span>
           <div className="min-w-0 flex-1">
             <p className="text-sm text-muted">رتبتك</p>
-            <h2 className="font-display text-2xl font-bold text-gold sm:text-3xl">{r.name}</h2>
+            <h2 className="text-2xl font-bold text-gold sm:text-3xl">{r.name}</h2>
             <p className="mt-1 text-sm">
               <bdi className="ltr font-bold">{xp}</bdi> نقطة{r.next ? <> — فاضلك <bdi className="ltr font-bold">{r.next.xp - xp}</bdi> لـ«{r.next.name}»</> : ' — وصلت للقمة!'}
             </p>
@@ -62,7 +62,7 @@ export default function Profile() {
 
       <section aria-labelledby="map-h">
         <div className="mb-3 flex items-end justify-between gap-2">
-          <h2 id="map-h" className="font-display text-xl font-bold">خريطة الكورس</h2>
+          <h2 id="map-h" className="text-xl font-bold">خريطة الكورس</h2>
           {nextLesson && (
             <Link href={`/learn/${nextLesson.id}`} className="text-sm font-bold text-gold hover:underline">
               كمّل: {nextLesson.title} ←
@@ -109,7 +109,7 @@ export default function Profile() {
       </section>
 
       <section aria-labelledby="ach-h">
-        <h2 id="ach-h" className="mb-3 font-display text-xl font-bold">
+        <h2 id="ach-h" className="mb-3 text-xl font-bold">
           الأوسمة <span className="text-base text-muted"><bdi className="ltr">{unlocked.length}/{ACHIEVEMENTS.length}</bdi></span>
         </h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
@@ -128,7 +128,7 @@ export default function Profile() {
       </section>
 
       <section aria-labelledby="bots-h">
-        <h2 id="bots-h" className="mb-3 font-display text-xl font-bold">ضحاياك</h2>
+        <h2 id="bots-h" className="mb-3 text-xl font-bold">ضحاياك</h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {BOTS.map((b) => {
             const w = p.wins?.[b.id] || 0

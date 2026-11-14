@@ -18,7 +18,7 @@ export default function LessonList() {
                 <span className="text-4xl text-gold" aria-hidden>{c.glyph}</span>
                 <div>
                   <p className="text-xs text-muted">الفصل {ci + 1}</p>
-                  <h2 id={`ch-${c.id}`} className="font-display text-xl font-bold">{c.title}</h2>
+                  <h2 id={`ch-${c.id}`} className="text-xl font-bold">{c.title}</h2>
                   <p className="text-sm text-muted">{c.desc}</p>
                 </div>
               </div>

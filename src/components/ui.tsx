@@ -54,8 +54,8 @@ export function Badge({ children, tone = 'gold' }: { children: ReactNode; tone?:
 export function PageHeader({ kicker, title, desc, children }: { kicker?: string; title: string; desc?: ReactNode; children?: ReactNode }) {
   return (
     <header className="animate-fade-up mb-8">
-      {kicker && <p className="mb-2 text-sm font-bold tracking-wide text-gold">{kicker}</p>}
-      <h1 className="font-display text-3xl leading-tight font-bold sm:text-4xl">{title}</h1>
+      {kicker && <p className="mb-2 text-sm font-bold text-gold">{kicker}</p>}
+      <h1 className="text-3xl leading-snug font-bold sm:text-4xl">{title}</h1>
       {desc && <p className="mt-3 max-w-2xl text-muted">{desc}</p>}
       {children}
     </header>

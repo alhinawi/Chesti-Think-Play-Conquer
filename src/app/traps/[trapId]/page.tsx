@@ -51,7 +51,7 @@ export default async function TrapPage({ params }: Props) {
         <span className="mx-2">/</span>
         <span>{t.opening}</span>
       </nav>
-      <h1 className="font-display text-2xl font-bold sm:text-3xl">{t.name}</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">{t.name}</h1>
       <p className="text-sm text-muted" dir="ltr">{t.en}</p>
       <div className="mt-2 mb-3 flex flex-wrap gap-2">
         <Badge tone="muted">{t.opening}</Badge>
@@ -63,12 +63,12 @@ export default async function TrapPage({ params }: Props) {
       <TrapViewer trapId={t.id} />
 
       <section aria-labelledby="avoid" className="mt-8 rounded-2xl border border-gold/30 bg-gold-soft p-5">
-        <h2 id="avoid" className="mb-2 font-display text-lg font-bold text-gold">إزاي ماتقعش فيه</h2>
+        <h2 id="avoid" className="mb-2 text-lg font-bold text-gold">إزاي ماتقعش فيه</h2>
         <RichText text={t.avoid} />
       </section>
 
       <section aria-labelledby="moves" className="mt-6">
-        <h2 id="moves" className="mb-2 font-display text-lg font-bold">النقلات كلها</h2>
+        <h2 id="moves" className="mb-2 text-lg font-bold">النقلات كلها</h2>
         <p dir="ltr" className="rounded-xl border border-line bg-surface p-3 text-start font-mono text-sm">{pgn(t.moves)}</p>
         <ol className="mt-4 space-y-2">
           {t.moves.map((m, i) =>

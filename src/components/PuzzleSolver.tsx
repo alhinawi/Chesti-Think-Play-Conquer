@@ -42,7 +42,7 @@ export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: st
           <h2 className="mb-1 font-bold text-emerald">الشرح</h2>
           <RichText text={p.explain} />
           <div className="mt-3">
-            <ShareButton text={`حليت لغز "${p.name}" على شطرنجي ♞ تقدر تحله إنت كمان؟`} path={`/puzzles/${p.id}/`} label="تحدّى صاحبك" />
+            <ShareButton text={`حليت لغز "${p.name}" على Chesti ♞ تقدر تحله إنت كمان؟`} path={`/puzzles/${p.id}/`} label="تحدّى صاحبك" />
           </div>
           <Link href={`/puzzles/${nextId}`} className="mt-3 inline-flex items-center gap-2 font-bold text-gold hover:underline">
             اللغز الجاي <Icon name="prev" className="h-4 w-4" />

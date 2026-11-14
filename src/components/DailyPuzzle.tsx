@@ -27,7 +27,7 @@ export default function DailyPuzzle() {
         {solvedToday && <Badge tone="emerald">اتحل النهارده</Badge>}
         {streak > 0 && <Badge tone="gold">🔥 {streak} يوم ورا بعض</Badge>}
       </div>
-      <h2 className="mb-4 font-display text-xl font-bold">{p.name}</h2>
+      <h2 className="mb-4 text-xl font-bold">{p.name}</h2>
       <PuzzleSolver key={p.id} puzzleId={p.id} nextId={next.id} daily={date} />
       <p className="mt-6 text-center text-sm text-muted">فيه لغز جديد كل يوم الساعة 12 بالليل، نفس اللغز لكل الناس.</p>
     </div>

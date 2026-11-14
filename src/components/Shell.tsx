@@ -26,7 +26,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
           <Link href="/" className="flex items-center gap-2" aria-label={SITE.name}>
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-b from-gold-2 to-gold text-xl text-[#1a1408]">♞</span>
-            <span className="font-ruqaa text-2xl text-gold-grad">{SITE.name}</span>
+            <span className="text-xl font-bold text-gold">{SITE.name}</span>
           </Link>
           <nav aria-label="الأقسام" className="ms-4 hidden flex-1 items-center gap-1 md:flex">
             {NAV.slice(1).map((n) => (
@@ -71,7 +71,7 @@ export default function Shell({ children }: { children: ReactNode }) {
       <footer className="hidden border-t border-line py-8 text-sm text-muted md:block">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4">
           <p>
-            <span className="font-ruqaa text-gold">{SITE.name}</span> — {SITE.tagline}
+            <span className="font-bold text-gold">{SITE.name}</span> — {SITE.tagline}
           </p>
           <nav aria-label="روابط الفوتر" className="flex flex-wrap gap-4">
             <Link href="/daily" className="hover:text-ink">لغز اليوم</Link>

@@ -282,7 +282,7 @@ function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
   async function share() {
     try {
       if (navigator.share) {
-        await navigator.share({ title: 'تعال نلعب شطرنج', text: `أوضة ${code} على شطرنجي`, url: link })
+        await navigator.share({ title: 'تعال نلعب شطرنج', text: `أوضة ${code} على Chesti`, url: link })
         return
       }
     } catch {

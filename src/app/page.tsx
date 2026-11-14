@@ -36,8 +36,8 @@ export default function Home() {
       <section className="arabesque relative -mx-4 grid items-center gap-8 overflow-hidden rounded-b-[2rem] bg-gradient-to-b from-[#0d2a1f]/70 to-transparent px-4 py-6 sm:mx-0 sm:rounded-[2rem] sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:py-12">
         <div className="animate-fade-up">
           <Badge>مجاني • من غير تسجيل • بالمصري</Badge>
-          <h1 className="mt-4 font-display text-4xl leading-[1.25] font-bold sm:text-5xl">
-            اتعلم <span className="text-gold-grad">الشطرنج</span>
+          <h1 className="mt-4 text-4xl leading-[1.4] font-bold sm:text-5xl">
+            اتعلم <span className="text-gold">الشطرنج</span>
             <br />
             زي ما حد قاعد جنبك وبيشرحلك
           </h1>
@@ -72,7 +72,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="sections" className="mt-10">
-        <h2 id="sections" className="mb-4 font-display text-2xl font-bold">هتلاقي إيه هنا؟</h2>
+        <h2 id="sections" className="mb-4 text-2xl font-bold">هتلاقي إيه هنا؟</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SECTIONS.map((s) => (
             <Link key={s.href} href={s.href} className="luxe-card group rounded-2xl p-5 transition hover:-translate-y-0.5 hover:border-gold/50">
@@ -88,7 +88,7 @@ export default function Home() {
 
       <section aria-labelledby="bots" className="mt-12">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
-          <h2 id="bots" className="font-display text-2xl font-bold">أهل الحتة مستنيينك على الترابيزة</h2>
+          <h2 id="bots" className="text-2xl font-bold">أهل الحتة مستنيينك على الترابيزة</h2>
           <Link href="/play/computer" className="text-sm font-bold text-gold hover:underline">اختار خصمك ←</Link>
         </div>
         <ul className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
@@ -110,7 +110,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="ranks" className="arabesque relative mt-12 overflow-hidden rounded-3xl border border-gold/25 bg-surface p-5 sm:p-7">
-        <h2 id="ranks" className="font-display text-2xl font-bold">اطلع من «{RANKS[0].name}» لـ«{RANKS[RANKS.length - 1].name}»</h2>
+        <h2 id="ranks" className="text-2xl font-bold">اطلع من «{RANKS[0].name}» لـ«{RANKS[RANKS.length - 1].name}»</h2>
         <p className="mt-1 text-muted">كل درس ولغز ودور بيديك نقط. حافظ على سلسلة أيامك، واجمع الأوسمة، وشوف رتبتك بتطلع.</p>
         <ol className="mt-4 flex flex-wrap gap-2">
           {RANKS.map((r) => (
@@ -125,7 +125,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="path" className="mt-12">
-        <h2 id="path" className="mb-4 font-display text-2xl font-bold">مسار التعلم</h2>
+        <h2 id="path" className="mb-4 text-2xl font-bold">مسار التعلم</h2>
         <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CHAPTERS.map((c, i) => (
             <li key={c.id}>
