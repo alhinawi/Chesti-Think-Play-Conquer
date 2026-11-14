@@ -5,9 +5,42 @@ import { GAMES } from '../data/games'
 import { replay, START_FEN } from '../lib/chess'
 import { play } from '../lib/sound'
 import ChessBoard from './ChessBoard'
+import GuessTheMove from './GuessTheMove'
 import MoveControls from './MoveControls'
 
+/** غلاف الدور: وضع المشاهدة أو وضع «خمّن النقلة». */
 export default function GameViewer({ gameId }: { gameId: string }) {
+  const [mode, setMode] = useState<'watch' | 'guess'>(() =>
+    typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('mode') === 'guess' ? 'guess' : 'watch',
+  )
+  return (
+    <div>
+      <div className="mb-4 inline-flex rounded-xl border border-line bg-surface p-1 text-sm" role="tablist" aria-label="وضع العرض">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === 'watch'}
+          onClick={() => setMode('watch')}
+          className={`rounded-lg px-4 py-1.5 font-bold transition ${mode === 'watch' ? 'bg-gold text-[#1a1408]' : 'text-muted hover:text-ink'}`}
+        >
+          مشاهدة
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === 'guess'}
+          onClick={() => setMode('guess')}
+          className={`rounded-lg px-4 py-1.5 font-bold transition ${mode === 'guess' ? 'bg-gold text-[#1a1408]' : 'text-muted hover:text-ink'}`}
+        >
+          خمّن النقلة
+        </button>
+      </div>
+      {mode === 'guess' ? <GuessTheMove gameId={gameId} /> : <ReplayViewer gameId={gameId} />}
+    </div>
+  )
+}
+
+function ReplayViewer({ gameId }: { gameId: string }) {
   const g = GAMES.find((x) => x.id === gameId)!
   const { fens, history } = useMemo(() => replay(START_FEN, g.moves), [g])
   const [ply, setPly] = useState(0)
