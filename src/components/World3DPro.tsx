@@ -655,8 +655,8 @@ export default function World3DPro() {
             {status} {thinking && mode === 'play' ? '⏳' : ''}
           </div>
         )}
-        <div className="absolute bottom-3 right-3 left-3 flex flex-wrap items-center gap-2">
-          <div className="flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
+        <div className="pointer-events-none absolute bottom-3 right-3 left-3 flex flex-wrap items-center gap-2">
+          <div className="pointer-events-auto flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
             {WORLD3D_THEMES.map((t) => (
               <button
                 key={t.id}
@@ -669,7 +669,7 @@ export default function World3DPro() {
               </button>
             ))}
           </div>
-          <div className="flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
+          <div className="pointer-events-auto flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
             {CAM_PRESETS.map((p) => (
               <button
                 key={p.id}
