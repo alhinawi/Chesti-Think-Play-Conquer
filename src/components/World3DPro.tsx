@@ -488,6 +488,24 @@ export default function World3DPro() {
 
     apiRef.current = { applyTheme, goPreset, setMode, resetGame, setLevel: setLevelApi }
 
+    // خطاف اختبار آلي (مش ظاهر في الواجهة)
+    ;(window as unknown as { __w3d?: unknown }).__w3d = {
+      project: (sq: string) => {
+        const [x, z] = squareVec(sq)
+        const v = new THREE.Vector3(x, 0.1, z).project(camera)
+        const r = renderer.domElement.getBoundingClientRect()
+        return [r.left + ((v.x + 1) / 2) * r.width, r.top + ((1 - v.y) / 2) * r.height]
+      },
+      state: () => ({
+        mode: currentMode,
+        turn: game.turn(),
+        fen: game.fen(),
+        selected,
+        targets: legalTargets.map((m) => m.to),
+        over: gameOver,
+      }),
+    }
+
     loadPieceLibrary()
       .then((l) => {
         if (disposed) return
@@ -553,6 +571,7 @@ export default function World3DPro() {
       renderer.dispose()
       if (renderer.domElement.parentElement === mount) mount.removeChild(renderer.domElement)
       apiRef.current = null
+      ;(window as unknown as { __w3d?: unknown }).__w3d = undefined
     }
   }, [])
 
