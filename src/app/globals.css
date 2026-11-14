@@ -1,0 +1,154 @@
+@import "tailwindcss";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-500.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-700.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-700.css";
+@import "@fontsource/reem-kufi/arabic-500.css";
+@import "@fontsource/reem-kufi/arabic-700.css";
+@import "@fontsource/reem-kufi/latin-700.css";
+@import "@fontsource/aref-ruqaa/arabic-700.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f6f1e7;
+  --bg-2: #efe7d8;
+  --surface: #fffcf6;
+  --surface-2: #f3ecdf;
+  --ink: #1d1913;
+  --muted: #6d6252;
+  --line: #e2d7c3;
+  --gold: #a87b2f;
+  --gold-2: #c99a46;
+  --gold-soft: rgba(168, 123, 47, 0.12);
+  --emerald: #1f6b52;
+  --danger: #b5432f;
+  --shadow: 0 1px 2px rgba(60, 40, 10, 0.06), 0 12px 32px -12px rgba(60, 40, 10, 0.18);
+}
+.dark {
+  --bg: #0e0d0b;
+  --bg-2: #15130f;
+  --surface: #1a1814;
+  --surface-2: #221f1a;
+  --ink: #f2eadb;
+  --muted: #a99d88;
+  --line: #2f2b24;
+  --gold: #d9b56b;
+  --gold-2: #f0d391;
+  --gold-soft: rgba(217, 181, 107, 0.1);
+  --emerald: #4fb58f;
+  --danger: #e2735e;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-gold: var(--gold);
+  --color-gold-2: var(--gold-2);
+  --color-gold-soft: var(--gold-soft);
+  --color-emerald: var(--emerald);
+  --color-danger: var(--danger);
+  --font-sans: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-display: "Reem Kufi", "IBM Plex Sans Arabic", serif;
+  --font-ruqaa: "Aref Ruqaa", "Reem Kufi", serif;
+  --shadow-luxe: var(--shadow);
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, var(--gold-soft), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, var(--gold-soft), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+  line-height: 1.75;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: var(--gold);
+  color: #111;
+}
+
+.text-gold-grad {
+  background: linear-gradient(120deg, var(--gold-2), var(--gold) 55%, #8a6326);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold-ring {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent), var(--shadow);
+}
+.luxe-card {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, var(--gold) 4%), var(--surface));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(5px); }
+}
+.animate-shake {
+  animation: shake 0.45s both;
+}
+@keyframes pop {
+  0% { transform: scale(0.9); opacity: 0; }
+  60% { transform: scale(1.03); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.animate-pop {
+  animation: pop 0.35s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.prose-ar p {
+  margin: 0.6em 0;
+}
+.prose-ar strong {
+  color: var(--gold);
+  font-weight: 700;
+}
