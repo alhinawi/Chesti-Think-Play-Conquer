@@ -7,6 +7,7 @@ import { BOTS } from '../data/bots'
 import { ALL_LESSONS, CHAPTERS } from '../data/lessons'
 import { PUZZLES } from '../data/puzzles'
 import { TRAPS } from '../data/traps'
+import { OPENINGS } from '../data/openings'
 import { today, useProgress } from '../lib/progress'
 import { ACHIEVEMENTS, bestStreakOf, rankOf, RANKS, streakOf, totalWins, XP, xpOf } from '../lib/rank'
 
@@ -20,7 +21,7 @@ export default function Profile() {
   const r = rankOf(xp)
   const streak = streakOf(p.days, today())
   const best = bestStreakOf(p.days)
-  const totals = { lessons: ALL_LESSONS.length, traps: TRAPS.length, puzzles: PUZZLES.length }
+  const totals = { lessons: ALL_LESSONS.length, traps: TRAPS.length, puzzles: PUZZLES.length, openings: OPENINGS.length }
   const unlocked = ACHIEVEMENTS.filter((a) => a.test(p, totals))
   const nextLesson = ALL_LESSONS.find((l) => !p.lessons.includes(l.id))
 
@@ -42,12 +43,13 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <dl className="relative mt-5 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
+        <dl className="relative mt-5 grid grid-cols-2 gap-2 text-center sm:grid-cols-5">
           {(
             [
               ['🔥 أيام ورا بعض', streak, `أحسن سلسلة: ${best}`],
               ['الدروس', `${p.lessons.length}/${totals.lessons}`, ''],
               ['الألغاز', `${p.puzzles.length}/${totals.puzzles}`, ''],
+              ['الافتتاحيات', `${(p.openings || []).length}/${totals.openings}`, ''],
               ['انتصارات', totalWins(p), `من ${p.games || 0} دور`],
             ] as const
           ).map(([k, v, sub]) => (
