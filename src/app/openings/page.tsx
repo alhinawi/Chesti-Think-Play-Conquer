@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Badge, PageHeader } from '../../components/ui'
+import { Badge, LinkButton, PageHeader } from '../../components/ui'
 import { MiniBoard } from '../../components/MiniBoard'
 import { OPENINGS } from '../../data/openings'
 import { replay, START_FEN } from '../../lib/chess'
@@ -23,7 +23,11 @@ export default function OpeningsPage() {
         kicker="مكتبة الافتتاحيات"
         title="اختار افتتاحيتك"
         desc="مش لازم تحفظ خطوط كتير: افهم الفكرة والخطة، وجرّبها في أدوارك. كل افتتاحية مشروحة نقلة بنقلة وبخطط الجانبين."
-      />
+      >
+        <LinkButton to="/openings/explorer" variant="soft">
+          مستكشف كل الافتتاحيات (3,865 خط ECO)
+        </LinkButton>
+      </PageHeader>
       {GROUPS.map((g) => (
         <section key={g.id} aria-labelledby={`side-${g.id}`} className="mb-8">
           <h2 id={`side-${g.id}`} className="mb-1 font-display text-xl font-bold">{g.title}</h2>

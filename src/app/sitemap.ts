@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/puzzles', 0.8),
     u('/traps', 0.9),
     u('/openings', 0.9),
+    u('/openings/explorer', 0.8),
     u('/games', 0.8),
     u('/squares', 0.7),
     u('/rush', 0.7),
