@@ -1,4 +1,8 @@
 import type { Chapter } from './types'
+import { CH_STRATEGY } from './ch-strategy'
+import { CH_MATES2 } from './ch-mates2'
+import { CH_ENDGAMES2 } from './ch-endgames2'
+import { CH_REPERTOIRE } from './ch-repertoire'
 
 const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
@@ -711,6 +715,10 @@ export const CHAPTERS: Chapter[] = [
       },
     ],
   },
+  CH_STRATEGY,
+  CH_MATES2,
+  CH_ENDGAMES2,
+  CH_REPERTOIRE,
 ]
 
 export const ALL_LESSONS = CHAPTERS.flatMap((c) => c.lessons.map((l) => ({ ...l, chapter: c })))
