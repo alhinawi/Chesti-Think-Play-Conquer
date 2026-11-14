@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import OpeningViewer from '../../../components/OpeningViewer'
-import { Badge } from '../../../components/ui'
+import { Badge, LinkButton } from '../../../components/ui'
 import { OPENINGS } from '../../../data/openings'
 import { TRAPS } from '../../../data/traps'
 import { SITE } from '../../../lib/site'
@@ -74,6 +74,10 @@ export default async function OpeningPage({ params }: Props) {
         <Badge tone={o.side === 'w' ? 'gold' : 'emerald'}>{o.side === 'w' ? 'للأبيض' : o.side === 'b' ? 'للأسود' : 'للجانبين'}</Badge>
       </div>
       <p className="mb-5 max-w-3xl text-lg">{o.summary}</p>
+
+      <div className="mb-5">
+        <LinkButton to={`/play/computer?opening=${o.id}`} variant="outline">جرّب {o.name} ضد الكمبيوتر ←</LinkButton>
+      </div>
 
       <OpeningViewer openingId={o.id} />
 
