@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Badge, PageHeader } from '../../components/ui'
 import { MiniBoard } from '../../components/MiniBoard'
-import { TRAPS, TRAP_LEVELS } from '../../data/traps'
+import { TRAPS } from '../../data/traps'
+import { TRAP_STRENGTH } from '../../data/trap-strength'
 import { replay, START_FEN } from '../../lib/chess'
 
 export const metadata: Metadata = {
@@ -15,11 +16,19 @@ export default function TrapsPage() {
   return (
     <>
       <PageHeader kicker="الفخاخ" title="فخاخ الافتتاح" desc="كل فخ مشروح نقلة بنقلة: إزاي بيتنصب، وفين الغلطة بالظبط، وإزاي ماتقعش فيه." />
-      {TRAP_LEVELS.map((lvl) => (
-        <section key={lvl} aria-labelledby={`lvl-${lvl}`} className="mb-8">
-          <h2 id={`lvl-${lvl}`} className="mb-3 font-display text-xl font-bold">{lvl}</h2>
+      <div className="mb-6 rounded-2xl border border-line bg-surface p-4 text-sm text-muted">
+        <strong className="text-fg">الترتيب من الأقوى للأضعف</strong> — محسوب من الخط نفسه، مش رأي شخصي: فخ المات أولاً، وبعدين الفخ اللي بيكسب أكبر مادة
+        (وزير 9، طابية 5، فيل أو حصان 3، عسكري 1). ولو اتساووا، الأسرع عقابًا بعد الغلطة ييجي الأول.
+      </div>
+      <section aria-label="كل الفخاخ مرتبة بالقوة">
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {TRAPS.filter((t) => t.level === lvl).map((t) => {
+            {[...TRAPS]
+              .sort((a, b) => {
+                const sa = TRAP_STRENGTH[a.id] ?? { mate: false, material: 0, plies: 99 }
+                const sb = TRAP_STRENGTH[b.id] ?? { mate: false, material: 0, plies: 99 }
+                return Number(sb.mate) - Number(sa.mate) || sb.material - sa.material || sa.plies - sb.plies
+              })
+              .map((t, rank) => {
               const { fens } = replay(START_FEN, t.moves)
               return (
                 <li key={t.id}>
@@ -32,8 +41,15 @@ export default function TrapsPage() {
                       <p className="text-xs text-muted" dir="ltr">{t.en}</p>
                       <p className="mt-1 line-clamp-3 text-sm text-muted">{t.summary}</p>
                       <div className="mt-2 flex flex-wrap gap-1">
+                        <Badge tone="danger">#{rank + 1}</Badge>
+                        {TRAP_STRENGTH[t.id]?.mate ? (
+                          <Badge tone="danger">كش مات</Badge>
+                        ) : (
+                          <Badge tone="gold" >+{TRAP_STRENGTH[t.id]?.material ?? 0} مادة</Badge>
+                        )}
                         <Badge tone="muted">{t.opening}</Badge>
                         <Badge tone={t.side === 'w' ? 'gold' : 'emerald'}>بينصبه {t.side === 'w' ? 'الأبيض' : 'الأسود'}</Badge>
+                        <Badge tone="muted">{t.level}</Badge>
                       </div>
                     </div>
                   </Link>
@@ -42,7 +58,6 @@ export default function TrapsPage() {
             })}
           </ul>
         </section>
-      ))}
     </>
   )
 }
