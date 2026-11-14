@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/encyclopedia', 0.9),
     u('/glossary', 0.7),
     u('/daily', 0.8),
+    u('/world3d', 0.8),
     u('/play', 0.8),
     u('/play/computer', 0.8),
     u('/play/friend', 0.7),
