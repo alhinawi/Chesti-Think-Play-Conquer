@@ -4,7 +4,7 @@ export const SITE = {
   tagline: 'اتعلم الشطرنج بالمصري من الصفر',
   description:
     'Chesti: دروس شطرنج تفاعلية باللهجة المصرية، وفخاخ الافتتاحات، وألغاز، وموسوعة، والعب ضد الكمبيوتر أو مع صاحبك. مجاني ومن غير تسجيل.',
-  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://chesti.vercel.app').replace(/\/$/, ''),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://chesti.pages.dev').replace(/\/$/, ''),
 }
 
 export const NAV = [

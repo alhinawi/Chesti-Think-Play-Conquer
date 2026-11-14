@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   icons: { icon: '/favicon.svg' },
   openGraph: { type: 'website', locale: 'ar_EG', siteName: SITE.name, title: SITE.name, description: SITE.description, url: '/' },
-  twitter: { card: 'summary', title: SITE.name, description: SITE.description },
+  twitter: { card: 'summary_large_image', title: SITE.name, description: SITE.description },
 }
 
 export const viewport: Viewport = {
