@@ -5,6 +5,7 @@ import { PUZZLES } from '../data/puzzles'
 import { TRAPS } from '../data/traps'
 import { OPENINGS } from '../data/openings'
 import { GAMES } from '../data/games'
+import { ENDGAMES } from '../data/endgames'
 import { SITE } from '../lib/site'
 
 export const dynamic = 'force-static'
@@ -20,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/games', 0.8),
     u('/squares', 0.7),
     u('/rush', 0.7),
+    u('/endgames', 0.8),
     u('/encyclopedia', 0.9),
     u('/glossary', 0.7),
     u('/daily', 0.8),
@@ -30,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...TRAPS.map((t) => u(`/traps/${t.id}`, 0.8)),
     ...OPENINGS.map((o) => u(`/openings/${o.id}`, 0.8)),
     ...GAMES.map((g) => u(`/games/${g.id}`, 0.7)),
+    ...ENDGAMES.map((e) => u(`/endgames/${e.id}`, 0.7)),
     ...ARTICLES.map((a) => u(`/encyclopedia/${a.id}`, 0.7)),
     ...PUZZLES.map((p) => u(`/puzzles/${p.id}`, 0.4)),
   ]

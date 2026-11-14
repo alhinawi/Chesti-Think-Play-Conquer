@@ -99,7 +99,7 @@ describe('coach and bots', () => {
 })
 
 describe('ranks and streaks', () => {
-  const p = { lessons: ['a', 'b'], puzzles: ['x'], traps: [], openings: [], wins: { mido: 2 }, daily: ['2026-11-13'], days: [], games: 3 }
+  const p = { lessons: ['a', 'b'], puzzles: ['x'], traps: [], openings: [], endgames: [], wins: { mido: 2 }, daily: ['2026-11-13'], days: [], games: 3 }
   it('adds up XP', () => {
     expect(xpOf(p)).toBe(2 * XP.lesson + XP.puzzle + XP.daily + 3 * XP.game + 2 * XP.win)
   })
@@ -122,7 +122,7 @@ describe('ranks and streaks', () => {
     expect(seen.size).toBeGreaterThan(15)
   })
   it('unlocks achievements', () => {
-    const t = { lessons: 10, traps: 5, puzzles: 50, openings: 12 }
+    const t = { lessons: 10, traps: 5, puzzles: 50, openings: 12, endgames: 5 }
     const got = ACHIEVEMENTS.filter((a) => a.test(p, t)).map((a) => a.id)
     expect(got).toEqual(expect.arrayContaining(['first-lesson', 'first-puzzle', 'first-win', 'beat-metwally'].filter((x) => x !== 'beat-metwally')))
     expect(got).not.toContain('beat-metwally')
