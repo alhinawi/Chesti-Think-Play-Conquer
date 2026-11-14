@@ -3,6 +3,7 @@ import { classifyMove, formatEval, material, movePairs, pickComputerMove, playUc
 import { coachLine } from './coach'
 import { BOTS } from '../data/bots'
 import { LEVELS } from './engine'
+import { ACHIEVEMENTS, bestStreakOf, dailyIndex, rankOf, RANKS, streakOf, XP, xpOf } from './rank'
 import { assignSeat, makeRoomCode, mergeGame, mergeSeats, newGame, normalizeRoomCode, onlineEnabled } from './online'
 
 const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
@@ -94,6 +95,37 @@ describe('coach and bots', () => {
   it('has one bot for every engine level', () => {
     expect(BOTS.map((b) => b.level).sort()).toEqual(LEVELS.map((l) => l.id).sort())
     expect(new Set(BOTS.map((b) => b.id)).size).toBe(BOTS.length)
+  })
+})
+
+describe('ranks and streaks', () => {
+  const p = { lessons: ['a', 'b'], puzzles: ['x'], traps: [], wins: { mido: 2 }, daily: ['2026-11-13'], days: [], games: 3 }
+  it('adds up XP', () => {
+    expect(xpOf(p)).toBe(2 * XP.lesson + XP.puzzle + XP.daily + 3 * XP.game + 2 * XP.win)
+  })
+  it('finds the rank and the progress to the next one', () => {
+    expect(rankOf(0).name).toBe(RANKS[0].name)
+    const r = rankOf(275)
+    expect(r.name).toBe(RANKS[1].name)
+    expect(r.pct).toBe(50)
+    expect(rankOf(999999).next).toBeUndefined()
+  })
+  it('counts streaks across months', () => {
+    expect(streakOf(['2026-10-30', '2026-10-31', '2026-11-01'], '2026-11-01')).toBe(3)
+    expect(streakOf(['2026-10-31', '2026-11-01'], '2026-11-02')).toBe(2)
+    expect(streakOf(['2026-10-30'], '2026-11-02')).toBe(0)
+    expect(bestStreakOf(['2026-01-01', '2026-01-02', '2026-01-05', '2026-01-06', '2026-01-07'])).toBe(3)
+  })
+  it('picks a stable daily puzzle', () => {
+    expect(dailyIndex('2026-11-14', 50)).toBe(dailyIndex('2026-11-14', 50))
+    const seen = new Set(Array.from({ length: 30 }, (_, i) => dailyIndex(`2026-12-${String(i + 1).padStart(2, '0')}`, 50)))
+    expect(seen.size).toBeGreaterThan(15)
+  })
+  it('unlocks achievements', () => {
+    const t = { lessons: 10, traps: 5, puzzles: 50 }
+    const got = ACHIEVEMENTS.filter((a) => a.test(p, t)).map((a) => a.id)
+    expect(got).toEqual(expect.arrayContaining(['first-lesson', 'first-puzzle', 'first-win', 'beat-metwally'].filter((x) => x !== 'beat-metwally')))
+    expect(got).not.toContain('beat-metwally')
   })
 })
 

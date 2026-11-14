@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Celebrate from './Celebrate'
+import RankChip from './RankChip'
 import type { ReactNode } from 'react'
 import { NAV, SITE } from '../lib/site'
 import { useSettings } from '../lib/settings'
@@ -42,6 +43,7 @@ export default function Shell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="ms-auto flex items-center gap-1">
+            <RankChip />
             <button
               type="button"
               onClick={() => update({ theme: settings.theme === 'dark' ? 'light' : 'dark' })}
@@ -72,6 +74,8 @@ export default function Shell({ children }: { children: ReactNode }) {
             <span className="font-ruqaa text-gold">{SITE.name}</span> — {SITE.tagline}
           </p>
           <nav aria-label="روابط الفوتر" className="flex flex-wrap gap-4">
+            <Link href="/daily" className="hover:text-ink">لغز اليوم</Link>
+            <Link href="/me" className="hover:text-ink">ملفي</Link>
             <Link href="/glossary" className="hover:text-ink">قاموس المصطلحات</Link>
             <Link href="/settings" className="hover:text-ink">الإعدادات</Link>
             <span>المحرك: Stockfish 19</span>

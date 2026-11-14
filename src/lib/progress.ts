@@ -33,7 +33,7 @@ function read(): Progress {
   try {
     return { ...EMPTY, ...JSON.parse(localStorage.getItem(KEY) || '{}') }
   } catch {
-    return EMPTY
+    return { ...EMPTY }
   }
 }
 

@@ -4,14 +4,15 @@ import Link from 'next/link'
 import { useCallback, useMemo, useState } from 'react'
 import { PUZZLES } from '../data/puzzles'
 import type { TaskStep } from '../data/types'
-import { markDone } from '../lib/progress'
+import { markDaily, markDone } from '../lib/progress'
 import { celebrate } from './Celebrate'
 import ShareButton from './ShareButton'
 import RichText from './RichText'
 import { TaskRunner } from './StepPlayer'
 import { Icon } from './ui'
 
-export default function PuzzleSolver({ puzzleId, nextId }: { puzzleId: string; nextId: string }) {
+/** daily = the local date when this is the puzzle of the day */
+export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: string; nextId: string; daily?: string }) {
   const p = PUZZLES.find((x) => x.id === puzzleId)!
   const [solved, setSolved] = useState(false)
   const step = useMemo<TaskStep>(
@@ -30,8 +31,9 @@ export default function PuzzleSolver({ puzzleId, nextId }: { puzzleId: string; n
   const onDone = useCallback(() => {
     setSolved(true)
     markDone('puzzles', p.id)
+    if (daily) markDaily(daily)
     celebrate()
-  }, [p.id])
+  }, [p.id, daily])
   return (
     <div>
       <TaskRunner key={p.id} step={step} onDone={onDone} />

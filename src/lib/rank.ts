@@ -1,0 +1,94 @@
+// XP, ranks, streaks and achievements, all worked out from the saved progress (nothing extra stored).
+import type { Progress } from './progress'
+
+export const XP = { lesson: 50, puzzle: 20, trap: 30, daily: 40, game: 10, win: 40 }
+
+export const RANKS = [
+  { xp: 0, name: 'عسكري غلبان', icon: '♟' },
+  { xp: 150, name: 'صبي القهوة', icon: '♟' },
+  { xp: 400, name: 'حصان الحتة', icon: '♞' },
+  { xp: 800, name: 'فيل الشارع', icon: '♝' },
+  { xp: 1400, name: 'طابية المنطقة', icon: '♜' },
+  { xp: 2200, name: 'معلّم القهوة', icon: '♛' },
+  { xp: 3500, name: 'الباشا', icon: '♚' },
+  { xp: 5000, name: 'أسطورة المحروسة', icon: '♔' },
+] as const
+
+export function totalWins(p: Progress) {
+  return Object.values(p.wins || {}).reduce((a, b) => a + b, 0)
+}
+
+export function xpOf(p: Progress) {
+  const games = p.games || 0
+  return p.lessons.length * XP.lesson + p.puzzles.length * XP.puzzle + p.traps.length * XP.trap + (p.daily || []).length * XP.daily + games * XP.game + totalWins(p) * XP.win
+}
+
+export function rankOf(xp: number) {
+  let i = 0
+  while (i + 1 < RANKS.length && xp >= RANKS[i + 1].xp) i++
+  const cur = RANKS[i]
+  const next = RANKS[i + 1]
+  const pct = next ? Math.round(((xp - cur.xp) / (next.xp - cur.xp)) * 100) : 100
+  return { index: i, ...cur, next, pct }
+}
+
+const dayNum = (d: string) => Math.round(Date.UTC(+d.slice(0, 4), +d.slice(5, 7) - 1, +d.slice(8, 10)) / 86400000)
+
+/** Days in a row with activity, ending today (or yesterday, so the streak survives until tonight). */
+export function streakOf(days: string[], todayStr: string) {
+  const set = new Set(days.map(dayNum))
+  let n = dayNum(todayStr)
+  if (!set.has(n)) n -= 1
+  let streak = 0
+  while (set.has(n)) {
+    streak++
+    n--
+  }
+  return streak
+}
+
+export function bestStreakOf(days: string[]) {
+  const nums = [...new Set(days.map(dayNum))].sort((a, b) => a - b)
+  let best = 0
+  let run = 0
+  for (let i = 0; i < nums.length; i++) {
+    run = i > 0 && nums[i] === nums[i - 1] + 1 ? run + 1 : 1
+    best = Math.max(best, run)
+  }
+  return best
+}
+
+export interface Achievement {
+  id: string
+  name: string
+  desc: string
+  icon: string
+  test: (p: Progress, totals: { lessons: number; traps: number; puzzles: number }) => boolean
+}
+
+export const ACHIEVEMENTS: Achievement[] = [
+  { id: 'first-lesson', name: 'أول الغيث', desc: 'خلّص أول درس', icon: '📖', test: (p) => p.lessons.length >= 1 },
+  { id: 'five-lessons', name: 'تلميذ شاطر', desc: 'خلّص 5 دروس', icon: '🎓', test: (p) => p.lessons.length >= 5 },
+  { id: 'all-lessons', name: 'خريج الأكاديمية', desc: 'خلّص كل الدروس', icon: '🏛️', test: (p, t) => p.lessons.length >= t.lessons },
+  { id: 'first-puzzle', name: 'فكّ اللغز', desc: 'حل أول لغز', icon: '🧩', test: (p) => p.puzzles.length >= 1 },
+  { id: 'ten-puzzles', name: 'مخ شغال', desc: 'حل 10 ألغاز', icon: '🧠', test: (p) => p.puzzles.length >= 10 },
+  { id: 'thirty-puzzles', name: 'جهاز كمبيوتر', desc: 'حل 30 لغز', icon: '⚡', test: (p) => p.puzzles.length >= 30 },
+  { id: 'first-trap', name: 'صياد مبتدئ', desc: 'اتعلم أول فخ', icon: '🪤', test: (p) => p.traps.length >= 1 },
+  { id: 'all-traps', name: 'ثعلب الافتتاحات', desc: 'اتعلم كل الفخاخ', icon: '🦊', test: (p, t) => p.traps.length >= t.traps },
+  { id: 'first-win', name: 'أول نصر', desc: 'اكسب الكمبيوتر أول مرة', icon: '🏆', test: (p) => totalWins(p) >= 1 },
+  { id: 'beat-metwally', name: 'كسرت الحاج', desc: 'اكسب الحاج متولي أو حد أقوى منه', icon: '☕', test: (p) => ['metwally', 'zaki', 'el-wahsh'].some((b) => (p.wins?.[b] || 0) > 0) },
+  { id: 'beat-wahsh', name: 'روّضت الوحش', desc: 'اكسب الوحش (المستوى 8)', icon: '🦁', test: (p) => (p.wins?.['el-wahsh'] || 0) > 0 },
+  { id: 'daily-3', name: 'مواظب', desc: 'حل لغز اليوم 3 مرات', icon: '📅', test: (p) => (p.daily || []).length >= 3 },
+  { id: 'streak-3', name: 'نار ولعة', desc: '3 أيام ورا بعض', icon: '🔥', test: (p) => bestStreakOf(p.days || []) >= 3 },
+  { id: 'streak-7', name: 'أسبوع كامل', desc: '7 أيام ورا بعض', icon: '🌟', test: (p) => bestStreakOf(p.days || []) >= 7 },
+]
+
+/** Same puzzle for everyone on the same local date. */
+export function dailyIndex(date: string, count: number) {
+  let h = 2166136261
+  for (const ch of `chesti-${date}`) {
+    h ^= ch.charCodeAt(0)
+    h = Math.imul(h, 16777619)
+  }
+  return (h >>> 0) % count
+}
