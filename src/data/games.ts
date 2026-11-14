@@ -1,4 +1,5 @@
 // أدوار خالدة: أشهر أدوار الشطرنج في التاريخ، معروضة نقلة بنقلة بشرح مصري.
+import { GAMES2 } from './games2'
 export interface Game {
   id: string
   name: string
@@ -436,3 +437,5 @@ export const GAMES: Game[] = [
   },
 ]
 
+GAMES.push(...GAMES2)
+GAMES.sort((a, b) => a.year - b.year)
