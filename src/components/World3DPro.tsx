@@ -432,8 +432,8 @@ export default function World3DPro() {
       downXY = [e.clientX, e.clientY]
     }
     const onUp = (e: PointerEvent) => {
-      if (performance.now() - downAt > 350) return
-      if (Math.hypot(e.clientX - downXY[0], e.clientY - downXY[1]) > 8) return
+      if (performance.now() - downAt > 900) return
+      if (Math.hypot(e.clientX - downXY[0], e.clientY - downXY[1]) > 12) return
       if (currentMode !== 'play') return
       const rect = renderer.domElement.getBoundingClientRect()
       ptr.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
