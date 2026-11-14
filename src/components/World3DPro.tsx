@@ -145,7 +145,14 @@ export default function World3DPro() {
 
     const goPreset = (id: string) => {
       const p = CAM_PRESETS.find((x) => x.id === id) ?? CAM_PRESETS[0]
-      camera.position.set(...(p.pos as unknown as [number, number, number]))
+      // شاشة ضيقة (موبايل بورتريه) = الكاميرا ترجع لورا عشان الرقعة تدخل في الكادر
+      const aspect = mount.clientWidth / Math.max(mount.clientHeight, 1)
+      const pull = aspect < 1 ? Math.min(1.12 / Math.max(aspect, 0.4), 1.8) : 1
+      camera.position.set(
+        (p.pos as unknown as [number, number, number])[0] * pull,
+        (p.pos as unknown as [number, number, number])[1] * pull,
+        (p.pos as unknown as [number, number, number])[2] * pull,
+      )
       controls.target.set(...(p.target as unknown as [number, number, number]))
     }
 
