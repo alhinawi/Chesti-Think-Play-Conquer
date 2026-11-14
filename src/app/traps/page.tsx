@@ -17,7 +17,7 @@ export default function TrapsPage() {
       <PageHeader kicker="الفخاخ" title="فخاخ الافتتاح" desc="كل فخ مشروح نقلة بنقلة: إزاي بيتنصب، وفين الغلطة بالظبط، وإزاي ماتقعش فيه." />
       {TRAP_LEVELS.map((lvl) => (
         <section key={lvl} aria-labelledby={`lvl-${lvl}`} className="mb-8">
-          <h2 id={`lvl-${lvl}`} className="mb-3 text-xl font-bold">{lvl}</h2>
+          <h2 id={`lvl-${lvl}`} className="mb-3 font-display text-xl font-bold">{lvl}</h2>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TRAPS.filter((t) => t.level === lvl).map((t) => {
               const { fens } = replay(START_FEN, t.moves)

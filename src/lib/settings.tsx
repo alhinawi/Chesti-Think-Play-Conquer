@@ -28,15 +28,18 @@ export interface Settings {
   coords: boolean
   legalDots: boolean
   animations: boolean
+  /** settings format; 2 = gray marble became the default board */
+  v?: number
 }
 
 const DEFAULTS: Settings = {
   theme: 'dark',
-  board: 'walnut',
+  board: 'marble',
   sound: true,
   coords: true,
   legalDots: true,
   animations: true,
+  v: 2,
 }
 
 export const SETTINGS_KEY = 'chesti-settings'
@@ -44,7 +47,10 @@ const KEY = SETTINGS_KEY
 
 function load(): Settings {
   try {
-    return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') }
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}') as Partial<Settings>
+    // Before v2 every visit saved the old default (walnut) as if it had been chosen: move those to the new default.
+    if (!saved.v && saved.board === 'walnut') delete saved.board
+    return { ...DEFAULTS, ...saved, v: 2 }
   } catch {
     return DEFAULTS
   }

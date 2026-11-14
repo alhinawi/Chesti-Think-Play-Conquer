@@ -203,7 +203,7 @@ export default function PlayComputer() {
   if (!s.started) {
     return (
       <div className="mx-auto max-w-3xl">
-        <h2 className="mb-3 text-xl font-bold">اختار هتلعب ضد مين</h2>
+        <h2 className="mb-3 font-display text-xl font-bold">اختار هتلعب ضد مين</h2>
         <div role="radiogroup" aria-label="المستوى" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {LEVELS.map((l) => (
             <button
@@ -231,7 +231,7 @@ export default function PlayComputer() {
           ))}
         </div>
 
-        <h2 className="mt-6 mb-3 text-xl font-bold">هتلعب بأنهي لون؟</h2>
+        <h2 className="mt-6 mb-3 font-display text-xl font-bold">هتلعب بأنهي لون؟</h2>
         <div role="radiogroup" aria-label="اللون" className="grid grid-cols-3 gap-2">
           {(
             [

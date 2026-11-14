@@ -35,7 +35,7 @@ export default async function PuzzlePage({ params }: Props) {
         <span>{p.theme}</span>
       </nav>
       <div className="mb-4 flex flex-wrap items-center gap-2">
-        <h1 className="text-2xl font-bold sm:text-3xl">{p.name}</h1>
+        <h1 className="font-display text-2xl font-bold sm:text-3xl">{p.name}</h1>
         <Badge>{p.theme}</Badge>
         <Badge tone="muted">{p.level}</Badge>
       </div>

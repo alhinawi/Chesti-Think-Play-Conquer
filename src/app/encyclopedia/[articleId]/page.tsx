@@ -55,7 +55,7 @@ export default async function ArticlePage({ params }: Props) {
         <span className="mx-2">/</span>
         <Link href={`/encyclopedia#${a.category}`} className="hover:text-gold">{categoryName(a.category)}</Link>
       </nav>
-      <h1 className="text-3xl font-bold">{a.title}</h1>
+      <h1 className="font-display text-3xl font-bold">{a.title}</h1>
       {a.en && <p className="text-sm text-muted" dir="ltr">{a.en}</p>}
       <div className="mt-2 mb-4 flex flex-wrap gap-2">
         <Badge tone="muted">{categoryName(a.category)}</Badge>
@@ -65,7 +65,7 @@ export default async function ArticlePage({ params }: Props) {
 
       {related.length > 0 && (
         <aside aria-labelledby="related" className="mt-12 border-t border-line pt-6">
-          <h2 id="related" className="mb-3 text-lg font-bold">اقرا كمان</h2>
+          <h2 id="related" className="mb-3 font-display text-lg font-bold">اقرا كمان</h2>
           <ul className="grid gap-3 sm:grid-cols-2">
             {related.map((r) => (
               <li key={r.id}>

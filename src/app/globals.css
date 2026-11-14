@@ -5,6 +5,10 @@
 @import "@fontsource/ibm-plex-sans-arabic/latin-400.css";
 @import "@fontsource/ibm-plex-sans-arabic/latin-500.css";
 @import "@fontsource/ibm-plex-sans-arabic/latin-700.css";
+@import "@fontsource/reem-kufi/arabic-500.css";
+@import "@fontsource/reem-kufi/arabic-700.css";
+@import "@fontsource/reem-kufi/latin-700.css";
+@import "@fontsource/aref-ruqaa/arabic-700.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -53,6 +57,8 @@
   --color-emerald: var(--emerald);
   --color-danger: var(--danger);
   --font-sans: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-display: "Reem Kufi", "IBM Plex Sans Arabic", serif;
+  --font-ruqaa: "Aref Ruqaa", "Reem Kufi", serif;
   --shadow-luxe: var(--shadow);
 }
 
@@ -70,22 +76,20 @@ body {
     radial-gradient(900px 500px at -10% 110%, var(--gold-soft), transparent 60%),
     var(--bg);
   background-attachment: fixed;
-  line-height: 1.8;
-  letter-spacing: 0;
+  line-height: 1.75;
   text-rendering: optimizeLegibility;
-}
-/* One calm font everywhere: headings differ only by size and weight. */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  line-height: 1.45;
-  letter-spacing: 0;
 }
 ::selection {
   background: var(--gold);
   color: #111;
 }
 
+.text-gold-grad {
+  background: linear-gradient(120deg, var(--gold-2), var(--gold) 55%, #8a6326);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .gold-ring {
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent), var(--shadow);
 }
@@ -177,18 +181,6 @@ h1, h2, h3, h4, h5, h6 {
   scrollbar-width: none;
 }
 
-.arabesque { isolation: isolate; }
-.arabesque::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23d9b56b' stroke-width='0.8'%3E%3Cpath d='M28 6l6.4 15.6L50 28l-15.6 6.4L28 50l-6.4-15.6L6 28l15.6-6.4z'/%3E%3Crect x='14' y='14' width='28' height='28' transform='rotate(45 28 28)'/%3E%3Crect x='14' y='14' width='28' height='28'/%3E%3Ccircle cx='28' cy='28' r='4'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 56px 56px;
-  opacity: 0.09;
-  mask-image: radial-gradient(ellipse at 70% 20%, #000 0%, transparent 75%);
-  pointer-events: none;
-}
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
