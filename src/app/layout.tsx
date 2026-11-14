@@ -4,6 +4,7 @@ import './globals.css'
 import Providers from '../components/Providers'
 import Shell from '../components/Shell'
 import { THEME_BOOT_SCRIPT } from '../lib/settings'
+import { LANG_BOOT_SCRIPT } from '../lib/i18n/config'
 import { SITE } from '../lib/site'
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ar" dir="rtl" className="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: LANG_BOOT_SCRIPT }} />
       </head>
       <body>
         <Providers>

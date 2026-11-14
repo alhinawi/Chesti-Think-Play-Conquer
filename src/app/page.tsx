@@ -1,3 +1,5 @@
+ 'use client'
+
 import Link from 'next/link'
 import ChessBoard from '../components/ChessBoard'
 import { Badge, Icon, LinkButton } from '../components/ui'
@@ -14,24 +16,27 @@ import { SITE } from '../lib/site'
 import { BOTS } from '../data/bots'
 import { COACH } from '../lib/coach'
 import { RANKS } from '../lib/rank'
+import { useI18n } from '../lib/i18n'
 
 const SECTIONS = [
-  { href: '/learn', group: 'learn', icon: 'learn', title: 'الدروس', desc: `${ALL_LESSONS.length} درس تفاعلي من حركة العسكري لحد النهايات، بتلعب بإيدك في كل خطوة.` },
-  { href: '/puzzles', group: 'train', icon: 'bulb', title: 'الألغاز', desc: `${PUZZLES.length} لغز: مات في نقلة، شوكات، تثبيت، ونهايات أدوار مشهورة.` },
-  { href: '/openings', group: 'learn', icon: 'compass', title: 'الافتتاحيات', desc: `${OPENINGS.length} افتتاحية مشروحة بالمصري: الخط الرئيسي وخطط الجانبين، من الإيطالية لحد الكارو-كان.` },
-  { href: '/games', group: 'learn', icon: 'flag', title: 'أدوار خالدة', desc: `${GAMES.length} من أشهر الأدوار في التاريخ نقلة بنقلة: مورفي وأندرسن وفيشر وكاسباروف.` },
-  { href: '/traps', group: 'learn', icon: 'trap', title: 'فخاخ الافتتاح', desc: `${TRAPS.length} فخ مشهور: إزاي تنصبه وإزاي ماتقعش فيه.` },
-  { href: '/encyclopedia', group: 'learn', icon: 'book', title: 'الموسوعة', desc: `${ARTICLES.length} مقال عن القواعد والافتتاحات والتكتيك والتاريخ، وقاموس مصطلحات.` },
-  { href: '/play/computer', group: 'play', icon: 'cpu', title: 'ضد الكمبيوتر', desc: '8 مستويات من مبتدئ خالص لحد Stockfish بكل قوته، مع تلميحات.' },
-  { href: '/world3d', group: 'play', icon: 'globe', title: 'عالم شطرنج 3D', desc: `${WORLD3D_POSITIONS.length} موقف خالد على رقعة ثلاثية الأبعاد: لفّ وقرّب وشوف التاريخ من كل الزوايا.` },
-  { href: '/endgames', group: 'train', icon: 'check', title: 'معمل النهايات', desc: `${ENDGAMES.length} مواقف نهاية حاسمة تحلها بإيدك: مات، ترقية، ومقابلة ملوك.` },
-  { href: '/rush', group: 'train', icon: 'clock', title: 'سباق الألغاز', desc: 'حل أكبر عدد ألغاز من غير 3 غلطات. كل جولة بتقيس سرعة تكتيكك.' },
-  { href: '/squares', group: 'train', icon: 'search', title: 'تمرين الخانات', desc: '30 ثانية تجيب فيها أكبر عدد خانات: التمرين اللي بيبني عين اللاعب المحترف.' },
-  { href: '/daily', group: 'train', icon: 'star', title: 'لغز اليوم', desc: 'لغز جديد كل يوم، نفس اللغز لكل الناس. حافظ على سلسلة أيامك 🔥' },
-  { href: '/play/friend', group: 'play', icon: 'users', title: 'مع صاحبك', desc: 'العبوا على نفس الجهاز، أو ابعت لينك والعبوا أونلاين.' },
+  { href: '/learn', group: 'learn', icon: 'learn', key: 'learn', n: ALL_LESSONS.length },
+  { href: '/puzzles', group: 'train', icon: 'bulb', key: 'puzzles', n: PUZZLES.length },
+  { href: '/openings', group: 'learn', icon: 'compass', key: 'openings', n: OPENINGS.length },
+  { href: '/games', group: 'learn', icon: 'flag', key: 'games', n: GAMES.length },
+  { href: '/traps', group: 'learn', icon: 'trap', key: 'traps', n: TRAPS.length },
+  { href: '/encyclopedia', group: 'learn', icon: 'book', key: 'encyclopedia', n: ARTICLES.length },
+  { href: '/play/computer', group: 'play', icon: 'cpu', key: 'computer', n: 8 },
+  { href: '/world3d', group: 'play', icon: 'globe', key: 'world3d', n: WORLD3D_POSITIONS.length },
+  { href: '/endgames', group: 'train', icon: 'check', key: 'endgames', n: ENDGAMES.length },
+  { href: '/rush', group: 'train', icon: 'clock', key: 'rush', n: 0 },
+  { href: '/squares', group: 'train', icon: 'search', key: 'squares', n: 0 },
+  { href: '/daily', group: 'train', icon: 'star', key: 'daily', n: 0 },
+  { href: '/play/friend', group: 'play', icon: 'users', key: 'friend', n: 0 },
 ]
 
+
 export default function Home() {
+  const { t } = useI18n()
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -45,21 +50,21 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="grid items-center gap-8 py-4 lg:grid-cols-[1.1fr_1fr] lg:py-10">
         <div className="animate-fade-up">
-          <Badge>مجاني • من غير تسجيل • بالمصري</Badge>
+          <Badge>{t('home.badge')}</Badge>
           <h1 className="mt-4 font-display text-4xl leading-[1.25] font-bold sm:text-5xl">
-            اتعلم <span className="text-gold-grad">الشطرنج</span>
+            {t('home.titleA')} <span className="text-gold-grad">{t('home.titleHighlight')}</span>
             <br />
-            زي ما حد قاعد جنبك وبيشرحلك
+            {t('home.titleB')}
           </h1>
           <p className="mt-4 max-w-xl text-lg text-muted">
-            دروس قصيرة بتلعب فيها بإيدك، وألغاز متراجعة بالمحرك، وفخاخ الافتتاحات المشهورة، ولما تحس إنك جاهز العب ضد الكمبيوتر أو مع صاحبك.
+            {t('home.sub')}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <LinkButton to="/learn">
-              <Icon name="learn" /> ابدأ أول درس
+              <Icon name="learn" /> {t('home.startLesson')}
             </LinkButton>
             <LinkButton to="/play/computer" variant="outline">
-              <Icon name="cpu" /> العب دلوقتي
+              <Icon name="cpu" /> {t('home.playNow')}
             </LinkButton>
           </div>
           <ContinueCard />
@@ -75,19 +80,19 @@ export default function Home() {
             <span className="animate-float grid h-10 w-10 shrink-0 place-items-center rounded-full bg-emerald/20 text-xl" aria-hidden>☕</span>
             <p className="rounded-2xl rounded-ss-sm border border-emerald/30 bg-surface/90 px-3 py-2">
               <strong className="me-1 text-emerald">{COACH.name}:</strong>
-              ده «مات التلميذ». الوزير والفيل اتفقوا على الخانة f7، وهي أضعف خانة عند الأسود في الأول. هعلّمك تعمله، والأهم تعرف تمنعه.
+              {t('home.coachLine')}
             </p>
           </div>
         </div>
       </section>
 
       <section aria-labelledby="sections" className="mt-10">
-        <h2 id="sections" className="mb-4 font-display text-2xl font-bold">هتلاقي إيه هنا؟</h2>
+        <h2 id="sections" className="mb-4 font-display text-2xl font-bold">{t('home.sectionsTitle')}</h2>
         {(
           [
-            ['learn', 'اتعلّم'],
-            ['train', 'تدرّب'],
-            ['play', 'العب'],
+            ['learn', t('home.groups.learn')],
+            ['train', t('home.groups.train')],
+            ['play', t('home.groups.play')],
           ] as const
         ).map(([g, label]) => (
           <div key={g} className="mb-6">
@@ -98,8 +103,8 @@ export default function Home() {
                   <span className="grid h-11 w-11 place-items-center rounded-xl bg-gold-soft text-gold">
                     <Icon name={s.icon} />
                   </span>
-                  <h4 className="mt-3 text-lg font-bold group-hover:text-gold">{s.title}</h4>
-                  <p className="mt-1 text-sm text-muted">{s.desc}</p>
+                  <h4 className="mt-3 text-lg font-bold group-hover:text-gold">{t(`home.cards.${s.key}.title`)}</h4>
+                  <p className="mt-1 text-sm text-muted">{t(`home.cards.${s.key}.desc`, { n: s.n })}</p>
                 </Link>
               ))}
             </div>
@@ -109,8 +114,8 @@ export default function Home() {
 
       <section aria-labelledby="bots" className="mt-12">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
-          <h2 id="bots" className="font-display text-2xl font-bold">أهل الحتة مستنيينك على الترابيزة</h2>
-          <Link href="/play/computer" className="text-sm font-bold text-gold hover:underline">اختار خصمك ←</Link>
+          <h2 id="bots" className="font-display text-2xl font-bold">{t('home.botsTitle')}</h2>
+          <Link href="/play/computer" className="text-sm font-bold text-gold hover:underline">{t('home.botsLink')}</Link>
         </div>
         <ul className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
           {BOTS.map((b) => (
@@ -120,7 +125,7 @@ export default function Home() {
                   <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-sm font-bold text-[#1a1408] transition group-hover:scale-105" aria-hidden>{b.initials}</span>
                   <span>
                     <span className="block font-bold group-hover:text-gold">{b.name}</span>
-                    <span className="text-xs text-muted">مستوى <bdi className="ltr">{b.level}</bdi></span>
+                    <span className="text-xs text-muted">{t('home.level')} <bdi className="ltr">{b.level}</bdi></span>
                   </span>
                 </span>
                 <span className="mt-2 text-sm text-muted">«{b.greet}»</span>
