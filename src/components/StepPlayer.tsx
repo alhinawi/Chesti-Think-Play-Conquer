@@ -89,6 +89,8 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
   }, [auto, ply, go, step.moves.length])
 
   useEffect(() => {
+    // several compact viewers can share a page (encyclopedia), so only full viewers take the arrow keys
+    if (compact) return
     const h = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement)?.tagName === 'INPUT') return
       if (e.key === 'ArrowLeft') go(ply + 1)
@@ -96,7 +98,7 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
     }
     window.addEventListener('keydown', h)
     return () => window.removeEventListener('keydown', h)
-  }, [go, ply])
+  }, [go, ply, compact])
 
   const last = ply > 0 ? history[ply - 1] : null
   const note = ply > 0 ? step.notes?.[ply - 1] : undefined
@@ -135,6 +137,20 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
       ))}
     </div>
   )
+
+  if (compact) {
+    return (
+      <div className="mx-auto w-full max-w-[420px]">
+        <ChessBoard fen={fens[ply]} movable={false} lastMove={last ? [last.from, last.to] : null} orientation={step.orientation} />
+        {controls}
+        <div className="mt-3 min-h-12 rounded-xl border border-gold/25 bg-gold-soft px-3 py-2 text-sm" aria-live="polite">
+          {ply === 0 ? <span className="text-muted">شغّل عشان تشوف النقلات واحدة واحدة.</span> : <span className="ltr font-bold text-gold">{last?.san}</span>}
+          {note && <RichText text={note} className="inline" />}
+        </div>
+        {moveList}
+      </div>
+    )
+  }
 
   return (
     <Layout2
