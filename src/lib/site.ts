@@ -14,5 +14,6 @@ export const NAV = [
   { href: '/traps', label: 'الفخاخ', icon: 'trap' },
   { href: '/openings', label: 'افتتاحيات', icon: 'compass' },
   { href: '/encyclopedia', label: 'الموسوعة', icon: 'book' },
+  { href: '/world3d', label: 'عالم 3D', icon: 'globe' },
   { href: '/play', label: 'العب', icon: 'play' },
 ] as const
