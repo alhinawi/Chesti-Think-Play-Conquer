@@ -658,7 +658,7 @@ export default function World3DPro() {
             {status} {thinking && mode === 'play' ? '⏳' : ''}
           </div>
         )}
-        <div className="pointer-events-none absolute bottom-3 right-3 left-3 flex flex-wrap items-center gap-2">
+        <div className="pointer-events-none absolute bottom-3 right-3 left-3 hidden flex-wrap items-center gap-2 sm:flex">
           <div className="pointer-events-auto flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
             {WORLD3D_THEMES.map((t) => (
               <button
@@ -685,6 +685,34 @@ export default function World3DPro() {
               </button>
             ))}
           </div>
+        </div>
+      </div>
+      <div className="mt-2 flex flex-wrap items-center gap-2 sm:hidden">
+        <div className="flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
+          {WORLD3D_THEMES.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setThemeId(t.id)}
+              aria-pressed={themeId === t.id}
+              className={`rounded-lg px-3 py-1.5 text-sm transition ${themeId === t.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
+            >
+              {t.name}
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
+          {CAM_PRESETS.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => setPreset(p.id)}
+              aria-pressed={preset === p.id}
+              className={`rounded-lg px-3 py-1.5 text-sm transition ${preset === p.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
+            >
+              {p.name}
+            </button>
+          ))}
         </div>
       </div>
       <p className="mt-3 text-center text-sm text-muted">
