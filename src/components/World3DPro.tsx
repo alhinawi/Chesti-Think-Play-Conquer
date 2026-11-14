@@ -96,8 +96,9 @@ export default function World3DPro() {
     camera.position.set(...(CAM_PRESETS[0].pos as unknown as [number, number, number]))
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.shadowMap.enabled = true
+    const lowPower = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 640
+    renderer.setPixelRatio(lowPower ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2))
+    renderer.shadowMap.enabled = !lowPower
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.05
@@ -192,7 +193,9 @@ export default function World3DPro() {
         (p.pos as unknown as [number, number, number])[1] * pull,
         (p.pos as unknown as [number, number, number])[2] * pull,
       )
-      controls.target.set(...(p.target as unknown as [number, number, number]))
+      const tgt = [...(p.target as unknown as [number, number, number])] as [number, number, number]
+      if (aspect < 1) tgt[1] -= (1 - aspect) * 2.2
+      controls.target.set(...tgt)
     }
 
     // ===== حالة اللعب =====
@@ -497,7 +500,10 @@ export default function World3DPro() {
         txt = `${num}. ${replayGame.moves[replayIdx - 1]}`
         const note = replayGame.notes[replayIdx - 1]
         if (note) txt += ` - ${note}`
-        if (replayIdx >= replayGame.moves.length) txt += ` | النتيجة: ${replayGame.result}`
+        if (replayIdx >= replayGame.moves.length) {
+          const res = replayGame.result === '1-0' ? 'كسب الأبيض' : replayGame.result === '0-1' ? 'كسب الأسود' : 'تعادل'
+          txt += ` | انتهى الدور: ${res}`
+        }
       }
       setStatus(txt)
       setReplayPos(replayIdx)
@@ -585,8 +591,8 @@ export default function World3DPro() {
       } else {
         stopReplayTimer()
         setStatus('')
-        goPreset(m === 'replay' ? 'cinematic' : 'classic')
-        setPreset(m === 'replay' ? 'cinematic' : 'classic')
+        goPreset(m === 'replay' ? 'cine' : 'classic')
+        setPreset(m === 'replay' ? 'cine' : 'classic')
         if (m === 'replay') loadReplay(replayGame?.id ?? GAMES[0].id)
       }
     }
