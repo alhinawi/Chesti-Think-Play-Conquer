@@ -5,6 +5,7 @@ import ContinueCard from '../components/ContinueCard'
 import { CHAPTERS, ALL_LESSONS } from '../data/lessons'
 import { TRAPS } from '../data/traps'
 import { OPENINGS } from '../data/openings'
+import { GAMES } from '../data/games'
 import { PUZZLES } from '../data/puzzles'
 import { ARTICLES } from '../data/encyclopedia'
 import { SITE } from '../lib/site'
@@ -16,6 +17,7 @@ const SECTIONS = [
   { href: '/learn', icon: 'learn', title: 'الدروس', desc: `${ALL_LESSONS.length} درس تفاعلي من حركة العسكري لحد النهايات، بتلعب بإيدك في كل خطوة.` },
   { href: '/puzzles', icon: 'bulb', title: 'الألغاز', desc: `${PUZZLES.length} لغز: مات في نقلة، شوكات، تثبيت، ونهايات أدوار مشهورة.` },
   { href: '/openings', icon: 'compass', title: 'الافتتاحيات', desc: `${OPENINGS.length} افتتاحية مشروحة بالمصري: الخط الرئيسي وخطط الجانبين، من الإيطالية لحد الكارو-كان.` },
+  { href: '/games', icon: 'flag', title: 'أدوار خالدة', desc: `${GAMES.length} من أشهر الأدوار في التاريخ نقلة بنقلة: مورفي وأندرسن وفيشر وكاسباروف.` },
   { href: '/traps', icon: 'trap', title: 'فخاخ الافتتاح', desc: `${TRAPS.length} فخ مشهور: إزاي تنصبه وإزاي ماتقعش فيه.` },
   { href: '/encyclopedia', icon: 'book', title: 'الموسوعة', desc: `${ARTICLES.length} مقال عن القواعد والافتتاحات والتكتيك والتاريخ، وقاموس مصطلحات.` },
   { href: '/play/computer', icon: 'cpu', title: 'ضد الكمبيوتر', desc: '8 مستويات من مبتدئ خالص لحد Stockfish بكل قوته، مع تلميحات.' },
