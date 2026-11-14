@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js'
+import BoardStage from './BoardStage'
 import ChessBoard from './ChessBoard'
 import { ConfirmButton, MoveList, PlayerBar, ResultCard } from './GameParts'
 import { Badge, Button, Icon } from './ui'
@@ -312,13 +313,34 @@ function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
     else outcome = { title: myColor ? (result.winner === myColor ? 'كسبت!' : 'صاحبك كسب') : `${turnName(result.winner)} كسب`, text: result.text, tone: myColor ? (result.winner === myColor ? 'win' : 'lose') : 'draw' }
   }
 
+  const rematch = () => stateRef.current && commit({ ...stateRef.current, game: newGame() }, true)
+  const fsExtras = (
+    <div className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-sm" aria-live="polite">
+      <span>{outcome ? <strong className="text-gold">{outcome.title}</strong> : myColor ? (myTurn ? 'دورك.' : 'دور صاحبك…') : `الدور على ${turnName(turn)}`}</span>
+      {outcome && myColor && (
+        <Button onClick={rematch} className="px-3 py-1.5">
+          <Icon name="reset" className="h-4 w-4" /> دور تاني
+        </Button>
+      )}
+      {!outcome && myColor && (
+        <ConfirmButton
+          icon="flag"
+          label="استسلم"
+          confirm="متأكد إنك عايز تستسلم؟"
+          disabled={over}
+          onConfirm={() => stateRef.current && myColor && commit({ ...stateRef.current, game: { ...stateRef.current.game, resigned: myColor } }, true)}
+        />
+      )}
+    </div>
+  )
+
   return (
-    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:gap-8">
-      <div className="mx-auto flex w-full max-w-[560px] flex-col gap-2">
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,1fr)] lg:gap-8">
+      <BoardStage fsExtras={fsExtras} reserve={15} fsReserve={11}>
         <PlayerBar fen={fen} color={top} name={nameOf(top)} sub={subOf(top)} active={!over && turn === top} />
         <ChessBoard fen={fen} orientation={orientation} movable={myTurn ? myColor : false} onMove={onMove} lastMove={lastMove} shake={shake} />
         <PlayerBar fen={fen} color={top === 'w' ? 'b' : 'w'} name={nameOf(top === 'w' ? 'b' : 'w')} sub={subOf(top === 'w' ? 'b' : 'w')} active={!over && turn !== top} />
-      </div>
+      </BoardStage>
 
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">

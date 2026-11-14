@@ -6,7 +6,8 @@ import { replay, START_FEN } from '../lib/chess'
 import { play } from '../lib/sound'
 import { markDone } from '../lib/progress'
 import ChessBoard from './ChessBoard'
-import { Button, Icon } from './ui'
+import MoveControls from './MoveControls'
+import { Button } from './ui'
 
 export default function TrapViewer({ trapId }: { trapId: string }) {
   const t = TRAPS.find((x) => x.id === trapId)!
@@ -46,8 +47,9 @@ export default function TrapViewer({ trapId }: { trapId: string }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement)?.closest('input,textarea,select')) return
-      if (e.key === 'ArrowLeft') go(ply + 1)
-      if (e.key === 'ArrowRight') go(ply - 1)
+      // the move buttons read left to right, so the arrow keys follow them
+      if (e.key === 'ArrowRight') go(ply + 1)
+      if (e.key === 'ArrowLeft') go(ply - 1)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -59,13 +61,24 @@ export default function TrapViewer({ trapId }: { trapId: string }) {
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,520px)_1fr]">
-      <ChessBoard
-        fen={fens[ply]}
-        movable={false}
-        orientation={t.side === 'b' ? 'black' : 'white'}
-        lastMove={last ? [last.from, last.to] : null}
-        marks={isMistake && last ? { [last.to]: 'bad' } : undefined}
-      />
+      <div className="min-w-0">
+        <ChessBoard
+          fen={fens[ply]}
+          movable={false}
+          orientation={t.side === 'b' ? 'black' : 'white'}
+          lastMove={last ? [last.from, last.to] : null}
+          marks={isMistake && last ? { [last.to]: 'bad' } : undefined}
+        />
+        <MoveControls
+          className="mt-3"
+          ply={ply}
+          total={n}
+          go={go}
+          auto={auto}
+          onToggle={() => (ply >= n && !auto ? (setPly(0), setAuto(true)) : setAuto((a) => !a))}
+          playLabel={auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
+        />
+      </div>
       <div className="flex flex-col gap-4">
         <div className={`min-h-28 rounded-2xl border p-4 ${isMistake ? 'border-danger/50 bg-danger/10' : 'border-line bg-surface'}`} aria-live="polite">
           {last && (
@@ -76,15 +89,8 @@ export default function TrapViewer({ trapId }: { trapId: string }) {
           {isMistake && <p className="mb-1 text-sm font-bold text-danger">الغلطة القاتلة</p>}
           <p>{note || ' '}</p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <Button variant="soft" onClick={() => go(0)} disabled={ply === 0} aria-label="البداية"><Icon name="first" /></Button>
-          <Button variant="soft" onClick={() => go(ply - 1)} disabled={ply === 0} aria-label="اللي فات"><Icon name="next" /></Button>
-          <Button onClick={() => setAuto((a) => !a)} aria-label={auto ? 'وقّف العرض' : 'شغّل العرض'}>
-            <Icon name={auto ? 'pause' : 'play'} /> {auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
-          </Button>
-          <Button variant="soft" onClick={() => go(ply + 1)} disabled={ply === n} aria-label="اللي بعده"><Icon name="prev" /></Button>
-          <Button variant="soft" onClick={() => go(n)} disabled={ply === n} aria-label="النهاية"><Icon name="last" /></Button>
-          <Button variant="soft" onClick={() => go(t.mistake + 1)} className="ms-auto">ورّيني الغلطة</Button>
+        <div>
+          <Button variant="soft" onClick={() => go(t.mistake + 1)}>ورّيني الغلطة</Button>
         </div>
         <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label="النقلات">
           {t.moves.map((m, i) => (

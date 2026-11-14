@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ChessBoard, { type BoardArrow } from './ChessBoard'
+import BoardStage from './BoardStage'
 import { ConfirmButton, MoveList, PlayerBar, ResultCard } from './GameParts'
 import { Badge, Button, Icon } from './ui'
 import { gameResult, soundFor, toUci, type UciMove } from '../lib/chess'
@@ -292,13 +293,44 @@ export default function PlayComputer() {
           ? { title: 'كسبت! برافو عليك', text: `كش مات في ${Math.ceil(s.moves.length / 2)} نقلة${s.hints ? ` واستخدمت ${s.hints} تلميح` : ''}.`, tone: 'win' }
           : { title: `${bot.name} كسب`, text: 'كش مات. جرب مستوى أسهل أو العب تاني.', tone: 'lose' }
 
+  const actions = (
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <Button variant="soft" onClick={askHint} disabled={!userTurn || thinking}>
+        <Icon name="bulb" /> تلميح
+      </Button>
+      <Button variant="soft" onClick={undo} disabled={s.moves.length === 0 || (s.color === 'b' && s.moves.length <= 1)}>
+        <Icon name="undo" /> رجوع
+      </Button>
+      <Button variant="soft" onClick={() => setFlipped((f) => !f)}>
+        <Icon name="flip" /> اقلب
+      </Button>
+      <ConfirmButton icon="flag" label="استسلم" confirm="متأكد إنك عايز تستسلم؟" disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: true }))} />
+    </div>
+  )
+  const statusLine = (
+    <div className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-sm" aria-live="polite">
+      <span>{outcome ? <strong className="text-gold">{outcome.title}</strong> : thinking && turn !== s.color ? 'الكمبيوتر بيفكر…' : userTurn ? 'دورك.' : '…'}</span>
+      {outcome && (
+        <Button onClick={start} className="px-3 py-1.5">
+          <Icon name="reset" className="h-4 w-4" /> دور تاني
+        </Button>
+      )}
+    </div>
+  )
+  const fsExtras = (
+    <>
+      {statusLine}
+      {actions}
+    </>
+  )
+
   return (
-    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:gap-8">
-      <div className="mx-auto flex w-full max-w-[560px] flex-col gap-2">
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,1fr)] lg:gap-8">
+      <BoardStage fsExtras={fsExtras} fsReserve={18.5}>
         {bar(top)}
         <ChessBoard fen={fen} orientation={orientation} movable={userTurn ? s.color : false} onMove={onMove} lastMove={lastMove} arrows={hint ? [hint] : undefined} shake={shake} />
         {bar(top === 'w' ? 'b' : 'w')}
-      </div>
+      </BoardStage>
 
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
@@ -352,18 +384,7 @@ export default function PlayComputer() {
           </p>
         )}
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <Button variant="soft" onClick={askHint} disabled={!userTurn || thinking}>
-            <Icon name="bulb" /> تلميح
-          </Button>
-          <Button variant="soft" onClick={undo} disabled={s.moves.length === 0 || (s.color === 'b' && s.moves.length <= 1)}>
-            <Icon name="undo" /> رجوع
-          </Button>
-          <Button variant="soft" onClick={() => setFlipped((f) => !f)}>
-            <Icon name="flip" /> اقلب
-          </Button>
-          <ConfirmButton icon="flag" label="استسلم" confirm="متأكد إنك عايز تستسلم؟" disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: true }))} />
-        </div>
+        {actions}
 
         {analyze && <Analysis moves={s.moves} userColor={s.color} />}
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import BoardStage from './BoardStage'
 import ChessBoard from './ChessBoard'
 import { ConfirmButton, MoveList, PlayerBar, ResultCard } from './GameParts'
 import { Badge, Button, Icon } from './ui'
@@ -75,13 +76,41 @@ export default function LocalGame() {
 
   if (!loaded) return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
 
+  const actions = (
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <Button variant="soft" onClick={() => setS((cur) => ({ ...cur, moves: cur.moves.slice(0, -1), resigned: null, draw: false }))} disabled={s.moves.length === 0}>
+        <Icon name="undo" /> رجوع
+      </Button>
+      <Button variant="soft" onClick={() => setFlipped((f) => !f)} disabled={s.autoFlip}>
+        <Icon name="flip" /> اقلب
+      </Button>
+      <ConfirmButton icon="handshake" label="تعادل" confirm="اتفقتوا على التعادل؟" disabled={over || s.moves.length === 0} onConfirm={() => setS((cur) => ({ ...cur, draw: true }))} />
+      <ConfirmButton icon="flag" label={`${turnName(turn)} يستسلم`} confirm={`${turnName(turn)} هيستسلم؟`} disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: turn }))} />
+    </div>
+  )
+  const fsExtras = (
+    <>
+      <div className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-sm" aria-live="polite">
+        <span>
+          {outcome ? <strong className="text-gold">{outcome.title}</strong> : <>الدور على <strong className="text-gold">{turnName(turn)}</strong></>}
+        </span>
+        {outcome && (
+          <Button onClick={() => setS((cur) => ({ ...FRESH, autoFlip: cur.autoFlip }))} className="px-3 py-1.5">
+            <Icon name="reset" className="h-4 w-4" /> دور تاني
+          </Button>
+        )}
+      </div>
+      {actions}
+    </>
+  )
+
   return (
-    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:gap-8">
-      <div className="mx-auto flex w-full max-w-[560px] flex-col gap-2">
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,1fr)] lg:gap-8">
+      <BoardStage fsExtras={fsExtras} fsReserve={18.5}>
         <PlayerBar fen={fen} color={top} name={turnName(top)} active={!over && turn === top} />
         <ChessBoard fen={fen} orientation={orientation} movable={over ? false : 'both'} onMove={onMove} lastMove={lastMove} shake={shake} />
         <PlayerBar fen={fen} color={top === 'w' ? 'b' : 'w'} name={turnName(top === 'w' ? 'b' : 'w')} active={!over && turn !== top} />
-      </div>
+      </BoardStage>
 
       <div className="flex min-w-0 flex-col gap-4">
         {outcome ? (
@@ -105,16 +134,7 @@ export default function LocalGame() {
           <input type="checkbox" className="h-5 w-5 accent-[var(--gold)]" checked={s.autoFlip} onChange={(e) => setS((cur) => ({ ...cur, autoFlip: e.target.checked }))} />
         </label>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          <Button variant="soft" onClick={() => setS((cur) => ({ ...cur, moves: cur.moves.slice(0, -1), resigned: null, draw: false }))} disabled={s.moves.length === 0}>
-            <Icon name="undo" /> رجوع
-          </Button>
-          <Button variant="soft" onClick={() => setFlipped((f) => !f)} disabled={s.autoFlip}>
-            <Icon name="flip" /> اقلب
-          </Button>
-          <ConfirmButton icon="handshake" label="تعادل" confirm="اتفقتوا على التعادل؟" disabled={over || s.moves.length === 0} onConfirm={() => setS((cur) => ({ ...cur, draw: true }))} />
-          <ConfirmButton icon="flag" label={`${turnName(turn)} يستسلم`} confirm={`${turnName(turn)} هيستسلم؟`} disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: turn }))} />
-        </div>
+        {actions}
 
         <MoveList sans={sans} />
 

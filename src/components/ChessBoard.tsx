@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useId, useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { Chessboard, defaultPieces, type Arrow } from 'react-chessboard'
 import { Chess, type Square } from 'chess.js'
 import { useSettings } from '../lib/settings'
 import { isPromotionMove, kingSquareInCheck, type UciMove } from '../lib/chess'
+import { useInStage } from './BoardStage'
 
 export interface BoardArrow {
   from: string
@@ -51,6 +52,19 @@ export default function ChessBoard({
   const [selected, setSelected] = useState<string | null>(null)
   const [pendingPromo, setPendingPromo] = useState<{ from: string; to: string } | null>(null)
   const [shaking, setShaking] = useState(false)
+  const inStage = useInStage()
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [boardPx, setBoardPx] = useState(360)
+
+  // coordinates scale a little with the board, like on chess.com: 9px on a phone, 12px at most
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(([e]) => setBoardPx(Math.round(e.contentRect.width)))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+  const coordPx = Math.max(9, Math.min(12, Math.round(boardPx / 40)))
 
   const game = useMemo(() => {
     try {
@@ -141,9 +155,9 @@ export default function ChessBoard({
 
   const promoColor = turn
   return (
-    <div className={`ltr relative w-full select-none ${shaking ? 'animate-shake' : ''} ${className}`}>
+    <div ref={rootRef} className={`ltr relative w-full select-none ${inStage ? 'board-bleed' : ''} ${shaking ? 'animate-shake' : ''} ${className}`}>
       <div
-        className="rounded-[14px] p-[6px] sm:p-2"
+        className="board-frame rounded-[14px] p-[6px] sm:p-2"
         style={{
           background: `linear-gradient(145deg, ${boardTheme.frame}, color-mix(in srgb, ${boardTheme.frame} 70%, black))`,
           boxShadow: '0 30px 60px -25px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.08)',
@@ -161,11 +175,14 @@ export default function ChessBoard({
             allowDrawingArrows: true,
             arrows: boardArrows,
             clearArrowsOnPositionChange: true,
-            boardStyle: { borderRadius: 8, overflow: 'hidden' },
+            boardStyle: { borderRadius: 'var(--board-radius, 8px)', overflow: 'hidden' },
             lightSquareStyle: { backgroundColor: boardTheme.light },
             darkSquareStyle: { backgroundColor: boardTheme.dark },
-            lightSquareNotationStyle: { color: boardTheme.dark, fontWeight: 700 },
-            darkSquareNotationStyle: { color: boardTheme.light, fontWeight: 700 },
+            // each coordinate takes the colour of the other square, small and quiet
+            lightSquareNotationStyle: { color: boardTheme.dark },
+            darkSquareNotationStyle: { color: boardTheme.light },
+            alphaNotationStyle: { fontSize: `${coordPx}px`, fontWeight: 500, lineHeight: 1, bottom: 2, right: 3, opacity: 0.95 },
+            numericNotationStyle: { fontSize: `${coordPx}px`, fontWeight: 500, lineHeight: 1, top: 3, left: 3, opacity: 0.95 },
             dropSquareStyle: { boxShadow: 'inset 0 0 0 4px rgba(222,170,60,0.85)' },
             squareStyles,
             canDragPiece: ({ square }) => !!square && ownPiece(square),

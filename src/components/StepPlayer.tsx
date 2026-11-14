@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Chess } from 'chess.js'
 import ChessBoard, { type BoardArrow } from './ChessBoard'
 import RichText from './RichText'
+import MoveControls from './MoveControls'
 import { Button, Icon } from './ui'
 import { parseUci, replay, soundFor, START_FEN, toUci, tryMove, type UciMove } from '../lib/chess'
 import { play } from '../lib/sound'
@@ -93,8 +94,9 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
     if (compact) return
     const h = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement)?.tagName === 'INPUT') return
-      if (e.key === 'ArrowLeft') go(ply + 1)
-      if (e.key === 'ArrowRight') go(ply - 1)
+      // the move buttons read left to right, so the arrow keys follow them
+      if (e.key === 'ArrowRight') go(ply + 1)
+      if (e.key === 'ArrowLeft') go(ply - 1)
     }
     window.addEventListener('keydown', h)
     return () => window.removeEventListener('keydown', h)
@@ -104,23 +106,14 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
   const note = ply > 0 ? step.notes?.[ply - 1] : undefined
 
   const controls = (
-    <div className="ltr mt-3 flex items-center justify-center gap-1.5">
-      <Button variant="soft" aria-label="البداية" onClick={() => go(0)} className="px-3">
-        <Icon name="first" />
-      </Button>
-      <Button variant="soft" aria-label="اللي فاتت" onClick={() => go(ply - 1)} className="px-3">
-        <Icon name="prev" />
-      </Button>
-      <Button variant="gold" aria-label={auto ? 'وقّف' : 'شغّل'} onClick={() => (ply >= step.moves.length ? (setPly(0), setAuto(true)) : setAuto(!auto))} className="px-4">
-        <Icon name={auto ? 'pause' : 'play'} />
-      </Button>
-      <Button variant="soft" aria-label="اللي بعدها" onClick={() => go(ply + 1)} className="px-3">
-        <Icon name="next" />
-      </Button>
-      <Button variant="soft" aria-label="الآخر" onClick={() => go(step.moves.length)} className="px-3">
-        <Icon name="last" />
-      </Button>
-    </div>
+    <MoveControls
+      className="mt-3"
+      ply={ply}
+      total={step.moves.length}
+      go={go}
+      auto={auto}
+      onToggle={() => (ply >= step.moves.length && !auto ? (setPly(0), setAuto(true)) : setAuto(!auto))}
+    />
   )
 
   const moveList = (
@@ -165,7 +158,7 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
           {!compact && <RichText text={step.text} className="text-[1.05rem]" />}
           <div className="mt-4 min-h-[4.5rem] rounded-xl border border-gold/25 bg-gold-soft p-4 text-[1.02rem]" aria-live="polite">
             {ply === 0 ? (
-              <span className="text-muted">دوس ← أو شغّل عشان تشوف النقلات واحدة واحدة.</span>
+              <span className="text-muted">دوس → أو شغّل عشان تشوف النقلات واحدة واحدة.</span>
             ) : (
               <>
                 <span className="ltr me-2 inline-block font-bold text-gold">{last?.san}</span>
