@@ -8,6 +8,12 @@ import { gameResult, soundFor, toUci, type UciMove } from '../lib/chess'
 import { Engine, LEVELS } from '../lib/engine'
 import { formatEval, pickComputerMove, playUci } from '../lib/game'
 import { play } from '../lib/sound'
+import { botForLevel } from '../data/bots'
+import { COACH, coachLine } from '../lib/coach'
+import { recordGame } from '../lib/progress'
+import { celebrate } from './Celebrate'
+import ShareButton from './ShareButton'
+import Analysis from './Analysis'
 
 const SAVE_KEY = 'chesti-vs-computer'
 
@@ -42,11 +48,15 @@ export default function PlayComputer() {
   const [engineError, setEngineError] = useState(false)
   const [flipped, setFlipped] = useState(false)
   const [shake, setShake] = useState(0)
+  const [coach, setCoach] = useState<string | null>(null)
+  const [botSays, setBotSays] = useState<string | null>(null)
+  const [analyze, setAnalyze] = useState(false)
   const engineRef = useRef<Engine | null>(null)
   const gen = useRef(0)
 
   useEffect(() => {
     const saved = load()
+    loadedKey.current = `${saved.moves.join('')}|${saved.resigned}`
     setS(saved)
     setPickColor(saved.color)
     setLoaded(true)
@@ -68,6 +78,7 @@ export default function PlayComputer() {
   useEffect(() => () => engineRef.current?.terminate(), [])
 
   const level = LEVELS.find((l) => l.id === s.level) ?? LEVELS[0]
+  const bot = botForLevel(level.id)
   const { game, sans, lastMove } = useMemo(() => playUci(s.moves), [s.moves])
   const fen = game.fen()
   const turn = game.turn()
@@ -101,18 +112,37 @@ export default function PlayComputer() {
   useEffect(() => {
     if (s.moves.length > prevLen.current && s.moves.length > 0) {
       const last = game.history({ verbose: true }).at(-1)
-      if (last) soundFor(last, game)
+      if (last) {
+        soundFor(last, game)
+        if (last.color === s.color) {
+          const line = coachLine({ san: last.san, piece: last.piece, captured: last.captured, promotion: last.promotion, flags: last.flags, mate: game.isCheckmate(), check: game.inCheck(), moveNo: Math.ceil(s.moves.length / 2) })
+          setCoach(line)
+          if (game.inCheck() && !game.isCheckmate()) setBotSays(bot.checked)
+        } else setBotSays(null)
+      }
     }
     prevLen.current = s.moves.length
     setHint(null)
     setEvalText(null)
-  }, [s.moves.length, game])
+  }, [s.moves.length, game, s.color, bot])
 
   // win / lose sound
+  const recorded = useRef<string | null>(null)
   useEffect(() => {
-    if (!s.started) return
-    if (result.over && result.winner === s.color) play('success')
-  }, [result.over, result.winner, s.color, s.started])
+    if (!s.started || !(result.over || s.resigned)) return
+    const key = `${s.moves.join('')}|${s.resigned}`
+    if (recorded.current === key) return
+    recorded.current = key
+    const won = !s.resigned && result.winner === s.color
+    if (won) {
+      play('success')
+      celebrate(true)
+    }
+    setBotSays(won ? bot.loses : result.winner === null && !s.resigned ? null : bot.wins)
+    // only games that really ended now count, not a finished game loaded from storage
+    if (s.moves.length > 0 && prevLen.current === s.moves.length && loadedKey.current !== key) recordGame(bot.id, won)
+  }, [result.over, result.winner, s.color, s.started, s.resigned, s.moves, bot])
+  const loadedKey = useRef<string | null>(null)
 
   function onMove(m: UciMove) {
     if (!userTurn) return false
@@ -133,6 +163,9 @@ export default function PlayComputer() {
     setFlipped(false)
     setEngineError(false)
     setS((cur) => ({ ...cur, color, moves: [], resigned: false, started: true, hints: 0 }))
+    setCoach(null)
+    setAnalyze(false)
+    setBotSays(botForLevel(s.level).greet)
     engine() // warm up the engine while the user thinks
   }
 
@@ -169,7 +202,7 @@ export default function PlayComputer() {
   if (!s.started) {
     return (
       <div className="mx-auto max-w-3xl">
-        <h2 className="mb-3 font-display text-xl font-bold">اختار مستوى الكمبيوتر</h2>
+        <h2 className="mb-3 font-display text-xl font-bold">اختار هتلعب ضد مين</h2>
         <div role="radiogroup" aria-label="المستوى" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {LEVELS.map((l) => (
             <button
@@ -180,16 +213,19 @@ export default function PlayComputer() {
               onClick={() => setS((cur) => ({ ...cur, level: l.id }))}
               className={`rounded-2xl border p-3 text-start transition ${s.level === l.id ? 'border-gold bg-gold-soft shadow-[0_0_0_1px_var(--gold)]' : 'border-line bg-surface hover:border-gold/50'}`}
             >
-              <span className="flex items-center justify-between">
-                <span className="font-bold">{l.name}</span>
-                <span className="ltr text-xs text-muted">{l.id}/8</span>
+              <span className="flex items-center gap-2">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-xs font-bold text-[#1a1408]" aria-hidden>{botForLevel(l.id).initials}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-bold">{botForLevel(l.id).name}</span>
+                  <span className="text-xs text-muted">{l.name} <bdi className="ltr">{l.id}/8</bdi></span>
+                </span>
               </span>
               <span className="mt-1 flex gap-0.5" aria-hidden>
                 {LEVELS.map((x) => (
                   <span key={x.id} className={`h-1 flex-1 rounded-full ${x.id <= l.id ? 'bg-gold' : 'bg-line'}`} />
                 ))}
               </span>
-              <span className="mt-2 block text-xs text-muted">{l.desc}</span>
+              <span className="mt-2 block text-xs text-muted">{botForLevel(l.id).tagline}</span>
             </button>
           ))}
         </div>
@@ -239,8 +275,8 @@ export default function PlayComputer() {
       <PlayerBar
         fen={fen}
         color={c}
-        icon="cpu"
-        name={`الكمبيوتر — ${level.name}`}
+        initials={bot.initials}
+        name={bot.name}
         active={thinking && turn !== s.color}
         sub={thinking && turn !== s.color ? <span>بيفكر…</span> : null}
       />
@@ -254,7 +290,7 @@ export default function PlayComputer() {
         ? { title: 'تعادل', text: result.text, tone: 'draw' }
         : result.winner === s.color
           ? { title: 'كسبت! برافو عليك', text: `كش مات في ${Math.ceil(s.moves.length / 2)} نقلة${s.hints ? ` واستخدمت ${s.hints} تلميح` : ''}.`, tone: 'win' }
-          : { title: 'الكمبيوتر كسب', text: 'كش مات. جرب مستوى أسهل أو العب تاني.', tone: 'lose' }
+          : { title: `${bot.name} كسب`, text: 'كش مات. جرب مستوى أسهل أو العب تاني.', tone: 'lose' }
 
   return (
     <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:gap-8">
@@ -277,11 +313,34 @@ export default function PlayComputer() {
           </div>
         )}
 
+        {(botSays || coach) && (
+          <div className="flex flex-col gap-2">
+            {botSays && (
+              <p key={`b-${botSays}`} className="animate-bubble flex items-start gap-2 text-sm">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-[0.65rem] font-bold text-[#1a1408]" aria-hidden>{bot.initials}</span>
+                <span className="rounded-2xl rounded-ss-sm border border-line bg-surface px-3 py-2"><strong className="me-1 text-gold">{bot.name}:</strong>{botSays}</span>
+              </p>
+            )}
+            {coach && (
+              <p key={`c-${coach}`} className="animate-bubble flex items-start gap-2 text-sm" aria-live="polite">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald/20 text-base text-emerald" aria-hidden>☕</span>
+                <span className="rounded-2xl rounded-ss-sm border border-emerald/30 bg-emerald/5 px-3 py-2"><strong className="me-1 text-emerald">{COACH.name}:</strong>{coach}</span>
+              </p>
+            )}
+          </div>
+        )}
+
         {outcome ? (
           <ResultCard {...outcome}>
             <Button onClick={start}>
               <Icon name="reset" /> دور تاني
             </Button>
+            {s.moves.length >= 4 && (
+              <Button variant="soft" onClick={() => setAnalyze(true)} disabled={analyze}>
+                <Icon name="cpu" /> حلّل الدور
+              </Button>
+            )}
+            {outcome.tone === 'win' && <ShareButton text={`كسبت ${bot.name} (مستوى ${level.id} من 8) في ${Math.ceil(s.moves.length / 2)} نقلة على شطرنجي ♞ تقدر تعملها؟`} path="/play/computer/" />}
             <Button variant="soft" onClick={() => setS((cur) => ({ ...cur, started: false }))}>
               غيّر المستوى
             </Button>
@@ -305,6 +364,8 @@ export default function PlayComputer() {
           </Button>
           <ConfirmButton icon="flag" label="استسلم" confirm="متأكد إنك عايز تستسلم؟" disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: true }))} />
         </div>
+
+        {analyze && <Analysis moves={s.moves} userColor={s.color} />}
 
         <MoveList sans={sans} />
 

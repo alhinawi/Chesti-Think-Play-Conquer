@@ -66,6 +66,37 @@ export function playUci(moves: string[], startFen?: string) {
   return { game, sans, moves: ok, lastMove: last ? ([last.slice(0, 2), last.slice(2, 4)] as [string, string]) : null }
 }
 
+/** Engine score as centipawns from the side to move; mates become large numbers. */
+export function toCp(e: { cp?: number; mate?: number } | undefined): number {
+  if (!e) return 0
+  if (e.mate !== undefined) return e.mate > 0 ? 10000 - e.mate * 10 : e.mate < 0 ? -10000 - e.mate * 10 : -10000
+  return e.cp ?? 0
+}
+
+export type MoveClass = 'blunder' | 'mistake' | 'inaccuracy' | 'good'
+
+export const CLASS_NAME: Record<MoveClass, string> = {
+  blunder: 'غلطة كبيرة',
+  mistake: 'غلطة',
+  inaccuracy: 'مش أحسن نقلة',
+  good: 'كويسة',
+}
+
+/**
+ * How bad a move was. before = score for the mover before the move, after = score for the mover
+ * after it (both centipawns, mover's point of view). Scores are capped so a won position stays won.
+ */
+export function classifyMove(before: number, after: number, playedBest: boolean): { cls: MoveClass; loss: number } {
+  const cap = (v: number) => Math.max(-1500, Math.min(1500, v))
+  const loss = playedBest ? 0 : Math.max(0, cap(before) - cap(after))
+  // still completely winning after the move: not worth flagging
+  if (cap(after) >= 900 && loss < 600) return { cls: 'good', loss }
+  if (loss >= 300) return { cls: 'blunder', loss }
+  if (loss >= 150) return { cls: 'mistake', loss }
+  if (loss >= 70) return { cls: 'inaccuracy', loss }
+  return { cls: 'good', loss }
+}
+
 /** "+1.4" / "مات في 3" from white's point of view. */
 export function formatEval(e: { cp?: number; mate?: number }, turn: 'w' | 'b'): string {
   const sign = turn === 'w' ? 1 : -1

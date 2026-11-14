@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ALL_LESSONS } from '../data/lessons'
 import { markDone } from '../lib/progress'
+import { celebrate } from './Celebrate'
 import { play } from '../lib/sound'
 import { StepView } from './StepPlayer'
 import { Button, Icon } from './ui'
@@ -23,6 +24,7 @@ export default function LessonPlayer({ lessonId, nextId, nextTitle }: { lessonId
     if (finished) {
       markDone('lessons', lessonId)
       play('success')
+      celebrate()
     }
   }, [finished, lessonId])
 

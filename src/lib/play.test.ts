@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { formatEval, material, movePairs, pickComputerMove, playUci } from './game'
+import { classifyMove, formatEval, material, movePairs, pickComputerMove, playUci, toCp } from './game'
+import { coachLine } from './coach'
+import { BOTS } from '../data/bots'
+import { LEVELS } from './engine'
 import { assignSeat, makeRoomCode, mergeGame, mergeSeats, newGame, normalizeRoomCode, onlineEnabled } from './online'
 
 const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
@@ -56,6 +59,41 @@ describe('formatEval', () => {
     expect(formatEval({ cp: 140 }, 'w')).toBe('+1.4')
     expect(formatEval({ cp: 140 }, 'b')).toBe('-1.4')
     expect(formatEval({ mate: 2 }, 'b')).toBe('الأسود يمات في 2')
+  })
+})
+
+describe('analysis', () => {
+  it('turns mates into big scores', () => {
+    expect(toCp({ mate: 1 })).toBeGreaterThan(9000)
+    expect(toCp({ mate: -2 })).toBeLessThan(-9000)
+    expect(toCp({ cp: 35 })).toBe(35)
+  })
+  it('classifies by how much was lost', () => {
+    expect(classifyMove(50, -400, false).cls).toBe('blunder')
+    expect(classifyMove(50, -120, false).cls).toBe('mistake')
+    expect(classifyMove(50, -30, false).cls).toBe('inaccuracy')
+    expect(classifyMove(50, 40, false).cls).toBe('good')
+    expect(classifyMove(50, -400, true).cls).toBe('good')
+  })
+  it('does not flag a move that keeps a won game won', () => {
+    expect(classifyMove(9990, 1200, false).cls).toBe('good')
+    expect(classifyMove(9990, -200, false).cls).toBe('blunder')
+  })
+})
+
+describe('coach and bots', () => {
+  const base = { san: 'Nf3', piece: 'n', flags: 'n', mate: false, check: false, moveNo: 5 }
+  const first = () => 0
+  it('comments on the moves that matter', () => {
+    expect(coachLine({ ...base, mate: true, check: true }, first)).toContain('مات')
+    expect(coachLine({ ...base, san: 'O-O', piece: 'k', flags: 'k' }, first)).toContain('بيّت')
+    expect(coachLine({ ...base, captured: 'q', flags: 'c' }, first)).toBeTruthy()
+    expect(coachLine({ ...base, san: 'e4', piece: 'p', moveNo: 1 }, first)).toBeTruthy()
+    expect(coachLine(base, first)).toBeNull()
+  })
+  it('has one bot for every engine level', () => {
+    expect(BOTS.map((b) => b.level).sort()).toEqual(LEVELS.map((l) => l.id).sort())
+    expect(new Set(BOTS.map((b) => b.id)).size).toBe(BOTS.length)
   })
 })
 

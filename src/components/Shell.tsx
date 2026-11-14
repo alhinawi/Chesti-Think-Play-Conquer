@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Celebrate from './Celebrate'
 import type { ReactNode } from 'react'
 import { NAV, SITE } from '../lib/site'
 import { useSettings } from '../lib/settings'
@@ -16,6 +17,7 @@ export default function Shell({ children }: { children: ReactNode }) {
   const { settings, update } = useSettings()
   return (
     <div className="flex min-h-dvh flex-col">
+      <Celebrate />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:right-2 focus:z-50 focus:rounded-lg focus:bg-gold focus:px-3 focus:py-2 focus:text-black">
         انتقل للمحتوى
       </a>

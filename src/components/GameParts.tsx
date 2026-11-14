@@ -14,6 +14,7 @@ export function PlayerBar({
   sub,
   active,
   icon,
+  initials,
 }: {
   fen: string
   color: 'w' | 'b'
@@ -21,6 +22,7 @@ export function PlayerBar({
   sub?: ReactNode
   active?: boolean
   icon?: string
+  initials?: string
 }) {
   const m = material(fen)
   const caps = m.capturedBy[color]
@@ -31,7 +33,7 @@ export function PlayerBar({
         className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg text-lg ${color === 'w' ? 'bg-[#f2eadb] text-[#1a1408]' : 'bg-[#1a1814] text-[#f2eadb] ring-1 ring-white/15'}`}
         aria-hidden
       >
-        {icon ? <Icon name={icon} className="h-5 w-5" /> : color === 'w' ? '♔' : '♚'}
+        {initials ? <span className="text-xs font-bold">{initials}</span> : icon ? <Icon name={icon} className="h-5 w-5" /> : color === 'w' ? '♔' : '♚'}
       </span>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-bold">
