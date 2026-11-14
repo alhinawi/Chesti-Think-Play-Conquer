@@ -1,7 +1,7 @@
 // XP, ranks, streaks and achievements, all worked out from the saved progress (nothing extra stored).
 import type { Progress } from './progress'
 
-export const XP = { lesson: 50, puzzle: 20, trap: 30, opening: 25, endgame: 30, daily: 40, game: 10, win: 40 }
+export const XP = { lesson: 50, puzzle: 20, trap: 30, opening: 25, endgame: 30, daily: 40, game: 10, win: 40, guessMaster: 40 }
 
 export const RANKS = [
   { xp: 0, name: 'عسكري غلبان', icon: '♟' },
@@ -22,7 +22,7 @@ export function totalWins(p: Progress) {
 
 export function xpOf(p: Progress) {
   const games = p.games || 0
-  return p.lessons.length * XP.lesson + p.puzzles.length * XP.puzzle + p.traps.length * XP.trap + (p.openings?.length || 0) * XP.opening + (p.endgames?.length || 0) * XP.endgame + (p.daily || []).length * XP.daily + games * XP.game + totalWins(p) * XP.win
+  return p.lessons.length * XP.lesson + p.puzzles.length * XP.puzzle + p.traps.length * XP.trap + (p.openings?.length || 0) * XP.opening + (p.endgames?.length || 0) * XP.endgame + (p.daily || []).length * XP.daily + games * XP.game + totalWins(p) * XP.win + Object.values(p.guesses || {}).filter((g) => g.hits >= Math.ceil(g.total * 0.7)).length * XP.guessMaster
 }
 
 export function rankOf(xp: number) {
@@ -104,6 +104,9 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'all-openings', name: 'سيد المبادي', desc: 'اتعلم كل الافتتاحيات في المكتبة', icon: '📜', test: (p, t) => (p.openings?.length || 0) >= t.openings },
   { id: 'first-endgame', name: 'نهاية سعيدة', desc: 'حل أول موقف من معمل النهايات', icon: '🏁', test: (p) => (p.endgames?.length || 0) >= 1 },
   { id: 'all-endgames', name: 'طبيب النهايات', desc: 'حل كل مواقف معمل النهايات', icon: '🩺', test: (p, t) => (p.endgames?.length || 0) >= t.endgames },
+  { id: 'first-guess', name: 'بروح الأبطال', desc: 'كمّل أول دور في وضع خمّن النقلة', icon: '🔮', test: (p) => Object.keys(p.guesses || {}).length >= 1 },
+  { id: 'guess-ace', name: 'عارف الأدوار', desc: 'خمّن 70% أو أكتر من نقلات البطل في دور واحد', icon: '🧿', test: (p) => Object.values(p.guesses || {}).some((g) => g.hits >= Math.ceil(g.total * 0.7)) },
+  { id: 'guess-perfect', name: 'وحش التخمين', desc: 'خمّن دور كامل صح من أول مرة بالكامل', icon: '🎯', test: (p) => Object.values(p.guesses || {}).some((g) => g.total > 0 && g.hits === g.total) },
   { id: 'all-bots', name: 'زعيم الحتة', desc: 'اكسب كل شخصيات الحتة', icon: '👑', test: (p) => ['am-sayed', 'om-karim', 'mido', 'shawky', 'captain-adel', 'metwally', 'zaki', 'el-wahsh'].every((b) => (p.wins?.[b] || 0) > 0) },
 ]
 
