@@ -144,7 +144,7 @@ export default function OpeningsExplorer() {
             ))}
           </div>
 
-          <ul className="grid gap-1.5">
+          <ul className="grid grid-cols-1 gap-1.5">
             {filtered.slice(0, shown).map((r) => {
               const active = sel === r
               return (
