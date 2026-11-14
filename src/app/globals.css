@@ -13,6 +13,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  --sq-light: #ecd9b5;
+  --sq-dark: #a87a50;
   --bg: #f6f1e7;
   --bg-2: #efe7d8;
   --surface: #fffcf6;
