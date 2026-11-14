@@ -17,12 +17,12 @@ export function MiniBoard({ fen, flip = false, label }: { fen: string; flip?: bo
   })
   const ordered = flip ? [...cells].reverse() : cells
   return (
-    <div dir="ltr" role="img" aria-label={label ?? 'رقعة شطرنج'} className="grid aspect-square w-full grid-cols-8 overflow-hidden rounded-md">
+    <div dir="ltr" role="img" aria-label={label ?? 'رقعة شطرنج'} className="grid aspect-square w-full grid-cols-8 overflow-hidden rounded-md" style={{ containerType: 'inline-size' }}>
       {ordered.map((cell, i) => (
         <span
           key={i}
           className="grid place-items-center leading-none"
-          style={{ background: cell.dark ? 'var(--sq-dark)' : 'var(--sq-light)', fontSize: 'min(3.4vw, 1.35rem)' }}
+          style={{ background: cell.dark ? 'var(--sq-dark)' : 'var(--sq-light)', fontSize: '10.5cqw' }}
         >
           {cell.piece && (
             <span
