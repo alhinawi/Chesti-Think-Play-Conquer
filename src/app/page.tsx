@@ -9,6 +9,7 @@ import { GAMES } from '../data/games'
 import { ENDGAMES } from '../data/endgames'
 import { PUZZLES } from '../data/puzzles'
 import { ARTICLES } from '../data/encyclopedia'
+import { WORLD3D_POSITIONS } from '../data/world3d'
 import { SITE } from '../lib/site'
 import { BOTS } from '../data/bots'
 import { COACH } from '../lib/coach'
@@ -22,6 +23,7 @@ const SECTIONS = [
   { href: '/traps', group: 'learn', icon: 'trap', title: 'فخاخ الافتتاح', desc: `${TRAPS.length} فخ مشهور: إزاي تنصبه وإزاي ماتقعش فيه.` },
   { href: '/encyclopedia', group: 'learn', icon: 'book', title: 'الموسوعة', desc: `${ARTICLES.length} مقال عن القواعد والافتتاحات والتكتيك والتاريخ، وقاموس مصطلحات.` },
   { href: '/play/computer', group: 'play', icon: 'cpu', title: 'ضد الكمبيوتر', desc: '8 مستويات من مبتدئ خالص لحد Stockfish بكل قوته، مع تلميحات.' },
+  { href: '/world3d', group: 'play', icon: 'globe', title: 'عالم شطرنج 3D', desc: `${WORLD3D_POSITIONS.length} موقف خالد على رقعة ثلاثية الأبعاد: لفّ وقرّب وشوف التاريخ من كل الزوايا.` },
   { href: '/endgames', group: 'train', icon: 'check', title: 'معمل النهايات', desc: `${ENDGAMES.length} مواقف نهاية حاسمة تحلها بإيدك: مات، ترقية، ومقابلة ملوك.` },
   { href: '/rush', group: 'train', icon: 'clock', title: 'سباق الألغاز', desc: 'حل أكبر عدد ألغاز من غير 3 غلطات. كل جولة بتقيس سرعة تكتيكك.' },
   { href: '/squares', group: 'train', icon: 'search', title: 'تمرين الخانات', desc: '30 ثانية تجيب فيها أكبر عدد خانات: التمرين اللي بيبني عين اللاعب المحترف.' },
