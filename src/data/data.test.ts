@@ -6,6 +6,7 @@ import { PUZZLES } from './puzzles'
 import { ARTICLES, CATEGORIES, TERMS } from './encyclopedia'
 import { OPENINGS } from './openings'
 import { GAMES } from './games'
+import { ENDGAMES } from './endgames'
 
 const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 const UCI = /^[a-h][1-8][a-h][1-8][qrbn]?$/
@@ -105,6 +106,20 @@ describe('games', () => {
         expect(i).toBeGreaterThanOrEqual(0)
         expect(i).toBeLessThan(g.moves.length)
       }
+    })
+})
+
+describe('endgames', () => {
+  it('have unique ids', () => uniq(ENDGAMES.map((e) => e.id)))
+  for (const e of ENDGAMES)
+    it(`${e.id}: solution is legal and decisive`, () => {
+      const g = new Chess(e.fen)
+      expect(e.solution.length % 2).toBe(1)
+      for (const m of e.solution) {
+        expect(m).toMatch(UCI)
+        expect(() => g.move({ from: m.slice(0, 2), to: m.slice(2, 4), promotion: m[4] }), `${e.id}: ${m}`).not.toThrow()
+      }
+      if (e.goal === 'mate') expect(g.isCheckmate(), `${e.id} ends in mate`).toBe(true)
     })
 })
 
