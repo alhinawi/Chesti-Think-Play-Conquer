@@ -263,7 +263,7 @@ function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
   const result = gameResult(game)
   const over = result.over || !!state.game.resigned
   const myTurn = !!myColor && !over && turn === myColor
-  const link = typeof window !== 'undefined' ? `${window.location.origin}/play/friend?room=${code}` : ''
+  const link = typeof window !== 'undefined' ? `${window.location.origin}/play/friend/?room=${code}` : ''
 
   function onMove(m: UciMove) {
     const cur = stateRef.current

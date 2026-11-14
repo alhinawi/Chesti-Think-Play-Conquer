@@ -5,8 +5,10 @@ import { PUZZLES } from '../data/puzzles'
 import { TRAPS } from '../data/traps'
 import { SITE } from '../lib/site'
 
+export const dynamic = 'force-static'
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const u = (p: string, priority = 0.6): MetadataRoute.Sitemap[number] => ({ url: `${SITE.url}${p}`, changeFrequency: 'monthly', priority })
+  const u = (p: string, priority = 0.6): MetadataRoute.Sitemap[number] => ({ url: `${SITE.url}${p === '/' ? '/' : `${p}/`}`, changeFrequency: 'monthly', priority })
   return [
     u('/', 1),
     u('/learn', 0.9),
