@@ -19,6 +19,8 @@ export interface Progress {
   days: string[]
   /** finished games against the computer */
   games: number
+  /** best guess-the-move result per famous game id */
+  guesses?: Record<string, { hits: number; total: number; score: number }>
 }
 
 type ListKey = 'lessons' | 'puzzles' | 'traps' | 'openings' | 'endgames'
@@ -56,6 +58,15 @@ export function markDone(kind: ListKey, id: string) {
   const p = read()
   if (p[kind].includes(id)) return
   p[kind] = [...p[kind], id]
+  write(p)
+}
+
+/** keep the best guess-the-move run for a famous game */
+export function recordGuess(gameId: string, hits: number, total: number, score: number) {
+  const p = read()
+  const prev = p.guesses?.[gameId]
+  if (prev && (prev.score > score || (prev.score === score && prev.hits >= hits))) return
+  p.guesses = { ...(p.guesses || {}), [gameId]: { hits, total, score } }
   write(p)
 }
 
