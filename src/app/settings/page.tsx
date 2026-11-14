@@ -5,6 +5,7 @@ import { PageHeader } from '../../components/ui'
 export const metadata: Metadata = {
   title: 'الإعدادات',
   robots: { index: false },
+  alternates: { canonical: '/settings' },
 }
 
 export default function Page() {
