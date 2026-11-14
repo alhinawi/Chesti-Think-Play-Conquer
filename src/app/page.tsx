@@ -15,18 +15,18 @@ import { COACH } from '../lib/coach'
 import { RANKS } from '../lib/rank'
 
 const SECTIONS = [
-  { href: '/learn', icon: 'learn', title: 'الدروس', desc: `${ALL_LESSONS.length} درس تفاعلي من حركة العسكري لحد النهايات، بتلعب بإيدك في كل خطوة.` },
-  { href: '/puzzles', icon: 'bulb', title: 'الألغاز', desc: `${PUZZLES.length} لغز: مات في نقلة، شوكات، تثبيت، ونهايات أدوار مشهورة.` },
-  { href: '/openings', icon: 'compass', title: 'الافتتاحيات', desc: `${OPENINGS.length} افتتاحية مشروحة بالمصري: الخط الرئيسي وخطط الجانبين، من الإيطالية لحد الكارو-كان.` },
-  { href: '/games', icon: 'flag', title: 'أدوار خالدة', desc: `${GAMES.length} من أشهر الأدوار في التاريخ نقلة بنقلة: مورفي وأندرسن وفيشر وكاسباروف.` },
-  { href: '/traps', icon: 'trap', title: 'فخاخ الافتتاح', desc: `${TRAPS.length} فخ مشهور: إزاي تنصبه وإزاي ماتقعش فيه.` },
-  { href: '/encyclopedia', icon: 'book', title: 'الموسوعة', desc: `${ARTICLES.length} مقال عن القواعد والافتتاحات والتكتيك والتاريخ، وقاموس مصطلحات.` },
-  { href: '/play/computer', icon: 'cpu', title: 'ضد الكمبيوتر', desc: '8 مستويات من مبتدئ خالص لحد Stockfish بكل قوته، مع تلميحات.' },
-  { href: '/endgames', icon: 'flag', title: 'معمل النهايات', desc: `${ENDGAMES.length} مواقف نهاية حاسمة تحلها بإيدك: مات، ترقية، ومقابلة ملوك.` },
-  { href: '/rush', icon: 'clock', title: 'سباق الألغاز', desc: 'حل أكبر عدد ألغاز من غير 3 غلطات. كل جولة بتقيس سرعة تكتيكك.' },
-  { href: '/squares', icon: 'search', title: 'تمرين الخانات', desc: '30 ثانية تجيب فيها أكبر عدد خانات: التمرين اللي بيبني عين اللاعب المحترف.' },
-  { href: '/daily', icon: 'star', title: 'لغز اليوم', desc: 'لغز جديد كل يوم، نفس اللغز لكل الناس. حافظ على سلسلة أيامك 🔥' },
-  { href: '/play/friend', icon: 'users', title: 'مع صاحبك', desc: 'العبوا على نفس الجهاز، أو ابعت لينك والعبوا أونلاين.' },
+  { href: '/learn', group: 'learn', icon: 'learn', title: 'الدروس', desc: `${ALL_LESSONS.length} درس تفاعلي من حركة العسكري لحد النهايات، بتلعب بإيدك في كل خطوة.` },
+  { href: '/puzzles', group: 'train', icon: 'bulb', title: 'الألغاز', desc: `${PUZZLES.length} لغز: مات في نقلة، شوكات، تثبيت، ونهايات أدوار مشهورة.` },
+  { href: '/openings', group: 'learn', icon: 'compass', title: 'الافتتاحيات', desc: `${OPENINGS.length} افتتاحية مشروحة بالمصري: الخط الرئيسي وخطط الجانبين، من الإيطالية لحد الكارو-كان.` },
+  { href: '/games', group: 'learn', icon: 'flag', title: 'أدوار خالدة', desc: `${GAMES.length} من أشهر الأدوار في التاريخ نقلة بنقلة: مورفي وأندرسن وفيشر وكاسباروف.` },
+  { href: '/traps', group: 'learn', icon: 'trap', title: 'فخاخ الافتتاح', desc: `${TRAPS.length} فخ مشهور: إزاي تنصبه وإزاي ماتقعش فيه.` },
+  { href: '/encyclopedia', group: 'learn', icon: 'book', title: 'الموسوعة', desc: `${ARTICLES.length} مقال عن القواعد والافتتاحات والتكتيك والتاريخ، وقاموس مصطلحات.` },
+  { href: '/play/computer', group: 'play', icon: 'cpu', title: 'ضد الكمبيوتر', desc: '8 مستويات من مبتدئ خالص لحد Stockfish بكل قوته، مع تلميحات.' },
+  { href: '/endgames', group: 'train', icon: 'check', title: 'معمل النهايات', desc: `${ENDGAMES.length} مواقف نهاية حاسمة تحلها بإيدك: مات، ترقية، ومقابلة ملوك.` },
+  { href: '/rush', group: 'train', icon: 'clock', title: 'سباق الألغاز', desc: 'حل أكبر عدد ألغاز من غير 3 غلطات. كل جولة بتقيس سرعة تكتيكك.' },
+  { href: '/squares', group: 'train', icon: 'search', title: 'تمرين الخانات', desc: '30 ثانية تجيب فيها أكبر عدد خانات: التمرين اللي بيبني عين اللاعب المحترف.' },
+  { href: '/daily', group: 'train', icon: 'star', title: 'لغز اليوم', desc: 'لغز جديد كل يوم، نفس اللغز لكل الناس. حافظ على سلسلة أيامك 🔥' },
+  { href: '/play/friend', group: 'play', icon: 'users', title: 'مع صاحبك', desc: 'العبوا على نفس الجهاز، أو ابعت لينك والعبوا أونلاين.' },
 ]
 
 export default function Home() {
@@ -81,17 +81,28 @@ export default function Home() {
 
       <section aria-labelledby="sections" className="mt-10">
         <h2 id="sections" className="mb-4 font-display text-2xl font-bold">هتلاقي إيه هنا؟</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SECTIONS.map((s) => (
-            <Link key={s.href} href={s.href} className="luxe-card group rounded-2xl p-5 transition hover:-translate-y-0.5 hover:border-gold/50">
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-gold-soft text-gold">
-                <Icon name={s.icon} />
-              </span>
-              <h3 className="mt-3 text-lg font-bold group-hover:text-gold">{s.title}</h3>
-              <p className="mt-1 text-sm text-muted">{s.desc}</p>
-            </Link>
-          ))}
-        </div>
+        {(
+          [
+            ['learn', 'اتعلّم'],
+            ['train', 'تدرّب'],
+            ['play', 'العب'],
+          ] as const
+        ).map(([g, label]) => (
+          <div key={g} className="mb-6">
+            <h3 className="mb-3 text-sm font-bold tracking-wide text-gold">{label}</h3>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {SECTIONS.filter((s) => s.group === g).map((s) => (
+                <Link key={s.href} href={s.href} className="luxe-card group rounded-2xl p-5 transition hover:-translate-y-0.5 hover:border-gold/50">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-gold-soft text-gold">
+                    <Icon name={s.icon} />
+                  </span>
+                  <h4 className="mt-3 text-lg font-bold group-hover:text-gold">{s.title}</h4>
+                  <p className="mt-1 text-sm text-muted">{s.desc}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </section>
 
       <section aria-labelledby="bots" className="mt-12">

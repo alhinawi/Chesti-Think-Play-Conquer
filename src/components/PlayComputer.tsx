@@ -12,6 +12,8 @@ import { play } from '../lib/sound'
 import { botForLevel } from '../data/bots'
 import { COACH, coachLine } from '../lib/coach'
 import { recordGame } from '../lib/progress'
+import { OPENINGS } from '../data/openings'
+import { Chess } from 'chess.js'
 import { celebrate } from './Celebrate'
 import ShareButton from './ShareButton'
 import Analysis from './Analysis'
@@ -52,12 +54,25 @@ export default function PlayComputer() {
   const [coach, setCoach] = useState<string | null>(null)
   const [botSays, setBotSays] = useState<string | null>(null)
   const [analyze, setAnalyze] = useState(false)
+  const [seed, setSeed] = useState<{ id: string; name: string; moves: string[] } | null>(null)
   const engineRef = useRef<Engine | null>(null)
   const gen = useRef(0)
 
   useEffect(() => {
     const saved = load()
     loadedKey.current = `${saved.moves.join('')}|${saved.resigned}`
+    // ?opening=<id>: seed a fresh game from the opening's main line
+    const m = /[?&]opening=([\w-]+)/.exec(window.location.search)
+    const op = m && OPENINGS.find((o) => o.id === m[1])
+    if (op && saved.moves.length === 0) {
+      const g = new Chess()
+      const uci = op.moves.map((san) => {
+        const r = g.move(san)
+        return r.from + r.to + (r.promotion || '')
+      })
+      setSeed({ id: op.id, name: op.name, moves: uci })
+      saved.moves = uci
+    }
     setS(saved)
     setPickColor(saved.color)
     setLoaded(true)
@@ -163,7 +178,7 @@ export default function PlayComputer() {
     gen.current++
     setFlipped(false)
     setEngineError(false)
-    setS((cur) => ({ ...cur, color, moves: [], resigned: false, started: true, hints: 0 }))
+    setS((cur) => ({ ...cur, color, moves: seed?.moves ?? [], resigned: false, started: true, hints: 0 }))
     setCoach(null)
     setAnalyze(false)
     setBotSays(botForLevel(s.level).greet)
@@ -204,6 +219,11 @@ export default function PlayComputer() {
     return (
       <div className="mx-auto max-w-3xl">
         <h2 className="mb-3 font-display text-xl font-bold">اختار هتلعب ضد مين</h2>
+        {seed && (
+          <p className="mb-3 rounded-xl border border-gold/30 bg-gold-soft p-3 text-sm">
+            بتجرب افتتاحية <b>{seed.name}</b>: الدور هيبدأ من آخر نقلة في الخط الرئيسي.
+          </p>
+        )}
         <div role="radiogroup" aria-label="المستوى" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {LEVELS.map((l) => (
             <button
