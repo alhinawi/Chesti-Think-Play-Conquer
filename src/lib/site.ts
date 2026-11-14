@@ -3,7 +3,7 @@ export const SITE = {
   short: 'Chesti',
   tagline: 'اتعلم الشطرنج بالمصري من الصفر',
   description:
-    'Chesti: دروس شطرنج تفاعلية باللهجة المصرية، وفخاخ الافتتاحات، وألغاز، وموسوعة، والعب ضد الكمبيوتر أو مع صاحبك، وترابيزات بلياردو وبينج.',
+    'Chesti: دروس شطرنج تفاعلية باللهجة المصرية، ومكتبة افتتاحيات، وفخاخ الافتتاحات، وألغاز، وموسوعة، والعب ضد الكمبيوتر أو مع صاحبك، وترابيزات بلياردو وبينج.',
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://chesti.pages.dev').replace(/\/$/, ''),
 }
 
@@ -12,6 +12,7 @@ export const NAV = [
   { href: '/learn', label: 'الدروس', icon: 'learn' },
   { href: '/puzzles', label: 'ألغاز', icon: 'bulb' },
   { href: '/traps', label: 'الفخاخ', icon: 'trap' },
+  { href: '/openings', label: 'افتتاحيات', icon: 'compass' },
   { href: '/encyclopedia', label: 'الموسوعة', icon: 'book' },
   { href: '/play', label: 'العب', icon: 'play' },
 ] as const

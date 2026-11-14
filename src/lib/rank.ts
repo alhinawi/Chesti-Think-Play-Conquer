@@ -1,7 +1,7 @@
 // XP, ranks, streaks and achievements, all worked out from the saved progress (nothing extra stored).
 import type { Progress } from './progress'
 
-export const XP = { lesson: 50, puzzle: 20, trap: 30, daily: 40, game: 10, win: 40 }
+export const XP = { lesson: 50, puzzle: 20, trap: 30, opening: 25, daily: 40, game: 10, win: 40 }
 
 export const RANKS = [
   { xp: 0, name: 'عسكري غلبان', icon: '♟' },
@@ -22,7 +22,7 @@ export function totalWins(p: Progress) {
 
 export function xpOf(p: Progress) {
   const games = p.games || 0
-  return p.lessons.length * XP.lesson + p.puzzles.length * XP.puzzle + p.traps.length * XP.trap + (p.daily || []).length * XP.daily + games * XP.game + totalWins(p) * XP.win
+  return p.lessons.length * XP.lesson + p.puzzles.length * XP.puzzle + p.traps.length * XP.trap + (p.openings?.length || 0) * XP.opening + (p.daily || []).length * XP.daily + games * XP.game + totalWins(p) * XP.win
 }
 
 export function rankOf(xp: number) {
@@ -65,7 +65,7 @@ export interface Achievement {
   name: string
   desc: string
   icon: string
-  test: (p: Progress, totals: { lessons: number; traps: number; puzzles: number }) => boolean
+  test: (p: Progress, totals: { lessons: number; traps: number; puzzles: number; openings: number }) => boolean
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
@@ -99,6 +99,9 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'fifty-games', name: 'ابن الترابيزة', desc: 'العب 50 دور ضد الكمبيوتر', icon: '🕹️', test: (p) => (p.games || 0) >= 50 },
   { id: 'wins-10', name: '10 انتصارات', desc: 'اكسب 10 أدوار ضد الكمبيوتر', icon: '🥇', test: (p) => totalWins(p) >= 10 },
   { id: 'three-bots', name: 'مسح الحتة', desc: 'اكسب 3 شخصيات مختلفة من أهل الحتة', icon: '🧹', test: (p) => Object.values(p.wins || {}).filter((n) => n > 0).length >= 3 },
+  { id: 'first-opening', name: 'الدور اتفتح', desc: 'اتعلم أول افتتاحية', icon: '🚪', test: (p) => (p.openings?.length || 0) >= 1 },
+  { id: 'six-openings', name: 'جعبة جاهزة', desc: 'اتعلم 6 افتتاحيات', icon: '🎒', test: (p) => (p.openings?.length || 0) >= 6 },
+  { id: 'all-openings', name: 'سيد المبادي', desc: 'اتعلم كل الافتتاحيات في المكتبة', icon: '📜', test: (p, t) => (p.openings?.length || 0) >= t.openings },
   { id: 'all-bots', name: 'زعيم الحتة', desc: 'اكسب كل شخصيات الحتة', icon: '👑', test: (p) => ['am-sayed', 'om-karim', 'mido', 'shawky', 'captain-adel', 'metwally', 'zaki', 'el-wahsh'].every((b) => (p.wins?.[b] || 0) > 0) },
 ]
 

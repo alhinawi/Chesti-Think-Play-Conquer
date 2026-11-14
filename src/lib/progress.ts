@@ -9,6 +9,7 @@ export interface Progress {
   lessons: string[]
   puzzles: string[]
   traps: string[]
+  openings: string[]
   /** wins against each bot id */
   wins: Record<string, number>
   /** local dates (YYYY-MM-DD) the daily puzzle was solved */
@@ -19,9 +20,9 @@ export interface Progress {
   games: number
 }
 
-type ListKey = 'lessons' | 'puzzles' | 'traps'
+type ListKey = 'lessons' | 'puzzles' | 'traps' | 'openings'
 
-export const EMPTY_PROGRESS: Progress = { lessons: [], puzzles: [], traps: [], wins: {}, daily: [], days: [], games: 0 }
+export const EMPTY_PROGRESS: Progress = { lessons: [], puzzles: [], traps: [], openings: [], wins: {}, daily: [], days: [], games: 0 }
 const EMPTY = EMPTY_PROGRESS
 
 export function today(d = new Date()) {
