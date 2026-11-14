@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/traps', 0.9),
     u('/openings', 0.9),
     u('/games', 0.8),
+    u('/squares', 0.7),
     u('/encyclopedia', 0.9),
     u('/glossary', 0.7),
     u('/daily', 0.8),
