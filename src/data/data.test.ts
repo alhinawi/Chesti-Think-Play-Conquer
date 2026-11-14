@@ -4,6 +4,7 @@ import { CHAPTERS } from './lessons'
 import { TRAPS } from './traps'
 import { PUZZLES } from './puzzles'
 import { ARTICLES, CATEGORIES, TERMS } from './encyclopedia'
+import { OPENINGS } from './openings'
 
 const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 const UCI = /^[a-h][1-8][a-h][1-8][qrbn]?$/
@@ -72,6 +73,23 @@ describe('traps', () => {
     for (const t of TRAPS)
       if (t.moves[t.moves.length - 1].endsWith('#')) expect(playSan(START, t.moves).isCheckmate(), t.id).toBe(true)
   })
+})
+
+describe('openings', () => {
+  it('have unique ids', () => uniq(OPENINGS.map((o) => o.id)))
+  for (const o of OPENINGS)
+    it(`${o.id}: line is legal and notes are in range`, () => {
+      expect(o.moves.length).toBeGreaterThan(3)
+      playSan(START, o.moves)
+      for (const k of Object.keys(o.notes)) {
+        const i = Number(k)
+        expect(i).toBeGreaterThanOrEqual(0)
+        expect(i).toBeLessThan(o.moves.length)
+        expect(o.notes[i].trim().length).toBeGreaterThan(0)
+      }
+      expect(o.planW.trim().length).toBeGreaterThan(0)
+      expect(o.planB.trim().length).toBeGreaterThan(0)
+    })
 })
 
 describe('puzzles', () => {

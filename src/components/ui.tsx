@@ -118,6 +118,12 @@ export function Icon({ name, className = 'h-5 w-5' }: { name: string; className?
     eye: <path {...p} d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />,
     clock: <path {...p} d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20M12 6v6l4 2" />,
     handshake: <path {...p} d="M11 17l2 2a1 1 0 0 0 3-3M14 14l2.5 2.5a1 1 0 0 0 3-3l-3.9-3.9a3 3 0 0 0-4.2 0l-.9.9a1 1 0 0 1-3-3L10.3 4.6a5 5 0 0 1 6 .8L21 10M3 7l3.5 3.5M2 13l6 6" />,
+    compass: (
+      <g {...p}>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M16 8l-2.5 5.5L8 16l2.5-5.5z" />
+      </g>
+    ),
     star: <path {...p} d="M12 2l3 6.5 7 .9-5 4.8 1.2 7-6.2-3.4L5.8 21 7 14.2 2 9.4l7-.9z" />,
   }
   return (
