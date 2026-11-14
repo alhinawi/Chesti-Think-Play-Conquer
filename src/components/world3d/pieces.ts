@@ -65,6 +65,18 @@ export function loadPieceLibrary(): Promise<PieceLibrary> {
       protos.set(key, wrap)
     }
 
+    // القطع السوداء في المجموعة الأصلية رخام أخضر - نعادل الصبغة لرمادي محايد
+    for (const [key, proto] of protos) {
+      if (!key.endsWith('-b')) continue
+      proto.traverse((o) => {
+        if (o instanceof THREE.Mesh) {
+          const m = (o.material as THREE.MeshStandardMaterial).clone()
+          m.color.set(0xf2d9e2)
+          o.material = m
+        }
+      })
+    }
+
     const materials = new Set<THREE.Material>()
     root.traverse((o) => {
       if (o instanceof THREE.Mesh) materials.add(o.material as THREE.Material)

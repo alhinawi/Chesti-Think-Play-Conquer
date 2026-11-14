@@ -437,12 +437,18 @@ export default function World3DPro() {
       ptr.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
       ray.setFromCamera(ptr, camera)
       const pieceHits = ray.intersectObjects(piecesGroup.children, true)
-      if (pieceHits.length) {
-        selectSquare(pieceHits[0].object.userData.square)
+      const sqHits = ray.intersectObjects(squareMeshes, false)
+      const sqHit = sqHits.length ? (sqHits[0].object.userData.square as string) : null
+      // لو الدوسة على خانة هدف قانوني، نفّذ النقلة حتى لو قطعة من قطعك واقفة قدامها بصرياً
+      if (sqHit && selected && legalTargets.some((m) => m.to === sqHit)) {
+        selectSquare(sqHit)
         return
       }
-      const sqHits = ray.intersectObjects(squareMeshes, false)
-      if (sqHits.length) selectSquare(sqHits[0].object.userData.square)
+      if (pieceHits.length) {
+        selectSquare(pieceHits[0].object.userData.square as string)
+        return
+      }
+      if (sqHit) selectSquare(sqHit)
     }
     renderer.domElement.addEventListener('pointerdown', onDown)
     renderer.domElement.addEventListener('pointerup', onUp)
