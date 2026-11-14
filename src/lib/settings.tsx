@@ -67,7 +67,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   // Static HTML is rendered with the defaults; the saved settings load after hydration.
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSettings(load())
     setReady(true)
   }, [])

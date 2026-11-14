@@ -11,7 +11,8 @@ export const generateStaticParams = () => PUZZLES.map((p) => ({ puzzleId: p.id }
 type Props = { params: Promise<{ puzzleId: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const p = PUZZLES.find((x) => x.id === (await params).puzzleId)
+  const id = (await params).puzzleId
+  const p = PUZZLES.find((x) => x.id === id)
   if (!p) return {}
   return {
     title: `لغز شطرنج: ${p.name} (${p.theme})`,

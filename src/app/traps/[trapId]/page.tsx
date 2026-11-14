@@ -13,7 +13,8 @@ export const generateStaticParams = () => TRAPS.map((t) => ({ trapId: t.id }))
 type Props = { params: Promise<{ trapId: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = TRAPS.find((x) => x.id === (await params).trapId)
+  const id = (await params).trapId
+  const t = TRAPS.find((x) => x.id === id)
   if (!t) return {}
   return {
     title: `${t.name} (${t.en}) — فخ شطرنج`,
