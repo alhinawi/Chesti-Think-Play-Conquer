@@ -7,6 +7,7 @@ import { Chess, type Move } from 'chess.js'
 import { loadPieceLibrary, type PieceType, type PieceColor, type PieceLibrary } from './world3d/pieces'
 import { WORLD3D_THEMES, DEFAULT_THEME } from './world3d/themes'
 import { Engine } from '../lib/engine'
+import { GAMES } from '../data/games'
 import { play as sfx } from '../lib/sound'
 import { Icon } from './ui'
 
@@ -54,7 +55,7 @@ interface Tween {
   onDone?: () => void
 }
 
-type Mode = 'gallery' | 'play'
+type Mode = 'gallery' | 'play' | 'replay'
 
 export default function World3DPro() {
   const mountRef = useRef<HTMLDivElement>(null)
@@ -66,6 +67,9 @@ export default function World3DPro() {
   const [level, setLevel] = useState<string>('mid')
   const [status, setStatus] = useState<string>('')
   const [thinking, setThinking] = useState(false)
+  const [replayId, setReplayId] = useState<string>(GAMES[0].id)
+  const [replayPlaying, setReplayPlaying] = useState(false)
+  const [replayPos, setReplayPos] = useState(0)
   const themeRef = useRef(themeId)
   themeRef.current = themeId
   const apiRef = useRef<{
@@ -74,6 +78,10 @@ export default function World3DPro() {
     setMode: (m: Mode) => void
     setLevel: (id: string) => void
     resetGame: () => void
+    loadReplay: (id: string) => void
+    replayStep: (dir: 1 | -1) => void
+    replayToggle: () => void
+    replayJump: (to: number) => void
   } | null>(null)
 
   useEffect(() => {
@@ -203,6 +211,9 @@ export default function World3DPro() {
     let engine: Engine | null = null
     let currentLevel: (typeof LEVELS)[number] = LEVELS[1]
     let gameOver = false
+    let replayGame: (typeof GAMES)[number] | null = null
+    let replayIdx = 0
+    let replayTimer: ReturnType<typeof setInterval> | null = null
     const tweens: Tween[] = []
     let checkRing: THREE.Mesh | null = null
 
@@ -346,16 +357,20 @@ export default function World3DPro() {
           }
         }
         markLastMove(mv.from, mv.to)
-        const over = endGameStatus()
-        if (over) {
-          gameOver = true
-          setStatus(over)
-          sfx(over.includes('كسبت 🏆') ? 'success' : 'end')
-        } else if (game.inCheck()) {
-          sfx('check')
-          setStatus('كش!')
-        } else {
-          setStatus(game.turn() === 'w' ? 'دورك' : 'المحرك بيلعب...')
+        if (currentMode === 'play') {
+          const over = endGameStatus()
+          if (over) {
+            gameOver = true
+            setStatus(over)
+            sfx(over.includes('كسبت 🏆') ? 'success' : 'end')
+          } else if (game.inCheck()) {
+            sfx('check')
+            setStatus('كش!')
+          } else {
+            setStatus(game.turn() === 'w' ? 'دورك' : 'المحرك بيلعب...')
+          }
+        } else if (currentMode === 'replay') {
+          showReplayStatus()
         }
       })
       sfx(mv.captured ? 'capture' : mv.flags.includes('k') || mv.flags.includes('q') ? 'castle' : 'move')
@@ -453,6 +468,100 @@ export default function World3DPro() {
     renderer.domElement.addEventListener('pointerdown', onDown)
     renderer.domElement.addEventListener('pointerup', onUp)
 
+    const rebuildBoard = () => {
+      piecesGroup.children.forEach((pc) => piecesGroup.remove(pc))
+      const board = game.board()
+      for (let r = 0; r < 8; r++) {
+        for (let f = 0; f < 8; f++) {
+          const cell = board[r][f]
+          if (cell) spawnPiece(cell.type as PieceType, cell.color as PieceColor, 'abcdefgh'[f] + (8 - r))
+        }
+      }
+    }
+
+    const stopReplayTimer = () => {
+      if (replayTimer) {
+        clearInterval(replayTimer)
+        replayTimer = null
+        setReplayPlaying(false)
+      }
+    }
+
+    const showReplayStatus = () => {
+      if (!replayGame) return
+      let txt: string
+      if (replayIdx === 0) {
+        txt = `${replayGame.name} - ${replayGame.white} ضد ${replayGame.black} (${replayGame.year})`
+      } else {
+        const num = Math.ceil(replayIdx / 2)
+        txt = `${num}. ${replayGame.moves[replayIdx - 1]}`
+        const note = replayGame.notes[replayIdx - 1]
+        if (note) txt += ` - ${note}`
+        if (replayIdx >= replayGame.moves.length) txt += ` | النتيجة: ${replayGame.result}`
+      }
+      setStatus(txt)
+      setReplayPos(replayIdx)
+    }
+
+    const replayForward = () => {
+      if (!replayGame || replayIdx >= replayGame.moves.length) return false
+      const mv = game.move(replayGame.moves[replayIdx]) as Move
+      replayIdx++
+      applyMove(mv, true)
+      if (game.inCheck() && !game.isCheckmate()) sfx('check')
+      return true
+    }
+
+    const replayJump = (to: number) => {
+      if (!replayGame) return
+      stopReplayTimer()
+      replayIdx = Math.max(0, Math.min(to, replayGame.moves.length))
+      game = new Chess()
+      for (let i = 0; i < replayIdx; i++) game.move(replayGame.moves[i])
+      rebuildBoard()
+      clearHighlights()
+      const hist = game.history({ verbose: true }) as Move[]
+      if (hist.length) markLastMove(hist[hist.length - 1].from, hist[hist.length - 1].to)
+      showReplayStatus()
+      sfx('move')
+    }
+
+    const replayStep = (dir: 1 | -1) => {
+      if (!replayGame) return
+      stopReplayTimer()
+      if (dir === 1) replayForward()
+      else replayJump(replayIdx - 1)
+    }
+
+    const replayToggle = () => {
+      if (replayTimer) {
+        stopReplayTimer()
+        return
+      }
+      if (!replayGame) return
+      if (replayIdx >= replayGame.moves.length) replayJump(0)
+      setReplayPlaying(true)
+      replayTimer = setInterval(() => {
+        if (!replayForward()) stopReplayTimer()
+      }, 1700)
+    }
+
+    const loadReplay = (id: string) => {
+      const g = GAMES.find((x) => x.id === id) ?? GAMES[0]
+      stopReplayTimer()
+      currentMode = 'replay'
+      game = new Chess()
+      gameOver = false
+      selected = null
+      legalTargets = []
+      clearMarkers()
+      clearHighlights()
+      replayGame = g
+      replayIdx = 0
+      rebuildBoard()
+      showReplayStatus()
+    }
+
     const setMode = (m: Mode) => {
       currentMode = m
       game = new Chess()
@@ -474,9 +583,11 @@ export default function World3DPro() {
         goPreset('white')
         setPreset('white')
       } else {
+        stopReplayTimer()
         setStatus('')
-        goPreset('classic')
-        setPreset('classic')
+        goPreset(m === 'replay' ? 'cinematic' : 'classic')
+        setPreset(m === 'replay' ? 'cinematic' : 'classic')
+        if (m === 'replay') loadReplay(replayGame?.id ?? GAMES[0].id)
       }
     }
 
@@ -489,7 +600,7 @@ export default function World3DPro() {
       currentLevel = LEVELS.find((l) => l.id === id) ?? LEVELS[1]
     }
 
-    apiRef.current = { applyTheme, goPreset, setMode, resetGame, setLevel: setLevelApi }
+    apiRef.current = { applyTheme, goPreset, setMode, resetGame, setLevel: setLevelApi, loadReplay, replayStep, replayToggle, replayJump }
 
     // خطاف اختبار آلي (مش ظاهر في الواجهة)
     ;(window as unknown as { __w3d?: unknown }).__w3d = {
@@ -574,6 +685,7 @@ export default function World3DPro() {
       renderer.dispose()
       if (renderer.domElement.parentElement === mount) mount.removeChild(renderer.domElement)
       apiRef.current = null
+      if (replayTimer) clearInterval(replayTimer)
       ;(window as unknown as { __w3d?: unknown }).__w3d = undefined
     }
   }, [])
@@ -614,6 +726,14 @@ export default function World3DPro() {
           >
             العب ضد المحرك
           </button>
+          <button
+            type="button"
+            onClick={() => switchMode('replay')}
+            aria-pressed={mode === 'replay'}
+            className={`rounded-lg px-4 py-2 text-sm font-bold transition ${mode === 'replay' ? 'bg-gold text-black' : 'text-muted hover:text-ink'}`}
+          >
+            مباريات خالدة
+          </button>
         </div>
         {mode === 'play' && (
           <>
@@ -637,6 +757,55 @@ export default function World3DPro() {
             >
               دور جديد
             </button>
+          </>
+        )}
+        {mode === 'replay' && (
+          <>
+            <select
+              value={replayId}
+              onChange={(e) => {
+                setReplayId(e.target.value)
+                apiRef.current?.loadReplay(e.target.value)
+              }}
+              aria-label="اختار المباراة"
+              className="max-w-full rounded-xl border border-line bg-surface px-3 py-2 text-sm font-bold text-ink"
+            >
+              {GAMES.map((g) => (
+                <option key={g.id} value={g.id}>
+                  {g.name} ({g.year})
+                </option>
+              ))}
+            </select>
+            <div className="flex gap-1 rounded-xl border border-line bg-surface p-1">
+              <button type="button" onClick={() => apiRef.current?.replayJump(0)} aria-label="الأول" className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
+                <Icon name="first" className="h-4 w-4" />
+              </button>
+              <button type="button" onClick={() => apiRef.current?.replayStep(-1)} aria-label="اللي قبلها" className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
+                <Icon name="prev" className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => apiRef.current?.replayToggle()}
+                aria-label={replayPlaying ? 'وقفة' : 'شغّل'}
+                className={`rounded-lg px-4 py-2 text-sm font-bold transition ${replayPlaying ? 'bg-gold text-black' : 'text-muted hover:text-ink'}`}
+              >
+                {replayPlaying ? 'وقفة' : 'شغّل'}
+              </button>
+              <button type="button" onClick={() => apiRef.current?.replayStep(1)} aria-label="اللي بعدها" className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
+                <Icon name="next" className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => apiRef.current?.replayJump(GAMES.find((g) => g.id === replayId)?.moves.length ?? 0)}
+                aria-label="الآخر"
+                className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink"
+              >
+                <Icon name="last" className="h-4 w-4" />
+              </button>
+            </div>
+            <span className="ltr self-center text-sm text-muted">
+              {replayPos}/{GAMES.find((g) => g.id === replayId)?.moves.length ?? 0}
+            </span>
           </>
         )}
       </div>
