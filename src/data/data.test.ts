@@ -5,6 +5,7 @@ import { TRAPS } from './traps'
 import { PUZZLES } from './puzzles'
 import { ARTICLES, CATEGORIES, TERMS } from './encyclopedia'
 import { OPENINGS } from './openings'
+import { GAMES } from './games'
 
 const START = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 const UCI = /^[a-h][1-8][a-h][1-8][qrbn]?$/
@@ -89,6 +90,21 @@ describe('openings', () => {
       }
       expect(o.planW.trim().length).toBeGreaterThan(0)
       expect(o.planB.trim().length).toBeGreaterThan(0)
+    })
+})
+
+describe('games', () => {
+  it('have unique ids', () => uniq(GAMES.map((g) => g.id)))
+  for (const g of GAMES)
+    it(`${g.id}: line is legal and notes are in range`, () => {
+      const c = playSan(START, g.moves)
+      if (g.result !== '1/2-1/2' && g.moves[g.moves.length - 1].endsWith('#'))
+        expect(c.isCheckmate(), g.id).toBe(true)
+      for (const k of Object.keys(g.notes)) {
+        const i = Number(k)
+        expect(i).toBeGreaterThanOrEqual(0)
+        expect(i).toBeLessThan(g.moves.length)
+      }
     })
 })
 
