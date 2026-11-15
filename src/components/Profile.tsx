@@ -140,7 +140,7 @@ export default function Profile() {
               <li key={b.id} className={`flex items-center gap-2 rounded-xl border p-2 ${w ? 'border-emerald/40 bg-emerald/5' : 'border-line bg-surface'}`}>
                 <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-xs font-bold text-[#1a1408]" aria-hidden>{b.initials}</span>
                 <span className="min-w-0">
-                  <span className="block truncate text-sm font-bold">{b.name}</span>
+                  <span className="block truncate text-sm font-bold"><bdi className="ltr">{b.name}</bdi></span>
                   <span className="text-xs text-muted">{w ? `كسبته ${w} مرة` : 'لسه'}</span>
                 </span>
               </li>
