@@ -20,10 +20,10 @@ export default function RankChip() {
       aria-label={`مستواك: ${r.name}، ${xp} نقطة${streak ? `، ${streak} يوم ورا بعض` : ''}`}
       className="flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold-soft px-2.5 py-1 text-xs font-bold text-gold transition hover:border-gold"
     >
-      <span className="text-base leading-none" aria-hidden>{r.icon}</span>
-      <span className="ltr">{xp}</span>
+      <span className="shrink-0 text-base leading-none" aria-hidden>{r.icon}</span>
+      <span className="ltr shrink-0">{xp}</span>
       {streak > 0 && (
-        <span className="ltr flex items-center gap-0.5 text-[#f39c4a]" aria-hidden>
+        <span className="ltr flex shrink-0 items-center gap-0.5 whitespace-nowrap text-[#f39c4a]" aria-hidden>
           🔥{streak}
         </span>
       )}
