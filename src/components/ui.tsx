@@ -55,7 +55,7 @@ export function PageHeader({ kicker, title, desc, children }: { kicker?: string;
   return (
     <header className="animate-fade-up mb-8">
       {kicker && <p className="mb-2 text-sm font-bold tracking-wide text-gold">{kicker}</p>}
-      <h1 className="font-display text-3xl leading-tight font-bold sm:text-4xl">{title}</h1>
+      <h1 className="font-display text-3xl leading-[1.4] font-bold sm:text-4xl">{title}</h1>
       {desc && <p className="mt-3 max-w-2xl text-muted">{desc}</p>}
       {children}
     </header>
