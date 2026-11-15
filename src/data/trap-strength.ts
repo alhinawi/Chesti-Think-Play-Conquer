@@ -175,5 +175,10 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
     "mate": false,
     "material": 16,
     "plies": 5
+  },
+  "magnus-smith-trap": {
+    "mate": false,
+    "material": 14,
+    "plies": 3
   }
 }
