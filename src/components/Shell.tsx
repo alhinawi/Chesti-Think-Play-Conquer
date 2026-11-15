@@ -201,6 +201,7 @@ export default function Shell({ children }: { children: ReactNode }) {
             <Link href="/me" className="hover:text-ink">{t('footer.me')}</Link>
             <Link href="/glossary" className="hover:text-ink">{t('footer.glossary')}</Link>
             <Link href="/settings" className="hover:text-ink">{t('footer.settings')}</Link>
+            <Link href="/credits" className="hover:text-ink">{t('footer.credits')}</Link>
             <span>{t('footer.engine')}</span>
           </nav>
         </div>

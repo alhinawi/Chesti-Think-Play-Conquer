@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/endgames', 0.8),
     u('/encyclopedia', 0.9),
     u('/glossary', 0.7),
+    u('/credits', 0.3),
     u('/daily', 0.8),
     u('/world3d', 0.8),
     u('/play', 0.8),

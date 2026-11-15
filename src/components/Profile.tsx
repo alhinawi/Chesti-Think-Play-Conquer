@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Badge, Icon } from './ui'
 import { BOTS } from '../data/bots'
+import { BotAvatar } from './BotAvatar'
 import { ALL_LESSONS, CHAPTERS } from '../data/lessons'
 import { PUZZLES } from '../data/puzzles'
 import { TRAPS } from '../data/traps'
@@ -138,7 +139,7 @@ export default function Profile() {
             const w = p.wins?.[b.id] || 0
             return (
               <li key={b.id} className={`flex items-center gap-2 rounded-xl border p-2 ${w ? 'border-emerald/40 bg-emerald/5' : 'border-line bg-surface'}`}>
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-xs font-bold text-[#1a1408]" aria-hidden>{b.initials}</span>
+                <BotAvatar bot={b} />
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-bold"><bdi className="ltr">{b.name}</bdi></span>
                   <span className="text-xs text-muted">{w ? `كسبته ${w} مرة` : 'لسه'}</span>

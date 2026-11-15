@@ -4,8 +4,10 @@ export interface Bot {
   level: number
   id: string
   name: string
-  /** two letters for the avatar */
+  /** two letters for the avatar (fallback when no photo) */
   initials: string
+  /** locally hosted, freely licensed portrait (see /credits) */
+  photo?: string
   tagline: string
   greet: string
   /** the bot won */
@@ -20,6 +22,7 @@ export const BOTS: Bot[] = [
   {
     level: 1,
     id: 'lasker',
+    photo: '/bots/lasker.jpg',
     name: 'Emanuel Lasker',
     initials: 'La',
     tagline: 'بطل العالم الأطول حكمًا في التاريخ. فيلسوف اللعبة، بيكسبك بهدوء.',
@@ -31,6 +34,7 @@ export const BOTS: Bot[] = [
   {
     level: 2,
     id: 'capablanca',
+    photo: '/bots/capablanca.jpg',
     name: 'Capablanca',
     initials: 'Ca',
     tagline: 'العبقري الكوبي. بيلعب بفطرة، وكأن القطع بتمشي لوحدها.',
@@ -42,6 +46,7 @@ export const BOTS: Bot[] = [
   {
     level: 3,
     id: 'botvinnik',
+    photo: '/bots/botvinnik.jpg',
     name: 'Botvinnik',
     initials: 'Bo',
     tagline: 'أبو المدرسة السوفيتية. كل نقلة عنده ليها سبب علمي محسوب.',
@@ -53,6 +58,7 @@ export const BOTS: Bot[] = [
   {
     level: 4,
     id: 'polgar',
+    photo: '/bots/polgar.jpg',
     name: 'Judit Polgar',
     initials: 'Po',
     tagline: 'أقوى لاعبة في التاريخ. بتهجم من أول نقلة ومبترحمش حد.',
@@ -64,6 +70,7 @@ export const BOTS: Bot[] = [
   {
     level: 5,
     id: 'fischer',
+    photo: '/bots/fischer.jpg',
     name: 'Bobby Fischer',
     initials: 'Fi',
     tagline: 'عبقري أمريكا. دقة مرعبة، ومبيسيبش أصغر غلطة تعدي.',
@@ -75,6 +82,7 @@ export const BOTS: Bot[] = [
   {
     level: 6,
     id: 'kasparov',
+    photo: '/bots/kasparov.jpg',
     name: 'Kasparov',
     initials: 'Ka',
     tagline: 'أسطورة روسيا. طاقة نار وهجوم مش بيقف من أول نقلة.',
@@ -86,6 +94,7 @@ export const BOTS: Bot[] = [
   {
     level: 7,
     id: 'nakamura',
+    photo: '/bots/nakamura.jpg',
     name: 'Hikaru',
     initials: 'Hi',
     tagline: 'ملك البليتز والسرعة. بيلعب أسرع من ما تفكر.',
@@ -97,6 +106,7 @@ export const BOTS: Bot[] = [
   {
     level: 8,
     id: 'carlsen',
+    photo: '/bots/carlsen.jpg',
     name: 'Magnus Carlsen',
     initials: 'Ma',
     tagline: 'أعلى تقييم في تاريخ اللعبة. النهايات عنده فن لوحده.',
