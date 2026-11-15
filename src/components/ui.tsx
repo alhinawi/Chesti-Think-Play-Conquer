@@ -113,6 +113,7 @@ export function Icon({ name, className = 'h-5 w-5' }: { name: string; className?
       </g>
     ),
     x: <path {...p} d="M18 6L6 18M6 6l12 12" />,
+    menu: <path {...p} d="M3 6h18M3 12h18M3 18h18" />,
     copy: (
       <g {...p}>
         <rect x="9" y="9" width="13" height="13" rx="2" />
