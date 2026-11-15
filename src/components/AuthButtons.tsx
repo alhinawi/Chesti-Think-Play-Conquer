@@ -55,7 +55,7 @@ function AvatarMenu({ user, variant }: { user: { name: string; email: string; av
           aria-haspopup="menu"
           aria-label={user.name}
           title={user.name}
-          className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full transition hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
         >
           <AvatarImg user={user} size="sm" />
         </button>
@@ -77,7 +77,7 @@ function AvatarMenu({ user, variant }: { user: { name: string; email: string; av
         <div
           role="menu"
           aria-label={user.name}
-          className="luxe-card animate-fade-up absolute end-0 z-50 mt-2 w-64 overflow-hidden rounded-2xl py-1.5"
+          className={`luxe-card animate-fade-up absolute z-50 mt-2 overflow-hidden rounded-2xl py-1.5 ${variant === 'block' ? 'start-0 w-full' : 'end-0 w-64'}`}
         >
           <div className="flex items-center gap-3 border-b border-line px-4 py-3">
             <AvatarImg user={user} size="md" />
