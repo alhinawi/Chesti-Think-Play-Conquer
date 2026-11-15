@@ -1,10 +1,13 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { signOut, useAuth } from '../lib/auth'
 import AuthForm from './AuthForm'
 import { Button } from './ui'
 
 export default function Account() {
+  const params = useSearchParams()
+  const mode = params.get('mode') === 'login' ? 'login' : 'register'
   const { status, user } = useAuth()
 
   if (status === 'loading') return null
@@ -31,9 +34,9 @@ export default function Account() {
 
   return (
     <section className="luxe-card rounded-2xl border border-gold/30 p-5" aria-labelledby="acc-h">
-      <h2 id="acc-h" className="font-display text-xl font-bold">اعمل حساب</h2>
+      <h2 id="acc-h" className="font-display text-xl font-bold">{mode === 'login' ? 'ادخل لحسابك' : 'اعمل حساب'}</h2>
       <p className="mt-1 text-sm text-muted">بحساب تقدر تسجّل أدوارك وتدخل سباق المتصدرين من أي جهاز. مجاني طبعًا.</p>
-      <AuthForm />
+      <AuthForm initialMode={mode} />
     </section>
   )
 }

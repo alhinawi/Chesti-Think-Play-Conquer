@@ -3,6 +3,10 @@ import type { Catalog } from './eg'
 // العربية الفصحى
 const msa: Catalog = {
   skip: 'انتقل إلى المحتوى',
+  auth: {
+    login: 'تسجيل الدخول',
+    register: 'إنشاء حساب',
+  },
   aria: {
     themeToLight: 'الوضع الفاتح',
     themeToDark: 'الوضع الداكن',
@@ -20,7 +24,7 @@ const msa: Catalog = {
     engine: 'المحرك: Stockfish 19',
   },
   home: {
-    badge: 'مجاني • بدون تسجيل • بالعربية',
+    badge: 'مجاني • بالعربية',
     titleA: 'تعلَّم',
     titleHighlight: 'الشطرنج',
     titleB: 'وكأنَّ مدرِّبًا يجلس بجانبك ويشرح لك',

@@ -2,6 +2,10 @@ import type { Catalog } from './eg'
 
 const tr: Catalog = {
   skip: 'İçeriğe geç',
+  auth: {
+    login: 'Giriş',
+    register: 'Kaydol',
+  },
   nav: {
     home: 'Ana sayfa',
     learn: 'Dersler',
@@ -30,7 +34,7 @@ const tr: Catalog = {
     engine: 'Motor: Stockfish 19',
   },
   home: {
-    badge: 'Ücretsiz • Kayıt yok • Sade Arapça',
+    badge: 'Ücretsiz • Sade Arapça',
     titleA: 'Satranç',
     titleHighlight: 'öğren',
     titleB: 'yanında oturan bir arkadaşın anlatıyormuş gibi',
