@@ -14,6 +14,7 @@ import { ARTICLES } from '../data/encyclopedia'
 import { WORLD3D_POSITIONS } from '../data/world3d'
 import { SITE } from '../lib/site'
 import { BOTS } from '../data/bots'
+import { BotAvatar } from '../components/BotAvatar'
 import { COACH } from '../lib/coach'
 import { RANKS } from '../lib/rank'
 import { useI18n } from '../lib/i18n'
@@ -122,7 +123,7 @@ export default function Home() {
             <li key={b.id} className="w-56 shrink-0 snap-start sm:w-auto">
               <Link href="/play/computer" className="luxe-card group flex h-full flex-col rounded-2xl p-4 transition hover:-translate-y-0.5 hover:border-gold/50">
                 <span className="flex items-center gap-2">
-                  <span className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-sm font-bold text-[#1a1408] transition group-hover:scale-105" aria-hidden>{b.initials}</span>
+                  <span className="transition group-hover:scale-105"><BotAvatar bot={b} className="h-11 w-11 text-sm" /></span>
                   <span>
                     <span className="block font-bold group-hover:text-gold">{b.name}</span>
                     <span className="text-xs text-muted">{t('home.level')} <bdi className="ltr">{b.level}</bdi></span>

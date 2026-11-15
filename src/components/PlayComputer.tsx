@@ -10,6 +10,7 @@ import { Engine, LEVELS } from '../lib/engine'
 import { formatEval, pickComputerMove, playUci } from '../lib/game'
 import { play } from '../lib/sound'
 import { botForLevel } from '../data/bots'
+import { BotAvatar } from './BotAvatar'
 import { COACH, coachLine } from '../lib/coach'
 import { recordGame } from '../lib/progress'
 import { saveGame } from '../lib/api'
@@ -246,7 +247,7 @@ export default function PlayComputer() {
               className={`rounded-2xl border p-3 text-start transition ${s.level === l.id ? 'border-gold bg-gold-soft shadow-[0_0_0_1px_var(--gold)]' : 'border-line bg-surface hover:border-gold/50'}`}
             >
               <span className="flex items-center gap-2">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-xs font-bold text-[#1a1408]" aria-hidden>{botForLevel(l.id).initials}</span>
+                <BotAvatar bot={botForLevel(l.id)} />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-bold"><bdi className="ltr">{botForLevel(l.id).name}</bdi></span>
                   <span className="text-xs text-muted">{l.name} <bdi className="ltr">{l.id}/8</bdi></span>
@@ -308,6 +309,7 @@ export default function PlayComputer() {
         fen={fen}
         color={c}
         initials={bot.initials}
+        photo={bot.photo}
         name={bot.name}
         active={thinking && turn !== s.color}
         sub={thinking && turn !== s.color ? <span>بيفكر…</span> : null}
@@ -380,7 +382,7 @@ export default function PlayComputer() {
           <div className="flex flex-col gap-2">
             {botSays && (
               <p key={`b-${botSays}`} className="animate-bubble flex items-start gap-2 text-sm">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-[0.65rem] font-bold text-[#1a1408]" aria-hidden>{bot.initials}</span>
+                <BotAvatar bot={bot} className="h-8 w-8 text-[0.65rem]" />
                 <span className="rounded-2xl rounded-ss-sm border border-line bg-surface px-3 py-2"><strong className="me-1 text-gold"><bdi className="ltr">{bot.name}</bdi>:</strong>{botSays}</span>
               </p>
             )}

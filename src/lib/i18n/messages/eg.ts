@@ -31,6 +31,7 @@ const eg = {
     me: 'ملفي',
     glossary: 'قاموس المصطلحات',
     settings: 'الإعدادات',
+    credits: 'حقوق الصور',
     engine: 'المحرك: Stockfish 19',
   },
   home: {
