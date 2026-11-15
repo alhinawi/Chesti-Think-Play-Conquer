@@ -3,12 +3,16 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { PUZZLES, PUZZLE_THEMES } from '../data/puzzles'
+import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 import { Badge, Icon } from './ui'
 import { MiniBoard } from './MiniBoard'
 
 export default function PuzzleList() {
-  const { puzzles: solved } = useProgress()
+  const { puzzles: solvedAll } = useProgress()
+  const { status } = useAuth()
+  const authed = status === 'authed'
+  const solved = authed ? solvedAll : []
   const [theme, setTheme] = useState<string>('all')
   const list = theme === 'all' ? PUZZLES : PUZZLES.filter((p) => p.theme === theme)
   const next = PUZZLES.find((p) => !solved.includes(p.id))
@@ -28,7 +32,7 @@ export default function PuzzleList() {
             </button>
           ))}
         </div>
-        <p className="text-sm text-muted">حليت {solved.length} من {PUZZLES.length}</p>
+        <p className="text-sm text-muted">{authed ? <>حليت {solved.length} من {PUZZLES.length}</> : <>{PUZZLES.length} لغز بمستويات مختلفة</>}</p>
       </div>
       {next && (
         <Link href={`/puzzles/${next.id}`} className="mb-5 inline-flex items-center gap-2 font-bold text-gold hover:underline">
