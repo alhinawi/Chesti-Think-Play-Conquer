@@ -21,7 +21,7 @@ function AvatarImg({ user, size }: { user: { name: string; avatar?: string | nul
 }
 
 /** Avatar dropdown: name + email, link to the account page, sign out. */
-function AvatarMenu({ user, variant }: { user: { name: string; email: string; avatar?: string | null }; variant: 'header' | 'block' }) {
+function AvatarMenu({ user, variant }: { user: { name: string; email: string; avatar?: string | null; admin?: boolean }; variant: 'header' | 'block' }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const path = usePathname()
@@ -94,6 +94,16 @@ function AvatarMenu({ user, variant }: { user: { name: string; email: string; av
             <Icon name="user" className="h-4.5 w-4.5 shrink-0 text-gold" />
             حسابي
           </Link>
+          {user.admin && (
+            <Link
+              href="/admin"
+              role="menuitem"
+              className="flex min-h-11 items-center gap-3 px-4 py-2.5 text-sm font-bold transition hover:bg-surface-2 focus-visible:bg-surface-2 focus-visible:outline-none"
+            >
+              <Icon name="shield" className="h-4.5 w-4.5 shrink-0 text-gold" />
+              لوحة التحكم
+            </Link>
+          )}
           <button
             type="button"
             role="menuitem"
