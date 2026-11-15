@@ -87,7 +87,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         aria-label="الأقسام"
         className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
       >
-        <ul className="grid grid-cols-8">
+        <ul className="grid grid-cols-9">
           {NAV.map((n) => {
             const on = isActive(path, n.href)
             return (

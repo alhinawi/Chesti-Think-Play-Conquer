@@ -1,5 +1,6 @@
 import type { Trap } from './types'
 import { TRAPS2 } from './ch-traps2'
+import { TRAPS3 } from './ch-traps3'
 
 // Every line here is checked move by move by src/data/data.test.ts.
 export const TRAPS: Trap[] = [
@@ -512,5 +513,6 @@ export const TRAPS: Trap[] = [
 ]
 
 TRAPS.push(...TRAPS2)
+TRAPS.push(...TRAPS3)
 
 export const TRAP_LEVELS = ['سهل', 'متوسط', 'متقدم'] as const
