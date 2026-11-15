@@ -80,6 +80,17 @@ export async function signUp(name: string, email: string, password: string) {
   afterSignIn(await api.register(name, email, password))
 }
 
+/** re-pull the account from the server (e.g. after changing name/photo) */
+export async function refreshUser() {
+  if (!api.getToken()) return
+  try {
+    const d = await api.me()
+    set({ status: 'authed', user: d.user })
+  } catch {
+    // keep the current state on network errors
+  }
+}
+
 export async function signOut() {
   await api.logout()
   set({ status: 'anon', user: null })

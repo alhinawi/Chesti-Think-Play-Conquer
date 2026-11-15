@@ -80,6 +80,25 @@ describe('auth', () => {
     expect(((await res.json()) as { user: { name: string } }).user.name).toBe('New Name')
   })
 
+  it('sets, returns and removes the profile photo', async () => {
+    const u = await signup()
+    const avatar = 'data:image/jpeg;base64,/9j/4AAQSkZJRg=='
+    const set = await call('/api/me', { method: 'PATCH', token: u.token, body: { avatar } })
+    expect(set.status).toBe(200)
+    expect(((await set.json()) as { user: { avatar: string } }).user.avatar).toBe(avatar)
+    const me = await call('/api/me', { token: u.token })
+    expect(((await me.json()) as { user: { avatar: string } }).user.avatar).toBe(avatar)
+    const cleared = await call('/api/me', { method: 'PATCH', token: u.token, body: { avatar: null } })
+    expect(((await cleared.json()) as { user: { avatar: string | null } }).user.avatar).toBe(null)
+  })
+
+  it('rejects bad profile photos', async () => {
+    const u = await signup()
+    expect((await call('/api/me', { method: 'PATCH', token: u.token, body: { avatar: 'https://evil.example/x.png' } })).status).toBe(422)
+    expect((await call('/api/me', { method: 'PATCH', token: u.token, body: { avatar: 'data:text/html;base64,PHNjcmlwdA==' } })).status).toBe(422)
+    expect((await call('/api/me', { method: 'PATCH', token: u.token, body: { avatar: `data:image/png;base64,${'A'.repeat(200_001)}` } })).status).toBe(422)
+  })
+
   it('answers malformed JSON with 422, not 500', async () => {
     const res = await app.request('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{oops' }, env)
     expect(res.status).toBe(422)
