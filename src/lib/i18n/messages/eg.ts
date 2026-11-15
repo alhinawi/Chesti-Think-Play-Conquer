@@ -7,6 +7,7 @@ const eg = {
     puzzles: 'ألغاز',
     traps: 'الفخاخ',
     openings: 'افتتاحيات',
+    matches: 'ماتشات',
     encyclopedia: 'الموسوعة',
     world3d: 'عالم 3D',
     play: 'العب',

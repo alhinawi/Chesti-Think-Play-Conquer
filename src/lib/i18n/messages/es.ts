@@ -8,6 +8,7 @@ const es: Catalog = {
     puzzles: 'Puzles',
     traps: 'Trampas',
     openings: 'Aperturas',
+    matches: 'Partidas',
     encyclopedia: 'Enciclopedia',
     world3d: 'Mundo 3D',
     play: 'Jugar',
