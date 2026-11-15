@@ -56,7 +56,7 @@ export default function TrapsList() {
 
   return (
     <>
-      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={TRAPS.length}>
+      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={TRAPS.length} active={[side, level, prog, opening, len].filter((v) => v !== 'all').length}>
         <ChipRow label="بينصبه" options={SIDE_OPTS} value={side} onChange={setSide} />
         <ChipRow label="المستوى" options={LEVEL_OPTS} value={level} onChange={setLevel} />
         <ChipRow label="التقدم" options={PROGRESS_OPTS} value={prog} onChange={setProg} />
