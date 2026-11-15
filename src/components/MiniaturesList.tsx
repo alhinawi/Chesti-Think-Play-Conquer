@@ -56,7 +56,7 @@ export default function MiniaturesList() {
 
   return (
     <>
-      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={MINIATURES.length}>
+      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={MINIATURES.length} active={[winner, level, prog, mate, opening].filter((v) => v !== 'all').length}>
         <ChipRow label="الفائز" options={WINNER_OPTS} value={winner} onChange={setWinner} />
         <ChipRow label="المستوى" options={LEVEL_OPTS} value={level} onChange={setLevel} />
         <ChipRow label="التقدم" options={PROGRESS_OPTS} value={prog} onChange={setProg} />
