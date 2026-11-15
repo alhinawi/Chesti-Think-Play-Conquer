@@ -180,5 +180,20 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
     "mate": false,
     "material": 14,
     "plies": 3
+  },
+  "petrov-trap": {
+    "mate": false,
+    "material": 10,
+    "plies": 3
+  },
+  "greco-trap": {
+    "mate": false,
+    "material": 20,
+    "plies": 13
+  },
+  "wayward-queen-trap": {
+    "mate": false,
+    "material": 12,
+    "plies": 13
   }
 }
