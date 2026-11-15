@@ -104,7 +104,7 @@ function Logo() {
 
 export default function Shell({ children }: { children: ReactNode }) {
   const path = usePathname() || '/'
-  const { t } = useI18n()
+  const { t, dir } = useI18n()
   const [open, setOpen] = useState(false)
 
   // close the drawer on navigation and on Escape
@@ -191,7 +191,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      <main id="main" dir="rtl" className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-12 md:ps-72 md:pe-8">
+      <main id="main" dir="rtl" className={`mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-12 ${dir === 'ltr' ? 'md:pl-72 md:pr-8' : 'md:pr-72 md:pl-8'}`}>
         {children}
       </main>
 
