@@ -248,7 +248,7 @@ export default function PlayComputer() {
               <span className="flex items-center gap-2">
                 <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-xs font-bold text-[#1a1408]" aria-hidden>{botForLevel(l.id).initials}</span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-bold">{botForLevel(l.id).name}</span>
+                  <span className="block truncate text-sm font-bold"><bdi className="ltr">{botForLevel(l.id).name}</bdi></span>
                   <span className="text-xs text-muted">{l.name} <bdi className="ltr">{l.id}/8</bdi></span>
                 </span>
               </span>
@@ -381,7 +381,7 @@ export default function PlayComputer() {
             {botSays && (
               <p key={`b-${botSays}`} className="animate-bubble flex items-start gap-2 text-sm">
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-[0.65rem] font-bold text-[#1a1408]" aria-hidden>{bot.initials}</span>
-                <span className="rounded-2xl rounded-ss-sm border border-line bg-surface px-3 py-2"><strong className="me-1 text-gold">{bot.name}:</strong>{botSays}</span>
+                <span className="rounded-2xl rounded-ss-sm border border-line bg-surface px-3 py-2"><strong className="me-1 text-gold"><bdi className="ltr">{bot.name}</bdi>:</strong>{botSays}</span>
               </p>
             )}
             {coach && (
