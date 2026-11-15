@@ -1,6 +1,6 @@
 'use client'
 
-import { setSoundEnabled } from './sound'
+import { setSoundEnabled, setSoundPack, setSoundVolume, type SoundPackId } from './sound'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 
 export type BoardThemeId = 'walnut' | 'emerald' | 'onyx' | 'marble' | 'ocean'
@@ -25,10 +25,14 @@ export interface Settings {
   theme: 'dark' | 'light'
   board: BoardThemeId
   sound: boolean
+  /** حزمة أصوات القطع */
+  soundPack: SoundPackId
+  /** درجة الصوت 0-100 */
+  soundVolume: number
   coords: boolean
   legalDots: boolean
   animations: boolean
-  /** settings format; 2 = gray marble became the default board */
+  /** settings format; 3 = sound packs + volume */
   v?: number
 }
 
@@ -36,10 +40,12 @@ const DEFAULTS: Settings = {
   theme: 'dark',
   board: 'marble',
   sound: true,
+  soundPack: 'wood',
+  soundVolume: 80,
   coords: true,
   legalDots: true,
   animations: true,
-  v: 2,
+  v: 3,
 }
 
 export const SETTINGS_KEY = 'chesti-settings'
@@ -50,7 +56,7 @@ function load(): Settings {
     const saved = JSON.parse(localStorage.getItem(KEY) || '{}') as Partial<Settings>
     // Before v2 every visit saved the old default (walnut) as if it had been chosen: move those to the new default.
     if (!saved.v && saved.board === 'walnut') delete saved.board
-    return { ...DEFAULTS, ...saved, v: 2 }
+    return { ...DEFAULTS, ...saved, v: 3 }
   } catch {
     return DEFAULTS
   }
@@ -81,6 +87,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     if (!ready) return
     localStorage.setItem(KEY, JSON.stringify(settings))
     setSoundEnabled(settings.sound)
+    setSoundPack(settings.soundPack)
+    setSoundVolume(settings.soundVolume / 100)
     const root = document.documentElement
     root.classList.toggle('dark', settings.theme === 'dark')
     document.querySelector('meta[name=theme-color]')?.setAttribute('content', settings.theme === 'dark' ? '#0e0d0b' : '#f6f1e7')
