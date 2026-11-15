@@ -20,6 +20,7 @@ const NAV_KEYS: Record<string, string> = {
   '/learn': 'learn',
   '/puzzles': 'puzzles',
   '/traps': 'traps',
+  '/matches': 'matches',
   '/openings': 'openings',
   '/encyclopedia': 'encyclopedia',
   '/world3d': 'world3d',

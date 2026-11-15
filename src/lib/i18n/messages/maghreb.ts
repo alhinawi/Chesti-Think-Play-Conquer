@@ -9,6 +9,7 @@ const maghreb: Catalog = {
     puzzles: 'ألغاز',
     traps: 'الفخاخ',
     openings: 'افتتاحيات',
+    matches: 'مباريات',
     encyclopedia: 'الموسوعة',
     world3d: 'عالم 3D',
     play: 'لعب',

@@ -8,6 +8,7 @@ const tr: Catalog = {
     puzzles: 'Bulmacalar',
     traps: 'Tuzaklar',
     openings: 'Açılışlar',
+    matches: 'Maçlar',
     encyclopedia: 'Ansiklopedi',
     world3d: '3D Dünya',
     play: 'Oyna',
