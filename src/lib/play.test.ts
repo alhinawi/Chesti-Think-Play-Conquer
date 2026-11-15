@@ -124,8 +124,8 @@ describe('ranks and streaks', () => {
   it('unlocks achievements', () => {
     const t = { lessons: 10, traps: 5, puzzles: 50, openings: 12, endgames: 5 }
     const got = ACHIEVEMENTS.filter((a) => a.test(p, t)).map((a) => a.id)
-    expect(got).toEqual(expect.arrayContaining(['first-lesson', 'first-puzzle', 'first-win', 'beat-metwally'].filter((x) => x !== 'beat-metwally')))
-    expect(got).not.toContain('beat-metwally')
+    expect(got).toEqual(expect.arrayContaining(['first-lesson', 'first-puzzle', 'first-win', 'beat-kasparov'].filter((x) => x !== 'beat-kasparov')))
+    expect(got).not.toContain('beat-kasparov')
   })
 })
 
