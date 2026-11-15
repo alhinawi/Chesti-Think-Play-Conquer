@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useSyncExternalStore } from 'react'
 import * as api from './api'
 import { readProgress, writeProgress, type Progress } from './progress'
 
@@ -99,16 +99,15 @@ function init() {
 }
 
 export function useAuth(): AuthState {
-  const [, tick] = useState(0)
-  useEffect(() => {
-    // subscribe before init(): with no token init settles synchronously,
-    // and a listener attached afterwards would never hear it (stuck on 'loading')
-    const l = () => tick((n) => n + 1)
-    listeners.add(l)
+  // useSyncExternalStore re-reads `state` right after mount: with no token init()
+  // settles synchronously, and consumers mounted after the first emit would
+  // otherwise never hear it and stay stuck on the 'loading' render
+  const subscribe = useCallback((cb: () => void) => {
+    listeners.add(cb)
     init()
     return () => {
-      listeners.delete(l)
+      listeners.delete(cb)
     }
   }, [])
-  return state
+  return useSyncExternalStore(subscribe, () => state, () => state)
 }
