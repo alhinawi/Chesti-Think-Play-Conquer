@@ -3,6 +3,7 @@
 import ChessBoard from './ChessBoard'
 import { Button, Icon } from './ui'
 import { BOARD_THEMES, useSettings, type Settings } from '../lib/settings'
+import { SOUND_PACKS, play } from '../lib/sound'
 import { useProgress } from '../lib/progress'
 import { ALL_LESSONS as LESSONS } from '../data/lessons'
 import { PUZZLES } from '../data/puzzles'
@@ -80,6 +81,48 @@ export default function SettingsPanel() {
           <Toggle k="coords" label="أسماء الخانات" hint="الحروف والأرقام على طرف الرقعة" />
           <Toggle k="legalDots" label="ورّيني القطعة تقدر تروح فين" hint="نقط على الخانات المسموحة لما تختار قطعة" />
           <Toggle k="animations" label="حركة القطع" />
+        </section>
+
+        <section aria-labelledby="s-sounds" className="luxe-card rounded-2xl p-5">
+          <h2 id="s-sounds" className="mb-1 text-lg font-bold">حزمة الصوت</h2>
+          <p className="mb-3 text-sm text-muted">اختار صوت حركة القطع اللي يعجبك - دوس على أي حزمة تسمعها. بتشتغل على الرقعة العادية وعالم 3D.</p>
+          <div role="radiogroup" aria-label="حزمة الصوت" className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {SOUND_PACKS.map((pk) => (
+              <button
+                key={pk.id}
+                type="button"
+                role="radio"
+                aria-checked={settings.soundPack === pk.id}
+                onClick={() => {
+                  update({ soundPack: pk.id, sound: true })
+                  setTimeout(() => {
+                    play('move')
+                    setTimeout(() => play('capture'), 220)
+                  }, 30)
+                }}
+                className={`flex items-center justify-between gap-2 rounded-xl border px-3 py-2.5 text-sm font-bold ${settings.soundPack === pk.id ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:border-gold/50'}`}
+              >
+                {pk.name}
+                <Icon name="sound" className="h-4 w-4" />
+              </button>
+            ))}
+          </div>
+          <label className="mt-4 flex items-center gap-3">
+            <span className="text-sm font-bold">درجة الصوت</span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={settings.soundVolume}
+              aria-label="درجة الصوت"
+              onChange={(e) => update({ soundVolume: Number(e.target.value) })}
+              onMouseUp={() => play('move')}
+              onTouchEnd={() => play('move')}
+              className="w-full accent-[var(--gold)]"
+            />
+            <span className="ltr w-10 text-center text-sm text-muted">{settings.soundVolume}%</span>
+          </label>
         </section>
 
         <section aria-labelledby="s-progress" className="luxe-card rounded-2xl p-5">
