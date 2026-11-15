@@ -2,11 +2,13 @@
 
 import Link from 'next/link'
 import { ALL_LESSONS } from '../data/lessons'
+import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 
 export default function ContinueCard() {
   const { lessons } = useProgress()
-  if (!lessons.length) return null
+  const { status } = useAuth()
+  if (status !== 'authed' || !lessons.length) return null
   const next = ALL_LESSONS.find((l) => !lessons.includes(l.id))
   return (
     <div className="mt-6 rounded-xl border border-gold/30 bg-gold-soft p-4 text-sm">

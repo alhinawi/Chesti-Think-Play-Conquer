@@ -10,14 +10,17 @@ import { PUZZLES } from '../data/puzzles'
 import { TRAPS } from '../data/traps'
 import { OPENINGS } from '../data/openings'
 import { ENDGAMES } from '../data/endgames'
+import { useAuth } from '../lib/auth'
 import { today, useProgress } from '../lib/progress'
 import { ACHIEVEMENTS, bestStreakOf, rankOf, RANKS, streakOf, totalWins, XP, xpOf } from '../lib/rank'
 
 export default function Profile() {
   const p = useProgress()
+  const { status } = useAuth()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-  if (!mounted) return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
+  if (!mounted || status === 'loading') return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
+  if (status !== 'authed') return <GuestProfile />
 
   const xp = xpOf(p)
   const r = rankOf(xp)
@@ -159,13 +162,36 @@ export default function Profile() {
           {RANKS.map((x, i) => (
             <li key={x.name}>
               <Badge tone={i <= r.index ? 'gold' : 'muted'}>
-                {x.icon} {x.name} <bdi className="ltr ms-1 opacity-70">{x.xp}</bdi>
+                <span className="inline-flex items-center gap-1.5">{x.icon} {x.name} <bdi className="ltr opacity-70">{x.xp}</bdi></span>
               </Badge>
             </li>
           ))}
         </ol>
         <p className="mt-3 text-xs text-muted">
-          الدرس {XP.lesson} نقطة، واللغز {XP.puzzle}، والفخ {XP.trap}، ولغز اليوم {XP.daily} زيادة، وكل دور ضد الكمبيوتر {XP.game}، والفوز {XP.win} زيادة. كله متسجل على جهازك.
+          الدرس {XP.lesson} نقطة، واللغز {XP.puzzle}، والفخ {XP.trap}، ولغز اليوم {XP.daily} زيادة، وكل دور ضد الكمبيوتر {XP.game}، والفوز {XP.win} زيادة. كله بيتسجل في حسابك.
+        </p>
+      </section>
+    </div>
+  )
+}
+
+/** Guests see general info only - no personal data without an account. */
+function GuestProfile() {
+  return (
+    <div className="flex flex-col gap-6">
+      <section aria-labelledby="ranks-h" className="luxe-card rounded-2xl p-4">
+        <h2 id="ranks-h" className="mb-2 font-bold">الرتب والنقط</h2>
+        <ol className="flex flex-wrap gap-1.5">
+          {RANKS.map((x) => (
+            <li key={x.name}>
+              <Badge tone={'muted'}>
+                <span className="inline-flex items-center gap-1.5">{x.icon} {x.name} <bdi className="ltr opacity-70">{x.xp}</bdi></span>
+              </Badge>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-3 text-xs text-muted">
+          الدرس {XP.lesson} نقطة، واللغز {XP.puzzle}، والفخ {XP.trap}، ولغز اليوم {XP.daily} زيادة، وكل دور ضد الكمبيوتر {XP.game}، والفوز {XP.win} زيادة. كله بيتسجل في حسابك.
         </p>
       </section>
     </div>

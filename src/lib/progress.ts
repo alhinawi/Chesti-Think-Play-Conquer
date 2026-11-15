@@ -1,5 +1,6 @@
 'use client'
 
+import { getToken } from './api'
 import { useCallback, useEffect, useState } from 'react'
 
 // Local progress (no account needed): lessons finished and puzzles solved.
@@ -45,6 +46,8 @@ function read(): Progress {
 const listeners = new Set<() => void>()
 
 function write(p: Progress) {
+  // guests don't get progress recorded - only signed-in users
+  if (!getToken()) return
   const d = today()
   if (!p.days.includes(d)) p.days = [...p.days, d].slice(-400)
   localStorage.setItem(KEY, JSON.stringify(p))
