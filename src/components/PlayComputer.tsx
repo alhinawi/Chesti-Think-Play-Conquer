@@ -369,7 +369,7 @@ export default function PlayComputer() {
         <div className="flex flex-wrap items-center gap-2">
           <Badge>{level.name}</Badge>
           <Badge tone="muted">بتلعب بـ{s.color === 'w' ? 'الأبيض' : 'الأسود'}</Badge>
-          {game.inCheck() && !over && <Badge tone="danger">كش!</Badge>}
+          {(view ? view.game.inCheck() : game.inCheck()) && !over && <Badge tone="danger">كش!</Badge>}
         </div>
 
         {engineError && (
