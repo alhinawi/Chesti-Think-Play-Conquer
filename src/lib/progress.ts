@@ -54,6 +54,11 @@ export function readProgress(): Progress {
   return read()
 }
 
+/** overwrite local progress (e.g. after a server merge) and notify subscribers */
+export function writeProgress(p: Progress) {
+  write(p)
+}
+
 export function markDone(kind: ListKey, id: string) {
   const p = read()
   if (p[kind].includes(id)) return
