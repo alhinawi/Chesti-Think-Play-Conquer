@@ -12,6 +12,8 @@ const en: Messages = {
     encyclopedia: 'Encyclopedia',
     world3d: '3D World',
     play: 'Play',
+    groupLearn: 'Learn',
+    groupPlay: 'Play & watch',
   },
   aria: {
     themeToLight: 'Light mode',
@@ -20,6 +22,8 @@ const en: Messages = {
     sections: 'Sections',
     footerNav: 'Footer links',
     language: 'Language',
+    menu: 'Menu',
+    closeMenu: 'Close menu',
   },
   footer: {
     tagline: 'Learn chess from scratch, in plain language',
