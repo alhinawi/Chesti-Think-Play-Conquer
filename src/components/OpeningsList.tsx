@@ -51,7 +51,7 @@ export default function OpeningsList() {
 
   return (
     <>
-      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={OPENINGS.length}>
+      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={OPENINGS.length} active={[side, level, prog, type].filter((v) => v !== 'all').length}>
         <ChipRow label="بتلعب" options={COLOR_OPTS} value={side} onChange={setSide} />
         <ChipRow label="المستوى" options={LEVEL_OPTS} value={level} onChange={setLevel} />
         <ChipRow label="النوع" options={TYPE_OPTS} value={type} onChange={setType} />
