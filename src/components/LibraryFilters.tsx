@@ -1,6 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 
 type Opt = { v: string; label: string }
@@ -67,7 +68,8 @@ export const LEVEL_OPTS: Opt[] = [
 /** is this item finished? progress lists get filled when a viewer reaches the last move */
 export function useDone(kind: 'traps' | 'openings' | 'miniatures') {
   const p = useProgress()
-  return (id: string) => (p[kind] ?? []).includes(id)
+  const { status } = useAuth()
+  return (id: string) => status === 'authed' && (p[kind] ?? []).includes(id)
 }
 
 export function matchesProgress(prog: string, done: boolean) {

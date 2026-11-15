@@ -4,12 +4,15 @@ import { useEffect, useState } from 'react'
 import PuzzleSolver from './PuzzleSolver'
 import { Badge } from './ui'
 import { PUZZLES } from '../data/puzzles'
+import { useAuth } from '../lib/auth'
 import { today, useProgress } from '../lib/progress'
 import { dailyIndex, streakOf } from '../lib/rank'
 
 export default function DailyPuzzle() {
   const [date, setDate] = useState<string | null>(null)
   const progress = useProgress()
+  const { status } = useAuth()
+  const authed = status === 'authed'
   useEffect(() => setDate(today()), [])
   if (!date) return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
   const i = dailyIndex(date, PUZZLES.length)
@@ -24,8 +27,8 @@ export default function DailyPuzzle() {
         <Badge tone="muted">{label}</Badge>
         <Badge>{p.theme}</Badge>
         <Badge tone="muted">{p.level}</Badge>
-        {solvedToday && <Badge tone="emerald">اتحل النهارده</Badge>}
-        {streak > 0 && <Badge tone="gold">🔥 {streak} يوم ورا بعض</Badge>}
+        {authed && solvedToday && <Badge tone="emerald">اتحل النهارده</Badge>}
+        {authed && streak > 0 && <Badge tone="gold">🔥 {streak} يوم ورا بعض</Badge>}
       </div>
       <h2 className="mb-4 font-display text-xl font-bold">{p.name}</h2>
       <PuzzleSolver key={p.id} puzzleId={p.id} nextId={next.id} daily={date} />

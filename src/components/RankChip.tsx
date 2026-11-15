@@ -2,15 +2,17 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { useAuth } from '../lib/auth'
 import { today, useProgress } from '../lib/progress'
 import { rankOf, streakOf, xpOf } from '../lib/rank'
 
 /** Small rank + streak pill in the header; links to the profile. */
 export default function RankChip() {
   const p = useProgress()
+  const { status } = useAuth()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-  if (!mounted) return <span className="h-8 w-20" aria-hidden />
+  if (!mounted || status !== 'authed') return <span className="h-8 w-20" aria-hidden />
   const xp = xpOf(p)
   const r = rankOf(xp)
   const streak = streakOf(p.days, today())
