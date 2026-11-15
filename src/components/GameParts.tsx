@@ -58,6 +58,42 @@ export function PlayerBar({
   )
 }
 
+
+/** chess.com-style history navigation: first / back / forward / latest. ply = viewed ply, total = played plies. */
+export function HistoryNav({ ply, total, onJump }: { ply: number; total: number; onJump: (ply: number) => void }) {
+  const cls = 'px-0'
+  return (
+    <div className="grid grid-cols-4 gap-2" role="group" aria-label="تصفّح نقلات الدور">
+      <Button variant="soft" className={cls} onClick={() => onJump(0)} disabled={ply === 0} aria-label="أول نقلة">
+        <Icon name="first" />
+      </Button>
+      <Button variant="soft" className={cls} onClick={() => onJump(ply - 1)} disabled={ply === 0} aria-label="النقلة اللي قبلها">
+        <Icon name="prev" />
+      </Button>
+      <Button variant="soft" className={cls} onClick={() => onJump(ply + 1)} disabled={ply >= total} aria-label="النقلة اللي بعدها">
+        <Icon name="next" />
+      </Button>
+      <Button variant="soft" className={cls} onClick={() => onJump(total)} disabled={ply >= total} aria-label="آخر نقلة">
+        <Icon name="last" />
+      </Button>
+    </div>
+  )
+}
+
+/** Banner shown while reviewing an old position: the board is locked until back at the latest move. */
+export function ReviewBanner({ ply, total, onLatest }: { ply: number; total: number; onLatest: () => void }) {
+  return (
+    <p className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-gold/40 bg-gold-soft px-3 py-2 text-sm" role="status">
+      <span>
+        بتشوف نقلة قديمة (<bdi className="font-bold">{ply} من {total}</bdi>) — ومش هتقدر تلعب غير لما ترجع لآخر نقلة.
+      </span>
+      <Button variant="outline" className="px-3 py-1.5" onClick={onLatest}>
+        <Icon name="last" className="h-4 w-4" /> آخر نقلة
+      </Button>
+    </p>
+  )
+}
+
 export function MoveList({ sans, ply, onPick }: { sans: string[]; ply?: number; onPick?: (ply: number) => void }) {
   const ref = useRef<HTMLOListElement>(null)
   useEffect(() => {
