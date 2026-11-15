@@ -10,6 +10,8 @@ export interface ApiUser {
   id: number
   name: string
   email: string
+  /** profile photo as a small data URL, null when unset */
+  avatar?: string | null
 }
 
 export interface LeaderboardEntry {
@@ -77,6 +79,10 @@ export async function logout(): Promise<void> {
 
 export function me(): Promise<{ user: ApiUser }> {
   return req<{ user: ApiUser }>('/me', { auth: true })
+}
+
+export function updateMe(patch: { name?: string; avatar?: string | null }): Promise<{ user: ApiUser }> {
+  return req<{ user: ApiUser }>('/me', { method: 'PATCH', auth: true, body: patch })
 }
 
 // ---------- Google OAuth ----------
