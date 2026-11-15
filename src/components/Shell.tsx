@@ -10,7 +10,7 @@ import { useSettings } from '../lib/settings'
 import { useI18n } from '../lib/i18n'
 import LangSwitcher from './LangSwitcher'
 import { Icon } from './ui'
-import AuthGate from './AuthGate'
+import AuthNudge from './AuthNudge'
 
 function isActive(path: string, href: string) {
   return href === '/' ? path === '/' : path === href || path.startsWith(href + '/')
@@ -82,7 +82,8 @@ export default function Shell({ children }: { children: ReactNode }) {
       </header>
 
       <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-28 md:pb-12">
-        <AuthGate>{children}</AuthGate>
+        <AuthNudge />
+        {children}
       </main>
 
       <footer className="hidden border-t border-line py-8 text-sm text-muted md:block">
