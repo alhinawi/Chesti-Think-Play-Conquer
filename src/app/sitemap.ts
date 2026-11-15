@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/openings', 0.9),
     u('/openings/explorer', 0.8),
     u('/games', 0.8),
+    u('/matches', 0.9),
     u('/squares', 0.7),
     u('/rush', 0.7),
     u('/endgames', 0.8),
