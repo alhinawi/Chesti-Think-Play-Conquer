@@ -23,9 +23,9 @@ export default function AuthButtons({ variant = 'block' }: { variant?: 'header' 
           href="/me"
           aria-label={user.name}
           title={user.name}
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-sm font-bold text-[#1a1408]"
+          className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-b from-gold-2 to-gold text-sm font-bold text-[#1a1408]"
         >
-          {initial}
+          {user.avatar ? <img src={user.avatar} alt="" className="h-full w-full object-cover" /> : initial}
         </Link>
       )
     }
@@ -34,9 +34,13 @@ export default function AuthButtons({ variant = 'block' }: { variant?: 'header' 
         href="/me"
         className="flex items-center gap-3 rounded-xl border border-line bg-surface px-3 py-2.5 transition hover:border-gold/50"
       >
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-base font-bold text-[#1a1408]" aria-hidden>
-          {initial}
-        </span>
+        {user.avatar ? (
+          <img src={user.avatar} alt="" className="h-9 w-9 shrink-0 rounded-full object-cover" />
+        ) : (
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold text-base font-bold text-[#1a1408]" aria-hidden>
+            {initial}
+          </span>
+        )}
         <span className="min-w-0 flex-1 truncate text-sm font-bold">{user.name}</span>
       </Link>
     )
