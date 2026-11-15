@@ -45,7 +45,7 @@ const en: Messages = {
     coachLine: "That's the Scholar's Mate. The queen and bishop team up on f7, Black's weakest square early on. I'll teach you how to do it - and more importantly, how to stop it.",
     sectionsTitle: 'What will you find here?',
     groups: { learn: 'Learn', train: 'Train', play: 'Play' },
-    botsTitle: 'The neighborhood crew is waiting for you at the table',
+    botsTitle: 'Chess legends are waiting for you at the board',
     botsLink: 'Pick your opponent →',
     level: 'Level',
     cards: {
