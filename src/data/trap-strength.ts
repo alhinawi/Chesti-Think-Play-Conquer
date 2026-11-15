@@ -195,5 +195,15 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
     "mate": false,
     "material": 12,
     "plies": 13
+  },
+  "fajarowicz-trap": {
+    "mate": false,
+    "material": 12,
+    "plies": 5
+  },
+  "wing-gambit-trap": {
+    "mate": false,
+    "material": 7,
+    "plies": 3
   }
 }
