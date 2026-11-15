@@ -2,11 +2,14 @@
 
 import Link from 'next/link'
 import { CHAPTERS } from '../data/lessons'
+import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 import { Icon } from './ui'
 
 export default function LessonList() {
-  const { lessons: done } = useProgress()
+  const { lessons: doneAll } = useProgress()
+  const { status } = useAuth()
+  const done = status === 'authed' ? doneAll : []
   return (
     <div className="space-y-8">
       {CHAPTERS.map((c, ci) => {
@@ -22,7 +25,7 @@ export default function LessonList() {
                   <p className="text-sm text-muted">{c.desc}</p>
                 </div>
               </div>
-              <span className="shrink-0 text-sm text-muted">{count}/{c.lessons.length}</span>
+              <span className="shrink-0 text-sm text-muted">{status === 'authed' ? `${count}/${c.lessons.length}` : `${c.lessons.length} درس`}</span>
             </div>
             <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {c.lessons.map((l, li) => {
