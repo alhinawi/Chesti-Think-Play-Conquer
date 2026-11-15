@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import AuthButtons from './AuthButtons'
 import Celebrate from './Celebrate'
 import RankChip from './RankChip'
 import { useEffect, useState, type ReactNode } from 'react'
@@ -125,6 +126,7 @@ export default function Shell({ children }: { children: ReactNode }) {
       {/* desktop sidebar (inline-start: right in Arabic, left in English) */}
       <aside className="fixed inset-y-0 start-0 z-30 hidden w-64 flex-col gap-6 overflow-y-auto border-e border-line bg-bg/95 px-4 py-5 backdrop-blur md:flex">
         <Logo />
+        <AuthButtons />
         <div className="flex-1">
           <NavList path={path} />
         </div>
@@ -147,7 +149,8 @@ export default function Shell({ children }: { children: ReactNode }) {
             <Icon name="menu" />
           </button>
           <Logo />
-          <div className="ms-auto">
+          <div className="ms-auto flex items-center gap-1.5">
+            <AuthButtons variant="header" />
             <RankChip />
           </div>
         </div>
@@ -179,6 +182,7 @@ export default function Shell({ children }: { children: ReactNode }) {
             <Icon name="x" />
           </button>
         </div>
+        <AuthButtons />
         <div className="flex-1">
           <NavList path={path} onNavigate={() => setOpen(false)} />
         </div>

@@ -3,6 +3,10 @@ import type { Catalog } from './eg'
 // شامي
 const levant: Catalog = {
   skip: 'انتقل للمحتوى',
+  auth: {
+    login: 'دخول',
+    register: 'سجّل',
+  },
   footer: {
     tagline: 'تعلّم الشطرنج بالشامي من الصفر',
     daily: 'لغز اليوم',
@@ -12,7 +16,7 @@ const levant: Catalog = {
     engine: 'المحرك: Stockfish 19',
   },
   home: {
-    badge: 'مجاني • بدون تسجيل • بالشامي',
+    badge: 'مجاني • بالشامي',
     titleA: 'تعلّم',
     titleHighlight: 'الشطرنج',
     titleB: 'متل ما حدا قاعد حدّك وعم يشرحلك',
