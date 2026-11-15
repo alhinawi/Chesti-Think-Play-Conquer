@@ -13,7 +13,7 @@ export const RANKS = [
   { xp: 3500, name: 'استاذ', icon: '♚' },
   { xp: 5000, name: 'رئيس قسم', icon: '♔' },
   { xp: 7000, name: 'جراند ماستر', icon: '♔' },
-  { xp: 10000, name: 'ملك الشطرنج', icon: '♔' },
+  { xp: 10000, name: 'فخر العرب', icon: '♔' },
 ] as const
 
 export function totalWins(p: Progress) {
