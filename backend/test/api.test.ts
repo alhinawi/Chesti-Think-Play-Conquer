@@ -262,6 +262,37 @@ describe('progress sync', () => {
   })
 })
 
+describe('admin', () => {
+  it('flags admin on /api/me and gates /api/admin/overview server-side', async () => {
+    const plain = await signup()
+    const mePlain = await call('/api/me', { token: plain.token })
+    expect(((await mePlain.json()) as { user: { admin: boolean } }).user.admin).toBe(false)
+    expect((await call('/api/admin/overview')).status).toBe(401)
+    expect((await call('/api/admin/overview', { token: plain.token })).status).toBe(403)
+
+    const boss = await signup('Boss')
+    await env.DB.prepare('UPDATE users SET email = ? WHERE id = ?').bind('3asfuur@gmail.com', boss.id).run()
+    const meBoss = await call('/api/me', { token: boss.token })
+    expect(((await meBoss.json()) as { user: { admin: boolean } }).user.admin).toBe(true)
+
+    const res = await call('/api/admin/overview', { token: boss.token })
+    expect(res.status).toBe(200)
+    const j = (await res.json()) as {
+      counts: { users: number; games: number }
+      recentUsers: { email: string }[]
+      health: { database: boolean; adminCount: number }
+    }
+    expect(j.counts.users).toBeGreaterThan(0)
+    expect(j.health.database).toBe(true)
+    expect(j.health.adminCount).toBe(1)
+    expect(j.recentUsers.length).toBeGreaterThan(0)
+    expect(j.recentUsers.every((r) => r.email.includes('***'))).toBe(true)
+    expect(JSON.stringify(j)).not.toContain('3asfuur@gmail.com')
+    expect(JSON.stringify(j)).not.toContain('secret-pass-1')
+    expect(JSON.stringify(j)).not.toContain('pbkdf2$')
+  })
+})
+
 describe('http', () => {
   it('ping works and unknown routes are JSON 404', async () => {
     expect(((await (await call('/api/ping')).json()) as { ok: boolean }).ok).toBe(true)

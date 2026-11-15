@@ -59,6 +59,31 @@ async function openSession(db: D1Database, userId: number) {
 type UserRow = { id: number; name: string; email: string; created_at: string; avatar?: string | null }
 const publicUser = (u: UserRow) => ({ id: u.id, name: u.name, email: u.email, created_at: u.created_at, avatar: u.avatar ?? null })
 
+// ---------- admin ----------
+// Server-side admin gate: the signed-in account's email must be listed in the
+// ADMIN_EMAILS var (comma-separated). Defaults to the site owner's Google email
+// so the panel works before the var is configured on the worker.
+const adminEmails = (env: Cloudflare.Env) =>
+  (env.ADMIN_EMAILS ?? '3asfuur@gmail.com')
+    .split(',')
+    .map((x) => x.trim().toLowerCase())
+    .filter(Boolean)
+
+const isAdminEmail = (env: Cloudflare.Env, mail: string) => adminEmails(env).includes(mail.toLowerCase())
+
+const withAdmin = (env: Cloudflare.Env, u: UserRow) => ({ ...publicUser(u), admin: isAdminEmail(env, u.email) })
+
+const adminOnly: MiddlewareHandler<Env> = async (c, next) => {
+  const u = await c.env.DB.prepare('SELECT id, name, email, created_at, avatar FROM users WHERE id = ?').bind(c.get('userId')).first<UserRow>()
+  if (!u || !isAdminEmail(c.env, u.email)) return c.json({ error: 'admin_only' }, 403)
+  await next()
+}
+
+const maskEmail = (mail: string) => {
+  const [local, domain] = mail.split('@')
+  return `${local.slice(0, 2)}***@${domain ?? ''}`
+}
+
 app.get('/api/ping', (c) => c.json({ ok: true, app: 'chesti-api' }))
 
 // Public feature flags for the auth UI (Google button stays hidden until the
@@ -84,7 +109,7 @@ app.post('/api/auth/register', async (c) => {
     .bind(name, mail, await hashPassword(password))
     .run()
   const user = (await c.env.DB.prepare('SELECT id, name, email, created_at, avatar FROM users WHERE id = ?').bind(res.meta.last_row_id).first<UserRow>())!
-  return c.json({ user: publicUser(user), token: await openSession(c.env.DB, user.id) }, 201)
+  return c.json({ user: withAdmin(c.env, user), token: await openSession(c.env.DB, user.id) }, 201)
 })
 
 app.post('/api/auth/login', async (c) => {
@@ -97,7 +122,7 @@ app.post('/api/auth/login', async (c) => {
   // Run a hash even for unknown emails so timing does not reveal which emails exist.
   const ok = row ? await verifyPassword(password, row.password_hash) : (await hashPassword(password), false)
   if (!row || !ok) return c.json({ error: 'invalid_credentials' }, 401)
-  return c.json({ user: publicUser(row), token: await openSession(c.env.DB, row.id) })
+  return c.json({ user: withAdmin(c.env, row), token: await openSession(c.env.DB, row.id) })
 })
 
 app.use('/api/auth/logout', auth)
@@ -110,7 +135,7 @@ app.post('/api/auth/logout', async (c) => {
 app.use('/api/me', auth)
 app.get('/api/me', async (c) => {
   const u = (await c.env.DB.prepare('SELECT id, name, email, created_at, avatar FROM users WHERE id = ?').bind(c.get('userId')).first<UserRow>())!
-  return c.json({ user: publicUser(u) })
+  return c.json({ user: withAdmin(c.env, u) })
 })
 const AVATAR_RE = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/
 const AVATAR_MAX = 41_000 // ~30KB image as a base64 data URL
@@ -290,6 +315,52 @@ app.put('/api/progress', async (c) => {
     .bind(c.get('userId'), text, now)
     .run()
   return c.json({ progress: out, updated_at: now })
+})
+
+// ---------- admin panel ----------
+app.use('/api/admin', auth)
+app.use('/api/admin/*', auth)
+app.use('/api/admin', adminOnly)
+app.use('/api/admin/*', adminOnly)
+
+app.get('/api/admin/overview', async (c) => {
+  const db = c.env.DB
+  const now = new Date().toISOString()
+  const since = new Date(Date.now() - 7 * 86_400_000).toISOString()
+  const users = (await db.prepare('SELECT COUNT(*) AS n FROM users').first<{ n: number }>())!.n
+  const newUsers = (await db.prepare('SELECT COUNT(*) AS n FROM users WHERE created_at >= ?').bind(since).first<{ n: number }>())!.n
+  const sessions = (await db.prepare('SELECT COUNT(*) AS n FROM sessions WHERE expires_at > ?').bind(now).first<{ n: number }>())!.n
+  const games = (await db.prepare('SELECT COUNT(*) AS n FROM games').first<{ n: number }>())!.n
+  const gamesWeek = (await db.prepare('SELECT COUNT(*) AS n FROM games WHERE played_at >= ?').bind(since).first<{ n: number }>())!.n
+  const scores = (await db.prepare('SELECT COUNT(*) AS n FROM scores').first<{ n: number }>())!.n
+  const byResult = Object.fromEntries(
+    (await db.prepare('SELECT result, COUNT(*) AS n FROM games GROUP BY result').all<{ result: string; n: number }>()).results.map((r) => [r.result, r.n]),
+  )
+  const bestScores = (
+    await db.prepare('SELECT kind, MAX(points) AS best, COUNT(DISTINCT user_id) AS players FROM scores GROUP BY kind ORDER BY best DESC').all()
+  ).results
+  const topPlayers = (
+    await db
+      .prepare(
+        `SELECT u.name AS name, COUNT(*) AS games,
+                SUM(CASE WHEN g.result = 'win' THEN 1 ELSE 0 END) AS wins,
+                SUM(CASE g.result WHEN 'win' THEN 3 WHEN 'draw' THEN 1 ELSE 0 END) AS points
+         FROM games g JOIN users u ON u.id = g.user_id
+         GROUP BY u.id ORDER BY points DESC, wins DESC, u.id ASC LIMIT 5`,
+      )
+      .all()
+  ).results
+  const recentUsers = (
+    await db.prepare('SELECT name, email, created_at FROM users ORDER BY created_at DESC, id DESC LIMIT 8').all<{ name: string; email: string; created_at: string }>()
+  ).results.map((r) => ({ name: r.name, email: maskEmail(r.email), created_at: r.created_at }))
+  return c.json({
+    counts: { users, newUsers, sessions, games, gamesWeek, scores },
+    gamesByResult: { win: byResult.win ?? 0, loss: byResult.loss ?? 0, draw: byResult.draw ?? 0 },
+    bestScores,
+    topPlayers,
+    recentUsers,
+    health: { database: true, google: googleConfigured(c.env), adminCount: adminEmails(c.env).length, generatedAt: now },
+  })
 })
 
 export default app
