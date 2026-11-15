@@ -113,7 +113,7 @@ app.get('/api/me', async (c) => {
   return c.json({ user: publicUser(u) })
 })
 const AVATAR_RE = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/
-const AVATAR_MAX = 200_000
+const AVATAR_MAX = 41_000 // ~30KB image as a base64 data URL
 
 app.patch('/api/me', async (c) => {
   const b = await json(c)
@@ -126,7 +126,7 @@ app.patch('/api/me', async (c) => {
     } else if (typeof a === 'string' && a.length <= AVATAR_MAX && AVATAR_RE.test(a)) {
       await c.env.DB.prepare('UPDATE users SET avatar = ? WHERE id = ?').bind(a, c.get('userId')).run()
     } else {
-      throw new ValidationError({ avatar: 'image must be a jpeg/png/webp data URL under 150KB' })
+      throw new ValidationError({ avatar: 'image must be a jpeg/png/webp data URL under 30KB' })
     }
   }
   const u = (await c.env.DB.prepare('SELECT id, name, email, created_at, avatar FROM users WHERE id = ?').bind(c.get('userId')).first<UserRow>())!
