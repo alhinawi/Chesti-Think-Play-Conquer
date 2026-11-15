@@ -25,7 +25,7 @@ export default function LessonList() {
                   <p className="text-sm text-muted">{c.desc}</p>
                 </div>
               </div>
-              <span className="shrink-0 text-sm text-muted">{status === 'authed' ? `${count}/${c.lessons.length}` : `${c.lessons.length} درس`}</span>
+              <span className="shrink-0 text-sm text-muted">{status === 'authed' ? `${count}/${c.lessons.length}` : `${c.lessons.length} ${c.lessons.length === 2 ? 'درسين' : c.lessons.length <= 10 ? 'دروس' : 'درس'}`}</span>
             </div>
             <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {c.lessons.map((l, li) => {
