@@ -8,7 +8,6 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { NAV, SITE } from '../lib/site'
 import { useSettings } from '../lib/settings'
 import { useI18n } from '../lib/i18n'
-import LangSwitcher from './LangSwitcher'
 import { Icon } from './ui'
 
 function isActive(path: string, href: string) {
@@ -81,7 +80,6 @@ function Controls() {
       >
         <Icon name={settings.theme === 'dark' ? 'sun' : 'moon'} />
       </button>
-      <LangSwitcher />
       <Link
         href="/settings"
         aria-label={t('aria.settings')}
