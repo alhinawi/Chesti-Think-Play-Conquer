@@ -1,6 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import { type ReactNode, useState } from 'react'
 import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 
@@ -76,22 +76,35 @@ export function matchesProgress(prog: string, done: boolean) {
   return prog === 'all' || (prog === 'done' ? done : !done)
 }
 
-/** search box + result count + the chip rows, in one card above a library grid */
-export function FilterCard({ q, setQ, shown, total, children }: { q: string; setQ: (v: string) => void; shown: number; total: number; children: ReactNode }) {
+/** compact search bar + a فلاتر toggle; the filter rows stay collapsed until needed */
+export function FilterCard({ q, setQ, shown, total, active, children }: { q: string; setQ: (v: string) => void; shown: number; total: number; active: number; children: ReactNode }) {
+  const [open, setOpen] = useState(false)
   return (
-    <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4">
-      <div className="relative">
+    <div className="mb-6 rounded-2xl border border-line bg-surface p-3">
+      <div className="flex items-center gap-2">
         <input
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="دوّر بالاسم، عربي أو إنجليزي…"
           aria-label="دوّر بالاسم"
-          className="w-full rounded-xl border border-line bg-bg px-4 py-2.5 text-sm outline-none placeholder:text-muted focus:border-gold"
+          className="min-w-0 flex-1 rounded-xl border border-line bg-bg px-4 py-2.5 text-sm outline-none placeholder:text-muted focus:border-gold"
         />
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className={`flex shrink-0 items-center gap-1.5 rounded-xl border px-3 py-2.5 text-sm font-bold transition ${
+            open || active ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:border-gold/40 hover:text-ink'
+          }`}
+        >
+          فلاتر
+          {active > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-xs font-bold text-[#1a1408]">{active}</span>}
+          <span aria-hidden className={`text-xs transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
+        </button>
       </div>
-      {children}
-      <p className="text-xs text-muted" aria-live="polite">
+      {open && <div className="mt-3 flex flex-col gap-3 border-t border-line pt-3">{children}</div>}
+      <p className="mt-2 px-1 text-xs text-muted" aria-live="polite">
         بيبين <strong className="text-gold">{shown}</strong> من {total}
       </p>
     </div>
