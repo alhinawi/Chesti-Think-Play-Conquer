@@ -13,7 +13,7 @@
       "database_name": "chesti",
       // Placeholder: only used for local runs and tests. Replace with the real id
       // printed by `wrangler d1 create chesti` (see SETUP.ar.md). Not a secret.
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "b8f921a9-62c5-4fec-909f-34765db75699",
       "migrations_dir": "migrations"
     }
   ]

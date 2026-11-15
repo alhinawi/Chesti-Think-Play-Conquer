@@ -12,6 +12,7 @@ import { play } from '../lib/sound'
 import { botForLevel } from '../data/bots'
 import { COACH, coachLine } from '../lib/coach'
 import { recordGame } from '../lib/progress'
+import { saveGame } from '../lib/api'
 import { OPENINGS } from '../data/openings'
 import { Chess } from 'chess.js'
 import { celebrate } from './Celebrate'
@@ -156,7 +157,17 @@ export default function PlayComputer() {
     }
     setBotSays(won ? bot.loses : result.winner === null && !s.resigned ? null : bot.wins)
     // only games that really ended now count, not a finished game loaded from storage
-    if (s.moves.length > 0 && prevLen.current === s.moves.length && loadedKey.current !== key) recordGame(bot.id, won)
+    if (s.moves.length > 0 && prevLen.current === s.moves.length && loadedKey.current !== key) {
+      recordGame(bot.id, won)
+      saveGame({
+        result: won ? 'win' : !s.resigned && result.winner === null ? 'draw' : 'loss',
+        mode: 'computer',
+        opponent: bot.id,
+        color: s.color === 'w' ? 'white' : 'black',
+        moves: s.moves.length,
+        pgn: game.pgn(),
+      })
+    }
   }, [result.over, result.winner, s.color, s.started, s.resigned, s.moves, bot])
   const loadedKey = useRef<string | null>(null)
 

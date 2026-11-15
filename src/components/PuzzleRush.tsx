@@ -4,6 +4,7 @@ import { useCallback, useMemo, useRef, useState } from 'react'
 import { PUZZLES } from '../data/puzzles'
 import type { TaskStep } from '../data/types'
 import { celebrate } from './Celebrate'
+import { saveScore } from '../lib/api'
 import { TaskRunner } from './StepPlayer'
 import { Button, Icon } from './ui'
 
@@ -64,6 +65,7 @@ export default function PuzzleRush() {
       if (n >= STRIKES) {
         setPhase('done')
         if (score >= 5) celebrate()
+        saveScore('rush', score)
       }
       return n
     })
