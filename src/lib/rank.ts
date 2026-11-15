@@ -5,15 +5,15 @@ export const XP = { lesson: 50, puzzle: 20, trap: 30, opening: 25, endgame: 30, 
 
 export const RANKS = [
   { xp: 0, name: 'عسكري غلبان', icon: '♟' },
-  { xp: 150, name: 'حصان جاهز', icon: '♞' },
+  { xp: 150, name: 'حصان طيّار', icon: '♞' },
   { xp: 400, name: 'فيل حكيم', icon: '♝' },
-  { xp: 800, name: 'طابية صلبة', icon: '♜' },
-  { xp: 1400, name: 'وزير على عرشه', icon: '♛' },
-  { xp: 2200, name: 'كانديد ماستر', icon: '♚' },
-  { xp: 3500, name: 'فيدي ماستر', icon: '♚' },
-  { xp: 5000, name: 'إنترناشيونال ماستر', icon: '♔' },
+  { xp: 800, name: 'طابية حديد', icon: '♜' },
+  { xp: 1400, name: 'وزير فتّاك', icon: '♛' },
+  { xp: 2200, name: 'المعلم', icon: '♚' },
+  { xp: 3500, name: 'استاذ', icon: '♚' },
+  { xp: 5000, name: 'رئيس قسم', icon: '♔' },
   { xp: 7000, name: 'جراند ماستر', icon: '♔' },
-  { xp: 10000, name: 'بطل العالم', icon: '♔' },
+  { xp: 10000, name: 'ملك الشطرنج', icon: '♔' },
 ] as const
 
 export function totalWins(p: Progress) {
