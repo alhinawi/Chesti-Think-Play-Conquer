@@ -11,6 +11,7 @@ export interface Progress {
   traps: string[]
   openings: string[]
   endgames: string[]
+  miniatures?: string[]
   /** wins against each bot id */
   wins: Record<string, number>
   /** local dates (YYYY-MM-DD) the daily puzzle was solved */
@@ -23,9 +24,9 @@ export interface Progress {
   guesses?: Record<string, { hits: number; total: number; score: number }>
 }
 
-type ListKey = 'lessons' | 'puzzles' | 'traps' | 'openings' | 'endgames'
+type ListKey = 'lessons' | 'puzzles' | 'traps' | 'openings' | 'endgames' | 'miniatures'
 
-export const EMPTY_PROGRESS: Progress = { lessons: [], puzzles: [], traps: [], openings: [], endgames: [], wins: {}, daily: [], days: [], games: 0 }
+export const EMPTY_PROGRESS: Progress = { lessons: [], puzzles: [], traps: [], openings: [], endgames: [], miniatures: [], wins: {}, daily: [], days: [], games: 0 }
 const EMPTY = EMPTY_PROGRESS
 
 export function today(d = new Date()) {
@@ -61,8 +62,9 @@ export function writeProgress(p: Progress) {
 
 export function markDone(kind: ListKey, id: string) {
   const p = read()
-  if (p[kind].includes(id)) return
-  p[kind] = [...p[kind], id]
+  const list = p[kind] ?? []
+  if (list.includes(id)) return
+  p[kind] = [...list, id]
   write(p)
 }
 

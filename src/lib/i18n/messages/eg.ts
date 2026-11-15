@@ -6,6 +6,7 @@ const eg = {
     learn: 'الدروس',
     puzzles: 'ألغاز',
     traps: 'الفخاخ',
+    miniatures: 'ماتشات خاطفة',
     openings: 'افتتاحيات',
     matches: 'ماتشات',
     encyclopedia: 'الموسوعة',
