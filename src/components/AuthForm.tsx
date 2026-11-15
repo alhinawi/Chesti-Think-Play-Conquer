@@ -6,8 +6,8 @@ import { Button } from './ui'
 
 type Mode = 'login' | 'register'
 
-export default function AuthForm({ onDone }: { onDone?: () => void }) {
-  const [mode, setMode] = useState<Mode>('register')
+export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?: () => void; initialMode?: Mode }) {
+  const [mode, setMode] = useState<Mode>(initialMode)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

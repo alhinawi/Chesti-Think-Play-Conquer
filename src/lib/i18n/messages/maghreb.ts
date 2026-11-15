@@ -3,6 +3,10 @@ import type { Catalog } from './eg'
 // مغربي (دارجة)
 const maghreb: Catalog = {
   skip: 'سير للمحتوى',
+  auth: {
+    login: 'دخول',
+    register: 'سجّل',
+  },
   nav: {
     home: 'الرئيسية',
     learn: 'الدروس',
@@ -23,7 +27,7 @@ const maghreb: Catalog = {
     engine: 'المحرك: Stockfish 19',
   },
   home: {
-    badge: 'مجاني • بلا تسجيل • بالدارجة',
+    badge: 'مجاني • بالدارجة',
     titleA: 'تعلّم',
     titleHighlight: 'الشطرنج',
     titleB: 'كيما شي واحد جالس حداك وكيشرح ليك',

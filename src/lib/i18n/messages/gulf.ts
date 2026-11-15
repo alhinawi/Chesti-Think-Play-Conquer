@@ -3,6 +3,10 @@ import type { Catalog } from './eg'
 // خليجي
 const gulf: Catalog = {
   skip: 'انتقل للمحتوى',
+  auth: {
+    login: 'دخول',
+    register: 'سجّل',
+  },
   footer: {
     tagline: 'تعلّم الشطرنج بالخليجي من الصفر',
     daily: 'لغز اليوم',
@@ -12,7 +16,7 @@ const gulf: Catalog = {
     engine: 'المحرك: Stockfish 19',
   },
   home: {
-    badge: 'مجاني • بدون تسجيل • بالخليجي',
+    badge: 'مجاني • بالخليجي',
     titleA: 'تعلّم',
     titleHighlight: 'الشطرنج',
     titleB: 'كأن أحد جالس يمّك ويشرح لك',
