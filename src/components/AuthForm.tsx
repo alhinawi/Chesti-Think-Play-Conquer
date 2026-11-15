@@ -68,7 +68,7 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
       )}
       {mode === 'register' && (
         <label className="flex flex-col gap-1 text-sm font-bold">
-          الاسم (اللي هيظهر في المتصدرين)
+          الاسم
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
