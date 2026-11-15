@@ -132,7 +132,7 @@ export default function Profile() {
       </section>
 
       <section aria-labelledby="bots-h">
-        <h2 id="bots-h" className="mb-3 font-display text-xl font-bold">ضحاياك</h2>
+        <h2 id="bots-h" className="mb-3 font-display text-xl font-bold">ضحاياك من الأبطال</h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {BOTS.map((b) => {
             const w = p.wins?.[b.id] || 0

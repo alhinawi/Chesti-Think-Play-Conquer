@@ -5,15 +5,15 @@ export const XP = { lesson: 50, puzzle: 20, trap: 30, opening: 25, endgame: 30, 
 
 export const RANKS = [
   { xp: 0, name: 'عسكري غلبان', icon: '♟' },
-  { xp: 150, name: 'صبي القهوة', icon: '♟' },
-  { xp: 400, name: 'حصان الحتة', icon: '♞' },
-  { xp: 800, name: 'فيل الشارع', icon: '♝' },
-  { xp: 1400, name: 'طابية المنطقة', icon: '♜' },
-  { xp: 2200, name: 'معلّم القهوة', icon: '♛' },
-  { xp: 3500, name: 'الباشا', icon: '♚' },
-  { xp: 5000, name: 'أسطورة المحروسة', icon: '♔' },
-  { xp: 7000, name: 'جراند ماستر القهوة', icon: '♔' },
-  { xp: 10000, name: 'فخر مصر', icon: '♔' },
+  { xp: 150, name: 'حصان جاهز', icon: '♞' },
+  { xp: 400, name: 'فيل حكيم', icon: '♝' },
+  { xp: 800, name: 'طابية صلبة', icon: '♜' },
+  { xp: 1400, name: 'وزير على عرشه', icon: '♛' },
+  { xp: 2200, name: 'كانديد ماستر', icon: '♚' },
+  { xp: 3500, name: 'فيدي ماستر', icon: '♚' },
+  { xp: 5000, name: 'إنترناشيونال ماستر', icon: '♔' },
+  { xp: 7000, name: 'جراند ماستر', icon: '♔' },
+  { xp: 10000, name: 'بطل العالم', icon: '♔' },
 ] as const
 
 export function totalWins(p: Progress) {
@@ -78,8 +78,8 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'first-trap', name: 'صياد مبتدئ', desc: 'اتعلم أول فخ', icon: '🪤', test: (p) => p.traps.length >= 1 },
   { id: 'all-traps', name: 'ثعلب الافتتاحات', desc: 'اتعلم كل الفخاخ', icon: '🦊', test: (p, t) => p.traps.length >= t.traps },
   { id: 'first-win', name: 'أول نصر', desc: 'اكسب الكمبيوتر أول مرة', icon: '🏆', test: (p) => totalWins(p) >= 1 },
-  { id: 'beat-metwally', name: 'كسرت الحاج', desc: 'اكسب الحاج متولي أو حد أقوى منه', icon: '☕', test: (p) => ['metwally', 'zaki', 'el-wahsh'].some((b) => (p.wins?.[b] || 0) > 0) },
-  { id: 'beat-wahsh', name: 'روّضت الوحش', desc: 'اكسب الوحش (المستوى 8)', icon: '🦁', test: (p) => (p.wins?.['el-wahsh'] || 0) > 0 },
+  { id: 'beat-kasparov', name: 'كسرت الأسطورة', desc: 'اكسب كاسباروف أو حد أقوى منه', icon: '⚔️', test: (p) => ['kasparov', 'nakamura', 'carlsen'].some((b) => (p.wins?.[b] || 0) > 0) },
+  { id: 'beat-carlsen', name: 'هزمت البطل', desc: 'اكسب ماغنوس كارلسن (المستوى 8)', icon: '💪', test: (p) => (p.wins?.['carlsen'] || 0) > 0 },
   { id: 'daily-3', name: 'مواظب', desc: 'حل لغز اليوم 3 مرات', icon: '📅', test: (p) => (p.daily || []).length >= 3 },
   { id: 'streak-3', name: 'نار ولعة', desc: '3 أيام ورا بعض', icon: '🔥', test: (p) => bestStreakOf(p.days || []) >= 3 },
   { id: 'streak-7', name: 'أسبوع كامل', desc: '7 أيام ورا بعض', icon: '🌟', test: (p) => bestStreakOf(p.days || []) >= 7 },
@@ -98,7 +98,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'ten-games', name: 'مجرب جاد', desc: 'العب 10 أدوار ضد الكمبيوتر', icon: '🎮', test: (p) => (p.games || 0) >= 10 },
   { id: 'fifty-games', name: 'ابن الترابيزة', desc: 'العب 50 دور ضد الكمبيوتر', icon: '🕹️', test: (p) => (p.games || 0) >= 50 },
   { id: 'wins-10', name: '10 انتصارات', desc: 'اكسب 10 أدوار ضد الكمبيوتر', icon: '🥇', test: (p) => totalWins(p) >= 10 },
-  { id: 'three-bots', name: 'مسح الحتة', desc: 'اكسب 3 شخصيات مختلفة من أهل الحتة', icon: '🧹', test: (p) => Object.values(p.wins || {}).filter((n) => n > 0).length >= 3 },
+  { id: 'three-bots', name: 'هات التالتة', desc: 'اكسب 3 أبطال مختلفين', icon: '🧹', test: (p) => Object.values(p.wins || {}).filter((n) => n > 0).length >= 3 },
   { id: 'first-opening', name: 'الدور اتفتح', desc: 'اتعلم أول افتتاحية', icon: '🚪', test: (p) => (p.openings?.length || 0) >= 1 },
   { id: 'six-openings', name: 'جعبة جاهزة', desc: 'اتعلم 6 افتتاحيات', icon: '🎒', test: (p) => (p.openings?.length || 0) >= 6 },
   { id: 'all-openings', name: 'سيد المبادي', desc: 'اتعلم كل الافتتاحيات في المكتبة', icon: '📜', test: (p, t) => (p.openings?.length || 0) >= t.openings },
@@ -107,7 +107,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'first-guess', name: 'بروح الأبطال', desc: 'كمّل أول دور في وضع خمّن النقلة', icon: '🔮', test: (p) => Object.keys(p.guesses || {}).length >= 1 },
   { id: 'guess-ace', name: 'عارف الأدوار', desc: 'خمّن 70% أو أكتر من نقلات البطل في دور واحد', icon: '🧿', test: (p) => Object.values(p.guesses || {}).some((g) => g.hits >= Math.ceil(g.total * 0.7)) },
   { id: 'guess-perfect', name: 'وحش التخمين', desc: 'خمّن دور كامل صح من أول مرة بالكامل', icon: '🎯', test: (p) => Object.values(p.guesses || {}).some((g) => g.total > 0 && g.hits === g.total) },
-  { id: 'all-bots', name: 'زعيم الحتة', desc: 'اكسب كل شخصيات الحتة', icon: '👑', test: (p) => ['am-sayed', 'om-karim', 'mido', 'shawky', 'captain-adel', 'metwally', 'zaki', 'el-wahsh'].every((b) => (p.wins?.[b] || 0) > 0) },
+  { id: 'all-bots', name: 'قاهر الأبطال', desc: 'اكسب كل الأبطال التمانية', icon: '👑', test: (p) => ['lasker', 'capablanca', 'botvinnik', 'polgar', 'fischer', 'kasparov', 'nakamura', 'carlsen'].every((b) => (p.wins?.[b] || 0) > 0) },
 ]
 
 /** Same puzzle for everyone on the same local date. */
