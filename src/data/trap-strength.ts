@@ -120,5 +120,50 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
     "mate": false,
     "material": 1,
     "plies": 5
+  },
+  "rubinstein-trap": {
+    "mate": false,
+    "material": 5,
+    "plies": 3
+  },
+  "qga-queen-trap": {
+    "mate": false,
+    "material": 4,
+    "plies": 3
+  },
+  "albin-trap": {
+    "mate": false,
+    "material": 14,
+    "plies": 7
+  },
+  "smith-morra-trap": {
+    "mate": false,
+    "material": 5,
+    "plies": 5
+  },
+  "boden-kieseritzky": {
+    "mate": false,
+    "material": 5,
+    "plies": 5
+  },
+  "london-queen-trap": {
+    "mate": false,
+    "material": 0,
+    "plies": 1
+  },
+  "giuoco-piano-trap": {
+    "mate": false,
+    "material": 20,
+    "plies": 13
+  },
+  "philidor-trap": {
+    "mate": false,
+    "material": 14,
+    "plies": 7
+  },
+  "dutch-trap": {
+    "mate": true,
+    "material": 0,
+    "plies": 1
   }
 }
