@@ -79,6 +79,49 @@ export function me(): Promise<{ user: ApiUser }> {
   return req<{ user: ApiUser }>('/me', { auth: true })
 }
 
+// ---------- Google OAuth ----------
+
+export interface AuthConfig {
+  google: boolean
+}
+
+/** which sign-in providers the backend is configured for; defaults to hidden */
+export async function getAuthConfig(): Promise<AuthConfig> {
+  try {
+    const r = await fetch(`${BASE}/api/auth/config`)
+    if (!r.ok) return { google: false }
+    const body = await r.json()
+    return { google: Boolean(body && body.google) }
+  } catch {
+    return { google: false }
+  }
+}
+
+/** where the site sends the browser to start Google sign-in */
+export function googleLoginUrl(): string {
+  return `${BASE}/api/auth/google/start?origin=${encodeURIComponent(window.location.origin)}`
+}
+
+/**
+ * The worker redirects back to <origin>/#auth-callback?token=...&provider=google
+ * after Google sign-in. Reads and clears that hash, saving the API token.
+ * Returns the token (or "error:<code>") when a callback was consumed.
+ */
+export function consumeGoogleAuthCallback(): string | null {
+  if (typeof window === 'undefined') return null
+  const m = /^#auth-callback\?(.*)$/.exec(window.location.hash)
+  if (!m) return null
+  const params = new URLSearchParams(m[1])
+  const token = params.get('token')
+  const error = params.get('error')
+  window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`)
+  if (token) {
+    setToken(token)
+    return token
+  }
+  return error ? `error:${error}` : null
+}
+
 export interface SaveGameInput {
   result: 'win' | 'loss' | 'draw'
   mode?: 'computer' | 'local'
