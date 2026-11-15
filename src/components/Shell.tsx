@@ -191,7 +191,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-12 md:ps-72 md:pe-8">
+      <main id="main" dir="rtl" className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-12 md:ps-72 md:pe-8">
         {children}
       </main>
 
