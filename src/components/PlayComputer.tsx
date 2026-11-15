@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ChessBoard, { type BoardArrow } from './ChessBoard'
 import BoardStage from './BoardStage'
-import { ConfirmButton, MoveList, PlayerBar, ResultCard } from './GameParts'
+import { ConfirmButton, HistoryNav, MoveList, PlayerBar, ResultCard, ReviewBanner } from './GameParts'
 import { Badge, Button, Icon } from './ui'
 import { gameResult, soundFor, toUci, type UciMove } from '../lib/chess'
 import { Engine, LEVELS } from '../lib/engine'
@@ -98,6 +98,14 @@ export default function PlayComputer() {
   const level = LEVELS.find((l) => l.id === s.level) ?? LEVELS[0]
   const bot = botForLevel(level.id)
   const { game, sans, lastMove } = useMemo(() => playUci(s.moves), [s.moves])
+  // review mode: `back` = how many plies behind the live position we're viewing (0 = live, chess.com style)
+  const [back, setBack] = useState(0)
+  useEffect(() => setBack(0), [s.moves.length])
+  const live = back === 0
+  const view = useMemo(() => (back > 0 ? playUci(s.moves.slice(0, Math.max(0, s.moves.length - back))) : null), [s.moves, back])
+  const shownPly = s.moves.length - back
+  const shownFen = view ? view.game.fen() : game.fen()
+  const shownLast = view ? view.lastMove : lastMove
   const fen = game.fen()
   const turn = game.turn()
   const result = gameResult(game)
@@ -173,6 +181,7 @@ export default function PlayComputer() {
   const loadedKey = useRef<string | null>(null)
 
   function onMove(m: UciMove) {
+    if (!live) return false
     if (!userTurn) return false
     const uci = toUci(m)
     const r = playUci([...s.moves, uci])
@@ -195,19 +204,6 @@ export default function PlayComputer() {
     setAnalyze(false)
     setBotSays(botForLevel(s.level).greet)
     engine() // warm up the engine while the user thinks
-  }
-
-  function undo() {
-    gen.current++
-    engineRef.current?.stop()
-    setThinking(false)
-    setS((cur) => {
-      // take back to the last position where it was the user's turn
-      let n = cur.moves.length - 1
-      while (n > 0 && n % 2 !== (cur.color === 'w' ? 0 : 1)) n--
-      if (cur.color === 'b' && n < 1) n = Math.min(1, cur.moves.length)
-      return { ...cur, moves: cur.moves.slice(0, Math.max(0, n)), resigned: false }
-    })
   }
 
   async function askHint() {
@@ -303,10 +299,10 @@ export default function PlayComputer() {
   const top: 'w' | 'b' = orientation === 'white' ? 'b' : 'w'
   const bar = (c: 'w' | 'b') =>
     c === s.color ? (
-      <PlayerBar fen={fen} color={c} name="إنت" active={userTurn} />
+      <PlayerBar fen={shownFen} color={c} name="إنت" active={userTurn && live} />
     ) : (
       <PlayerBar
-        fen={fen}
+        fen={shownFen}
         color={c}
         initials={bot.initials}
         photo={bot.photo}
@@ -327,18 +323,21 @@ export default function PlayComputer() {
           : { title: `${bot.name} كسب`, text: 'كش مات. جرب مستوى أسهل أو العب تاني.', tone: 'lose' }
 
   const actions = (
-    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-      <Button variant="soft" onClick={askHint} disabled={!userTurn || thinking}>
+    <div className="grid grid-cols-3 gap-2">
+      <Button variant="soft" onClick={askHint} disabled={!live || !userTurn || thinking}>
         <Icon name="bulb" /> تلميح
-      </Button>
-      <Button variant="soft" onClick={undo} disabled={s.moves.length === 0 || (s.color === 'b' && s.moves.length <= 1)}>
-        <Icon name="undo" /> رجوع
       </Button>
       <Button variant="soft" onClick={() => setFlipped((f) => !f)}>
         <Icon name="flip" /> اقلب
       </Button>
       <ConfirmButton icon="flag" label="استسلم" confirm="متأكد إنك عايز تستسلم؟" disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: true }))} />
     </div>
+  )
+  const historyNav = (
+    <>
+      {!live && <ReviewBanner ply={shownPly} total={s.moves.length} onLatest={() => setBack(0)} />}
+      <HistoryNav ply={shownPly} total={s.moves.length} onJump={(p) => setBack(s.moves.length - p)} />
+    </>
   )
   const statusLine = (
     <div className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-sm" aria-live="polite">
@@ -353,6 +352,7 @@ export default function PlayComputer() {
   const fsExtras = (
     <>
       {statusLine}
+      {historyNav}
       {actions}
     </>
   )
@@ -361,7 +361,7 @@ export default function PlayComputer() {
     <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,1fr)] lg:gap-8">
       <BoardStage fsExtras={fsExtras} fsReserve={18.5}>
         {bar(top)}
-        <ChessBoard fen={fen} orientation={orientation} movable={userTurn ? s.color : false} onMove={onMove} lastMove={lastMove} arrows={hint ? [hint] : undefined} shake={shake} />
+        <ChessBoard fen={shownFen} orientation={orientation} movable={live && userTurn ? s.color : false} onMove={onMove} lastMove={shownLast} arrows={live && hint ? [hint] : undefined} shake={shake} />
         {bar(top === 'w' ? 'b' : 'w')}
       </BoardStage>
 
@@ -417,11 +417,13 @@ export default function PlayComputer() {
           </p>
         )}
 
+        {historyNav}
+
         {actions}
 
         {analyze && <Analysis moves={s.moves} userColor={s.color} />}
 
-        <MoveList sans={sans} />
+        <MoveList sans={sans} ply={shownPly} onPick={(p) => setBack(s.moves.length - p)} />
 
         <div className="flex flex-wrap gap-2">
           <ConfirmButton icon="reset" label="دور جديد" confirm="تبدأ دور جديد؟ الدور ده هيتمسح." disabled={s.moves.length === 0 && !over} onConfirm={start} />

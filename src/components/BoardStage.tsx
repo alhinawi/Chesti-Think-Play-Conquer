@@ -107,9 +107,11 @@ export default function BoardStage({
             <button
               type="button"
               onClick={exit}
-              className="inline-flex h-10 items-center gap-2 rounded-xl border border-line bg-surface-2 px-3 text-sm font-bold text-ink hover:bg-gold-soft"
+              aria-label="اخرج من ملء الشاشة"
+              title="اخرج من ملء الشاشة"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface-2 text-ink hover:bg-gold-soft"
             >
-              <Icon name="shrink" className="h-4 w-4" /> اخرج من ملء الشاشة
+              <Icon name="shrink" className="h-4 w-4" />
             </button>
           </div>
         )}
