@@ -59,7 +59,7 @@
   --color-emerald: var(--emerald);
   --color-danger: var(--danger);
   --font-sans: "IBM Plex Sans Arabic", system-ui, sans-serif;
-  --font-display: "Reem Kufi", "IBM Plex Sans Arabic", serif;
+  --font-display: "IBM Plex Sans Arabic", "Reem Kufi", serif;
   --font-ruqaa: "Aref Ruqaa", "Reem Kufi", serif;
   --shadow-luxe: var(--shadow);
 }

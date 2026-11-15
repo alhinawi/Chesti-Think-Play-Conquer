@@ -105,3 +105,11 @@ export function saveScore(kind: 'rush' | 'puzzles' | 'daily', points: number) {
 export function getLeaderboard(kind: 'games' | 'rush' | 'puzzles' | 'daily' = 'games', period: 'all' | 'week' = 'all', limit = 20) {
   return req<{ entries: LeaderboardEntry[] }>(`/leaderboard?kind=${kind}&period=${period}&limit=${limit}`)
 }
+
+export function getProgress(): Promise<{ progress: Record<string, unknown> | null; updated_at: string | null }> {
+  return req('/progress', { auth: true })
+}
+
+export function putProgress(data: Record<string, unknown>): Promise<{ ok: boolean }> {
+  return req('/progress', { method: 'PUT', body: data, auth: true })
+}
