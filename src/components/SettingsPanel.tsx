@@ -73,6 +73,10 @@ export default function SettingsPanel() {
               </button>
             ))}
           </div>
+          <div className="mt-4 lg:hidden">
+            <p className="mb-2 text-sm font-bold text-muted">شكل الرقعة</p>
+            <ChessBoard fen={PREVIEW} movable="both" />
+          </div>
         </section>
 
         <section aria-labelledby="s-board" className="luxe-card rounded-2xl px-5 py-2">
@@ -156,7 +160,7 @@ export default function SettingsPanel() {
         </section>
       </div>
 
-      <aside className="lg:sticky lg:top-24">
+      <aside className="hidden lg:sticky lg:top-24 lg:block">
         <p className="mb-2 text-sm font-bold text-muted">شكل الرقعة</p>
         <ChessBoard fen={PREVIEW} movable="both" />
       </aside>
