@@ -2,15 +2,17 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TRAPS } from '../data/traps'
+import type { Trap } from '../data/types'
 import { replay, START_FEN } from '../lib/chess'
 import { play } from '../lib/sound'
 import { markDone } from '../lib/progress'
 import ChessBoard from './ChessBoard'
+import RichText from './RichText'
 import MoveControls from './MoveControls'
 import { Button } from './ui'
 
-export default function TrapViewer({ trapId }: { trapId: string }) {
-  const t = TRAPS.find((x) => x.id === trapId)!
+export default function TrapViewer({ trapId, items, bucket }: { trapId: string; items?: Trap[]; bucket?: 'traps' | 'miniatures' }) {
+  const t = (items ?? TRAPS).find((x) => x.id === trapId)!
   const { fens, history } = useMemo(() => replay(START_FEN, t.moves), [t])
   const [ply, setPly] = useState(0)
   const [auto, setAuto] = useState(false)
@@ -41,7 +43,7 @@ export default function TrapViewer({ trapId }: { trapId: string }) {
   }, [auto, ply, n, go])
 
   useEffect(() => {
-    if (ply === n) markDone('traps', t.id)
+    if (ply === n) markDone(bucket ?? 'traps', t.id)
   }, [ply, n, t.id])
 
   useEffect(() => {
@@ -87,7 +89,7 @@ export default function TrapViewer({ trapId }: { trapId: string }) {
             </p>
           )}
           {isMistake && <p className="mb-1 text-sm font-bold text-danger">الغلطة القاتلة</p>}
-          <p>{note || ' '}</p>
+          {note ? <RichText text={note} /> : <p> </p>}
         </div>
         <div>
           <Button variant="soft" onClick={() => go(t.mistake + 1)}>ورّيني الغلطة</Button>
