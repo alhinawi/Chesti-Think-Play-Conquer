@@ -40,7 +40,7 @@ export default function Profile() {
           <div className="min-w-0 flex-1">
             <p className="text-sm text-muted">رتبتك</p>
             <h2 className="font-display text-2xl font-bold text-gold sm:text-3xl">{r.name}</h2>
-            <p className="mt-1 text-sm">
+            <p className="mt-1 text-sm" dir="rtl">
               <bdi className="ltr font-bold">{xp}</bdi> نقطة{r.next ? <> — فاضلك <bdi className="ltr font-bold">{r.next.xp - xp}</bdi> لـ«{r.next.name}»</> : ' — وصلت للقمة!'}
             </p>
             <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-black/30" role="progressbar" aria-valuenow={r.pct} aria-valuemin={0} aria-valuemax={100} aria-label="التقدم للرتبة الجاية">
