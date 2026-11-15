@@ -8,6 +8,7 @@ const fr: Catalog = {
     puzzles: 'Puzzles',
     traps: 'Pièges',
     openings: 'Ouvertures',
+    matches: 'Parties',
     encyclopedia: 'Encyclopédie',
     world3d: 'Monde 3D',
     play: 'Jouer',
