@@ -8,6 +8,7 @@ const en: Messages = {
     puzzles: 'Puzzles',
     traps: 'Traps',
     openings: 'Openings',
+    matches: 'Matches',
     encyclopedia: 'Encyclopedia',
     world3d: '3D World',
     play: 'Play',
