@@ -88,6 +88,13 @@ export async function signOut() {
 function init() {
   if (started || typeof window === 'undefined') return
   started = true
+  // A Google sign-in redirect (#auth-callback?token=...) takes priority: the
+  // worker already issued the API token, we just load the account behind it.
+  const cb = api.consumeGoogleAuthCallback()
+  if (cb && cb.startsWith('error:')) {
+    set({ status: 'anon', user: null })
+    return
+  }
   if (!api.getToken()) {
     set({ status: 'anon', user: null })
     return
