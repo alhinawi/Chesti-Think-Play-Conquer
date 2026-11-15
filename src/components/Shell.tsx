@@ -150,8 +150,8 @@ export default function Shell({ children }: { children: ReactNode }) {
           </button>
           <Logo />
           <div className="ms-auto flex items-center gap-1.5">
-            <AuthButtons variant="header" />
             <RankChip />
+            <AuthButtons variant="header" />
           </div>
         </div>
       </header>
