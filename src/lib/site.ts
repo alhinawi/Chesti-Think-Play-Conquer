@@ -13,6 +13,7 @@ export const NAV = [
   { href: '/puzzles', label: 'ألغاز', icon: 'bulb' },
   { href: '/traps', label: 'الفخاخ', icon: 'trap' },
   { href: '/openings', label: 'افتتاحيات', icon: 'compass' },
+  { href: '/matches', label: 'ماتشات', icon: 'star' },
   { href: '/encyclopedia', label: 'الموسوعة', icon: 'book' },
   { href: '/world3d', label: 'عالم 3D', icon: 'globe' },
   { href: '/play', label: 'العب', icon: 'play' },
