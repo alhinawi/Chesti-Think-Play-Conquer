@@ -7,6 +7,7 @@ const en: Messages = {
     learn: 'Lessons',
     puzzles: 'Puzzles',
     traps: 'Traps',
+    miniatures: 'Miniatures',
     openings: 'Openings',
     matches: 'Matches',
     encyclopedia: 'Encyclopedia',
