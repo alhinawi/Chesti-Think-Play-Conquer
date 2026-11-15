@@ -11,6 +11,8 @@ const eg = {
     encyclopedia: 'الموسوعة',
     world3d: 'عالم 3D',
     play: 'العب',
+    groupLearn: 'اتعلم',
+    groupPlay: 'العب وتفرّج',
   },
   aria: {
     themeToLight: 'الوضع الفاتح',
@@ -19,6 +21,8 @@ const eg = {
     sections: 'الأقسام',
     footerNav: 'روابط الفوتر',
     language: 'اللغة',
+    menu: 'القايمة',
+    closeMenu: 'اقفل القايمة',
   },
   footer: {
     tagline: 'اتعلم الشطرنج بالمصري من الصفر',
