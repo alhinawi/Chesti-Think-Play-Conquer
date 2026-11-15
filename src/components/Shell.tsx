@@ -7,15 +7,29 @@ import RankChip from './RankChip'
 import type { ReactNode } from 'react'
 import { NAV, SITE } from '../lib/site'
 import { useSettings } from '../lib/settings'
+import { useI18n } from '../lib/i18n'
+import LangSwitcher from './LangSwitcher'
 import { Icon } from './ui'
 
 function isActive(path: string, href: string) {
   return href === '/' ? path === '/' : path === href || path.startsWith(href + '/')
 }
 
+const NAV_KEYS: Record<string, string> = {
+  '/': 'home',
+  '/learn': 'learn',
+  '/puzzles': 'puzzles',
+  '/traps': 'traps',
+  '/openings': 'openings',
+  '/encyclopedia': 'encyclopedia',
+  '/world3d': 'world3d',
+  '/play': 'play',
+}
+
 export default function Shell({ children }: { children: ReactNode }) {
   const path = usePathname() || '/'
   const { settings, update } = useSettings()
+  const { t } = useI18n()
   return (
     <div className="flex min-h-dvh flex-col">
       <Celebrate />
@@ -28,7 +42,7 @@ export default function Shell({ children }: { children: ReactNode }) {
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-b from-gold-2 to-gold text-xl text-[#1a1408]">♞</span>
             <span className="font-display text-2xl font-bold text-gold-grad">{SITE.name}</span>
           </Link>
-          <nav aria-label="الأقسام" className="ms-4 hidden flex-1 items-center gap-1 md:flex">
+          <nav aria-label={t('aria.sections')} className="ms-4 hidden flex-1 items-center gap-1 md:flex">
             {NAV.slice(1).map((n) => (
               <Link
                 key={n.href}
@@ -38,7 +52,7 @@ export default function Shell({ children }: { children: ReactNode }) {
                   isActive(path, n.href) ? 'bg-gold-soft text-gold' : 'text-muted hover:bg-surface-2 hover:text-ink'
                 }`}
               >
-                {n.label}
+                {t(`nav.${NAV_KEYS[n.href]}`)}
               </Link>
             ))}
           </nav>
@@ -48,13 +62,14 @@ export default function Shell({ children }: { children: ReactNode }) {
               type="button"
               onClick={() => update({ theme: settings.theme === 'dark' ? 'light' : 'dark' })}
               className="grid h-10 w-10 place-items-center rounded-lg text-muted hover:bg-surface-2 hover:text-ink"
-              aria-label={settings.theme === 'dark' ? 'الوضع الفاتح' : 'الوضع الغامق'}
+              aria-label={settings.theme === 'dark' ? t('aria.themeToLight') : t('aria.themeToDark')}
             >
               <Icon name={settings.theme === 'dark' ? 'sun' : 'moon'} />
             </button>
+            <LangSwitcher />
             <Link
               href="/settings"
-              aria-label="الإعدادات"
+              aria-label={t('aria.settings')}
               aria-current={path === '/settings' ? 'page' : undefined}
               className="grid h-10 w-10 place-items-center rounded-lg text-muted hover:bg-surface-2 hover:text-ink"
             >
@@ -71,20 +86,20 @@ export default function Shell({ children }: { children: ReactNode }) {
       <footer className="hidden border-t border-line py-8 text-sm text-muted md:block">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4">
           <p>
-            <span className="font-display font-bold text-gold">{SITE.name}</span> — {SITE.tagline}
+            <span className="font-display font-bold text-gold">{SITE.name}</span> — {t('footer.tagline')}
           </p>
-          <nav aria-label="روابط الفوتر" className="flex flex-wrap gap-4">
-            <Link href="/daily" className="hover:text-ink">لغز اليوم</Link>
-            <Link href="/me" className="hover:text-ink">ملفي</Link>
-            <Link href="/glossary" className="hover:text-ink">قاموس المصطلحات</Link>
-            <Link href="/settings" className="hover:text-ink">الإعدادات</Link>
-            <span>المحرك: Stockfish 19</span>
+          <nav aria-label={t('aria.footerNav')} className="flex flex-wrap gap-4">
+            <Link href="/daily" className="hover:text-ink">{t('footer.daily')}</Link>
+            <Link href="/me" className="hover:text-ink">{t('footer.me')}</Link>
+            <Link href="/glossary" className="hover:text-ink">{t('footer.glossary')}</Link>
+            <Link href="/settings" className="hover:text-ink">{t('footer.settings')}</Link>
+            <span>{t('footer.engine')}</span>
           </nav>
         </div>
       </footer>
 
       <nav
-        aria-label="الأقسام"
+        aria-label={t('aria.sections')}
         className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
       >
         <ul className="grid grid-cols-9">
@@ -98,7 +113,7 @@ export default function Shell({ children }: { children: ReactNode }) {
                   className={`flex min-h-14 flex-col items-center justify-center gap-0.5 text-[11px] font-medium ${on ? 'text-gold' : 'text-muted'}`}
                 >
                   <Icon name={n.icon} className="h-5 w-5" />
-                  {n.label}
+                  {t(`nav.${NAV_KEYS[n.href]}`)}
                 </Link>
               </li>
             )
