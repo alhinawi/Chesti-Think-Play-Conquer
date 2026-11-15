@@ -12,6 +12,8 @@ export interface ApiUser {
   email: string
   /** profile photo as a small data URL, null when unset */
   avatar?: string | null
+  /** true for accounts listed in the worker's ADMIN_EMAILS (server-side check) */
+  admin?: boolean
 }
 
 export interface LeaderboardEntry {
@@ -161,4 +163,20 @@ export function getProgress(): Promise<{ progress: Record<string, unknown> | nul
 
 export function putProgress(data: Record<string, unknown>): Promise<{ ok: boolean }> {
   return req('/progress', { method: 'PUT', body: data, auth: true })
+}
+
+// ---------- admin panel ----------
+
+export interface AdminOverview {
+  counts: { users: number; newUsers: number; sessions: number; games: number; gamesWeek: number; scores: number }
+  gamesByResult: { win: number; loss: number; draw: number }
+  bestScores: { kind: string; best: number; players: number }[]
+  topPlayers: { name: string; games: number; wins: number; points: number }[]
+  recentUsers: { name: string; email: string; created_at: string }[]
+  health: { database: boolean; google: boolean; adminCount: number; generatedAt: string }
+}
+
+/** Admin-only site stats. The worker rejects non-admin tokens with 403. */
+export function adminOverview(): Promise<AdminOverview> {
+  return req<AdminOverview>('/admin/overview', { auth: true })
 }
