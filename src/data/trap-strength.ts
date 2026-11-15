@@ -165,5 +165,15 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
     "mate": true,
     "material": 0,
     "plies": 1
+  },
+  "smyslov-caro-trap": {
+    "mate": false,
+    "material": 3,
+    "plies": 5
+  },
+  "french-advance-trap": {
+    "mate": false,
+    "material": 16,
+    "plies": 5
   }
 }
