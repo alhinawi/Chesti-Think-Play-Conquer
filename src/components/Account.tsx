@@ -18,7 +18,7 @@ export default function Account() {
           </span>
           <div className="min-w-0 flex-1">
             <h2 id="acc-h" className="font-display text-xl font-bold">{user.name}</h2>
-            <p className="text-sm text-muted"><bdi className="ltr">{user.email}</bdi></p>
+            <p className="text-sm text-muted"><bdi className="ltr block truncate">{user.email}</bdi></p>
             <p className="mt-1 text-xs text-emerald">حسابك متسجل — أدوارك ونتايجك بتحفظ لوحدها.</p>
           </div>
           <Button variant="ghost" onClick={() => void signOut()}>
