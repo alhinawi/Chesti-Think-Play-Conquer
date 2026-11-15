@@ -2,6 +2,10 @@ import type { Catalog } from './eg'
 
 const fr: Catalog = {
   skip: 'Aller au contenu',
+  auth: {
+    login: 'Connexion',
+    register: "S'inscrire",
+  },
   nav: {
     home: 'Accueil',
     learn: 'Leçons',
@@ -30,7 +34,7 @@ const fr: Catalog = {
     engine: 'Moteur : Stockfish 19',
   },
   home: {
-    badge: 'Gratuit • Sans inscription • En arabe simple',
+    badge: 'Gratuit • En arabe simple',
     titleA: 'Apprends les',
     titleHighlight: 'échecs',
     titleB: "comme si un ami assis à côté de toi t'expliquait",

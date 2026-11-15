@@ -2,6 +2,10 @@ import type { Messages } from './eg'
 
 const en: Messages = {
   skip: 'Skip to content',
+  auth: {
+    login: 'Log in',
+    register: 'Sign up',
+  },
   nav: {
     home: 'Home',
     learn: 'Lessons',
@@ -36,7 +40,7 @@ const en: Messages = {
     engine: 'Engine: Stockfish 19',
   },
   home: {
-    badge: 'Free • No sign-up • In plain Arabic',
+    badge: 'Free • In plain Arabic',
     titleA: 'Learn',
     titleHighlight: 'chess',
     titleB: 'like a friend sitting next to you, explaining',

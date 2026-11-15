@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import Profile from '../../components/Profile'
 import Account from '../../components/Account'
 import Leaderboard from '../../components/Leaderboard'
@@ -15,7 +16,9 @@ export default function Page() {
     <>
       <PageHeader kicker="ملفي" title="مشوارك في الشطرنج" />
       <div className="mb-6">
-        <Account />
+        <Suspense>
+          <Account />
+        </Suspense>
       </div>
       <Profile />
       <div className="mt-6">
