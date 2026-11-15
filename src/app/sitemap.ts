@@ -3,6 +3,7 @@ import { ARTICLES } from '../data/encyclopedia'
 import { ALL_LESSONS as LESSONS } from '../data/lessons'
 import { PUZZLES } from '../data/puzzles'
 import { TRAPS } from '../data/traps'
+import { MINIATURES } from '../data/miniatures'
 import { OPENINGS } from '../data/openings'
 import { GAMES } from '../data/games'
 import { ENDGAMES } from '../data/endgames'
@@ -17,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/learn', 0.9),
     u('/puzzles', 0.8),
     u('/traps', 0.9),
+    u('/miniatures', 0.85),
     u('/openings', 0.9),
     u('/openings/explorer', 0.8),
     u('/games', 0.8),
@@ -33,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/play/friend', 0.7),
     ...LESSONS.map((l) => u(`/learn/${l.id}`, 0.8)),
     ...TRAPS.map((t) => u(`/traps/${t.id}`, 0.8)),
+    ...MINIATURES.map((t) => u(`/miniatures/${t.id}`, 0.8)),
     ...OPENINGS.map((o) => u(`/openings/${o.id}`, 0.8)),
     ...GAMES.map((g) => u(`/games/${g.id}`, 0.7)),
     ...ENDGAMES.map((e) => u(`/endgames/${e.id}`, 0.7)),

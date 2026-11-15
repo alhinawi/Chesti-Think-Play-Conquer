@@ -19,6 +19,7 @@ const NAV_KEYS: Record<string, string> = {
   '/learn': 'learn',
   '/puzzles': 'puzzles',
   '/traps': 'traps',
+  '/miniatures': 'miniatures',
   '/matches': 'matches',
   '/openings': 'openings',
   '/encyclopedia': 'encyclopedia',
@@ -29,7 +30,7 @@ const NAV_KEYS: Record<string, string> = {
 /** sidebar groups: home alone, then learning sections, then play sections */
 const GROUPS: { key: 'groupLearn' | 'groupPlay' | null; items: string[] }[] = [
   { key: null, items: ['/'] },
-  { key: 'groupLearn', items: ['/learn', '/puzzles', '/traps', '/openings', '/encyclopedia'] },
+  { key: 'groupLearn', items: ['/learn', '/puzzles', '/traps', '/miniatures', '/openings', '/encyclopedia'] },
   { key: 'groupPlay', items: ['/play', '/matches', '/world3d'] },
 ]
 

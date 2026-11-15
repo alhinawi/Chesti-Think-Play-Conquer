@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Chess } from 'chess.js'
 import { CHAPTERS } from './lessons'
 import { TRAPS } from './traps'
+import { MINIATURES } from './miniatures'
 import { PUZZLES } from './puzzles'
 import { ARTICLES, CATEGORIES, TERMS } from './encyclopedia'
 import { OPENINGS } from './openings'
@@ -75,6 +76,23 @@ describe('traps', () => {
     for (const t of TRAPS)
       if (t.moves[t.moves.length - 1].endsWith('#')) expect(playSan(START, t.moves).isCheckmate(), t.id).toBe(true)
   })
+})
+
+
+describe('miniatures', () => {
+  it('have unique ids', () => uniq(MINIATURES.map((t) => t.id)))
+  for (const t of MINIATURES)
+    it(`${t.id}: line is legal, notes line up, ends in mate`, () => {
+      const g = playSan(START, t.moves)
+      expect(t.notes.length).toBe(t.moves.length)
+      expect(t.mistake).toBeGreaterThanOrEqual(0)
+      expect(t.mistake).toBeLessThan(t.moves.length)
+      expect(g.isCheckmate(), 'final position must be mate on the board').toBe(true)
+      // the winner (`side`) is the one who delivered mate
+      const winner = t.moves.length % 2 === 1 ? 'w' : 'b'
+      expect(t.side).toBe(winner)
+      expect(t.source).toMatch(/^https:\/\/lichess\.org\/[A-Za-z0-9]+$/)
+    })
 })
 
 describe('openings', () => {
