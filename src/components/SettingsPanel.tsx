@@ -8,6 +8,7 @@ import { useProgress } from '../lib/progress'
 import { ALL_LESSONS as LESSONS } from '../data/lessons'
 import { PUZZLES } from '../data/puzzles'
 import { TRAPS } from '../data/traps'
+import { useI18n } from '../lib/i18n'
 
 const PREVIEW = 'r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4'
 
@@ -28,6 +29,7 @@ function Toggle({ k, label, hint }: { k: keyof Settings; label: string; hint?: s
 export default function SettingsPanel() {
   const { settings, update } = useSettings()
   const progress = useProgress()
+  const { locale, setLocale, locales } = useI18n()
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
       <div className="flex flex-col gap-6">
@@ -76,6 +78,24 @@ export default function SettingsPanel() {
           <div className="mt-4 lg:hidden">
             <p className="mb-2 text-sm font-bold text-muted">شكل الرقعة</p>
             <ChessBoard fen={PREVIEW} movable="both" />
+          </div>
+        </section>
+
+        <section aria-labelledby="s-lang" className="luxe-card rounded-2xl p-5">
+          <h2 id="s-lang" className="mb-3 text-lg font-bold">اللغة</h2>
+          <div role="radiogroup" aria-label="اللغة" className="grid grid-cols-2 gap-2">
+            {locales.map((l) => (
+              <button
+                key={l.id}
+                type="button"
+                role="radio"
+                aria-checked={locale === l.id}
+                onClick={() => setLocale(l.id)}
+                className={`rounded-xl border py-2.5 text-sm font-bold ${locale === l.id ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:border-gold/50'}`}
+              >
+                {l.native}
+              </button>
+            ))}
           </div>
         </section>
 
