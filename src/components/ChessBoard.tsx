@@ -75,6 +75,7 @@ export default function ChessBoard({
   }, [fen])
   const turn = game.turn()
   const canMoveNow = movable === 'both' || movable === turn
+  const interactive = !!onMove && canMoveNow
 
   // reset selection when the position changes
   useEffect(() => {
@@ -155,7 +156,7 @@ export default function ChessBoard({
 
   const promoColor = turn
   return (
-    <div ref={rootRef} className={`ltr relative w-full select-none ${inStage ? 'board-bleed' : ''} ${shaking ? 'animate-shake' : ''} ${className}`}>
+    <div ref={rootRef} className={`ltr relative w-full select-none ${inStage ? 'board-bleed' : ''} ${shaking ? 'animate-shake' : ''} ${interactive ? '' : 'board-static'} ${className}`}>
       <div
         className="board-frame rounded-[14px] p-[6px] sm:p-2"
         style={{
