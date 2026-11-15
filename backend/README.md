@@ -1,9 +1,9 @@
 # Chesti API
 
-Free backend for Chesti: accounts, saved games, leaderboard, and progress sync.
-Runs on Cloudflare Workers + D1 (Hono, TypeScript). No server to pay for.
+Account and progress backend for Chesti: accounts, saved games, leaderboard, and progress sync.
+Runs on Cloudflare Workers + D1 (Hono, TypeScript). Hosting usage and plan limits still apply.
 
-Status: built and tested locally. **Not deployed.** See `SETUP.ar.md` for the deploy steps.
+The frontend includes a deployed API URL in `src/lib/api.ts`. See the root README for the live site and `SETUP.ar.md` for environment setup. Local development remains separate from the remote database.
 
 ## Run it locally
 
@@ -13,11 +13,11 @@ npm install --legacy-peer-deps
 npm run db:migrate:local      # creates the local SQLite database
 node seed/make-seed.mjs && npm run db:seed:local   # optional demo players (password: demo-pass-123)
 npm run dev                   # http://localhost:8787/api/ping
-npm test                      # 22 tests on a local D1
+npm test                      # backend tests on local D1
 npm run typecheck
 ```
 
-Nothing here touches Cloudflare. `database_id` in `wrangler.jsonc` is a placeholder used only locally.
+The commands above use local D1 storage. The checked-in Wrangler configuration also identifies the deployment database; do not apply migrations remotely without a backup and review.
 
 ## Design notes
 
@@ -33,6 +33,8 @@ Nothing here touches Cloudflare. `database_id` in `wrangler.jsonc` is a placehol
 Base: `/api`. All bodies are JSON. Errors: `{"error": "code"}`; validation errors are 422 with `{"error":"validation_failed","fields":{...}}`.
 
 ### Auth
+
+Google OAuth is implemented through `GET /auth/config`, `GET /auth/google/start` and `GET /auth/google/callback`. The configuration endpoint reports whether Google sign-in is available; client secrets belong in Worker secrets. Profile responses also include an avatar when available.
 
 | Method | Path | Body | Result |
 |---|---|---|---|
@@ -50,7 +52,6 @@ Base: `/api`. All bodies are JSON. Errors: `{"error": "code"}`; validation error
 | GET | `/games` | `?result=win&page=1&per_page=20` (max 100). Newest first. `{games, page, per_page, total}` |
 | GET | `/games/stats` | `{stats: {games, wins, losses, draws, win_rate}}` |
 | GET | `/games/:id` | `{game}` or 404 |
-| DELETE | `/games/:id` | 204 or 404 |
 
 ### Scores (login needed)
 
