@@ -44,34 +44,21 @@ export default function AuthButtons({ variant = 'block' }: { variant?: 'header' 
 
   if (variant === 'header') {
     return (
-      <span className="flex shrink-0 items-center gap-1">
-        <Link href="/me?mode=login" className="rounded-lg px-2 py-1.5 text-xs font-bold text-muted transition hover:bg-surface-2 hover:text-ink">
-          {t('auth.login')}
-        </Link>
-        <Link
-          href="/me?mode=register"
-          className="rounded-lg bg-gradient-to-b from-gold-2 to-gold px-2.5 py-1.5 text-xs font-bold text-[#1a1408] transition hover:brightness-110"
-        >
-          {t('auth.register')}
-        </Link>
-      </span>
+      <Link
+        href="/me"
+        className="shrink-0 rounded-lg bg-gradient-to-b from-gold-2 to-gold px-2.5 py-1.5 text-xs font-bold text-[#1a1408] transition hover:brightness-110"
+      >
+        {t('auth.register')}
+      </Link>
     )
   }
 
   return (
-    <div className="flex gap-2">
-      <Link
-        href="/me?mode=login"
-        className="flex-1 rounded-xl border border-gold/50 px-3 py-2.5 text-center text-sm font-bold text-gold transition hover:bg-gold-soft"
-      >
-        {t('auth.login')}
-      </Link>
-      <Link
-        href="/me?mode=register"
-        className="flex-1 rounded-xl bg-gradient-to-b from-gold-2 to-gold px-3 py-2.5 text-center text-sm font-bold text-[#1a1408] transition hover:brightness-110"
-      >
-        {t('auth.register')}
-      </Link>
-    </div>
+    <Link
+      href="/me"
+      className="block rounded-xl bg-gradient-to-b from-gold-2 to-gold px-3 py-2.5 text-center text-sm font-bold text-[#1a1408] transition hover:brightness-110"
+    >
+      {t('auth.register')}
+    </Link>
   )
 }
