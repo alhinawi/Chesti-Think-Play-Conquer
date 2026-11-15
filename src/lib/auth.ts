@@ -101,9 +101,11 @@ function init() {
 export function useAuth(): AuthState {
   const [, tick] = useState(0)
   useEffect(() => {
-    init()
+    // subscribe before init(): with no token init settles synchronously,
+    // and a listener attached afterwards would never hear it (stuck on 'loading')
     const l = () => tick((n) => n + 1)
     listeners.add(l)
+    init()
     return () => {
       listeners.delete(l)
     }
