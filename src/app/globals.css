@@ -257,3 +257,8 @@ body {
   color: var(--gold);
   font-weight: 700;
 }
+
+/* static (non-interactive) boards must not block page scroll on touch */
+.board-static, .board-static * {
+  touch-action: pan-y !important;
+}
