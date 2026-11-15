@@ -38,8 +38,8 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
   },
   "lasker-trap": {
     "mate": false,
-    "material": 5,
-    "plies": 3
+    "material": 14,
+    "plies": 7
   },
   "noahs-ark": {
     "mate": false,
@@ -130,11 +130,6 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
     "mate": false,
     "material": 4,
     "plies": 3
-  },
-  "albin-trap": {
-    "mate": false,
-    "material": 14,
-    "plies": 7
   },
   "smith-morra-trap": {
     "mate": false,
