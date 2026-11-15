@@ -32,6 +32,7 @@ const en: Messages = {
     me: 'My profile',
     glossary: 'Glossary',
     settings: 'Settings',
+    credits: 'Photo credits',
     engine: 'Engine: Stockfish 19',
   },
   home: {
