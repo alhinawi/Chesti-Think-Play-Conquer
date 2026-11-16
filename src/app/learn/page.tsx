@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PageHeader } from '../../components/ui'
+import LearnHeader from '../../components/LearnHeader'
 import LessonList from '../../components/LessonList'
 import { ALL_LESSONS } from '../../data/lessons'
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function LearnPage() {
   return (
     <>
-      <PageHeader kicker="الدروس" title="اتعلم خطوة بخطوة" desc="كل درس بيشرح فكرة واحدة، وبعدين بيخليك تجربها بإيدك على الرقعة. تقدّمك بيتحفظ على جهازك." />
+      <LearnHeader />
       <LessonList />
     </>
   )
