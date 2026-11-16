@@ -578,6 +578,28 @@ const eg = {
     noMoves: 'لسه مفيش نقلات.',
     moves: 'النقلات',
   },
+  an: {
+    title: 'تحليل الدور',
+    failed: 'المحرك ما اشتغلش على الجهاز ده.',
+    reviewing: 'Stockfish بيراجع نقلاتك…',
+    clsBlunder: 'غلطة كبيرة',
+    clsMistake: 'غلطة',
+    clsInaccuracy: 'مش أحسن نقلة',
+    clsGood: 'كويسة',
+    clean: 'ولا غلطة تذكر! عم حسن مبسوط منك.',
+    avgLoss: 'متوسط الخسارة في النقلة {n} عسكري. دوس على أي غلطة عشان تشوف الأحسن كان إيه.',
+    best: 'الأحسن',
+    legend: 'الأحمر اللي لعبته، والأخضر اللي المحرك كان هيلعبه.',
+  },
+  ab: {
+    myAccount: 'حسابي',
+    dashboard: 'لوحة التحكم',
+    logout: 'سجّل خروج',
+    nudgeTitle: 'عايز تقدمك يتحفظ من أي جهاز وتنافس في لوحة المتصدرين؟',
+    nudgeDesc: 'اعمل حساب مجاني - تقدمك المحلي هيتحوّل لوحده.',
+    signup: 'اعمل حساب',
+    later: 'لاحقًا',
+  },
 }
 export default eg
 export type Messages = typeof eg
