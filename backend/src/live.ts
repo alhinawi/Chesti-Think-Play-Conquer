@@ -12,6 +12,7 @@ import { Chess } from 'chess.js'
 import type { Context, MiddlewareHandler } from 'hono'
 import { cleanTelemetry, FLAG_THRESHOLD, scoreGame, type Telemetry } from './anticheat'
 import { recordAccountSignals } from './signals'
+import { maybeWarn } from './warnings'
 import { asBody, oneOf, str, ValidationError } from './validate'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
@@ -150,6 +151,7 @@ async function finalize(
       .prepare('INSERT OR REPLACE INTO game_flags (game_id, user_id, risk_score, reasons) VALUES (?, ?, ?, ?)')
       .bind(gameId, live.user_id, risk.score, JSON.stringify(risk.reasons))
       .run()
+    await maybeWarn(db, live.user_id, gameId, risk.score, 'auto')
   }
   return { gameId }
 }

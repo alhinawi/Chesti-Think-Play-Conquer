@@ -1,5 +1,6 @@
 'use client'
 
+import CheatWarningBanner from './CheatWarningBanner'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import AuthButtons from './AuthButtons'
@@ -192,6 +193,7 @@ export default function Shell({ children }: { children: ReactNode }) {
       </aside>
 
       <main id="main" dir="rtl" className={`mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-12 ${dir === 'ltr' ? 'md:pl-72 md:pr-8' : 'md:pr-72 md:pl-8'}`}>
+        <CheatWarningBanner />
         {children}
       </main>
 

@@ -7,6 +7,7 @@ import { finishGoogleLogin, googleConfigured, startGoogleLogin } from './google'
 import { cleanTelemetry, engineBump, FLAG_THRESHOLD, scoreGame } from './anticheat'
 import { liveRoutes } from './live'
 import { recordAccountSignals } from './signals'
+import { maybeWarn } from './warnings'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
 
@@ -225,6 +226,7 @@ app.post('/api/games', async (c) => {
     await c.env.DB.prepare('INSERT OR REPLACE INTO game_flags (game_id, user_id, risk_score, reasons) VALUES (?, ?, ?, ?)')
       .bind(gameId, c.get('userId'), risk.score, JSON.stringify(risk.reasons))
       .run()
+    await maybeWarn(c.env.DB, c.get('userId'), gameId, risk.score, 'auto')
   }
   // Never leak the flag state to the submitting client.
   const game = await c.env.DB.prepare('SELECT * FROM games WHERE id = ?').bind(gameId).first()
@@ -579,6 +581,11 @@ app.get('/api/admin/anticheat/users/:userId/summary', async (c) => {
      WHERE s1.user_id = ? LIMIT 20`,
   ).bind(userId).all<{ id: number; name: string; email: string; via: 'ip' | 'device' }>()
 
+  const { results: recentWarnings } = await c.env.DB.prepare(
+    'SELECT kind, risk_score, created_at, seen_at FROM cheat_warnings WHERE user_id = ? ORDER BY created_at DESC LIMIT 5',
+  ).bind(userId).all()
+  const warnCount = (await c.env.DB.prepare('SELECT COUNT(*) AS n FROM cheat_warnings WHERE user_id = ?').bind(userId).first<{ n: number }>())!
+
   const hints: string[] = []
   if ((flags.open ?? 0) >= 3) hints.push('multi_flagged')
   if (flags.analyzed >= 2 && (flags.avgMatch ?? 0) >= 0.8) hints.push('engine_consistent')
@@ -593,9 +600,26 @@ app.get('/api/admin/anticheat/users/:userId/summary', async (c) => {
       flags: { total: flags.total, open: flags.open ?? 0, avgRisk: flags.avgRisk, analyzed: flags.analyzed, avgMatch: flags.avgMatch, avgTop3: flags.avgTop3, avgAcpl: flags.avgAcpl },
       signals: { ips: signalCounts.ips ?? 0, devices: signalCounts.devices ?? 0, linkedAccounts: linked.map((l) => ({ id: l.id, name: l.name, email: maskEmail(l.email), via: l.via })) },
       startsLastHour: starts.n,
+      warnings: { total: warnCount.n, recent: recentWarnings },
       hints,
     },
   })
+})
+
+// One-tap soft warning to a player. Same wording and same 7-day cooldown as
+// the automatic ones; 429 when the player was warned recently.
+app.post('/api/admin/anticheat/warn', async (c) => {
+  const b = await json(c)
+  const userId = int(b, 'user_id', { min: 1, max: 2147483647, required: true })!
+  const gameId = int(b, 'game_id', { min: 1, max: 2147483647 }) ?? null
+  const u = await c.env.DB.prepare('SELECT id FROM users WHERE id = ?').bind(userId).first()
+  if (!u) return c.json({ error: 'not_found' }, 404)
+  const created = await maybeWarn(c.env.DB, userId, gameId, null, 'admin')
+  if (!created) {
+    const last = await c.env.DB.prepare('SELECT created_at FROM cheat_warnings WHERE user_id = ? ORDER BY created_at DESC LIMIT 1').bind(userId).first<{ created_at: string }>()
+    return c.json({ error: 'warned_recently', last_warning: last?.created_at ?? null }, 429)
+  }
+  return c.json({ ok: true }, 201)
 })
 
 // Accounts sharing an IP hash or a device hash - multi-account review hints.
@@ -619,6 +643,26 @@ app.get('/api/admin/anticheat/links', async (c) => {
       shared: r.shared,
     })),
   })
+})
+
+// ---------- player: soft warnings (anti-cheat) ----------
+app.use('/api/warnings', auth)
+app.use('/api/warnings/*', auth)
+
+app.get('/api/warnings', async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, message, kind, risk_score, created_at, seen_at FROM cheat_warnings
+     WHERE user_id = ? AND created_at > strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-60 days')
+     ORDER BY created_at DESC LIMIT 10`,
+  ).bind(c.get('userId')).all()
+  return c.json({ warnings: results })
+})
+
+app.post('/api/warnings/:id/seen', async (c) => {
+  const res = await c.env.DB.prepare("UPDATE cheat_warnings SET seen_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id = ? AND user_id = ? AND seen_at IS NULL")
+    .bind(Number(c.req.param('id') ?? ''), c.get('userId'))
+    .run()
+  return res.meta.changes > 0 ? c.json({ ok: true }) : c.json({ error: 'not_found' }, 404)
 })
 
 export default app
