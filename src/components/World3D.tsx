@@ -6,15 +6,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { WORLD3D_POSITIONS } from '../data/world3d'
 import { Icon } from './ui'
 import RichText from './RichText'
-
-const PIECE_AR: Record<string, string> = {
-  p: 'عسكري',
-  r: 'طابية',
-  n: 'حصان',
-  b: 'فيل',
-  q: 'وزير',
-  k: 'ملك',
-}
+import { useI18n } from '../lib/i18n'
 
 const FILES = 'abcdefgh'
 
@@ -126,6 +118,9 @@ function buildPiece(type: string, color: 'w' | 'b'): THREE.Group {
 }
 
 export default function World3D() {
+  const { t } = useI18n()
+  const tRef = useRef(t)
+  tRef.current = t
   const mountRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
@@ -268,7 +263,7 @@ export default function World3D() {
       const hits = ray.intersectObjects(pieceGroup.children, true)
       if (hits.length) {
         const u = hits[0].object.userData
-        pickCbRef.current?.(`${PIECE_AR[u.type]} ${u.color === 'w' ? 'أبيض' : 'أسود'} على ${u.square}`)
+        pickCbRef.current?.(tRef.current(u.color === 'w' ? 'w3.pickWhite' : 'w3.pickBlack', { piece: tRef.current(`w3.piece${String(u.type).toUpperCase()}`), sq: u.square }))
       } else {
         pickCbRef.current?.(null)
       }
@@ -358,7 +353,7 @@ export default function World3D() {
           <button
             type="button"
             onClick={() => go(1)}
-            aria-label="الموقف التالي"
+            aria-label={t('w3.next')}
             className="grid h-11 w-11 place-items-center rounded-xl bg-black/55 text-gold backdrop-blur transition hover:bg-black/75"
           >
             <Icon name="next" />
@@ -366,7 +361,7 @@ export default function World3D() {
           <button
             type="button"
             onClick={() => go(-1)}
-            aria-label="الموقف السابق"
+            aria-label={t('w3.prev')}
             className="grid h-11 w-11 place-items-center rounded-xl bg-black/55 text-gold backdrop-blur transition hover:bg-black/75"
           >
             <Icon name="prev" />
@@ -374,7 +369,7 @@ export default function World3D() {
           <button
             type="button"
             onClick={() => setAutoRotate((v) => !v)}
-            aria-label={autoRotate ? 'إيقاف التدوير التلقائي' : 'تشغيل التدوير التلقائي'}
+            aria-label={autoRotate ? t('w3.autoOff') : t('w3.autoOn')}
             aria-pressed={autoRotate}
             className={`grid h-11 w-11 place-items-center rounded-xl backdrop-blur transition ${
               autoRotate ? 'bg-gold text-black' : 'bg-black/55 text-gold hover:bg-black/75'
@@ -385,7 +380,7 @@ export default function World3D() {
           <button
             type="button"
             onClick={() => apiRef.current?.resetView()}
-            aria-label="إعادة الكاميرا لوضعها"
+            aria-label={t('w3.resetCam')}
             className="grid h-11 w-11 place-items-center rounded-xl bg-black/55 text-gold backdrop-blur transition hover:bg-black/75"
           >
             <Icon name="expand" />
@@ -394,7 +389,7 @@ export default function World3D() {
       </div>
 
       <p className="mt-3 text-center text-sm text-muted">
-        اسحب عشان تلفّ الرقعة، وقرّب وبعّد بإصبعين، ودوس على أي قطعة تعرف اسمها ومكانها
+        {t('w3.hint')}
       </p>
 
       <div className="luxe-card mt-4 rounded-2xl p-5">
