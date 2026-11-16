@@ -209,8 +209,31 @@ export interface AntiCheatFlag {
   reasons: string[]
   status: 'flagged' | 'dismissed' | 'confirmed'
   engine: { match: number | null; top3: number | null; acpl: number | null; analyzed_at: string } | null
+  /** per-move think times; trusted=true means the server clock measured them live */
+  timing: { move_times: number[] | null; trusted: boolean }
   review_note: string | null
   created_at: string
+}
+
+export interface AntiCheatSummary {
+  user: { id: number; name: string; email: string; created_at: string; leaderboard_excluded: boolean }
+  games: { total: number; wins: number; losses: number; draws: number; last7d: number }
+  live: { finished: number; abandoned: number; active: number }
+  flags: { total: number; open: number; avgRisk: number | null; analyzed: number; avgMatch: number | null; avgTop3: number | null; avgAcpl: number | null }
+  signals: { ips: number; devices: number; linkedAccounts: { id: number; name: string; email: string; via: 'ip' | 'device' }[] }
+  startsLastHour: number
+  hints: string[]
+}
+
+export function adminAntiCheatUserSummary(userId: number) {
+  return req<{ summary: AntiCheatSummary }>(`/admin/anticheat/users/${userId}/summary`, { auth: true })
+}
+
+export function adminAntiCheatLinks() {
+  return req<{ links: { a: { id: number; name?: string; email?: string }; b: { id: number; name?: string; email?: string }; via: 'ip' | 'device'; shared: number }[] }>(
+    '/admin/anticheat/links',
+    { auth: true },
+  )
 }
 
 export function adminAntiCheatFlags(status: 'flagged' | 'dismissed' | 'confirmed' | 'all' = 'flagged') {

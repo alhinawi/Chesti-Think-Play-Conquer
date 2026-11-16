@@ -22,6 +22,38 @@ const REASON_LABELS: Record<string, string> = {
 
 const RESULT_LABELS: Record<string, string> = { win: 'كسب', loss: 'خسر', draw: 'تعادل' }
 
+const HINT_LABELS: Record<string, string> = {
+  multi_flagged: 'أدوار متعلّمة متكررة',
+  engine_consistent: 'تطابق ثابت مع المحرك عبر أدوار متعددة',
+  abandon_pattern: 'نمط هجر متكرر للماتشات',
+  linked_accounts: 'حسابات مرتبطة بنفس الجهاز أو الشبكة',
+}
+
+const VIA_LABELS: Record<string, string> = { ip: 'نفس الشبكة', device: 'نفس الجهاز' }
+
+/** mini bar chart of per-move think times (ms), RTL, pure CSS */
+function TimingChart({ times, trusted }: { times: number[]; trusted: boolean }) {
+  const shown = times.slice(0, 80)
+  const max = Math.max(1000, ...shown)
+  return (
+    <div className="mt-2 rounded-lg bg-surface px-3 py-2">
+      <div className="flex h-10 items-end gap-px" dir="ltr" aria-hidden>
+        {shown.map((t, i) => (
+          <div
+            key={i}
+            title={`${(t / 1000).toFixed(1)}s`}
+            className={`min-w-[2px] flex-1 rounded-sm ${t < 700 ? 'bg-danger/70' : 'bg-gold/60'}`}
+            style={{ height: `${Math.max(6, Math.round((t / max) * 100))}%` }}
+          />
+        ))}
+      </div>
+      <p className="mt-1 text-[10px] text-muted">
+        توقيت كل نقلة ({trusted ? 'مقاس بساعة السيرفر - غير قابل للتزوير' : 'مقاس من جهاز اللاعب - أقل موثوقية'}) · الأحمر تحت 0.7 ثانية
+      </p>
+    </div>
+  )
+}
+
 function scoreTone(score: number): 'danger' | 'gold' | 'muted' {
   if (score >= 70) return 'danger'
   if (score >= 50) return 'gold'
@@ -37,7 +69,47 @@ export default function AdminAntiCheat() {
   const [excluded, setExcluded] = useState<{ id: number; name: string; email: string }[]>([])
   const [failed, setFailed] = useState(false)
   const [busy, setBusy] = useState<number | null>(null)
+  const [links, setLinks] = useState<{ a: { id: number; name?: string }; b: { id: number; name?: string }; via: 'ip' | 'device'; shared: number }[]>([])
+  const [summaries, setSummaries] = useState<Record<number, api.AntiCheatSummary | 'loading' | 'error'>>({})
+  const [batch, setBatch] = useState<{ done: number; total: number } | null>(null)
   const engineRef = useRef<Engine | null>(null)
+
+  function toggleSummary(userId: number) {
+    if (summaries[userId]) {
+      setSummaries((cur) => {
+        const next = { ...cur }
+        delete next[userId]
+        return next
+      })
+      return
+    }
+    setSummaries((cur) => ({ ...cur, [userId]: 'loading' }))
+    api.adminAntiCheatUserSummary(userId)
+      .then((d) => setSummaries((cur) => (cur[userId] === 'loading' ? { ...cur, [userId]: d.summary } : cur)))
+      .catch(() => setSummaries((cur) => (cur[userId] === 'loading' ? { ...cur, [userId]: 'error' } : cur)))
+  }
+
+  async function analyzeAll() {
+    if (!flags || batch) return
+    const pending = flags.filter((f) => !f.engine)
+    if (pending.length === 0) return
+    setBatch({ done: 0, total: pending.length })
+    for (let i = 0; i < pending.length; i++) {
+      try {
+        const { game } = await api.adminAntiCheatGame(pending[i].game_id)
+        if (game.pgn) {
+          if (!engineRef.current) engineRef.current = new Engine()
+          const analysis = await analyzePgnWithEngine(game.pgn, game.color === 'black' ? 'b' : 'w', engineRef.current)
+          if (analysis.positions > 0) await api.adminAntiCheatSubmitAnalysis(pending[i].game_id, analysis)
+        }
+      } catch {
+        // skip this one; the admin can retry individually
+      }
+      setBatch({ done: i + 1, total: pending.length })
+    }
+    setBatch(null)
+    load()
+  }
 
   async function analyze(gameId: number) {
     setBusy(gameId)
@@ -57,11 +129,12 @@ export default function AdminAntiCheat() {
 
   const load = useCallback(() => {
     setFailed(false)
-    Promise.all([api.adminAntiCheatFlags('flagged'), api.adminAntiCheatExcluded()])
-      .then(([f, e]) => {
+    Promise.all([api.adminAntiCheatFlags('flagged'), api.adminAntiCheatExcluded(), api.adminAntiCheatLinks().catch(() => ({ links: [] }))])
+      .then(([f, e, l]) => {
         setFlags(f.flags)
         setCounts(f.counts)
         setExcluded(e.excluded)
+        setLinks(l.links)
       })
       .catch(() => setFailed(true))
   }, [])
@@ -88,6 +161,7 @@ export default function AdminAntiCheat() {
         <p className="text-xs leading-relaxed text-muted">
           النظام ده مؤشر للمراجعة مش حكم: مفيش كشف غش مضمون 100%، وممكن لاعب بريء يتعلّم بالغلط (موبايل بطيء، تركيز عالي، دور معاد تحليله).
           راجع الدور بنفسك قبل أي إجراء، وكل الإجراءات هنا ناعمة وقابلة للتراجع: علامة مراجعة أو استبعاد مؤقت من المتصدرين - مفيش حظر تلقائي ولا مسح لأي حاجة.
+          للأمانة: chess.com عندها موديلات كشف خاصة وداتا ملايين الماتشات وسيرفرات بتشغّل محركات باستمرار - إحنا بنستخدم قواعد واضحة + توقيت السيرفر في الماتشات اللايف + تحليل ستوكفيش عند الطلب. ده بيلقط الغشاشين الواضحين كويس، ومش هيلقط المحترف اللي بيغش بذكاء في نقلتين تلاتة بس.
         </p>
       </Card>
 
@@ -101,7 +175,32 @@ export default function AdminAntiCheat() {
         <Badge tone="muted">
           اتجاهل: <bdi className="ltr">{counts.dismissed}</bdi>
         </Badge>
+        {flags && flags.some((f) => !f.engine) && (
+          <button
+            type="button"
+            disabled={batch !== null}
+            onClick={analyzeAll}
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-xs font-bold transition hover:text-ink disabled:opacity-40"
+          >
+            <Icon name="search" className="h-4 w-4" />
+            {batch ? `بيحلّل ${batch.done}/${batch.total}…` : 'حلّل الكل بالمحرك'}
+          </button>
+        )}
       </div>
+
+      {links.length > 0 && (
+        <Card className="mb-3 border border-gold/30 p-4">
+          <p className="mb-2 text-xs font-bold">حسابات مرتبطة (نفس الجهاز أو الشبكة - للمراجعة مش إثبات):</p>
+          <ul className="flex flex-col gap-1 text-xs text-muted">
+            {links.map((l, i) => (
+              <li key={i}>
+                {l.a.name ?? `#${l.a.id}`} ↔ {l.b.name ?? `#${l.b.id}`} · {VIA_LABELS[l.via] ?? l.via}
+                {l.shared > 1 && <> · {l.shared} إشارات مشتركة</>}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
 
       {failed && (
         <Card className="border border-danger/30 p-6 text-center">
@@ -161,7 +260,58 @@ export default function AdminAntiCheat() {
                   </p>
                 )}
 
+                {f.timing.move_times && f.timing.move_times.length >= 4 && <TimingChart times={f.timing.move_times} trusted={f.timing.trusted} />}
+
+                {summaries[f.user.id] === 'loading' && <p className="mt-2 text-xs text-muted">بنجيب ملخص اللاعب…</p>}
+                {summaries[f.user.id] === 'error' && <p className="mt-2 text-xs text-danger">ملخص اللاعب مش متاح دلوقتي.</p>}
+                {typeof summaries[f.user.id] === 'object' && summaries[f.user.id] !== null && (
+                  <div className="mt-2 rounded-lg border border-line bg-surface px-3 py-2 text-xs text-muted">
+                    {(() => {
+                      const sm = summaries[f.user.id] as api.AntiCheatSummary
+                      return (
+                        <>
+                          <p>
+                            الأدوار: <bdi className="ltr font-bold">{sm.games.total}</bdi> (كسب <bdi className="ltr">{sm.games.wins}</bdi> · آخر 7 أيام{' '}
+                            <bdi className="ltr">{sm.games.last7d}</bdi>) · لايف: مكتمل <bdi className="ltr">{sm.live.finished}</bdi> · مهجور{' '}
+                            <bdi className="ltr">{sm.live.abandoned}</bdi> · أعلام: <bdi className="ltr">{sm.flags.open}</bdi> مفتوح من{' '}
+                            <bdi className="ltr">{sm.flags.total}</bdi>
+                            {sm.flags.analyzed > 0 && (
+                              <>
+                                {' '}
+                                · متوسط تطابق المحرك عبر {sm.flags.analyzed} {sm.flags.analyzed === 1 ? 'دور' : 'أدوار'}:{' '}
+                                <bdi className="ltr font-bold">{Math.round((sm.flags.avgMatch ?? 0) * 100)}%</bdi>
+                              </>
+                            )}
+                          </p>
+                          {sm.signals.linkedAccounts.length > 0 && (
+                            <p className="mt-1">
+                              حسابات مرتبطة: {sm.signals.linkedAccounts.map((l) => `${l.name} (${VIA_LABELS[l.via] ?? l.via})`).join('، ')}
+                            </p>
+                          )}
+                          {sm.hints.length > 0 && (
+                            <div className="mt-1.5 flex flex-wrap gap-1.5">
+                              {sm.hints.map((h) => (
+                                <Badge key={h} tone="gold">
+                                  {HINT_LABELS[h] ?? h}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </>
+                      )
+                    })()}
+                  </div>
+                )}
+
                 <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => toggleSummary(f.user.id)}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-xs font-bold transition hover:text-ink"
+                  >
+                    <Icon name="eye" className="h-4 w-4" />
+                    {summaries[f.user.id] ? 'إخفاء الملخص' : 'ملخص اللاعب'}
+                  </button>
                   {!f.engine && (
                     <button
                       type="button"
