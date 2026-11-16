@@ -10,6 +10,9 @@ import { Engine } from '../lib/engine'
 import { GAMES } from '../data/games'
 import { play as sfx } from '../lib/sound'
 import { Icon } from './ui'
+import { useI18n } from '../lib/i18n'
+
+const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1)
 
 const FILES = 'abcdefgh'
 
@@ -58,6 +61,9 @@ interface Tween {
 type Mode = 'gallery' | 'play' | 'replay'
 
 export default function World3DPro() {
+  const { t: tr } = useI18n()
+  const trRef = useRef(tr)
+  trRef.current = tr
   const mountRef = useRef<HTMLDivElement>(null)
   const [themeId, setThemeId] = useState(DEFAULT_THEME)
   const [preset, setPreset] = useState<string>('classic')
@@ -303,10 +309,11 @@ export default function World3DPro() {
       })
     }
 
-    const endGameStatus = (): string | null => {
-      if (game.isCheckmate()) return game.turn() === 'w' ? 'كش مات! المحرك كسب' : 'كش مات! مبروووك كسبت 🏆'
-      if (game.isDraw()) return 'تعادل!'
-      if (game.isStalemate()) return 'تعادل بالجمود'
+    const endGameStatus = (): { text: string; won: boolean } | null => {
+      const q = trRef.current
+      if (game.isCheckmate()) return game.turn() === 'w' ? { text: q('wp.mateLose'), won: false } : { text: q('wp.mateWin'), won: true }
+      if (game.isDraw()) return { text: q('wp.drawn'), won: false }
+      if (game.isStalemate()) return { text: q('wp.stalemate'), won: false }
       return null
     }
 
@@ -364,13 +371,13 @@ export default function World3DPro() {
           const over = endGameStatus()
           if (over) {
             gameOver = true
-            setStatus(over)
-            sfx(over.includes('كسبت 🏆') ? 'success' : 'end')
+            setStatus(over.text)
+            sfx(over.won ? 'success' : 'end')
           } else if (game.inCheck()) {
             sfx('check')
-            setStatus('كش!')
+            setStatus(trRef.current('wp.check'))
           } else {
-            setStatus(game.turn() === 'w' ? 'دورك' : 'المحرك بيلعب...')
+            setStatus(trRef.current(game.turn() === 'w' ? 'wp.yourMove' : 'wp.engineMoves'))
           }
         } else if (currentMode === 'replay') {
           showReplayStatus()
@@ -388,7 +395,7 @@ export default function World3DPro() {
         const mv = game.move({ from: best.slice(0, 2), to: best.slice(2, 4), promotion: best[4] ?? 'q' }) as Move
         applyMove(mv, false)
       } catch {
-        setStatus('المحرك وقف - جرّب دور جديد')
+        setStatus(trRef.current('wp.engineStopped'))
       } finally {
         setThinking(false)
       }
@@ -494,15 +501,15 @@ export default function World3DPro() {
       if (!replayGame) return
       let txt: string
       if (replayIdx === 0) {
-        txt = `${replayGame.name} - ${replayGame.white} ضد ${replayGame.black} (${replayGame.year})`
+        txt = `${replayGame.name} - ${replayGame.white} ${trRef.current('wp.replayVs')} ${replayGame.black} (${replayGame.year})`
       } else {
         const num = Math.ceil(replayIdx / 2)
         txt = `${num}. ${replayGame.moves[replayIdx - 1]}`
         const note = replayGame.notes[replayIdx - 1]
         if (note) txt += ` - ${note}`
         if (replayIdx >= replayGame.moves.length) {
-          const res = replayGame.result === '1-0' ? 'كسب الأبيض' : replayGame.result === '0-1' ? 'كسب الأسود' : 'تعادل'
-          txt += ` | انتهى الدور: ${res}`
+          const res = trRef.current(replayGame.result === '1-0' ? 'wp.whiteWon' : replayGame.result === '0-1' ? 'wp.blackWon' : 'wp.drawResult')
+          txt += ` | ${trRef.current('wp.gameEnded', { res })}`
         }
       }
       setStatus(txt)
@@ -582,10 +589,10 @@ export default function World3DPro() {
           try {
             engine = new Engine()
           } catch {
-            setStatus('المحرك مش متاح')
+            setStatus(trRef.current('wp.engineOff'))
           }
         }
-        setStatus('دورك - دوس على قطعة بيضاء')
+        setStatus(trRef.current('wp.startPlay'))
         goPreset('white')
         setPreset('white')
       } else {
@@ -634,7 +641,7 @@ export default function World3DPro() {
         setReady(true)
       })
       .catch((e) => {
-        if (!disposed) setError(e instanceof Error ? e.message : 'فشل تحميل القطع')
+        if (!disposed) setError(e instanceof Error ? e.message : trRef.current('wp.loadFail'))
       })
 
     const resize = () => {
@@ -722,7 +729,7 @@ export default function World3DPro() {
             aria-pressed={mode === 'gallery'}
             className={`rounded-lg px-4 py-2 text-sm font-bold transition ${mode === 'gallery' ? 'bg-gold text-black' : 'text-muted hover:text-ink'}`}
           >
-            مشاهدة
+            {tr('wp.modeGallery')}
           </button>
           <button
             type="button"
@@ -730,7 +737,7 @@ export default function World3DPro() {
             aria-pressed={mode === 'play'}
             className={`rounded-lg px-4 py-2 text-sm font-bold transition ${mode === 'play' ? 'bg-gold text-black' : 'text-muted hover:text-ink'}`}
           >
-            العب ضد المحرك
+            {tr('wp.modePlay')}
           </button>
           <button
             type="button"
@@ -738,7 +745,7 @@ export default function World3DPro() {
             aria-pressed={mode === 'replay'}
             className={`rounded-lg px-4 py-2 text-sm font-bold transition ${mode === 'replay' ? 'bg-gold text-black' : 'text-muted hover:text-ink'}`}
           >
-            مباريات خالدة
+            {tr('wp.modeReplay')}
           </button>
         </div>
         {mode === 'play' && (
@@ -752,7 +759,7 @@ export default function World3DPro() {
                   aria-pressed={level === l.id}
                   className={`rounded-lg px-3 py-2 text-sm transition ${level === l.id ? 'bg-gold font-bold text-black' : 'text-muted hover:text-ink'}`}
                 >
-                  {l.name}
+                  {tr(`wp.lvl${cap(l.id)}`)}
                 </button>
               ))}
             </div>
@@ -761,7 +768,7 @@ export default function World3DPro() {
               onClick={() => apiRef.current?.resetGame()}
               className="rounded-xl border border-line bg-surface px-4 py-2 text-sm font-bold text-muted transition hover:text-ink"
             >
-              دور جديد
+              {tr('wp.newGame')}
             </button>
           </>
         )}
@@ -773,7 +780,7 @@ export default function World3DPro() {
                 setReplayId(e.target.value)
                 apiRef.current?.loadReplay(e.target.value)
               }}
-              aria-label="اختار المباراة"
+              aria-label={tr('wp.pickGame')}
               className="max-w-full rounded-xl border border-line bg-surface px-3 py-2 text-sm font-bold text-ink"
             >
               {GAMES.map((g) => (
@@ -783,27 +790,27 @@ export default function World3DPro() {
               ))}
             </select>
             <div className="flex gap-1 rounded-xl border border-line bg-surface p-1">
-              <button type="button" onClick={() => apiRef.current?.replayJump(0)} aria-label="الأول" className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
+              <button type="button" onClick={() => apiRef.current?.replayJump(0)} aria-label={tr('wp.first')} className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
                 <Icon name="first" className="h-4 w-4" />
               </button>
-              <button type="button" onClick={() => apiRef.current?.replayStep(-1)} aria-label="اللي قبلها" className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
+              <button type="button" onClick={() => apiRef.current?.replayStep(-1)} aria-label={tr('wp.prev')} className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
                 <Icon name="prev" className="h-4 w-4" />
               </button>
               <button
                 type="button"
                 onClick={() => apiRef.current?.replayToggle()}
-                aria-label={replayPlaying ? 'وقفة' : 'شغّل'}
+                aria-label={replayPlaying ? tr('wp.pause') : tr('wp.play')}
                 className={`rounded-lg px-4 py-2 text-sm font-bold transition ${replayPlaying ? 'bg-gold text-black' : 'text-muted hover:text-ink'}`}
               >
-                {replayPlaying ? 'وقفة' : 'شغّل'}
+                {replayPlaying ? tr('wp.pause') : tr('wp.play')}
               </button>
-              <button type="button" onClick={() => apiRef.current?.replayStep(1)} aria-label="اللي بعدها" className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
+              <button type="button" onClick={() => apiRef.current?.replayStep(1)} aria-label={tr('wp.next')} className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink">
                 <Icon name="next" className="h-4 w-4" />
               </button>
               <button
                 type="button"
                 onClick={() => apiRef.current?.replayJump(GAMES.find((g) => g.id === replayId)?.moves.length ?? 0)}
-                aria-label="الآخر"
+                aria-label={tr('wp.last')}
                 className="rounded-lg px-3 py-2 text-sm text-muted transition hover:text-ink"
               >
                 <Icon name="last" className="h-4 w-4" />
@@ -820,12 +827,12 @@ export default function World3DPro() {
         <div ref={mountRef} className="h-[62vh] min-h-[400px] w-full touch-none md:h-[70vh]" />
         {!ready && !error && (
           <div className="absolute inset-0 grid place-items-center bg-black/40 text-ink backdrop-blur-sm">
-            بيحمّل قطع الشطرنج الفخمة...
+            {tr('wp.loading')}
           </div>
         )}
         {error && (
           <div className="absolute inset-0 grid place-items-center bg-black/60 text-ink">
-            حصلت مشكلة في التحميل: {error}
+            {tr('wp.loadErr', { err: error })}
           </div>
         )}
         {status && (
@@ -843,7 +850,7 @@ export default function World3DPro() {
                 aria-pressed={themeId === t.id}
                 className={`rounded-lg px-3 py-1.5 text-sm transition ${themeId === t.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
               >
-                {t.name}
+                {tr(`wp.theme${cap(t.id)}`)}
               </button>
             ))}
           </div>
@@ -856,7 +863,7 @@ export default function World3DPro() {
                 aria-pressed={preset === p.id}
                 className={`rounded-lg px-3 py-1.5 text-sm transition ${preset === p.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
               >
-                {p.name}
+                {tr(`wp.cam${cap(p.id)}`)}
               </button>
             ))}
           </div>
@@ -872,7 +879,7 @@ export default function World3DPro() {
               aria-pressed={themeId === t.id}
               className={`rounded-lg px-3 py-1.5 text-sm transition ${themeId === t.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
             >
-              {t.name}
+              {tr(`wp.theme${cap(t.id)}`)}
             </button>
           ))}
         </div>
@@ -885,13 +892,13 @@ export default function World3DPro() {
               aria-pressed={preset === p.id}
               className={`rounded-lg px-3 py-1.5 text-sm transition ${preset === p.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
             >
-              {p.name}
+              {tr(`wp.cam${cap(p.id)}`)}
             </button>
           ))}
         </div>
       </div>
       <p className="mt-3 text-center text-sm text-muted">
-        <Icon name="globe" className="inline h-4 w-4 align-[-2px]" /> اسحب للفّ، وفي وضع اللعب: دوس على قطعتك وبعدين على الخانة
+        <Icon name="globe" className="inline h-4 w-4 align-[-2px]" /> {tr('wp.hint')}
       </p>
     </div>
   )
