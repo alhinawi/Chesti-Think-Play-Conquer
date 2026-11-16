@@ -5,7 +5,6 @@ import { hashPassword, newToken, sha256Hex, verifyPassword } from './crypto'
 import { asBody, email, int, isoDate, oneOf, str, ValidationError } from './validate'
 import { finishGoogleLogin, googleConfigured, startGoogleLogin } from './google'
 import { cleanTelemetry, engineBump, FLAG_THRESHOLD, scoreGame } from './anticheat'
-import { analyzeGame } from './engine'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
 
@@ -462,14 +461,34 @@ app.get('/api/admin/anticheat/flags', async (c) => {
   return c.json({ flags: results.map(flagOut), counts: { flagged: counts.flagged ?? 0, dismissed: counts.dismissed ?? 0, confirmed: counts.confirmed ?? 0 } })
 })
 
-// On-demand engine analysis for one flagged game. CPU-heavy by design limits
-// (depth-2, node-capped, sampled positions) and only ever admin-triggered.
-app.post('/api/admin/anticheat/flags/:gameId/analyze', async (c) => {
+// The flagged game's PGN, so the admin's browser can run the engine analysis
+// locally (full-game search does not fit in a Worker's CPU budget; the site's
+// own Stockfish runs on the admin's machine at review time).
+app.get('/api/admin/anticheat/flags/:gameId/game', async (c) => {
   const gameId = Number(c.req.param('gameId'))
-  const game = await c.env.DB.prepare('SELECT id, user_id, pgn, color FROM games WHERE id = ?').bind(gameId).first<{ id: number; user_id: number; pgn: string | null; color: string }>()
-  if (!game || !game.pgn) return c.json({ error: 'not_found' }, 404)
-  const analysis = analyzeGame(game.pgn, game.color === 'black' ? 'b' : 'w')
-  const bump = engineBump(analysis)
+  const game = await c.env.DB.prepare('SELECT id, pgn, color, opponent, result, moves, played_at FROM games WHERE id = ?').bind(gameId).first()
+  return game ? c.json({ game }) : c.json({ error: 'not_found' }, 404)
+})
+
+// Store the analysis the admin's browser computed. Numbers only, range-checked;
+// the bump rules stay server-side.
+app.post('/api/admin/anticheat/flags/:gameId/analysis', async (c) => {
+  const gameId = Number(c.req.param('gameId'))
+  const b = await json(c)
+  const num01 = (k: string) => {
+    const v = b[k]
+    if (typeof v !== 'number' || !Number.isFinite(v) || v < 0 || v > 1) throw new ValidationError({ [k]: 'number between 0 and 1' })
+    return v
+  }
+  const positions = int(b, 'positions', { min: 1, max: 100, required: true })!
+  const match = num01('match')
+  const top3 = num01('top3')
+  const acplV = b.acpl
+  if (typeof acplV !== 'number' || !Number.isFinite(acplV) || acplV < 0 || acplV > 1000) throw new ValidationError({ acpl: 'number between 0 and 1000' })
+
+  const game = await c.env.DB.prepare('SELECT id, user_id FROM games WHERE id = ?').bind(gameId).first<{ id: number; user_id: number }>()
+  if (!game) return c.json({ error: 'not_found' }, 404)
+  const bump = engineBump({ positions, match, acpl: acplV })
   const now = new Date().toISOString()
   const existing = await c.env.DB.prepare('SELECT risk_score, reasons FROM game_flags WHERE game_id = ?').bind(gameId).first<{ risk_score: number; reasons: string }>()
   const oldReasons = existing ? (JSON.parse(existing.reasons) as string[]) : []
@@ -482,9 +501,9 @@ app.post('/api/admin/anticheat/flags/:gameId/analyze', async (c) => {
        engine_match = excluded.engine_match, engine_top3 = excluded.engine_top3, acpl = excluded.acpl,
        analyzed_at = excluded.analyzed_at, updated_at = excluded.updated_at`,
   )
-    .bind(gameId, game.user_id, score, JSON.stringify(reasons), analysis.match, analysis.top3, analysis.acpl, now, now)
+    .bind(gameId, game.user_id, score, JSON.stringify(reasons), match, top3, acplV, now, now)
     .run()
-  return c.json({ analysis: { ...analysis, bump: bump.bump, reasons }, risk_score: score })
+  return c.json({ risk_score: score, bump: bump.bump, reasons })
 })
 
 app.post('/api/admin/anticheat/flags/:gameId/review', async (c) => {
