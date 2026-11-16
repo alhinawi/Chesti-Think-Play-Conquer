@@ -1,20 +1,15 @@
-import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Profile from '../../components/Profile'
 import Account from '../../components/Account'
 import Leaderboard from '../../components/Leaderboard'
-import { PageHeader } from '../../components/ui'
-
-export const metadata: Metadata = {
-  title: 'ملفي',
-  robots: { index: false },
-  alternates: { canonical: '/me' },
-}
+import MeHeader from '../../components/MeHeader'
 
 export default function Page() {
   return (
     <>
-      <PageHeader kicker="ملفي" title="مشوارك في الشطرنج" />
+      <Suspense>
+        <MeHeader />
+      </Suspense>
       <div className="mb-6">
         <Suspense>
           <Account />

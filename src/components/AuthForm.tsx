@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import { signIn, signUp } from '../lib/auth'
 import { getAuthConfig, googleLoginUrl } from '../lib/api'
 import { Button } from './ui'
+import { useI18n } from '../lib/i18n'
 
 type Mode = 'login' | 'register'
 
@@ -12,6 +13,7 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { t } = useI18n()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   // Google sign-in appears only when the backend reports it is configured
@@ -30,11 +32,7 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
       else await signUp(name, email, password)
       onDone?.()
     } catch {
-      setError(
-        mode === 'login'
-          ? 'الإيميل أو كلمة السر مش صح.'
-          : 'معرفناش نعمل الحساب — جرّب كلمة سر أطول (٨ حروف على الأقل) أو ممكن الإيميل متسجل قبل كده.',
-      )
+      setError(mode === 'login' ? t('me.errLogin') : t('me.errRegister'))
     } finally {
       setBusy(false)
     }
@@ -57,18 +55,18 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
               <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
               <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.6-.4-3.9z" />
             </svg>
-            <span>المتابعة بحساب Google</span>
+            <span>{t('me.google')}</span>
           </button>
           <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-line"></div>
-            <span className="text-xs font-bold text-muted">أو بالإيميل</span>
+            <span className="text-xs font-bold text-muted">{t('me.orEmail')}</span>
             <div className="h-px flex-1 bg-line"></div>
           </div>
         </>
       )}
       {mode === 'register' && (
         <label className="flex flex-col gap-1 text-sm font-bold">
-          الاسم
+          {t('me.name')}
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -77,12 +75,12 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
             maxLength={40}
             autoComplete="name"
             className="rounded-xl border border-line bg-bg px-3 py-2.5 font-normal outline-none focus:border-gold"
-            placeholder="مثال: هناوي"
+            placeholder={t('me.namePh')}
           />
         </label>
       )}
       <label className="flex flex-col gap-1 text-sm font-bold">
-        الإيميل
+        {t('me.email')}
         <input
           type="email"
           value={email}
@@ -96,7 +94,7 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
         />
       </label>
       <label className="flex flex-col gap-1 text-sm font-bold">
-        كلمة السر
+        {t('me.password')}
         <input
           type="password"
           value={password}
@@ -106,13 +104,13 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
           dir="ltr"
           autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
           className="rounded-xl border border-line bg-bg px-3 py-2.5 font-normal outline-none focus:border-gold"
-          placeholder="٨ حروف على الأقل"
+          placeholder={t('me.passwordPh')}
         />
       </label>
       {error && <p className="text-sm font-bold text-danger">{error}</p>}
       <div className="flex flex-wrap items-center gap-3">
         <Button type="submit" disabled={busy}>
-          {busy ? 'ثانية…' : mode === 'login' ? 'ادخل' : 'سجّل'}
+          {busy ? t('me.wait') : mode === 'login' ? t('me.submitLogin') : t('me.submitRegister')}
         </Button>
         <button
           type="button"
@@ -122,7 +120,7 @@ export default function AuthForm({ onDone, initialMode = 'register' }: { onDone?
           }}
           className="text-sm font-bold text-gold hover:underline"
         >
-          {mode === 'login' ? 'معندكش حساب؟ اعمل واحد' : 'عندك حساب؟ ادخل'}
+          {mode === 'login' ? t('me.toggleToRegister') : t('me.toggleToLogin')}
         </button>
       </div>
     </form>

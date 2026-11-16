@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Badge, Icon } from './ui'
+import { useI18n } from '../lib/i18n'
 import { BOTS } from '../data/bots'
 import { BotAvatar } from './BotAvatar'
 import { ALL_LESSONS, CHAPTERS } from '../data/lessons'
@@ -17,6 +18,7 @@ import { ACHIEVEMENTS, bestStreakOf, rankOf, RANKS, streakOf, totalWins, XP, xpO
 export default function Profile() {
   const p = useProgress()
   const { status } = useAuth()
+  const { t } = useI18n()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   if (!mounted || status === 'loading') return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
@@ -38,12 +40,13 @@ export default function Profile() {
             {r.icon}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-sm text-muted">رتبتك</p>
+            <p className="text-sm text-muted">{t('me.yourRank')}</p>
             <h2 className="font-display text-2xl font-bold text-gold sm:text-3xl">{r.name}</h2>
-            <p className="mt-1 text-sm" dir="rtl">
-              <bdi className="ltr font-bold">{xp}</bdi> نقطة{r.next ? <> — فاضلك <bdi className="ltr font-bold">{r.next.xp - xp}</bdi> لـ«{r.next.name}»</> : ' — وصلت للقمة!'}
+            <p className="mt-1 text-sm" dir="auto">
+              <bdi className="ltr font-bold">{xp}</bdi> {t('me.points')}
+              {r.next ? <> — {t('me.toNextRank', { n: r.next.xp - xp, name: r.next.name })}</> : ` — ${t('me.topRank')}`}
             </p>
-            <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-black/30" role="progressbar" aria-valuenow={r.pct} aria-valuemin={0} aria-valuemax={100} aria-label="التقدم للرتبة الجاية">
+            <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-black/30" role="progressbar" aria-valuenow={r.pct} aria-valuemin={0} aria-valuemax={100} aria-label={t('me.progressAria')}>
               <div className="h-full rounded-full bg-gradient-to-l from-gold-2 to-gold transition-all duration-700" style={{ width: `${r.pct}%` }} />
             </div>
           </div>
@@ -51,12 +54,12 @@ export default function Profile() {
         <dl className="relative mt-5 grid grid-cols-2 gap-2 text-center sm:grid-cols-3">
           {(
             [
-              ['🔥 أيام ورا بعض', streak, `أحسن سلسلة: ${best}`],
-              ['الدروس', `${p.lessons.length}/${totals.lessons}`, ''],
-              ['الألغاز', `${p.puzzles.length}/${totals.puzzles}`, ''],
-              ['الافتتاحيات', `${(p.openings || []).length}/${totals.openings}`, ''],
-              ['النهايات', `${(p.endgames || []).length}/${totals.endgames}`, ''],
-              ['انتصارات', totalWins(p), `من ${p.games || 0} دور`],
+              [t('me.streak'), streak, t('me.bestStreak', { n: best })],
+              [t('me.statLessons'), `${p.lessons.length}/${totals.lessons}`, ''],
+              [t('me.statPuzzles'), `${p.puzzles.length}/${totals.puzzles}`, ''],
+              [t('me.statOpenings'), `${(p.openings || []).length}/${totals.openings}`, ''],
+              [t('me.statEndgames'), `${(p.endgames || []).length}/${totals.endgames}`, ''],
+              [t('me.statWins'), totalWins(p), t('me.ofGames', { n: p.games || 0 })],
             ] as const
           ).map(([k, v, sub]) => (
             <div key={k} className="rounded-xl border border-line bg-bg/60 p-3">
@@ -70,10 +73,10 @@ export default function Profile() {
 
       <section aria-labelledby="map-h">
         <div className="mb-3 flex items-end justify-between gap-2">
-          <h2 id="map-h" className="font-display text-xl font-bold">خريطة الكورس</h2>
+          <h2 id="map-h" className="font-display text-xl font-bold">{t('me.mapTitle')}</h2>
           {nextLesson && (
             <Link href={`/learn/${nextLesson.id}`} className="text-sm font-bold text-gold hover:underline">
-              كمّل: {nextLesson.title} ←
+              {t('me.continueLesson', { title: nextLesson.title })}
             </Link>
           )}
         </div>
@@ -92,7 +95,7 @@ export default function Profile() {
                     <div className="min-w-0 flex-1">
                       <h3 className="font-bold">{c.title}</h3>
                       <p className="text-xs text-muted">
-                        <bdi className="ltr">{done}/{c.lessons.length}</bdi> دروس
+                        <bdi className="ltr">{done}/{c.lessons.length}</bdi> {t('me.lessonsUnit')}
                       </p>
                     </div>
                   </div>
@@ -102,7 +105,7 @@ export default function Profile() {
                       return (
                         <li key={l.id}>
                           <Link href={`/learn/${l.id}`} className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium transition ${ok ? 'border-gold/50 bg-gold-soft text-gold' : 'border-line text-muted hover:border-gold/50 hover:text-ink'}`}>
-                            {ok && <span aria-label="خلصان">✓</span>}
+                            {ok && <span aria-label={t('me.doneAria')}>✓</span>}
                             {l.title}
                           </Link>
                         </li>
@@ -118,7 +121,7 @@ export default function Profile() {
 
       <section aria-labelledby="ach-h">
         <h2 id="ach-h" className="mb-3 font-display text-xl font-bold">
-          الأوسمة <span className="text-base text-muted"><bdi className="ltr">{unlocked.length}/{ACHIEVEMENTS.length}</bdi></span>
+          {t('me.achievements')} <span className="text-base text-muted"><bdi className="ltr">{unlocked.length}/{ACHIEVEMENTS.length}</bdi></span>
         </h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
           {ACHIEVEMENTS.map((a) => {
@@ -128,7 +131,7 @@ export default function Profile() {
                 <span className="block text-3xl" aria-hidden>{a.icon}</span>
                 <span className="mt-1 block text-sm font-bold">{a.name}</span>
                 <span className="block text-xs text-muted">{a.desc}</span>
-                {!on && <span className="sr-only">لسه ماخدتهوش</span>}
+                {!on && <span className="sr-only">{t('me.notEarned')}</span>}
               </li>
             )
           })}
@@ -136,7 +139,7 @@ export default function Profile() {
       </section>
 
       <section aria-labelledby="bots-h">
-        <h2 id="bots-h" className="mb-3 font-display text-xl font-bold">ضحاياك من الأبطال</h2>
+        <h2 id="bots-h" className="mb-3 font-display text-xl font-bold">{t('me.botsTitle')}</h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {BOTS.map((b) => {
             const w = p.wins?.[b.id] || 0
@@ -145,19 +148,19 @@ export default function Profile() {
                 <BotAvatar bot={b} />
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-bold"><bdi className="ltr">{b.name}</bdi></span>
-                  <span className="text-xs text-muted">{w ? `كسبته ${w} مرة` : 'لسه'}</span>
+                  <span className="text-xs text-muted">{w ? t('me.beatTimes', { n: w }) : t('me.notYet')}</span>
                 </span>
               </li>
             )
           })}
         </ul>
         <Link href="/play/computer" className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-gold hover:underline">
-          <Icon name="cpu" className="h-4 w-4" /> العب ضد الكمبيوتر
+          <Icon name="cpu" className="h-4 w-4" /> {t('me.playComputer')}
         </Link>
       </section>
 
       <section aria-labelledby="ranks-h" className="luxe-card rounded-2xl p-4">
-        <h2 id="ranks-h" className="mb-2 font-bold">الرتب والنقط</h2>
+        <h2 id="ranks-h" className="mb-2 font-bold">{t('me.ranksTitle')}</h2>
         <ol className="flex flex-wrap gap-1.5">
           {RANKS.map((x, i) => (
             <li key={x.name}>
@@ -168,7 +171,7 @@ export default function Profile() {
           ))}
         </ol>
         <p className="mt-3 text-xs text-muted">
-          الدرس {XP.lesson} نقطة، واللغز {XP.puzzle}، والفخ {XP.trap}، ولغز اليوم {XP.daily} زيادة، وكل دور ضد الكمبيوتر {XP.game}، والفوز {XP.win} زيادة. كله بيتسجل في حسابك.
+          {t('me.xpNote', { lesson: XP.lesson, puzzle: XP.puzzle, trap: XP.trap, daily: XP.daily, game: XP.game, win: XP.win })}
         </p>
       </section>
     </div>
@@ -177,10 +180,11 @@ export default function Profile() {
 
 /** Guests see general info only - no personal data without an account. */
 function GuestProfile() {
+  const { t } = useI18n()
   return (
     <div className="flex flex-col gap-6">
       <section aria-labelledby="ranks-h" className="luxe-card rounded-2xl p-4">
-        <h2 id="ranks-h" className="mb-2 font-bold">الرتب والنقط</h2>
+        <h2 id="ranks-h" className="mb-2 font-bold">{t('me.ranksTitle')}</h2>
         <ol className="flex flex-wrap gap-1.5">
           {RANKS.map((x) => (
             <li key={x.name}>
@@ -191,7 +195,7 @@ function GuestProfile() {
           ))}
         </ol>
         <p className="mt-3 text-xs text-muted">
-          الدرس {XP.lesson} نقطة، واللغز {XP.puzzle}، والفخ {XP.trap}، ولغز اليوم {XP.daily} زيادة، وكل دور ضد الكمبيوتر {XP.game}، والفوز {XP.win} زيادة. كله بيتسجل في حسابك.
+          {t('me.xpNote', { lesson: XP.lesson, puzzle: XP.puzzle, trap: XP.trap, daily: XP.daily, game: XP.game, win: XP.win })}
         </p>
       </section>
     </div>
