@@ -39,7 +39,7 @@ export default function EndgamePlayer({ endgameId, nextId }: { endgameId: string
           <h2 className="mb-1 font-bold text-emerald">الشرح</h2>
           <RichText text={e.explain} />
           <Link href={`/endgames/${nextId}`} className="mt-3 inline-flex items-center gap-2 font-bold text-gold hover:underline">
-            الموقف الجاي <Icon name="prev" className="h-4 w-4" />
+            الموقف الجاي <Icon name="prev" className="h-4 w-4 ltr:-scale-x-100" />
           </Link>
         </div>
       )}
