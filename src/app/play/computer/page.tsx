@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import PlayComputer from '../../../components/PlayComputer'
-import { PageHeader } from '../../../components/ui'
+import { ComputerHeader } from '../../../components/PlayHeaders'
 
 export const metadata: Metadata = {
   title: 'العب شطرنج ضد الكمبيوتر',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHeader kicker="العب" title="ضد الكمبيوتر" />
+      <ComputerHeader />
       <PlayComputer />
     </>
   )
