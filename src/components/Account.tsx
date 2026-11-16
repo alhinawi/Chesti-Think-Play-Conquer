@@ -6,12 +6,14 @@ import { refreshUser, signOut, useAuth } from '../lib/auth'
 import { updateMe } from '../lib/api'
 import { fileToAvatar } from '../lib/avatar'
 import AuthForm from './AuthForm'
+import { useI18n } from '../lib/i18n'
 import { Button } from './ui'
 
 export default function Account() {
   const params = useSearchParams()
   const mode = params.get('mode') === 'login' ? 'login' : 'register'
   const { status, user } = useAuth()
+  const { t } = useI18n()
   const fileRef = useRef<HTMLInputElement>(null)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
@@ -27,7 +29,7 @@ export default function Account() {
         await updateMe({ avatar: await fileToAvatar(f) })
         await refreshUser()
       } catch (e) {
-        setErr(e instanceof Error && e.message && !e.message.startsWith('http') ? e.message : 'الصورة متلزمتش - جرّب صورة تانية')
+        setErr(e instanceof Error && e.message && !e.message.startsWith('http') ? e.message : t('me.errAvatar'))
       } finally {
         setBusy(false)
         if (fileRef.current) fileRef.current.value = ''
@@ -41,7 +43,7 @@ export default function Account() {
         await updateMe({ avatar: null })
         await refreshUser()
       } catch {
-        setErr('مش قادرين نشيل الصورة دلوقتي - جرّب تاني')
+        setErr(t('me.errAvatarRemove'))
       } finally {
         setBusy(false)
       }
@@ -59,20 +61,20 @@ export default function Account() {
           <div className="min-w-0 flex-1">
             <h2 id="acc-h" className="font-display text-xl font-bold">{user.name}</h2>
             <p className="text-sm text-muted"><bdi className="ltr block truncate">{user.email}</bdi></p>
-            <p className="mt-1 text-xs text-emerald">حسابك متسجل — أدوارك ونتايجك بتحفظ لوحدها.</p>
+            <p className="mt-1 text-xs text-emerald">{t('me.verified')}</p>
             {err && <p className="mt-1 text-xs text-danger" role="alert">{err}</p>}
           </div>
           <div className="flex flex-col gap-2">
             <Button variant="ghost" disabled={busy} onClick={() => fileRef.current?.click()}>
-              {busy ? 'بنرفع…' : user.avatar ? 'غيّر صورتك' : 'حط صورتك'}
+              {busy ? t('me.uploading') : user.avatar ? t('me.changeAvatar') : t('me.addAvatar')}
             </Button>
             {user.avatar && (
               <Button variant="ghost" disabled={busy} onClick={() => void remove()}>
-                شيل الصورة
+                {t('me.removeAvatar')}
               </Button>
             )}
             <Button variant="ghost" onClick={() => void signOut()}>
-              سجّل خروج
+              {t('me.logout')}
             </Button>
           </div>
           <input ref={fileRef} type="file" accept="image/*" className="hidden" aria-hidden onChange={(e) => void pick(e.target.files?.[0])} />
@@ -83,8 +85,8 @@ export default function Account() {
 
   return (
     <section className="luxe-card rounded-2xl border border-gold/30 p-5" aria-labelledby="acc-h">
-      <h2 id="acc-h" className="font-display text-xl font-bold">{mode === 'login' ? 'ادخل لحسابك' : 'اعمل حساب'}</h2>
-      <p className="mt-1 text-sm text-muted">بحساب تقدر تسجّل أدوارك وتدخل سباق المتصدرين من أي جهاز. مجاني طبعًا.</p>
+      <h2 id="acc-h" className="font-display text-xl font-bold">{mode === 'login' ? t('me.authTitleLogin') : t('me.authTitleRegister')}</h2>
+      <p className="mt-1 text-sm text-muted">{t('me.authSub')}</p>
       <AuthForm initialMode={mode} />
     </section>
   )
