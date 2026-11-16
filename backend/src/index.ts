@@ -5,6 +5,7 @@ import { hashPassword, newToken, sha256Hex, verifyPassword } from './crypto'
 import { asBody, email, int, isoDate, oneOf, str, ValidationError } from './validate'
 import { finishGoogleLogin, googleConfigured, startGoogleLogin } from './google'
 import { cleanTelemetry, engineBump, FLAG_THRESHOLD, scoreGame } from './anticheat'
+import { liveRoutes } from './live'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
 
@@ -163,6 +164,10 @@ app.patch('/api/me', async (c) => {
 // ---------- games ----------
 app.use('/api/games', auth)
 app.use('/api/games/*', auth)
+
+// Live server-authoritative games (anti-cheat): every half-move validated and
+// timestamped by the server during play. See live.ts.
+liveRoutes(app, auth)
 
 app.post('/api/games', async (c) => {
   const b = await json(c)

@@ -18,6 +18,10 @@ export interface Telemetry {
 
 export interface ScoreInput {
   telemetry: Telemetry | null
+  /** true when move times were stamped by the server during live play, not
+   * reported by the client - server timing cannot be faked by a patched
+   * client, so timing signals carry more weight. */
+  timingTrusted?: boolean
   result: 'win' | 'loss' | 'draw'
   moves: number // total plies in the game
   durationSeconds: number | null
@@ -88,6 +92,13 @@ export function scoreGame(input: ScoreInput): RiskVerdict {
   if (input.result === 'win' && input.recentGames >= 10 && input.recentWins >= 10) {
     score += 20
     reasons.push('perfect_streak')
+  }
+
+  // Server-stamped timing makes any timing signal stronger evidence: the
+  // client had no way to invent or smooth those numbers.
+  if (input.timingTrusted && reasons.some((r) => r === 'impossibly_fast' || r === 'robotic_timing' || r === 'no_think_time')) {
+    score += 10
+    reasons.push('server_timed')
   }
 
   return { score: Math.min(100, score), reasons }

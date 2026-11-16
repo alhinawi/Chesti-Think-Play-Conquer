@@ -15,6 +15,7 @@ const REASON_LABELS: Record<string, string> = {
   paste_detected: 'لصق أثناء الدور',
   short_game_many_moves: 'مدة قصيرة جدًا لنقلات كتير',
   perfect_streak: 'سلسلة فوز كاملة',
+  server_timed: 'التوقيت مُقاس بساعة السيرفر (دليل أقوى)',
   engine_like_moves: 'نقلات مطابقة لاختيار المحرك',
   low_acpl: 'دقة عالية جدًا مقارنة بالمحرك',
 }

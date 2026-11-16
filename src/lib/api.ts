@@ -225,3 +225,17 @@ export function adminAntiCheatExclude(userId: number, excluded: boolean) {
 export function adminAntiCheatExcluded() {
   return req<{ excluded: { id: number; name: string; email: string }[] }>('/admin/anticheat/excluded', { auth: true })
 }
+
+// ---------- live games (server-authoritative anti-cheat) ----------
+
+export function liveStart(opponent: string, color: 'white' | 'black') {
+  return req<{ live: { id: number; fen: string } }>('/live/start', { method: 'POST', body: { opponent, color }, auth: true })
+}
+
+export function liveMove(id: number, uci: string) {
+  return req<{ ok: boolean; fen: string; over: boolean; result?: 'win' | 'loss' | 'draw' }>(`/live/${id}/move`, { method: 'POST', body: { uci }, auth: true })
+}
+
+export function liveEnd(id: number, result: 'win' | 'loss' | 'draw', signals?: unknown) {
+  return req<{ ok: boolean; game_id?: number }>(`/live/${id}/end`, { method: 'POST', body: { result, signals }, auth: true })
+}
