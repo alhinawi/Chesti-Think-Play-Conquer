@@ -1,7 +1,6 @@
 import { env } from 'cloudflare:workers'
 import { describe, expect, it } from 'vitest'
 import app from '../src/index'
-import { analyzeGame } from '../src/engine'
 import { cleanTelemetry, scoreGame } from '../src/anticheat'
 
 const call = (path: string, init: { method?: string; body?: unknown; token?: string } = {}) =>
@@ -101,19 +100,6 @@ describe('telemetry + risk scoring', () => {
   })
 })
 
-describe('engine analysis', () => {
-  it('rates an engine-following line higher than a blundering one', async () => {
-    // After 1.e4 e5 2.Nf3 Nc6 3.Bb5, the main-line reply a6 should score well.
-    const good = analyzeGame('1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3 O-O 9. h3 Nb8 10. d4 Nbd7', 'b', 8)
-    // A blundering line: Black gives away pieces.
-    const bad = analyzeGame('1. e4 e5 2. Nf3 Qf6 3. Bb5 Qg6 4. O-O Qh5 5. Nc3 Qg6 6. d4 Qh5 7. Bd3 Qg6 8. Re1 Qh5 9. Be2 Qg6 10. Bd3 Qh5', 'b', 8)
-    expect(good.positions).toBeGreaterThan(0)
-    expect(bad.positions).toBeGreaterThan(0)
-    expect(good.acpl).toBeLessThan(bad.acpl)
-    expect(good.match).toBeGreaterThanOrEqual(bad.match)
-  }, 30000)
-})
-
 describe('admin anti-cheat queue', () => {
   async function flaggedGame() {
     const u = await signup()
@@ -142,10 +128,16 @@ describe('admin anti-cheat queue', () => {
     expect(row!.user.email).toContain('***@')
     expect(row!.reasons.length).toBeGreaterThan(0)
 
-    const an = await call(`/api/admin/anticheat/flags/${gameId}/analyze`, { method: 'POST', token: admin.token })
+    const gg = await call(`/api/admin/anticheat/flags/${gameId}/game`, { token: admin.token })
+    expect(gg.status).toBe(200)
+    const gres = (await gg.json()) as { game: { pgn: string } }
+    expect(gres.game.pgn).toContain('1. e4 e5')
+
+    const an = await call(`/api/admin/anticheat/flags/${gameId}/analysis`, { method: 'POST', token: admin.token, body: { positions: 12, match: 0.92, top3: 0.98, acpl: 12 } })
     expect(an.status).toBe(200)
-    const aj = (await an.json()) as { analysis: { positions: number } }
-    expect(aj.analysis.positions).toBeGreaterThan(0)
+    const aj = (await an.json()) as { bump: number; reasons: string[] }
+    expect(aj.bump).toBeGreaterThan(0)
+    expect(aj.reasons).toContain('engine_like_moves')
 
     const rev = await call(`/api/admin/anticheat/flags/${gameId}/review`, { method: 'POST', token: admin.token, body: { action: 'dismiss', note: 'false positive' } })
     expect(rev.status).toBe(200)
