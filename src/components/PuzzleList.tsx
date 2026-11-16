@@ -6,9 +6,11 @@ import { PUZZLES, PUZZLE_THEMES } from '../data/puzzles'
 import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 import { Badge, Icon } from './ui'
+import { useI18n } from '../lib/i18n'
 import { MiniBoard } from './MiniBoard'
 
 export default function PuzzleList() {
+  const { t: t2 } = useI18n()
   const { puzzles: solvedAll } = useProgress()
   const { status } = useAuth()
   const authed = status === 'authed'
@@ -19,7 +21,7 @@ export default function PuzzleList() {
   return (
     <>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-2" role="group" aria-label="النوع">
+        <div className="flex flex-wrap gap-2" role="group" aria-label={t2('pz.filterAria')}>
           {['all', ...PUZZLE_THEMES].map((t) => (
             <button
               key={t}
@@ -28,15 +30,15 @@ export default function PuzzleList() {
               onClick={() => setTheme(t)}
               className={`rounded-full border px-3 py-1.5 text-sm ${theme === t ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:text-ink'}`}
             >
-              {t === 'all' ? 'الكل' : t}
+              {t === 'all' ? t2('pz.all') : t}
             </button>
           ))}
         </div>
-        <p className="text-sm text-muted">{authed ? <>حليت {solved.length} من {PUZZLES.length}</> : <>{PUZZLES.length} لغز بمستويات مختلفة</>}</p>
+        <p className="text-sm text-muted">{authed ? t2('pz.progressAuthed', { n: solved.length, total: PUZZLES.length }) : t2('pz.progressGuest', { total: PUZZLES.length })}</p>
       </div>
       {next && (
         <Link href={`/puzzles/${next.id}`} className="mb-5 inline-flex items-center gap-2 font-bold text-gold hover:underline">
-          <Icon name="bulb" /> {solved.length ? 'اللغز الجاي' : 'ابدأ من أول لغز'}: {next.name}
+          <Icon name="bulb" /> {solved.length ? t2('pz.nextPuzzle') : t2('pz.startFirst')}: {next.name}
         </Link>
       )}
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
