@@ -8,6 +8,7 @@ import { saveScore } from '../lib/api'
 import { TaskRunner } from './StepPlayer'
 import { Button, Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { themeSlug } from '../lib/i18n/dataLabels'
 
 const BEST_KEY = 'chesti-rush-best'
 const STRIKES = 3
@@ -108,7 +109,7 @@ export default function PuzzleRush() {
           <p className="ltr text-2xl font-bold text-emerald">{best}</p>
         </div>
         {phase === 'running' && puzzle && (
-          <p className="text-sm font-bold text-muted">{puzzle.theme}</p>
+          <p className="text-sm font-bold text-muted">{themeSlug(puzzle.theme) ? t(`pz.theme${themeSlug(puzzle.theme)}`) : puzzle.theme}</p>
         )}
       </div>
 
