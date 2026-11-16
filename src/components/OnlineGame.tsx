@@ -6,7 +6,9 @@ import BoardStage from './BoardStage'
 import ChessBoard from './ChessBoard'
 import { ConfirmButton, MoveList, PlayerBar, ResultCard } from './GameParts'
 import { Badge, Button, Icon } from './ui'
-import { gameResult, soundFor, toUci, turnName, type UciMove } from '../lib/chess'
+import { gameResult, soundFor, toUci, type UciMove } from '../lib/chess'
+import { useI18n } from '../lib/i18n'
+import { resultText } from '../lib/i18n/resultText'
 import { playUci } from '../lib/game'
 import { assignSeat, makeRoomCode, mergeGame, mergeSeats, newGame, normalizeRoomCode, onlineEnabled, type Color, type OnlineGame as Game, type Seats } from '../lib/online'
 import { play } from '../lib/sound'
@@ -50,6 +52,7 @@ function setUrlRoom(code: string | null) {
 const same = (a: RoomState, b: RoomState) => JSON.stringify(a) === JSON.stringify(b)
 
 export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: string | null; onLeave: () => void }) {
+  const { t } = useI18n()
   const [code, setCode] = useState<string | null>(initialRoom)
   const [joinInput, setJoinInput] = useState('')
   const [joinError, setJoinError] = useState('')
@@ -63,8 +66,8 @@ export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: stri
         <span className="mx-auto grid h-12 w-12 place-items-center rounded-xl bg-gold-soft text-gold">
           <Icon name="globe" />
         </span>
-        <h2 className="mt-3 text-lg font-bold">اللعب أونلاين مش متفعّل دلوقتي</h2>
-        <p className="mt-1 text-sm text-muted">تقدروا تلعبوا على نفس الجهاز من التبويب اللي جنبه، أو العب ضد الكمبيوتر.</p>
+        <h2 className="mt-3 text-lg font-bold">{t('og.offTitle')}</h2>
+        <p className="mt-1 text-sm text-muted">{t('og.offDesc')}</p>
       </div>
     )
   }
@@ -96,7 +99,7 @@ export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: stri
     const raw = joinInput.includes('room=') ? new URL(joinInput, window.location.href).searchParams.get('room') : joinInput
     const c = normalizeRoomCode(raw)
     if (!c) {
-      setJoinError('الكود مش مظبوط. هو 6 حروف وأرقام زي K7MQ2D.')
+      setJoinError(t('og.badCode'))
       return
     }
     setUrlRoom(c)
@@ -106,14 +109,14 @@ export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: stri
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <section className="luxe-card rounded-2xl p-5" aria-labelledby="create-room">
-        <h2 id="create-room" className="text-lg font-bold">اعمل أوضة جديدة</h2>
-        <p className="mt-1 text-sm text-muted">هنديك لينك تبعته لصاحبك، أول ما يفتحه تبدأوا.</p>
-        <div role="radiogroup" aria-label="لونك" className="mt-4 grid grid-cols-3 gap-2">
+        <h2 id="create-room" className="text-lg font-bold">{t('og.createTitle')}</h2>
+        <p className="mt-1 text-sm text-muted">{t('og.createDesc')}</p>
+        <div role="radiogroup" aria-label={t('og.yourColor')} className="mt-4 grid grid-cols-3 gap-2">
           {(
             [
-              ['w', 'أبيض'],
-              ['random', 'عشوائي'],
-              ['b', 'أسود'],
+              ['w', t('og.white')],
+              ['random', t('og.random')],
+              ['b', t('og.black')],
             ] as const
           ).map(([v, label]) => (
             <button
@@ -129,13 +132,13 @@ export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: stri
           ))}
         </div>
         <Button onClick={create} className="mt-4 w-full">
-          <Icon name="share" /> اعمل الأوضة
+          <Icon name="share" /> {t('og.createBtn')}
         </Button>
       </section>
 
       <section className="luxe-card rounded-2xl p-5" aria-labelledby="join-room">
-        <h2 id="join-room" className="text-lg font-bold">ادخل أوضة صاحبك</h2>
-        <p className="mt-1 text-sm text-muted">لو بعتلك لينك افتحه على طول، أو اكتب الكود هنا.</p>
+        <h2 id="join-room" className="text-lg font-bold">{t('og.joinTitle')}</h2>
+        <p className="mt-1 text-sm text-muted">{t('og.joinDesc')}</p>
         <form
           className="mt-4 flex gap-2"
           onSubmit={(e) => {
@@ -143,7 +146,7 @@ export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: stri
             join()
           }}
         >
-          <label htmlFor="room-code" className="sr-only">كود الأوضة</label>
+          <label htmlFor="room-code" className="sr-only">{t('og.roomCode')}</label>
           <input
             id="room-code"
             dir="ltr"
@@ -157,7 +160,7 @@ export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: stri
             className="min-w-0 flex-1 rounded-xl border border-line bg-bg px-3 py-2.5 text-center font-mono text-lg tracking-[0.3em] uppercase outline-none focus:border-gold"
           />
           <Button type="submit" disabled={!joinInput.trim()}>
-            ادخل
+            {t('og.joinBtn')}
           </Button>
         </form>
         {joinError && <p role="alert" className="mt-2 text-sm text-danger">{joinError}</p>}
@@ -167,6 +170,8 @@ export default function OnlineGame({ initialRoom, onLeave }: { initialRoom: stri
 }
 
 function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
+  const { t } = useI18n()
+  const sideName = (c: Color) => t(c === 'w' ? 'rs.white' : 'rs.black')
   const [me, setMe] = useState('')
   const [state, setState] = useState<RoomState | null>(null)
   const [status, setStatus] = useState<'connecting' | 'online' | 'error'>('connecting')
@@ -283,7 +288,7 @@ function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
   async function share() {
     try {
       if (navigator.share) {
-        await navigator.share({ title: 'تعال نلعب شطرنج', text: `أوضة ${code} على Chesti`, url: link })
+        await navigator.share({ title: t('og.shareTitle'), text: t('og.shareText', { code }), url: link })
         return
       }
     } catch {
@@ -294,39 +299,39 @@ function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      window.prompt('انسخ اللينك:', link)
+      window.prompt(t('og.copyPrompt'), link)
     }
   }
 
   const orientation = myColor === 'b' ? 'black' : 'white'
   const top: Color = orientation === 'white' ? 'b' : 'w'
-  const nameOf = (c: Color) => (myColor === c ? 'إنت' : myColor ? 'صاحبك' : turnName(c))
+  const nameOf = (c: Color) => (myColor === c ? t('og.you') : myColor ? t('og.friend') : sideName(c))
   const subOf = (c: Color) =>
-    myColor && c !== myColor ? <span className={opponentHere ? 'text-emerald' : ''}>{opponentHere ? 'موجود' : 'مش موجود دلوقتي'}</span> : null
+    myColor && c !== myColor ? <span className={opponentHere ? 'text-emerald' : ''}>{opponentHere ? t('og.here') : t('og.away')}</span> : null
 
   let outcome: { title: string; text?: string; tone: 'win' | 'lose' | 'draw' } | null = null
   if (state.game.resigned) {
     const winner: Color = state.game.resigned === 'w' ? 'b' : 'w'
-    outcome = { title: myColor ? (winner === myColor ? 'كسبت! صاحبك استسلم' : 'استسلمت') : `${turnName(winner)} كسب`, tone: myColor ? (winner === myColor ? 'win' : 'lose') : 'draw' }
+    outcome = { title: myColor ? (winner === myColor ? t('og.youWonResign') : t('og.youResigned')) : t('og.sideWon', { side: sideName(winner) }), tone: myColor ? (winner === myColor ? 'win' : 'lose') : 'draw' }
   } else if (result.over) {
-    if (!result.winner) outcome = { title: 'تعادل', text: result.text, tone: 'draw' }
-    else outcome = { title: myColor ? (result.winner === myColor ? 'كسبت!' : 'صاحبك كسب') : `${turnName(result.winner)} كسب`, text: result.text, tone: myColor ? (result.winner === myColor ? 'win' : 'lose') : 'draw' }
+    if (!result.winner) outcome = { title: t('og.draw'), text: resultText(t, result), tone: 'draw' }
+    else outcome = { title: myColor ? (result.winner === myColor ? t('og.youWon') : t('og.friendWon')) : t('og.sideWon', { side: sideName(result.winner) }), text: resultText(t, result), tone: myColor ? (result.winner === myColor ? 'win' : 'lose') : 'draw' }
   }
 
   const rematch = () => stateRef.current && commit({ ...stateRef.current, game: newGame() }, true)
   const fsExtras = (
     <div className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-sm" aria-live="polite">
-      <span>{outcome ? <strong className="text-gold">{outcome.title}</strong> : myColor ? (myTurn ? 'دورك.' : 'دور صاحبك…') : `الدور على ${turnName(turn)}`}</span>
+      <span>{outcome ? <strong className="text-gold">{outcome.title}</strong> : myColor ? (myTurn ? t('og.yourTurn') : t('og.friendTurn')) : t('og.turnOn', { side: sideName(turn) })}</span>
       {outcome && myColor && (
         <Button onClick={rematch} className="px-3 py-1.5">
-          <Icon name="reset" className="h-4 w-4" /> دور تاني
+          <Icon name="reset" className="h-4 w-4" /> {t('og.rematch')}
         </Button>
       )}
       {!outcome && myColor && (
         <ConfirmButton
           icon="flag"
-          label="استسلم"
-          confirm="متأكد إنك عايز تستسلم؟"
+          label={t('og.resign')}
+          confirm={t('og.resignConfirm')}
           disabled={over}
           onConfirm={() => stateRef.current && myColor && commit({ ...stateRef.current, game: { ...stateRef.current.game, resigned: myColor } }, true)}
         />
@@ -345,54 +350,54 @@ function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="muted">
-            أوضة <bdi className="ms-1 font-mono tracking-widest">{code}</bdi>
+            {t('og.room')} <bdi className="ms-1 font-mono tracking-widest">{code}</bdi>
           </Badge>
-          {status === 'online' ? <Badge tone="emerald">متصل</Badge> : status === 'error' ? <Badge tone="danger">مش متصل</Badge> : <Badge tone="muted">بيتصل…</Badge>}
-          {myColor && <Badge>بتلعب بـ{myColor === 'w' ? 'الأبيض' : 'الأسود'}</Badge>}
-          {spectator && <Badge tone="muted">بتتفرج</Badge>}
+          {status === 'online' ? <Badge tone="emerald">{t('og.online')}</Badge> : status === 'error' ? <Badge tone="danger">{t('og.offline')}</Badge> : <Badge tone="muted">{t('og.connecting')}</Badge>}
+          {myColor && <Badge>{t('og.playingAs', { side: sideName(myColor) })}</Badge>}
+          {spectator && <Badge tone="muted">{t('og.spectating')}</Badge>}
         </div>
 
         {status === 'error' && (
           <div role="alert" className="rounded-2xl border border-danger/50 bg-danger/10 p-4 text-sm">
-            مش عارفين نتصل بسيرفر اللعب أونلاين. اتأكد من النت وحدّث الصفحة.
+            {t('og.connErr')}
           </div>
         )}
 
         {myColor && !opponentHere && status === 'online' && state.game.moves.length === 0 && (
           <div className="rounded-2xl border border-gold/40 bg-gold-soft p-4">
-            <p className="font-bold text-gold">مستني صاحبك يدخل…</p>
-            <p className="mt-1 text-sm">ابعتله اللينك ده، أو قوله الكود <bdi className="font-mono font-bold tracking-widest">{code}</bdi></p>
+            <p className="font-bold text-gold">{t('og.waitTitle')}</p>
+            <p className="mt-1 text-sm">{t('og.waitDescPre')}<bdi className="font-mono font-bold tracking-widest">{code}</bdi></p>
             <p dir="ltr" className="mt-2 truncate rounded-lg bg-bg px-2 py-1 text-center font-mono text-xs text-muted">{link}</p>
           </div>
         )}
-        {waitingForSeat && status === 'online' && <p className="rounded-xl border border-line bg-surface p-3 text-sm">بندخلك الأوضة… لو طوّلت، صاحب الأوضة لازم يكون فاتحها.</p>}
-        {spectator && <p className="rounded-xl border border-line bg-surface p-3 text-sm">الأوضة فيها لاعبين اتنين خلاص، فإنت بتتفرج بس.</p>}
+        {waitingForSeat && status === 'online' && <p className="rounded-xl border border-line bg-surface p-3 text-sm">{t('og.seating')}</p>}
+        {spectator && <p className="rounded-xl border border-line bg-surface p-3 text-sm">{t('og.full')}</p>}
 
         {outcome ? (
           <ResultCard {...outcome}>
             {myColor && (
               <Button onClick={() => stateRef.current && commit({ ...stateRef.current, game: newGame() }, true)}>
-                <Icon name="reset" /> دور تاني
+                <Icon name="reset" /> {t('og.rematch')}
               </Button>
             )}
           </ResultCard>
         ) : (
           myColor && (
             <p className="flex items-center gap-2 rounded-xl border border-line bg-surface p-3 text-sm" aria-live="polite">
-              {myTurn ? 'دورك.' : 'دور صاحبك…'}
-              {game.inCheck() && <Badge tone="danger">كش!</Badge>}
+              {myTurn ? t('og.yourTurn') : t('og.friendTurn')}
+              {game.inCheck() && <Badge tone="danger">{t('og.check')}</Badge>}
             </p>
           )
         )}
 
         <div className="grid grid-cols-2 gap-2">
           <Button variant="soft" onClick={share}>
-            <Icon name={copied ? 'check' : 'share'} /> {copied ? 'اتنسخ' : 'ابعت اللينك'}
+            <Icon name={copied ? 'check' : 'share'} /> {copied ? t('og.copied') : t('og.shareLink')}
           </Button>
           <ConfirmButton
             icon="flag"
-            label="استسلم"
-            confirm="متأكد إنك عايز تستسلم؟"
+            label={t('og.resign')}
+            confirm={t('og.resignConfirm')}
             disabled={!myColor || over}
             onConfirm={() => stateRef.current && myColor && commit({ ...stateRef.current, game: { ...stateRef.current.game, resigned: myColor } }, true)}
           />
@@ -401,7 +406,7 @@ function Room({ code, onLeave }: { code: string; onLeave: () => void }) {
         <MoveList sans={sans} />
 
         <Button variant="ghost" onClick={onLeave} className="self-start">
-          <Icon name="x" /> اخرج من الأوضة
+          <Icon name="x" /> {t('og.leave')}
         </Button>
       </div>
     </div>

@@ -53,18 +53,19 @@ export function kingSquareInCheck(fen: string): string | null {
   return null
 }
 
-export type ResultInfo = { over: boolean; text: string; winner: 'w' | 'b' | null }
+export type ResultKind = 'mate' | 'stalemate' | 'material' | 'repeat' | 'fifty' | 'draw'
+export type ResultInfo = { over: boolean; text: string; winner: 'w' | 'b' | null; kind?: ResultKind }
 
 export function gameResult(game: Chess): ResultInfo {
   if (game.isCheckmate()) {
     const winner = game.turn() === 'w' ? 'b' : 'w'
-    return { over: true, winner, text: `كش مات! ${winner === 'w' ? 'الأبيض' : 'الأسود'} كسب` }
+    return { over: true, kind: 'mate', winner, text: `كش مات! ${winner === 'w' ? 'الأبيض' : 'الأسود'} كسب` }
   }
-  if (game.isStalemate()) return { over: true, winner: null, text: 'تعادل: ملك محبوس (بات)' }
-  if (game.isInsufficientMaterial()) return { over: true, winner: null, text: 'تعادل: القطع اللي فاضلة ما تكفيش لمات' }
-  if (game.isThreefoldRepetition()) return { over: true, winner: null, text: 'تعادل: نفس الوضع اتكرر تلات مرات' }
-  if (game.isDrawByFiftyMoves()) return { over: true, winner: null, text: 'تعادل: قاعدة الخمسين نقلة' }
-  if (game.isDraw()) return { over: true, winner: null, text: 'تعادل' }
+  if (game.isStalemate()) return { over: true, kind: 'stalemate', winner: null, text: 'تعادل: ملك محبوس (بات)' }
+  if (game.isInsufficientMaterial()) return { over: true, kind: 'material', winner: null, text: 'تعادل: القطع اللي فاضلة ما تكفيش لمات' }
+  if (game.isThreefoldRepetition()) return { over: true, kind: 'repeat', winner: null, text: 'تعادل: نفس الوضع اتكرر تلات مرات' }
+  if (game.isDrawByFiftyMoves()) return { over: true, kind: 'fifty', winner: null, text: 'تعادل: قاعدة الخمسين نقلة' }
+  if (game.isDraw()) return { over: true, kind: 'draw', winner: null, text: 'تعادل' }
   return { over: false, winner: null, text: '' }
 }
 
