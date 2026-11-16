@@ -53,15 +53,15 @@ export default function LessonPlayer({ lessonId, nextId, nextTitle }: { lessonId
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button variant="soft" onClick={() => setI((x) => Math.max(0, x - 1))} disabled={i === 0}>
-          <Icon name="next" className="h-4 w-4" /> {t('ln.prev')}
+          <Icon name="next" className="h-4 w-4 ltr:-scale-x-100" /> {t('ln.prev')}
         </Button>
         {!last ? (
           <Button onClick={() => setI((x) => x + 1)} disabled={!done[i]}>
-            {t('ln.next')} <Icon name="prev" className="h-4 w-4" />
+            {t('ln.next')} <Icon name="prev" className="h-4 w-4 ltr:-scale-x-100" />
           </Button>
         ) : finished ? (
           <Button onClick={() => router.push(nextId ? `/learn/${nextId}` : '/puzzles')}>
-            {nextId ? t('ln.nextLesson', { title: nextTitle ?? '' }) : t('ln.tryPuzzles')} <Icon name="prev" className="h-4 w-4" />
+            {nextId ? t('ln.nextLesson', { title: nextTitle ?? '' }) : t('ln.tryPuzzles')} <Icon name="prev" className="h-4 w-4 ltr:-scale-x-100" />
           </Button>
         ) : (
           <span className="text-sm text-muted">{t('ln.finishFirst')}</span>
