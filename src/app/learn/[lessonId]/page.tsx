@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import LessonPlayer from '../../../components/LessonPlayer'
+import LessonCrumb from '../../../components/LessonCrumb'
+import LessonPager from '../../../components/LessonPager'
 import { ALL_LESSONS } from '../../../data/lessons'
 import { SITE } from '../../../lib/site'
 
@@ -48,11 +49,7 @@ export default async function LessonPage({ params }: Props) {
   return (
     <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <nav aria-label="مسار الصفحة" className="mb-3 text-sm text-muted">
-        <Link href="/learn" className="hover:text-gold">الدروس</Link>
-        <span className="mx-2">/</span>
-        <span>{lesson.chapter.title}</span>
-      </nav>
+      <LessonCrumb chapterTitle={lesson.chapter.title} />
       <h1 className="font-display text-2xl font-bold sm:text-3xl">{lesson.title}</h1>
       <p className="mt-1 mb-5 text-muted">{lesson.summary}</p>
       <LessonPlayer lessonId={lesson.id} nextId={next?.id} nextTitle={next?.title} />
@@ -63,10 +60,7 @@ export default async function LessonPage({ params }: Props) {
           ))}
         </ol>
       </noscript>
-      <nav aria-label="دروس تانية" className="mt-10 flex flex-wrap justify-between gap-3 border-t border-line pt-5 text-sm">
-        {prev ? <Link href={`/learn/${prev.id}`} className="text-muted hover:text-gold">→ {prev.title}</Link> : <span />}
-        {next ? <Link href={`/learn/${next.id}`} className="text-muted hover:text-gold">{next.title} ←</Link> : <Link href="/puzzles" className="text-muted hover:text-gold">الألغاز ←</Link>}
-      </nav>
+      <LessonPager prev={prev && { id: prev.id, title: prev.title }} next={next && { id: next.id, title: next.title }} />
     </article>
   )
 }
