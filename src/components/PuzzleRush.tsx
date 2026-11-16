@@ -8,6 +8,7 @@ import { saveScore } from '../lib/api'
 import { TaskRunner } from './StepPlayer'
 import { Button, Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { usePuzzleLoc } from '../lib/i18n/content'
 import { themeSlug } from '../lib/i18n/dataLabels'
 
 const BEST_KEY = 'chesti-rush-best'
@@ -16,6 +17,7 @@ const STRIKES = 3
 type Phase = 'idle' | 'running' | 'done'
 
 export default function PuzzleRush() {
+  const lp = usePuzzleLoc()
   const { t } = useI18n()
   const [phase, setPhase] = useState<Phase>('idle')
   const [puzzleId, setPuzzleId] = useState('')
@@ -79,7 +81,7 @@ export default function PuzzleRush() {
     if (!puzzle) return null
     return {
       kind: 'task',
-      text: puzzle.text,
+      text: lp(puzzle).text,
       fen: puzzle.fen,
       solution: puzzle.solution,
       goal: /مات/.test(puzzle.theme) ? 'mate' : undefined,
@@ -87,7 +89,7 @@ export default function PuzzleRush() {
       success: t('pz.rushSuccess'),
       orientation: puzzle.fen.split(' ')[1] === 'b' ? 'black' : 'white',
     }
-  }, [puzzle, t])
+  }, [puzzle, t, lp])
 
   return (
     <div className="flex flex-col gap-4">
