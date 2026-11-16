@@ -109,7 +109,7 @@ export default function PuzzleRush() {
           <p className="ltr text-2xl font-bold text-emerald">{best}</p>
         </div>
         {phase === 'running' && puzzle && (
-          <p className="text-sm font-bold text-muted">{themeSlug(puzzle.theme) ? t(`pz.theme${themeSlug(puzzle.theme)}`) : puzzle.theme}</p>
+          <p className="text-sm font-bold text-muted">{themeSlug(puzzle.theme) ? t(`pz.theme${themeSlug(puzzle.theme)![0].toUpperCase() + themeSlug(puzzle.theme)!.slice(1)}`) : puzzle.theme}</p>
         )}
       </div>
 
