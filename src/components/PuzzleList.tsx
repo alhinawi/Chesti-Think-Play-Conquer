@@ -7,10 +7,12 @@ import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 import { Badge, Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { usePuzzleLoc } from '../lib/i18n/content'
 import { themeSlug } from '../lib/i18n/dataLabels'
 import { MiniBoard } from './MiniBoard'
 
 export default function PuzzleList() {
+  const lp = usePuzzleLoc()
   const { t: t2 } = useI18n()
   const themeLabel = (x: string) => { const s = themeSlug(x); return s ? t2(`pz.theme${s[0].toUpperCase() + s.slice(1)}`) : x }
   const { puzzles: solvedAll } = useProgress()
@@ -51,7 +53,7 @@ export default function PuzzleList() {
               <Link href={`/puzzles/${p.id}`} className={`block rounded-xl border p-2 transition hover:border-gold/60 ${ok ? 'border-emerald/40' : 'border-line'} bg-surface`}>
                 <MiniBoard fen={p.fen} />
                 <div className="mt-2 flex items-center justify-between gap-1 px-1">
-                  <span className="truncate text-sm font-bold">{p.name}</span>
+                  <span className="truncate text-sm font-bold">{lp(p).name}</span>
                   {ok ? <Icon name="check" className="h-4 w-4 shrink-0 text-emerald" /> : null}
                 </div>
                 <div className="mt-1 flex flex-wrap gap-1 px-1 pb-1">
