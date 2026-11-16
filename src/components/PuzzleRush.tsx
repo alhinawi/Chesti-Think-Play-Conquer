@@ -7,6 +7,7 @@ import { celebrate } from './Celebrate'
 import { saveScore } from '../lib/api'
 import { TaskRunner } from './StepPlayer'
 import { Button, Icon } from './ui'
+import { useI18n } from '../lib/i18n'
 
 const BEST_KEY = 'chesti-rush-best'
 const STRIKES = 3
@@ -14,6 +15,7 @@ const STRIKES = 3
 type Phase = 'idle' | 'running' | 'done'
 
 export default function PuzzleRush() {
+  const { t } = useI18n()
   const [phase, setPhase] = useState<Phase>('idle')
   const [puzzleId, setPuzzleId] = useState('')
   const [round, setRound] = useState(0)
@@ -80,29 +82,29 @@ export default function PuzzleRush() {
       fen: puzzle.fen,
       solution: puzzle.solution,
       goal: /مات/.test(puzzle.theme) ? 'mate' : undefined,
-      hint: 'دوّر على الكش أو الأكل.',
-      success: 'صح!',
+      hint: t('pz.rushHint'),
+      success: t('pz.rushSuccess'),
       orientation: puzzle.fen.split(' ')[1] === 'b' ? 'black' : 'white',
     }
-  }, [puzzle])
+  }, [puzzle, t])
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
         <div className="rounded-2xl border border-line bg-surface px-5 py-3 text-center">
-          <p className="text-xs text-muted">ألغاز محلولة</p>
+          <p className="text-xs text-muted">{t('pz.rushSolved')}</p>
           <p className="ltr text-2xl font-bold text-gold">{score}</p>
         </div>
         <div className="rounded-2xl border border-line bg-surface px-5 py-3 text-center">
-          <p className="text-xs text-muted">الضربات</p>
-          <p className="ltr text-2xl font-bold" aria-label={`${strikes} من ${STRIKES} ضربات`}>
+          <p className="text-xs text-muted">{t('pz.rushStrikes')}</p>
+          <p className="ltr text-2xl font-bold" aria-label={t('pz.rushStrikesAria', { n: strikes, total: STRIKES })}>
             {Array.from({ length: STRIKES }, (_, i) => (
               <span key={i} className={i < strikes ? 'text-danger' : 'text-muted/40'}>✕</span>
             ))}
           </p>
         </div>
         <div className="rounded-2xl border border-line bg-surface px-5 py-3 text-center">
-          <p className="text-xs text-muted">أحسن نتيجة</p>
+          <p className="text-xs text-muted">{t('pz.rushBest')}</p>
           <p className="ltr text-2xl font-bold text-emerald">{best}</p>
         </div>
         {phase === 'running' && puzzle && (
@@ -114,9 +116,9 @@ export default function PuzzleRush() {
         <div className="luxe-card rounded-2xl p-6 text-center">
           <Icon name="bulb" className="mx-auto mb-3 h-10 w-10 text-gold" />
           <p className="mb-4 max-w-md mx-auto text-muted">
-            حل أكبر عدد من الألغاز من غير ما تغلط {STRIKES} غلطات. كل لغز صح بنقطة، ومفيش وقت — بس الغلط التالت بينهي الجولة.
+            {t('pz.rushIntro', { n: STRIKES })}
           </p>
-          <Button onClick={start}>ابدأ السباق</Button>
+          <Button onClick={start}>{t('pz.rushStart')}</Button>
         </div>
       )}
 
@@ -127,13 +129,13 @@ export default function PuzzleRush() {
       {phase === 'done' && (
         <div className="luxe-card animate-fade-up rounded-2xl p-6 text-center">
           <h2 className="font-display text-2xl font-bold">
-            {score >= 10 ? 'وحش ألغاز!' : score >= 5 ? 'أداء محترم!' : 'الجولة خلصت'}
+            {score >= 10 ? t('pz.rushEndGreat') : score >= 5 ? t('pz.rushEndGood') : t('pz.rushEndPlain')}
           </h2>
           <p className="mt-2 text-muted">
-            حليت <b className="text-gold">{score}</b> {score === 1 ? 'لغز' : 'ألغاز'} قبل الضربة التالتة.
-            {score >= best && score > 0 && ' دي أحسن نتيجة ليك!'}
+            {t('pz.rushScore', { n: score, unit: score === 1 ? t('pz.rushUnitOne') : t('pz.rushUnitMany') })}
+            {score >= best && score > 0 && ` ${t('pz.rushNewBest')}`}
           </p>
-          <Button className="mt-4" onClick={start}>العب تاني</Button>
+          <Button className="mt-4" onClick={start}>{t('pz.rushAgain')}</Button>
         </div>
       )}
     </div>

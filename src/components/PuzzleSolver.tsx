@@ -10,9 +10,11 @@ import ShareButton from './ShareButton'
 import RichText from './RichText'
 import { TaskRunner } from './StepPlayer'
 import { Icon } from './ui'
+import { useI18n } from '../lib/i18n'
 
 /** daily = the local date when this is the puzzle of the day */
 export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: string; nextId: string; daily?: string }) {
+  const { t } = useI18n()
   const p = PUZZLES.find((x) => x.id === puzzleId)!
   const [solved, setSolved] = useState(false)
   const step = useMemo<TaskStep>(
@@ -22,11 +24,11 @@ export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: st
       fen: p.fen,
       solution: p.solution,
       goal: /مات/.test(p.theme) ? 'mate' : undefined,
-      hint: 'دوّر على النقلات اللي بتدّي كش أو بتاكل الأول.',
-      success: 'صح! حليت اللغز.',
+      hint: t('pz.hint'),
+      success: t('pz.success'),
       orientation: p.fen.split(' ')[1] === 'b' ? 'black' : 'white',
     }),
-    [p],
+    [p, t],
   )
   const onDone = useCallback(() => {
     setSolved(true)
@@ -39,13 +41,13 @@ export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: st
       <TaskRunner key={p.id} step={step} onDone={onDone} />
       {solved && (
         <div className="animate-fade-up mt-5 rounded-2xl border border-emerald/40 bg-emerald/5 p-4">
-          <h2 className="mb-1 font-bold text-emerald">الشرح</h2>
+          <h2 className="mb-1 font-bold text-emerald">{t('pz.explainTitle')}</h2>
           <RichText text={p.explain} />
           <div className="mt-3">
-            <ShareButton text={`حليت لغز "${p.name}" على Chesti ♞ تقدر تحله إنت كمان؟`} path={`/puzzles/${p.id}/`} label="تحدّى صاحبك" />
+            <ShareButton text={t('pz.shareText', { name: p.name })} path={`/puzzles/${p.id}/`} label={t('pz.shareLabel')} />
           </div>
           <Link href={`/puzzles/${nextId}`} className="mt-3 inline-flex items-center gap-2 font-bold text-gold hover:underline">
-            اللغز الجاي <Icon name="prev" className="h-4 w-4" />
+            {t('pz.next')} <Icon name="prev" className="h-4 w-4" />
           </Link>
         </div>
       )}

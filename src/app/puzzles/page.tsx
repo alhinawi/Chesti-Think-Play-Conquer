@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { PageHeader } from '../../components/ui'
 import PuzzleList from '../../components/PuzzleList'
+import PuzzlesHeader from '../../components/PuzzlesHeader'
 import { PUZZLES } from '../../data/puzzles'
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function PuzzlesPage() {
   return (
     <>
-      <PageHeader kicker="الألغاز" title="شغّل مخك" desc="كل لغز متراجع بمحرك Stockfish: الحل اللي هنا هو أحسن نقلة فعلًا." />
+      <PuzzlesHeader />
       <PuzzleList />
     </>
   )
