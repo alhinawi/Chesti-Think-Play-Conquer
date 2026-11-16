@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import PuzzleRush from '../../components/PuzzleRush'
-import { PageHeader } from '../../components/ui'
+import { RushHeader } from '../../components/DailyHeaders'
 
 export const metadata: Metadata = {
   title: 'سباق الألغاز',
@@ -11,11 +11,7 @@ export const metadata: Metadata = {
 export default function RushPage() {
   return (
     <>
-      <PageHeader
-        kicker="سباق الألغاز"
-        title="كم لغز تقدر تحل؟"
-        desc="ألغاز عشوائية ورا بعض: كل حل صح نقطة، و3 غلطات بينهوا الجولة. من غير وقت، الدقة هي اللي بتحسب."
-      />
+      <RushHeader />
       <PuzzleRush />
     </>
   )

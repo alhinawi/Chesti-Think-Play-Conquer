@@ -378,5 +378,20 @@ const en: Messages = {
     emptyOpen: 'No openings match these filters. Try widening the search.',
     movesBadge: '{n} moves',
   },
+  dl: {
+    dailyKicker: 'Every day',
+    dailyTitle: 'Daily puzzle',
+    dailyDesc: 'One puzzle every day, the same one for everyone. Solve it to keep your streak alive.',
+    rushKicker: 'Puzzle rush',
+    rushTitle: 'How many can you solve?',
+    rushDesc: 'Random puzzles back to back: every solve is a point, and 3 mistakes end the run. No clock - accuracy is what counts.',
+    endKicker: 'Endgame lab',
+    endTitle: 'Games are won here',
+    endDesc: 'Most amateur games are decided in the endgame. Each position here teaches a decisive technique: solve it yourself and get the idea.',
+    endHint: "Think about the king's escape squares first.",
+    endSuccess: 'Well done! Position solved.',
+    endExplainH: 'Explanation',
+    endNext: 'Next position',
+  },
 }
 export default en
