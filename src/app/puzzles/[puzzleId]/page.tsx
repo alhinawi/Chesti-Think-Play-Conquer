@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import PuzzleSolver from '../../../components/PuzzleSolver'
+import PuzzleTitle from '../../../components/PuzzleTitle'
 import PuzzleCrumb from '../../../components/PuzzleCrumb'
 import PuzzleBadges from '../../../components/PuzzleBadges'
 import { PUZZLES } from '../../../data/puzzles'
@@ -31,7 +32,7 @@ export default async function PuzzlePage({ params }: Props) {
     <article>
       <PuzzleCrumb theme={p.theme} />
       <div className="mb-4 flex flex-wrap items-center gap-2">
-        <h1 className="font-display text-2xl font-bold sm:text-3xl">{p.name}</h1>
+        <PuzzleTitle p={p} />
         <PuzzleBadges theme={p.theme} level={p.level} />
       </div>
       <PuzzleSolver puzzleId={p.id} nextId={next.id} />
