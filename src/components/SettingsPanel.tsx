@@ -29,17 +29,18 @@ function Toggle({ k, label, hint }: { k: keyof Settings; label: string; hint?: s
 export default function SettingsPanel() {
   const { settings, update } = useSettings()
   const progress = useProgress()
-  const { locale, setLocale, locales } = useI18n()
+  const { t: i18n, locale, setLocale, locales } = useI18n()
+  const cap = (x: string) => x[0].toUpperCase() + x.slice(1)
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
       <div className="flex flex-col gap-6">
         <section aria-labelledby="s-look" className="luxe-card rounded-2xl p-5">
-          <h2 id="s-look" className="mb-3 text-lg font-bold">الشكل</h2>
-          <div role="radiogroup" aria-label="الوضع" className="mb-4 grid grid-cols-2 gap-2">
+          <h2 id="s-look" className="mb-3 text-lg font-bold">{i18n('st.look')}</h2>
+          <div role="radiogroup" aria-label={i18n('st.mode')} className="mb-4 grid grid-cols-2 gap-2">
             {(
               [
-                ['dark', 'غامق', 'moon'],
-                ['light', 'فاتح', 'sun'],
+                ['dark', i18n('st.dark'), 'moon'],
+                ['light', i18n('st.light'), 'sun'],
               ] as const
             ).map(([v, label, icon]) => (
               <button
@@ -54,8 +55,8 @@ export default function SettingsPanel() {
               </button>
             ))}
           </div>
-          <p className="mb-2 text-sm font-bold">لون الرقعة</p>
-          <div role="radiogroup" aria-label="لون الرقعة" className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+          <p className="mb-2 text-sm font-bold">{i18n('st.boardColor')}</p>
+          <div role="radiogroup" aria-label={i18n('st.boardColor')} className="grid grid-cols-3 gap-2 sm:grid-cols-5">
             {BOARD_THEMES.map((t) => (
               <button
                 key={t.id}
@@ -71,19 +72,19 @@ export default function SettingsPanel() {
                   <span style={{ background: t.dark }} />
                   <span style={{ background: t.light }} />
                 </span>
-                {t.name}
+                {i18n(`st.board${cap(t.id)}`)}
               </button>
             ))}
           </div>
           <div className="mt-4 lg:hidden">
-            <p className="mb-2 text-sm font-bold text-muted">شكل الرقعة</p>
+            <p className="mb-2 text-sm font-bold text-muted">{i18n('st.boardPreview')}</p>
             <ChessBoard fen={PREVIEW} movable="both" />
           </div>
         </section>
 
         <section aria-labelledby="s-lang" className="luxe-card rounded-2xl p-5">
-          <h2 id="s-lang" className="mb-3 text-lg font-bold">اللغة</h2>
-          <div role="radiogroup" aria-label="اللغة" className="grid grid-cols-2 gap-2">
+          <h2 id="s-lang" className="mb-3 text-lg font-bold">{i18n('st.language')}</h2>
+          <div role="radiogroup" aria-label={i18n('st.language')} className="grid grid-cols-2 gap-2">
             {locales.map((l) => (
               <button
                 key={l.id}
@@ -100,17 +101,17 @@ export default function SettingsPanel() {
         </section>
 
         <section aria-labelledby="s-board" className="luxe-card rounded-2xl px-5 py-2">
-          <h2 id="s-board" className="pt-3 text-lg font-bold">الرقعة والصوت</h2>
-          <Toggle k="sound" label="الصوت" hint="صوت النقلة والأكل والكش" />
-          <Toggle k="coords" label="أسماء الخانات" hint="الحروف والأرقام على طرف الرقعة" />
-          <Toggle k="legalDots" label="ورّيني القطعة تقدر تروح فين" hint="نقط على الخانات المسموحة لما تختار قطعة" />
-          <Toggle k="animations" label="حركة القطع" />
+          <h2 id="s-board" className="pt-3 text-lg font-bold">{i18n('st.boardSound')}</h2>
+          <Toggle k="sound" label={i18n('st.sound')} hint={i18n('st.soundHint')} />
+          <Toggle k="coords" label={i18n('st.coords')} hint={i18n('st.coordsHint')} />
+          <Toggle k="legalDots" label={i18n('st.legalDots')} hint={i18n('st.legalDotsHint')} />
+          <Toggle k="animations" label={i18n('st.animations')} />
         </section>
 
         <section aria-labelledby="s-sounds" className="luxe-card rounded-2xl p-5">
-          <h2 id="s-sounds" className="mb-1 text-lg font-bold">حزمة الصوت</h2>
-          <p className="mb-3 text-sm text-muted">اختار صوت حركة القطع اللي يعجبك - دوس على أي حزمة تسمعها. بتشتغل على الرقعة العادية وعالم 3D.</p>
-          <div role="radiogroup" aria-label="حزمة الصوت" className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <h2 id="s-sounds" className="mb-1 text-lg font-bold">{i18n('st.packTitle')}</h2>
+          <p className="mb-3 text-sm text-muted">{i18n('st.packDesc')}</p>
+          <div role="radiogroup" aria-label={i18n('st.packTitle')} className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {SOUND_PACKS.map((pk) => (
               <button
                 key={pk.id}
@@ -126,20 +127,20 @@ export default function SettingsPanel() {
                 }}
                 className={`flex items-center justify-between gap-2 rounded-xl border px-3 py-2.5 text-sm font-bold ${settings.soundPack === pk.id ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:border-gold/50'}`}
               >
-                {pk.name}
+                {i18n(`st.pack${cap(pk.id)}`)}
                 <Icon name="sound" className="h-4 w-4" />
               </button>
             ))}
           </div>
           <label className="mt-4 flex items-center gap-3">
-            <span className="text-sm font-bold">درجة الصوت</span>
+            <span className="text-sm font-bold">{i18n('st.volume')}</span>
             <input
               type="range"
               min={0}
               max={100}
               step={5}
               value={settings.soundVolume}
-              aria-label="درجة الصوت"
+              aria-label={i18n('st.volume')}
               onChange={(e) => update({ soundVolume: Number(e.target.value) })}
               onMouseUp={() => play('move')}
               onTouchEnd={() => play('move')}
@@ -150,14 +151,14 @@ export default function SettingsPanel() {
         </section>
 
         <section aria-labelledby="s-progress" className="luxe-card rounded-2xl p-5">
-          <h2 id="s-progress" className="text-lg font-bold">تقدمك</h2>
-          <p className="mt-1 text-sm text-muted">متسجل على الجهاز ده بس، من غير حساب.</p>
+          <h2 id="s-progress" className="text-lg font-bold">{i18n('st.progress')}</h2>
+          <p className="mt-1 text-sm text-muted">{i18n('st.progressNote')}</p>
           <dl className="mt-3 grid grid-cols-3 gap-2 text-center">
             {(
               [
-                ['دروس', progress.lessons.length, LESSONS.length],
-                ['ألغاز', progress.puzzles.length, PUZZLES.length],
-                ['فخاخ', progress.traps.length, TRAPS.length],
+                [i18n('st.lessons'), progress.lessons.length, LESSONS.length],
+                [i18n('st.puzzles'), progress.puzzles.length, PUZZLES.length],
+                [i18n('st.traps'), progress.traps.length, TRAPS.length],
               ] as const
             ).map(([label, n, total]) => (
               <div key={label} className="rounded-xl border border-line bg-surface p-3">
@@ -172,16 +173,16 @@ export default function SettingsPanel() {
             variant="ghost"
             className="mt-3 text-danger"
             onClick={() => {
-              if (window.confirm('تمسح كل تقدمك؟ مش هتقدر ترجعه.')) progress.reset()
+              if (window.confirm(i18n('st.confirmReset'))) progress.reset()
             }}
           >
-            <Icon name="reset" className="h-4 w-4" /> امسح التقدم
+            <Icon name="reset" className="h-4 w-4" /> {i18n('st.reset')}
           </Button>
         </section>
       </div>
 
       <aside className="hidden lg:sticky lg:top-24 lg:block">
-        <p className="mb-2 text-sm font-bold text-muted">شكل الرقعة</p>
+        <p className="mb-2 text-sm font-bold text-muted">{i18n('st.boardPreview')}</p>
         <ChessBoard fen={PREVIEW} movable="both" />
       </aside>
     </div>
