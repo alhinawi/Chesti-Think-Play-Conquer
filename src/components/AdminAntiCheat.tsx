@@ -72,6 +72,7 @@ export default function AdminAntiCheat() {
   const [links, setLinks] = useState<{ a: { id: number; name?: string }; b: { id: number; name?: string }; via: 'ip' | 'device'; shared: number }[]>([])
   const [summaries, setSummaries] = useState<Record<number, api.AntiCheatSummary | 'loading' | 'error'>>({})
   const [batch, setBatch] = useState<{ done: number; total: number } | null>(null)
+  const [warned, setWarned] = useState<Record<number, string>>({}) // userId -> state text
   const engineRef = useRef<Engine | null>(null)
 
   function toggleSummary(userId: number) {
@@ -87,6 +88,18 @@ export default function AdminAntiCheat() {
     api.adminAntiCheatUserSummary(userId)
       .then((d) => setSummaries((cur) => (cur[userId] === 'loading' ? { ...cur, [userId]: d.summary } : cur)))
       .catch(() => setSummaries((cur) => (cur[userId] === 'loading' ? { ...cur, [userId]: 'error' } : cur)))
+  }
+
+  async function warnUser(userId: number, gameId: number) {
+    setBusy(gameId)
+    try {
+      await api.adminAntiCheatWarn(userId, gameId)
+      setWarned((cur) => ({ ...cur, [userId]: 'اتبعت التحذير' }))
+    } catch (e) {
+      setWarned((cur) => ({ ...cur, [userId]: e instanceof Error && e.message === 'warned_recently' ? 'اتحذر مؤخرًا (خلال 7 أيام)' : 'التحذير فشل - جرّب تاني' }))
+    } finally {
+      setBusy(null)
+    }
   }
 
   async function analyzeAll() {
@@ -288,6 +301,18 @@ export default function AdminAntiCheat() {
                               حسابات مرتبطة: {sm.signals.linkedAccounts.map((l) => `${l.name} (${VIA_LABELS[l.via] ?? l.via})`).join('، ')}
                             </p>
                           )}
+                          {sm.warnings.total > 0 && (
+                            <p className="mt-1">
+                              تحذيرات سابقة: <bdi className="ltr font-bold">{sm.warnings.total}</bdi>
+                              {sm.warnings.recent[0] && (
+                                <>
+                                  {' '}
+                                  · آخرها {sm.warnings.recent[0].kind === 'auto' ? 'تلقائي' : 'من الأدمن'} {fmtDate(sm.warnings.recent[0].created_at)}
+                                  {sm.warnings.recent[0].seen_at ? ' (شافه)' : ' (مشافهش)'}
+                                </>
+                              )}
+                            </p>
+                          )}
                           {sm.hints.length > 0 && (
                             <div className="mt-1.5 flex flex-wrap gap-1.5">
                               {sm.hints.map((h) => (
@@ -304,6 +329,15 @@ export default function AdminAntiCheat() {
                 )}
 
                 <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    disabled={busy === f.game_id || !!warned[f.user.id]}
+                    onClick={() => warnUser(f.user.id, f.game_id)}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gold/40 bg-surface px-3 py-2 text-xs font-bold text-gold transition hover:brightness-110 disabled:opacity-40"
+                  >
+                    <Icon name="flag" className="h-4 w-4" />
+                    {warned[f.user.id] ?? 'تحذير اللاعب'}
+                  </button>
                   <button
                     type="button"
                     onClick={() => toggleSummary(f.user.id)}
