@@ -14,6 +14,7 @@ import { BotAvatar } from './BotAvatar'
 import { COACH, coachLine } from '../lib/coach'
 import { recordGame } from '../lib/progress'
 import { saveGame } from '../lib/api'
+import { MatchTelemetry } from '../lib/telemetry'
 import { OPENINGS } from '../data/openings'
 import { Chess } from 'chess.js'
 import { celebrate } from './Celebrate'
@@ -58,6 +59,7 @@ export default function PlayComputer() {
   const [analyze, setAnalyze] = useState(false)
   const [seed, setSeed] = useState<{ id: string; name: string; moves: string[] } | null>(null)
   const engineRef = useRef<Engine | null>(null)
+  const telemetryRef = useRef<MatchTelemetry | null>(null)
   const gen = useRef(0)
 
   useEffect(() => {
@@ -139,6 +141,7 @@ export default function PlayComputer() {
     if (s.moves.length > prevLen.current && s.moves.length > 0) {
       const last = game.history({ verbose: true }).at(-1)
       if (last) {
+        telemetryRef.current?.tick(last.color === s.color)
         soundFor(last, game)
         if (last.color === s.color) {
           const line = coachLine({ san: last.san, piece: last.piece, captured: last.captured, promotion: last.promotion, flags: last.flags, mate: game.isCheckmate(), check: game.inCheck(), moveNo: Math.ceil(s.moves.length / 2) })
@@ -175,6 +178,8 @@ export default function PlayComputer() {
         color: s.color === 'w' ? 'white' : 'black',
         moves: s.moves.length,
         pgn: game.pgn(),
+        duration_seconds: telemetryRef.current?.durationSeconds() || undefined,
+        telemetry: telemetryRef.current?.finish(level.id),
       })
     }
   }, [result.over, result.winner, s.color, s.started, s.resigned, s.moves, bot])
@@ -203,6 +208,8 @@ export default function PlayComputer() {
     setCoach(null)
     setAnalyze(false)
     setBotSays(botForLevel(s.level).greet)
+    if (!telemetryRef.current) telemetryRef.current = new MatchTelemetry()
+    telemetryRef.current.start()
     engine() // warm up the engine while the user thinks
   }
 
