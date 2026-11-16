@@ -2,6 +2,7 @@
 
 import { type ReactNode, useState } from 'react'
 import { useAuth } from '../lib/auth'
+import { useI18n } from '../lib/i18n'
 import { useProgress } from '../lib/progress'
 
 type Opt = { v: string; label: string }
@@ -48,21 +49,22 @@ export function FilterSelect({ label, options, value, onChange }: { label: strin
   )
 }
 
-export const PROGRESS_OPTS: Opt[] = [
-  { v: 'all', label: 'الكل' },
-  { v: 'new', label: 'لسه ماشفتوش' },
-  { v: 'done', label: 'خلصته' },
+type T = (k: string) => string
+export const progressOpts = (t: T): Opt[] => [
+  { v: 'all', label: t('lb.progAll') },
+  { v: 'new', label: t('lb.progNew') },
+  { v: 'done', label: t('lb.progDone') },
 ]
-export const SIDE_OPTS: Opt[] = [
-  { v: 'all', label: 'الكل' },
-  { v: 'w', label: 'الأبيض' },
-  { v: 'b', label: 'الأسود' },
+export const sideOpts = (t: T): Opt[] => [
+  { v: 'all', label: t('lb.sideAll') },
+  { v: 'w', label: t('lb.sideW') },
+  { v: 'b', label: t('lb.sideB') },
 ]
-export const LEVEL_OPTS: Opt[] = [
-  { v: 'all', label: 'الكل' },
-  { v: 'سهل', label: 'سهل' },
-  { v: 'متوسط', label: 'متوسط' },
-  { v: 'متقدم', label: 'متقدم' },
+export const levelOpts = (t: T): Opt[] => [
+  { v: 'all', label: t('lb.lvlAll') },
+  { v: 'سهل', label: t('lb.lvlEasy') },
+  { v: 'متوسط', label: t('lb.lvlMid') },
+  { v: 'متقدم', label: t('lb.lvlAdv') },
 ]
 
 /** is this item finished? progress lists get filled when a viewer reaches the last move */
@@ -79,6 +81,7 @@ export function matchesProgress(prog: string, done: boolean) {
 /** compact search bar + a فلاتر toggle; the filter rows stay collapsed until needed */
 export function FilterCard({ q, setQ, shown, total, active, children }: { q: string; setQ: (v: string) => void; shown: number; total: number; active: number; children: ReactNode }) {
   const [open, setOpen] = useState(false)
+  const { t } = useI18n()
   return (
     <div className="mb-6 rounded-2xl border border-line bg-surface p-3">
       <div className="flex items-center gap-2">
@@ -86,8 +89,8 @@ export function FilterCard({ q, setQ, shown, total, active, children }: { q: str
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="دوّر بالاسم، عربي أو إنجليزي…"
-          aria-label="دوّر بالاسم"
+          placeholder={t('lb.searchPh')}
+          aria-label={t('lb.searchAria')}
           className="min-w-0 flex-1 rounded-xl border border-line bg-bg px-4 py-2.5 text-sm outline-none placeholder:text-muted focus:border-gold"
         />
         <button
@@ -98,14 +101,14 @@ export function FilterCard({ q, setQ, shown, total, active, children }: { q: str
             open || active ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:border-gold/40 hover:text-ink'
           }`}
         >
-          فلاتر
+          {t('lb.filters')}
           {active > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-xs font-bold text-[#1a1408]">{active}</span>}
           <span aria-hidden className={`text-xs transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
         </button>
       </div>
       {open && <div className="mt-3 flex flex-col gap-3 border-t border-line pt-3">{children}</div>}
       <p className="mt-2 px-1 text-xs text-muted" aria-live="polite">
-        بيبين <strong className="text-gold">{shown}</strong> من {total}
+        {t('lb.showingPre')}<strong className="text-gold">{shown}</strong>{t('lb.showingPost', { total })}
       </p>
     </div>
   )
