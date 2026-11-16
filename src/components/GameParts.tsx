@@ -3,6 +3,7 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { material, movePairs, PIECE_VALUE } from '../lib/game'
 import { Button, Icon } from './ui'
+import { useI18n } from '../lib/i18n'
 
 const GLYPH: Record<string, string> = { q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' }
 
@@ -26,6 +27,7 @@ export function PlayerBar({
   initials?: string
   photo?: string
 }) {
+  const { t } = useI18n()
   const m = material(fen)
   const caps = m.capturedBy[color]
   const lead = color === 'w' ? m.diff : -m.diff
@@ -40,11 +42,11 @@ export function PlayerBar({
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-bold">
           {name}
-          {active && <span className="ms-2 inline-block h-2 w-2 animate-pulse rounded-full bg-gold align-middle" aria-label="عليه الدور" />}
+          {active && <span className="ms-2 inline-block h-2 w-2 animate-pulse rounded-full bg-gold align-middle" aria-label={t('gp.toMove')} />}
         </p>
         <p className="flex min-h-5 items-center gap-1 text-xs text-muted">
           {sub}
-          <span className="ltr text-base leading-none tracking-tighter text-muted" aria-label={caps.length ? `أكل ${caps.length} قطع` : undefined}>
+          <span className="ltr text-base leading-none tracking-tighter text-muted" aria-label={caps.length ? t('gp.captured', { n: caps.length }) : undefined}>
             {caps
               .slice()
               .sort((a, b) => PIECE_VALUE[b] - PIECE_VALUE[a])
@@ -61,19 +63,20 @@ export function PlayerBar({
 
 /** chess.com-style history navigation: first / back / forward / latest. ply = viewed ply, total = played plies. */
 export function HistoryNav({ ply, total, onJump }: { ply: number; total: number; onJump: (ply: number) => void }) {
+  const { t } = useI18n()
   const cls = 'px-0'
   return (
-    <div className="grid grid-cols-4 gap-2" role="group" aria-label="تصفّح نقلات الدور">
-      <Button variant="soft" className={cls} onClick={() => onJump(0)} disabled={ply === 0} aria-label="أول نقلة">
+    <div className="grid grid-cols-4 gap-2" role="group" aria-label={t('gp.navAria')}>
+      <Button variant="soft" className={cls} onClick={() => onJump(0)} disabled={ply === 0} aria-label={t('gp.first')}>
         <Icon name="first" />
       </Button>
-      <Button variant="soft" className={cls} onClick={() => onJump(ply - 1)} disabled={ply === 0} aria-label="النقلة اللي قبلها">
+      <Button variant="soft" className={cls} onClick={() => onJump(ply - 1)} disabled={ply === 0} aria-label={t('gp.prev')}>
         <Icon name="prev" />
       </Button>
-      <Button variant="soft" className={cls} onClick={() => onJump(ply + 1)} disabled={ply >= total} aria-label="النقلة اللي بعدها">
+      <Button variant="soft" className={cls} onClick={() => onJump(ply + 1)} disabled={ply >= total} aria-label={t('gp.next')}>
         <Icon name="next" />
       </Button>
-      <Button variant="soft" className={cls} onClick={() => onJump(total)} disabled={ply >= total} aria-label="آخر نقلة">
+      <Button variant="soft" className={cls} onClick={() => onJump(total)} disabled={ply >= total} aria-label={t('gp.last')}>
         <Icon name="last" />
       </Button>
     </div>
@@ -82,28 +85,30 @@ export function HistoryNav({ ply, total, onJump }: { ply: number; total: number;
 
 /** Banner shown while reviewing an old position: the board is locked until back at the latest move. */
 export function ReviewBanner({ ply, total, onLatest }: { ply: number; total: number; onLatest: () => void }) {
+  const { t } = useI18n()
   return (
     <p className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-gold/40 bg-gold-soft px-3 py-2 text-sm" role="status">
       <span>
-        بتشوف نقلة قديمة (<bdi className="font-bold">{ply} من {total}</bdi>) — ومش هتقدر تلعب غير لما ترجع لآخر نقلة.
+        {t('gp.review')} (<bdi className="font-bold">{t('gp.reviewOf', { ply, total })}</bdi>) - {t('gp.reviewTail')}
       </span>
       <Button variant="outline" className="px-3 py-1.5" onClick={onLatest}>
-        <Icon name="last" className="h-4 w-4" /> آخر نقلة
+        <Icon name="last" className="h-4 w-4" /> {t('gp.last')}
       </Button>
     </p>
   )
 }
 
 export function MoveList({ sans, ply, onPick }: { sans: string[]; ply?: number; onPick?: (ply: number) => void }) {
+  const { t } = useI18n()
   const ref = useRef<HTMLOListElement>(null)
   useEffect(() => {
     const el = ref.current
     if (el) el.scrollTop = el.scrollHeight
   }, [sans.length])
-  if (!sans.length) return <p className="rounded-xl border border-dashed border-line p-3 text-center text-sm text-muted">لسه مفيش نقلات.</p>
+  if (!sans.length) return <p className="rounded-xl border border-dashed border-line p-3 text-center text-sm text-muted">{t('gp.noMoves')}</p>
   const current = ply ?? sans.length
   return (
-    <ol ref={ref} dir="ltr" aria-label="النقلات" className="no-scrollbar grid max-h-48 grid-cols-[2.5rem_1fr_1fr] gap-x-1 overflow-y-auto rounded-xl border border-line bg-surface p-2 text-sm lg:max-h-72">
+    <ol ref={ref} dir="ltr" aria-label={t('gp.moves')} className="no-scrollbar grid max-h-48 grid-cols-[2.5rem_1fr_1fr] gap-x-1 overflow-y-auto rounded-xl border border-line bg-surface p-2 text-sm lg:max-h-72">
       {movePairs(sans).map(([n, w, b]) => (
         <li key={n} className="contents">
           <span className="py-0.5 text-muted">{n}.</span>
