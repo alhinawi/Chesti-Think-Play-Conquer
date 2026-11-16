@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import PuzzleSolver from './PuzzleSolver'
 import { useI18n } from '../lib/i18n'
+import { themeSlug, levelSlug } from '../lib/i18n/dataLabels'
 import { Badge } from './ui'
 import { PUZZLES } from '../data/puzzles'
 import { useAuth } from '../lib/auth'
@@ -19,6 +20,8 @@ export default function DailyPuzzle() {
   const i = dailyIndex(date, PUZZLES.length)
   const p = PUZZLES[i]
   const { t, locale } = useI18n()
+  const themeLabel = (x: string) => { const s = themeSlug(x); return s ? t(`pz.theme${s}`) : x }
+  const levelLabel = (x: string) => { const s = levelSlug(x); return s ? t(`pz.level${s}`) : x }
   const next = PUZZLES[(i + 1) % PUZZLES.length]
   const solvedToday = progress.daily.includes(date)
   const streak = streakOf(progress.days, date)
@@ -27,8 +30,8 @@ export default function DailyPuzzle() {
     <div>
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <Badge tone="muted">{label}</Badge>
-        <Badge>{p.theme}</Badge>
-        <Badge tone="muted">{p.level}</Badge>
+        <Badge>{themeLabel(p.theme)}</Badge>
+        <Badge tone="muted">{levelLabel(p.level)}</Badge>
         {authed && solvedToday && <Badge tone="emerald">{t('pz.solvedToday')}</Badge>}
         {authed && streak > 0 && <Badge tone="gold">{t('pz.dayStreak', { n: streak })}</Badge>}
       </div>
