@@ -5,7 +5,8 @@ import { Chess } from 'chess.js'
 import ChessBoard from './ChessBoard'
 import { Badge } from './ui'
 import { Engine } from '../lib/engine'
-import { CLASS_NAME, classifyMove, toCp, type MoveClass } from '../lib/game'
+import { useI18n } from '../lib/i18n'
+import { classifyMove, toCp, type MoveClass } from '../lib/game'
 
 interface Row {
   ply: number
@@ -30,6 +31,8 @@ function sanOf(fen: string, uci: string) {
 
 /** Post-game review: Stockfish checks every move the user made and points out the costly ones. */
 export default function Analysis({ moves, userColor }: { moves: string[]; userColor: 'w' | 'b' }) {
+  const { t } = useI18n()
+  const clsName = (c: MoveClass) => t(`an.cls${c.charAt(0).toUpperCase()}${c.slice(1)}`)
   const [rows, setRows] = useState<Row[]>([])
   const [done, setDone] = useState(0)
   const [failed, setFailed] = useState(false)
@@ -102,13 +105,13 @@ export default function Analysis({ moves, userColor }: { moves: string[]; userCo
 
   return (
     <section aria-labelledby="analysis-h" className="animate-fade-up luxe-card rounded-2xl p-4">
-      <h2 id="analysis-h" className="text-lg font-bold">تحليل الدور</h2>
+      <h2 id="analysis-h" className="text-lg font-bold">{t('an.title')}</h2>
       {failed ? (
-        <p role="alert" className="mt-2 text-sm text-danger">المحرك ما اشتغلش على الجهاز ده.</p>
+        <p role="alert" className="mt-2 text-sm text-danger">{t('an.failed')}</p>
       ) : !finished ? (
         <div className="mt-3" aria-live="polite">
           <p className="text-sm text-muted">
-            Stockfish بيراجع نقلاتك… <bdi className="ltr">{done}/{total}</bdi>
+            {t('an.reviewing')} <bdi className="ltr">{done}/{total}</bdi>
           </p>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-line">
             <div className="h-full rounded-full bg-gradient-to-l from-gold-2 to-gold transition-all" style={{ width: `${total ? (done / total) * 100 : 100}%` }} />
@@ -120,14 +123,14 @@ export default function Analysis({ moves, userColor }: { moves: string[]; userCo
             {(['blunder', 'mistake', 'inaccuracy'] as const).map((c) => (
               <div key={c} className="rounded-xl border border-line bg-surface p-2">
                 <p className={`text-xl font-bold ${c === 'blunder' ? 'text-danger' : c === 'mistake' ? 'text-gold' : 'text-muted'}`}>{count(c)}</p>
-                <p className="text-xs text-muted">{CLASS_NAME[c]}</p>
+                <p className="text-xs text-muted">{clsName(c)}</p>
               </div>
             ))}
           </div>
           <p className="mt-3 text-sm">
             {bad.length === 0
-              ? 'ولا غلطة تذكر! عم حسن مبسوط منك.'
-              : `متوسط الخسارة في النقلة ${(avgLoss / 100).toFixed(1)} عسكري. دوس على أي غلطة عشان تشوف الأحسن كان إيه.`}
+              ? t('an.clean')
+              : t('an.avgLoss', { n: (avgLoss / 100).toFixed(1) })}
           </p>
           {bad.length > 0 && (
             <ul className="mt-3 flex flex-col gap-2">
@@ -141,10 +144,10 @@ export default function Analysis({ moves, userColor }: { moves: string[]; userCo
                   >
                     <span className="ltr text-muted">{Math.floor(r.ply / 2) + 1}{r.ply % 2 ? '...' : '.'}</span>
                     <span className="ltr font-bold text-danger line-through decoration-1">{r.playedSan}</span>
-                    <span className="text-muted">الأحسن</span>
+                    <span className="text-muted">{t('an.best')}</span>
                     <span className="ltr font-bold text-emerald">{r.bestSan}</span>
                     <span className="ms-auto">
-                      <Badge tone={TONE[r.cls]}>{CLASS_NAME[r.cls]}</Badge>
+                      <Badge tone={TONE[r.cls]}>{clsName(r.cls)}</Badge>
                     </span>
                   </button>
                 </li>
@@ -162,7 +165,7 @@ export default function Analysis({ moves, userColor }: { moves: string[]; userCo
                   ...(shown.best ? [{ from: shown.best.slice(0, 2), to: shown.best.slice(2, 4), color: 'green' as const }] : []),
                 ]}
               />
-              <p className="mt-2 text-center text-xs text-muted">الأحمر اللي لعبته، والأخضر اللي المحرك كان هيلعبه.</p>
+              <p className="mt-2 text-center text-xs text-muted">{t('an.legend')}</p>
             </div>
           )}
         </>

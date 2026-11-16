@@ -579,5 +579,27 @@ const en: Messages = {
     noMoves: 'No moves yet.',
     moves: 'Moves',
   },
+  an: {
+    title: 'Game analysis',
+    failed: "The engine couldn't run on this device.",
+    reviewing: 'Stockfish is reviewing your moves…',
+    clsBlunder: 'Blunder',
+    clsMistake: 'Mistake',
+    clsInaccuracy: 'Inaccuracy',
+    clsGood: 'Good',
+    clean: 'Not a single real mistake! Uncle Hassan is proud of you.',
+    avgLoss: 'Average loss per move: {n} pawns. Tap any mistake to see what the best move was.',
+    best: 'Best',
+    legend: 'Red is what you played, green is what the engine would play.',
+  },
+  ab: {
+    myAccount: 'My account',
+    dashboard: 'Dashboard',
+    logout: 'Log out',
+    nudgeTitle: 'Want your progress saved on any device and a spot on the leaderboard?',
+    nudgeDesc: 'Create a free account - your local progress carries over automatically.',
+    signup: 'Create account',
+    later: 'Later',
+  },
 }
 export default en
