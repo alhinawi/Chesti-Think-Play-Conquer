@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import * as api from '../lib/api'
 import { useAuth } from '../lib/auth'
 import { Badge, Card, Icon } from './ui'
+import AdminAntiCheat from './AdminAntiCheat'
 
 const KIND_LABELS: Record<string, string> = {
   rush: 'سباق الألغاز',
@@ -192,6 +193,8 @@ export default function Admin() {
               )}
             </Card>
           </section>
+
+          <AdminAntiCheat />
 
           <section aria-labelledby="adm-health">
             <h2 className="mb-3 font-display text-xl font-bold">صحة النظام</h2>
