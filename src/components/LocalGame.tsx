@@ -5,7 +5,9 @@ import BoardStage from './BoardStage'
 import ChessBoard from './ChessBoard'
 import { ConfirmButton, HistoryNav, MoveList, PlayerBar, ResultCard, ReviewBanner } from './GameParts'
 import { Badge, Button, Icon } from './ui'
-import { gameResult, soundFor, toUci, turnName, type UciMove } from '../lib/chess'
+import { gameResult, soundFor, toUci, type UciMove } from '../lib/chess'
+import { useI18n } from '../lib/i18n'
+import { resultText } from '../lib/i18n/resultText'
 import { playUci } from '../lib/game'
 import { play } from '../lib/sound'
 
@@ -20,6 +22,8 @@ interface Saved {
 const FRESH: Saved = { moves: [], autoFlip: false, resigned: null, draw: false }
 
 export default function LocalGame() {
+  const { t } = useI18n()
+  const turnName = (c: 'w' | 'b') => t(c === 'w' ? 'rs.white' : 'rs.black')
   const [s, setS] = useState<Saved>(FRESH)
   const [loaded, setLoaded] = useState(false)
   const [flipped, setFlipped] = useState(false)
@@ -77,19 +81,19 @@ export default function LocalGame() {
   const top: 'w' | 'b' = whiteBottom ? 'b' : 'w'
 
   let outcome: { title: string; text?: string; tone: 'win' | 'draw' } | null = null
-  if (s.resigned) outcome = { title: `${turnName(s.resigned === 'w' ? 'b' : 'w')} كسب`, text: `${turnName(s.resigned)} استسلم.`, tone: 'win' }
-  else if (s.draw) outcome = { title: 'تعادل', text: 'اتفقتوا على التعادل.', tone: 'draw' }
-  else if (result.over) outcome = { title: result.winner ? `${turnName(result.winner)} كسب` : 'تعادل', text: result.text, tone: result.winner ? 'win' : 'draw' }
+  if (s.resigned) outcome = { title: t('lg.sideWon', { side: turnName(s.resigned === 'w' ? 'b' : 'w') }), text: t('lg.resigned', { side: turnName(s.resigned) }), tone: 'win' }
+  else if (s.draw) outcome = { title: t('lg.draw'), text: t('lg.agreedDraw'), tone: 'draw' }
+  else if (result.over) outcome = { title: result.winner ? t('lg.sideWon', { side: turnName(result.winner) }) : t('lg.draw'), text: resultText(t, result), tone: result.winner ? 'win' : 'draw' }
 
   if (!loaded) return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
 
   const actions = (
     <div className="grid grid-cols-3 gap-2">
       <Button variant="soft" onClick={() => setFlipped((f) => !f)} disabled={s.autoFlip}>
-        <Icon name="flip" /> اقلب
+        <Icon name="flip" /> {t('lg.flip')}
       </Button>
-      <ConfirmButton icon="handshake" label="تعادل" confirm="اتفقتوا على التعادل؟" disabled={over || s.moves.length === 0} onConfirm={() => setS((cur) => ({ ...cur, draw: true }))} />
-      <ConfirmButton icon="flag" label={`${turnName(turn)} يستسلم`} confirm={`${turnName(turn)} هيستسلم؟`} disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: turn }))} />
+      <ConfirmButton icon="handshake" label={t('lg.draw')} confirm={t('lg.drawConfirm')} disabled={over || s.moves.length === 0} onConfirm={() => setS((cur) => ({ ...cur, draw: true }))} />
+      <ConfirmButton icon="flag" label={t('lg.resignBtn', { side: turnName(turn) })} confirm={t('lg.resignConfirm', { side: turnName(turn) })} disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: turn }))} />
     </div>
   )
   const historyNav = (
@@ -102,11 +106,11 @@ export default function LocalGame() {
     <>
       <div className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-sm" aria-live="polite">
         <span>
-          {outcome ? <strong className="text-gold">{outcome.title}</strong> : <>الدور على <strong className="text-gold">{turnName(turn)}</strong></>}
+          {outcome ? <strong className="text-gold">{outcome.title}</strong> : <>{t('lg.turnOn')} <strong className="text-gold">{turnName(turn)}</strong></>}
         </span>
         {outcome && (
           <Button onClick={() => setS((cur) => ({ ...FRESH, autoFlip: cur.autoFlip }))} className="px-3 py-1.5">
-            <Icon name="reset" className="h-4 w-4" /> دور تاني
+            <Icon name="reset" className="h-4 w-4" /> {t('lg.rematch')}
           </Button>
         )}
       </div>
@@ -127,20 +131,20 @@ export default function LocalGame() {
         {outcome ? (
           <ResultCard {...outcome}>
             <Button onClick={() => setS((cur) => ({ ...FRESH, autoFlip: cur.autoFlip }))}>
-              <Icon name="reset" /> دور تاني
+              <Icon name="reset" /> {t('lg.rematch')}
             </Button>
           </ResultCard>
         ) : (
           <p className="flex items-center gap-2 rounded-xl border border-line bg-surface p-3 text-sm" aria-live="polite">
-            الدور على <strong className="text-gold">{turnName(turn)}</strong>
-            {game.inCheck() && <Badge tone="danger">كش!</Badge>}
+            {t('lg.turnOn')} <strong className="text-gold">{turnName(turn)}</strong>
+            {game.inCheck() && <Badge tone="danger">{t('lg.check')}</Badge>}
           </p>
         )}
 
         <label className="flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-line bg-surface p-3 text-sm">
           <span>
-            <span className="block font-bold">اقلب الرقعة بعد كل نقلة</span>
-            <span className="text-xs text-muted">عشان كل واحد يشوف قطعه من تحت لما تتبادلوا الموبايل</span>
+            <span className="block font-bold">{t('lg.autoFlip')}</span>
+            <span className="text-xs text-muted">{t('lg.autoFlipDesc')}</span>
           </span>
           <input type="checkbox" className="h-5 w-5 accent-[var(--gold)]" checked={s.autoFlip} onChange={(e) => setS((cur) => ({ ...cur, autoFlip: e.target.checked }))} />
         </label>
@@ -151,7 +155,7 @@ export default function LocalGame() {
 
         <MoveList sans={sans} ply={shownPly} onPick={(p) => setBack(s.moves.length - p)} />
 
-        <ConfirmButton icon="reset" label="دور جديد" confirm="تبدأوا دور جديد؟" disabled={s.moves.length === 0 && !over} onConfirm={() => setS((cur) => ({ ...FRESH, autoFlip: cur.autoFlip }))} />
+        <ConfirmButton icon="reset" label={t('lg.newGame')} confirm={t('lg.newConfirm')} disabled={s.moves.length === 0 && !over} onConfirm={() => setS((cur) => ({ ...FRESH, autoFlip: cur.autoFlip }))} />
       </div>
     </div>
   )
