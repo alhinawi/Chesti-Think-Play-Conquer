@@ -42,6 +42,22 @@ function setToken(t: string | null) {
   }
 }
 
+// Random per-browser device id (anti-cheat account linking). Only its SHA-256
+// hash is ever stored server-side; the raw id never leaves this header/body.
+const DEVICE_KEY = 'chesti-device'
+export function getDeviceId(): string | null {
+  try {
+    let id = localStorage.getItem(DEVICE_KEY)
+    if (!id) {
+      id = crypto.randomUUID()
+      localStorage.setItem(DEVICE_KEY, id)
+    }
+    return id
+  } catch {
+    return null
+  }
+}
+
 async function req<T>(path: string, opts: { method?: string; body?: unknown; auth?: boolean } = {}): Promise<T> {
   const headers: Record<string, string> = {}
   if (opts.body !== undefined) headers['Content-Type'] = 'application/json'
@@ -59,13 +75,13 @@ async function req<T>(path: string, opts: { method?: string; body?: unknown; aut
 }
 
 export async function register(name: string, email: string, password: string): Promise<ApiUser> {
-  const d = await req<{ user: ApiUser; token: string }>('/auth/register', { method: 'POST', body: { name, email, password } })
+  const d = await req<{ user: ApiUser; token: string }>('/auth/register', { method: 'POST', body: { name, email, password, device_id: getDeviceId() } })
   setToken(d.token)
   return d.user
 }
 
 export async function login(email: string, password: string): Promise<ApiUser> {
-  const d = await req<{ user: ApiUser; token: string }>('/auth/login', { method: 'POST', body: { email, password } })
+  const d = await req<{ user: ApiUser; token: string }>('/auth/login', { method: 'POST', body: { email, password, device_id: getDeviceId() } })
   setToken(d.token)
   return d.user
 }
@@ -229,7 +245,7 @@ export function adminAntiCheatExcluded() {
 // ---------- live games (server-authoritative anti-cheat) ----------
 
 export function liveStart(opponent: string, color: 'white' | 'black') {
-  return req<{ live: { id: number; fen: string } }>('/live/start', { method: 'POST', body: { opponent, color }, auth: true })
+  return req<{ live: { id: number; fen: string } }>('/live/start', { method: 'POST', body: { opponent, color, device_id: getDeviceId() }, auth: true })
 }
 
 export function liveMove(id: number, uci: string) {

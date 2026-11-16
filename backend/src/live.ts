@@ -11,6 +11,7 @@
 import { Chess } from 'chess.js'
 import type { Context, MiddlewareHandler } from 'hono'
 import { cleanTelemetry, FLAG_THRESHOLD, scoreGame, type Telemetry } from './anticheat'
+import { recordAccountSignals } from './signals'
 import { asBody, oneOf, str, ValidationError } from './validate'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
@@ -179,6 +180,7 @@ export function liveRoutes(app: { use: Function; post: Function; get: Function }
       return c.json({ error: 'rate_limited' }, 429)
     }
 
+    await recordAccountSignals(c.env.DB, userId, c.req.header('cf-connecting-ip'), str(b, 'device_id', { max: 64 }))
     const res = await c.env.DB
       .prepare("INSERT INTO live_games (user_id, opponent, color, fen) VALUES (?, ?, ?, ?)")
       .bind(userId, opponent, color, new Chess().fen())
