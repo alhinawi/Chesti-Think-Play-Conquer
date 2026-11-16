@@ -6,20 +6,13 @@ import { play } from '../lib/sound'
 import ChessBoard from './ChessBoard'
 import MoveControls from './MoveControls'
 import { Badge, PageHeader } from './ui'
+import { useI18n } from '../lib/i18n'
 import ECO from '../data/eco-openings.json'
 
 type Row = [string, string, string] // [eco, name, pgn]
 const ROWS = ECO as Row[]
 
 const LETTERS = ['all', 'A', 'B', 'C', 'D', 'E'] as const
-const LETTER_NAMES: Record<string, string> = {
-  all: 'الكل',
-  A: 'A - جناح وإنجليزي',
-  B: 'B - نصف مفتوحة',
-  C: 'C - مفتوحة',
-  D: 'D - مغلقة',
-  E: 'E - هندية',
-}
 const PAGE = 150
 
 function pgnToMoves(pgn: string): string[] {
@@ -31,6 +24,7 @@ function pgnToMoves(pgn: string): string[] {
 }
 
 export default function OpeningsExplorer() {
+  const { t } = useI18n()
   const [q, setQ] = useState('')
   const [letter, setLetter] = useState<(typeof LETTERS)[number]>('all')
   const [shown, setShown] = useState(PAGE)
@@ -108,11 +102,7 @@ export default function OpeningsExplorer() {
 
   return (
     <>
-      <PageHeader
-        kicker="مستكشف الافتتاحيات"
-        title="كل افتتاحيات الشطرنج"
-        desc={`${ROWS.length.toLocaleString('en')} خط افتتاحي رسمي (تصنيف ECO كامل من A00 لـ E99). دوّر بالاسم أو الكود، اختار أي خط، وشغّله نقلة بنقلة على الرقعة.`}
-      />
+      <PageHeader kicker={t('oe.kicker')} title={t('oe.title')} desc={t('oe.desc', { n: ROWS.length.toLocaleString('en') })} />
 
       <div className="grid items-start gap-6 lg:grid-cols-[1fr_minmax(0,460px)]">
         {/* الفلاتر والقايمة */}
@@ -122,13 +112,13 @@ export default function OpeningsExplorer() {
               type="search"
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="دوّر بالاسم أو الكود... (مثال: Sicilian أو C50)"
+              placeholder={t('oe.searchPh')}
               className="w-full max-w-sm rounded-xl border border-line bg-surface px-3 py-2 text-sm outline-none placeholder:text-muted focus:border-gold/60"
-              aria-label="البحث في الافتتاحيات"
+              aria-label={t('oe.searchAria')}
             />
-            <span className="text-xs text-muted">{filtered.length.toLocaleString('en')} نتيجة</span>
+            <span className="text-xs text-muted">{t('oe.resultsCount', { n: filtered.length.toLocaleString('en') })}</span>
           </div>
-          <div className="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label="فلترة بحرف ECO">
+          <div className="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label={t('oe.filterAria')}>
             {LETTERS.map((l) => (
               <button
                 key={l}
@@ -139,7 +129,7 @@ export default function OpeningsExplorer() {
                   letter === l ? 'border-gold bg-gold/15 text-gold' : 'border-line bg-surface text-muted hover:border-gold/40'
                 }`}
               >
-                {LETTER_NAMES[l]} <span dir="ltr">({counts[l]?.toLocaleString('en')})</span>
+                {t(l === 'all' ? 'oe.letterAll' : `oe.letter${l}`)} <span dir="ltr">({counts[l]?.toLocaleString('en')})</span>
               </button>
             ))}
           </div>
@@ -176,7 +166,7 @@ export default function OpeningsExplorer() {
               onClick={() => setShown((s) => s + PAGE)}
               className="mt-3 w-full rounded-xl border border-line bg-surface py-2 text-sm text-muted transition hover:border-gold/40 hover:text-gold"
             >
-              عرض المزيد ({(filtered.length - shown).toLocaleString('en')} باقي)
+              {t('oe.showMore', { n: (filtered.length - shown).toLocaleString('en') })}
             </button>
           )}
         </div>
@@ -204,35 +194,33 @@ export default function OpeningsExplorer() {
                 go={go}
                 auto={auto}
                 onToggle={() => (ply >= n && !auto ? (setPly(0), setAuto(true)) : setAuto((a) => !a))}
-                playLabel={auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
+                playLabel={auto ? t('oe.stop') : ply === n ? t('oe.fromStart') : t('oe.playBtn')}
               />
               <div className="mt-3 rounded-2xl border border-line bg-surface p-3">
                 <p className="text-xs leading-relaxed text-muted" dir="ltr">
                   {sel[2]}
                 </p>
                 <p className="mt-2 text-xs text-muted">
-                  {ply === n
-                    ? 'ده آخر الخط. الخطوط دي هي الأصل - الافتتاحيات المشروحة عندنا بتوريك الفكرة والخطة وراها.'
-                    : `نقلة ${ply} من ${n} - كمّل عشان توصل للوضع النهائي للخط.`}
+                  {ply === n ? t('oe.lineEnd') : t('oe.progressNote', { ply, n })}
                 </p>
               </div>
             </div>
           ) : (
             <div className="rounded-2xl border border-dashed border-line bg-surface/50 p-8 text-center text-sm text-muted">
-              اختار أي افتتاحية من القايمة وشغّلها هنا نقلة بنقلة.
+              {t('oe.emptyBoard')}
             </div>
           )}
         </div>
       </div>
 
       <p className="mt-8 text-xs text-muted">
-        قاعدة الافتتاحيات:{' '}
+        {t('oe.creditPre')}
         <a href="https://github.com/lichess-org/chess-openings" target="_blank" rel="noreferrer" className="underline hover:text-gold" dir="ltr">
           lichess chess-openings
         </a>{' '}
-        (CC0) - كل خط مُتحقق منه نقلة بنقلة. للشرح بالمصري والخطط، شوف{' '}
+        {t('oe.creditMid')}
         <a href="/openings" className="underline hover:text-gold">
-          مكتبة الافتتاحيات المشروحة
+          {t('oe.creditLink')}
         </a>
         .
       </p>
