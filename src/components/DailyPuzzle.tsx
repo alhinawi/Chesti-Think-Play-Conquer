@@ -20,7 +20,7 @@ export default function DailyPuzzle() {
   const i = dailyIndex(date, PUZZLES.length)
   const p = PUZZLES[i]
   const { t, locale } = useI18n()
-  const themeLabel = (x: string) => { const s = themeSlug(x); return s ? t(`pz.theme${s}`) : x }
+  const themeLabel = (x: string) => { const s = themeSlug(x); return s ? t(`pz.theme${s[0].toUpperCase() + s.slice(1)}`) : x }
   const levelLabel = (x: string) => { const s = levelSlug(x); return s ? t(`pz.level${s}`) : x }
   const next = PUZZLES[(i + 1) % PUZZLES.length]
   const solvedToday = progress.daily.includes(date)

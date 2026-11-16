@@ -10,7 +10,7 @@ export default function PuzzleBadges({ theme, level }: { theme: string; level: s
   const ls = levelSlug(level)
   return (
     <>
-      <Badge>{ts ? t(`pz.theme${ts}`) : theme}</Badge>
+      <Badge>{ts ? t(`pz.theme${ts[0].toUpperCase() + ts.slice(1)}`) : theme}</Badge>
       <Badge tone="muted">{ls ? t(`pz.level${ls}`) : level}</Badge>
     </>
   )

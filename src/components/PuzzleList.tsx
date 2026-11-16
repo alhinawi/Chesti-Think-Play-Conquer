@@ -12,7 +12,7 @@ import { MiniBoard } from './MiniBoard'
 
 export default function PuzzleList() {
   const { t: t2 } = useI18n()
-  const themeLabel = (x: string) => { const s = themeSlug(x); return s ? t2(`pz.theme${s}`) : x }
+  const themeLabel = (x: string) => { const s = themeSlug(x); return s ? t2(`pz.theme${s[0].toUpperCase() + s.slice(1)}`) : x }
   const { puzzles: solvedAll } = useProgress()
   const { status } = useAuth()
   const authed = status === 'authed'
