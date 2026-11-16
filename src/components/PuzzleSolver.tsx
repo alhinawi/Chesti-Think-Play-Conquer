@@ -47,7 +47,7 @@ export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: st
             <ShareButton text={t('pz.shareText', { name: p.name })} path={`/puzzles/${p.id}/`} label={t('pz.shareLabel')} />
           </div>
           <Link href={`/puzzles/${nextId}`} className="mt-3 inline-flex items-center gap-2 font-bold text-gold hover:underline">
-            {t('pz.next')} <Icon name="prev" className="h-4 w-4" />
+            {t('pz.next')} <Icon name="prev" className="h-4 w-4 ltr:-scale-x-100" />
           </Link>
         </div>
       )}
