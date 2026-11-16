@@ -660,6 +660,12 @@ const en: Messages = {
     loading: 'Loading the chess pieces...',
     loadErr: 'Something went wrong while loading: {err}',
     hint: 'Drag to rotate. In play mode: tap your piece, then the square',
+    hKicker: '3D Chess World',
+    hTitle: 'Timeless positions in 360°',
+    hDesc: 'A 3D chessboard you can spin freely: see the Opera Game mate, the Lasker sacrifice and the Deep Blue shock from whichever angle you like.',
+    pKicker: 'Preview',
+    pTitle: '3D Chess World - the premium version',
+    pDesc: 'A preview in development: professionally modeled Staunton pieces (A Beautiful Game - ASWF, CC-BY 4.0), 4 themes and 5 camera angles.',
   },
 }
 export default en
