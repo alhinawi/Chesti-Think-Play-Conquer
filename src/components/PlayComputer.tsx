@@ -21,6 +21,7 @@ import { Chess } from 'chess.js'
 import { celebrate } from './Celebrate'
 import ShareButton from './ShareButton'
 import Analysis from './Analysis'
+import { useI18n } from '../lib/i18n'
 
 const SAVE_KEY = 'chesti-vs-computer'
 
@@ -46,6 +47,7 @@ function load(): Saved {
 }
 
 export default function PlayComputer() {
+  const { t } = useI18n()
   const [s, setS] = useState<Saved>(FRESH)
   const [loaded, setLoaded] = useState(false)
   const [pickColor, setPickColor] = useState<'w' | 'b' | 'random'>('w')
@@ -263,13 +265,13 @@ export default function PlayComputer() {
   if (!s.started) {
     return (
       <div className="mx-auto max-w-3xl">
-        <h2 className="mb-3 font-display text-xl font-bold">اختار هتلعب ضد مين</h2>
+        <h2 className="mb-3 font-display text-xl font-bold">{t('pc.pickOpponent')}</h2>
         {seed && (
           <p className="mb-3 rounded-xl border border-gold/30 bg-gold-soft p-3 text-sm">
-            بتجرب افتتاحية <b>{seed.name}</b>: الدور هيبدأ من آخر نقلة في الخط الرئيسي.
+            {t('pc.openingSeedPre')}<b>{seed.name}</b>{t('pc.openingSeedPost')}
           </p>
         )}
-        <div role="radiogroup" aria-label="المستوى" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div role="radiogroup" aria-label={t('pc.levelAria')} className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {LEVELS.map((l) => (
             <button
               key={l.id}
@@ -283,7 +285,7 @@ export default function PlayComputer() {
                 <BotAvatar bot={botForLevel(l.id)} />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-bold"><bdi className="ltr">{botForLevel(l.id).name}</bdi></span>
-                  <span className="text-xs text-muted">{l.name} <bdi className="ltr">{l.id}/8</bdi></span>
+                  <span className="text-xs text-muted">{t(`pc.el${l.id}Name`)} <bdi className="ltr">{l.id}/8</bdi></span>
                 </span>
               </span>
               <span className="mt-1 flex gap-0.5" aria-hidden>
@@ -296,13 +298,13 @@ export default function PlayComputer() {
           ))}
         </div>
 
-        <h2 className="mt-6 mb-3 font-display text-xl font-bold">هتلعب بأنهي لون؟</h2>
-        <div role="radiogroup" aria-label="اللون" className="grid grid-cols-3 gap-2">
+        <h2 className="mt-6 mb-3 font-display text-xl font-bold">{t('pc.pickColor')}</h2>
+        <div role="radiogroup" aria-label={t('pc.colorAria')} className="grid grid-cols-3 gap-2">
           {(
             [
-              ['w', 'الأبيض', '♔'],
-              ['random', 'عشوائي', '?'],
-              ['b', 'الأسود', '♚'],
+              ['w', t('pc.white'), '♔'],
+              ['random', t('pc.random'), '?'],
+              ['b', t('pc.black'), '♚'],
             ] as const
           ).map(([v, label, g]) => (
             <button
@@ -320,14 +322,14 @@ export default function PlayComputer() {
         </div>
 
         <Button onClick={start} className="mt-6 w-full py-3.5 text-base">
-          <Icon name="play" /> {s.moves.length > 0 && !over ? 'ابدأ دور جديد' : 'يلا نلعب'}
+          <Icon name="play" /> {s.moves.length > 0 && !over ? t('pc.newGame') : t('pc.letsPlay')}
         </Button>
         {s.moves.length > 0 && !over && (
           <Button variant="outline" onClick={() => setS((cur) => ({ ...cur, started: true }))} className="mt-2 w-full py-3">
-            كمّل الدور اللي فات ({Math.ceil(s.moves.length / 2)} نقلة)
+            {t('pc.resumeGame', { n: Math.ceil(s.moves.length / 2) })}
           </Button>
         )}
-        <p className="mt-3 text-center text-xs text-muted">المحرك Stockfish 19 بيشتغل جوه متصفحك، من غير نت بعد ما الصفحة تحمّل.</p>
+        <p className="mt-3 text-center text-xs text-muted">{t('pc.engineNote')}</p>
       </div>
     )
   }
@@ -336,7 +338,7 @@ export default function PlayComputer() {
   const top: 'w' | 'b' = orientation === 'white' ? 'b' : 'w'
   const bar = (c: 'w' | 'b') =>
     c === s.color ? (
-      <PlayerBar fen={shownFen} color={c} name="إنت" active={userTurn && live} />
+      <PlayerBar fen={shownFen} color={c} name={t('pc.you')} active={userTurn && live} />
     ) : (
       <PlayerBar
         fen={shownFen}
@@ -345,29 +347,29 @@ export default function PlayComputer() {
         photo={bot.photo}
         name={bot.name}
         active={thinking && turn !== s.color}
-        sub={thinking && turn !== s.color ? <span>بيفكر…</span> : null}
+        sub={thinking && turn !== s.color ? <span>{t('pc.thinking')}</span> : null}
       />
     )
 
   let outcome: { title: string; text?: string; tone: 'win' | 'lose' | 'draw' } | null = null
-  if (s.resigned) outcome = { title: 'استسلمت', text: 'مش مشكلة، الدور الجاي أحسن.', tone: 'lose' }
+  if (s.resigned) outcome = { title: t('pc.resignedTitle'), text: t('pc.resignedText'), tone: 'lose' }
   else if (result.over)
     outcome =
       result.winner === null
-        ? { title: 'تعادل', text: result.text, tone: 'draw' }
+        ? { title: t('pc.drawTitle'), text: result.text, tone: 'draw' }
         : result.winner === s.color
-          ? { title: 'كسبت! برافو عليك', text: `كش مات في ${Math.ceil(s.moves.length / 2)} نقلة${s.hints ? ` واستخدمت ${s.hints} تلميح` : ''}.`, tone: 'win' }
-          : { title: `${bot.name} كسب`, text: 'كش مات. جرب مستوى أسهل أو العب تاني.', tone: 'lose' }
+          ? { title: t('pc.winTitle'), text: t('pc.winText', { n: Math.ceil(s.moves.length / 2) }) + (s.hints ? t('pc.winHints', { hints: s.hints }) : '') + '.', tone: 'win' }
+          : { title: t('pc.loseTitle', { bot: bot.name }), text: t('pc.loseText'), tone: 'lose' }
 
   const actions = (
     <div className="grid grid-cols-3 gap-2">
       <Button variant="soft" onClick={askHint} disabled={!live || !userTurn || thinking}>
-        <Icon name="bulb" /> تلميح
+        <Icon name="bulb" /> {t('pc.hint')}
       </Button>
       <Button variant="soft" onClick={() => setFlipped((f) => !f)}>
-        <Icon name="flip" /> اقلب
+        <Icon name="flip" /> {t('pc.flip')}
       </Button>
-      <ConfirmButton icon="flag" label="استسلم" confirm="متأكد إنك عايز تستسلم؟" disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: true }))} />
+      <ConfirmButton icon="flag" label={t('pc.resign')} confirm={t('pc.resignConfirm')} disabled={over} onConfirm={() => setS((cur) => ({ ...cur, resigned: true }))} />
     </div>
   )
   const historyNav = (
@@ -378,10 +380,10 @@ export default function PlayComputer() {
   )
   const statusLine = (
     <div className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-sm" aria-live="polite">
-      <span>{outcome ? <strong className="text-gold">{outcome.title}</strong> : thinking && turn !== s.color ? 'الكمبيوتر بيفكر…' : userTurn ? 'دورك.' : '…'}</span>
+      <span>{outcome ? <strong className="text-gold">{outcome.title}</strong> : thinking && turn !== s.color ? t('pc.engineThinking') : userTurn ? t('pc.yourTurn') : '…'}</span>
       {outcome && (
         <Button onClick={start} className="px-3 py-1.5">
-          <Icon name="reset" className="h-4 w-4" /> دور تاني
+          <Icon name="reset" className="h-4 w-4" /> {t('pc.rematch')}
         </Button>
       )}
     </div>
@@ -405,13 +407,13 @@ export default function PlayComputer() {
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <Badge>{level.name}</Badge>
-          <Badge tone="muted">بتلعب بـ{s.color === 'w' ? 'الأبيض' : 'الأسود'}</Badge>
-          {(view ? view.game.inCheck() : game.inCheck()) && !over && <Badge tone="danger">كش!</Badge>}
+          <Badge tone="muted">{t('pc.playingAs', { color: s.color === 'w' ? t('pc.white') : t('pc.black') })}</Badge>
+          {(view ? view.game.inCheck() : game.inCheck()) && !over && <Badge tone="danger">{t('pc.checkBadge')}</Badge>}
         </div>
 
         {engineError && (
           <div role="alert" className="rounded-2xl border border-danger/50 bg-danger/10 p-4 text-sm">
-            المحرك ما اشتغلش على الجهاز ده. جرب تحدّث الصفحة، أو افتحها من متصفح تاني.
+            {t('pc.engineFail')}
           </div>
         )}
 
@@ -435,22 +437,22 @@ export default function PlayComputer() {
         {outcome ? (
           <ResultCard {...outcome}>
             <Button onClick={start}>
-              <Icon name="reset" /> دور تاني
+              <Icon name="reset" /> {t('pc.rematch')}
             </Button>
             {s.moves.length >= 4 && (
               <Button variant="soft" onClick={() => setAnalyze(true)} disabled={analyze}>
-                <Icon name="cpu" /> حلّل الدور
+                <Icon name="cpu" /> {t('pc.analyze')}
               </Button>
             )}
-            {outcome.tone === 'win' && <ShareButton text={`كسبت ${bot.name} (مستوى ${level.id} من 8) في ${Math.ceil(s.moves.length / 2)} نقلة على Chesti ♞ تقدر تعملها؟`} path="/play/computer/" />}
+            {outcome.tone === 'win' && <ShareButton text={t('pc.shareText', { bot: bot.name, level: level.id, n: Math.ceil(s.moves.length / 2) })} path="/play/computer/" />}
             <Button variant="soft" onClick={() => setS((cur) => ({ ...cur, started: false }))}>
-              غيّر المستوى
+              {t('pc.changeLevel')}
             </Button>
           </ResultCard>
         ) : (
           <p className="rounded-xl border border-line bg-surface p-3 text-sm" aria-live="polite">
-            {thinking && turn !== s.color ? 'الكمبيوتر بيفكر…' : userTurn ? (s.moves.length === 0 ? 'دورك. ابدأ بأي نقلة.' : 'دورك.') : '…'}
-            {evalText && <span className="ms-2 text-muted">تقييم المحرك: <bdi className="font-bold text-gold">{evalText}</bdi></span>}
+            {thinking && turn !== s.color ? t('pc.engineThinking') : userTurn ? (s.moves.length === 0 ? t('pc.firstMove') : t('pc.yourTurn')) : '…'}
+            {evalText && <span className="ms-2 text-muted">{t('pc.evalLabel')}<bdi className="font-bold text-gold">{evalText}</bdi></span>}
           </p>
         )}
 
@@ -463,9 +465,9 @@ export default function PlayComputer() {
         <MoveList sans={sans} ply={shownPly} onPick={(p) => setBack(s.moves.length - p)} />
 
         <div className="flex flex-wrap gap-2">
-          <ConfirmButton icon="reset" label="دور جديد" confirm="تبدأ دور جديد؟ الدور ده هيتمسح." disabled={s.moves.length === 0 && !over} onConfirm={start} />
+          <ConfirmButton icon="reset" label={t('pc.newGameBtn')} confirm={t('pc.newGameConfirm')} disabled={s.moves.length === 0 && !over} onConfirm={start} />
           <Button variant="ghost" onClick={() => setS((cur) => ({ ...cur, started: false }))}>
-            غيّر المستوى أو اللون
+            {t('pc.changeLevelOrColor')}
           </Button>
         </div>
       </div>
