@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import PlayFriend from '../../../components/PlayFriend'
-import { PageHeader } from '../../../components/ui'
+import { FriendHeader } from '../../../components/PlayHeaders'
 
 export const metadata: Metadata = {
   title: 'العب شطرنج مع صاحبك',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHeader kicker="العب" title="مع صاحبك" />
+      <FriendHeader />
       <PlayFriend />
     </>
   )
