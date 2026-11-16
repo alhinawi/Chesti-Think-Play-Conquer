@@ -11,7 +11,7 @@ export default function PuzzleCrumb({ theme }: { theme: string }) {
     <nav aria-label={t('pz.breadcrumbAria')} className="mb-3 text-sm text-muted">
       <Link href="/puzzles" className="hover:text-gold">{t('pz.breadcrumb')}</Link>
       <span className="mx-2">/</span>
-      <span>{ts ? t(`pz.theme${ts}`) : theme}</span>
+      <span>{ts ? t(`pz.theme${ts[0].toUpperCase() + ts.slice(1)}`) : theme}</span>
     </nav>
   )
 }
