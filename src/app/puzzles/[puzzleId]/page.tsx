@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import PuzzleSolver from '../../../components/PuzzleSolver'
 import PuzzleCrumb from '../../../components/PuzzleCrumb'
-import { Badge } from '../../../components/ui'
+import PuzzleBadges from '../../../components/PuzzleBadges'
 import { PUZZLES } from '../../../data/puzzles'
 
 export const dynamicParams = false
@@ -32,8 +32,7 @@ export default async function PuzzlePage({ params }: Props) {
       <PuzzleCrumb theme={p.theme} />
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <h1 className="font-display text-2xl font-bold sm:text-3xl">{p.name}</h1>
-        <Badge>{p.theme}</Badge>
-        <Badge tone="muted">{p.level}</Badge>
+        <PuzzleBadges theme={p.theme} level={p.level} />
       </div>
       <PuzzleSolver puzzleId={p.id} nextId={next.id} />
     </article>

@@ -7,10 +7,12 @@ import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 import { Badge, Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { themeSlug } from '../lib/i18n/dataLabels'
 import { MiniBoard } from './MiniBoard'
 
 export default function PuzzleList() {
   const { t: t2 } = useI18n()
+  const themeLabel = (x: string) => { const s = themeSlug(x); return s ? t2(`pz.theme${s}`) : x }
   const { puzzles: solvedAll } = useProgress()
   const { status } = useAuth()
   const authed = status === 'authed'
@@ -30,7 +32,7 @@ export default function PuzzleList() {
               onClick={() => setTheme(t)}
               className={`rounded-full border px-3 py-1.5 text-sm ${theme === t ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:text-ink'}`}
             >
-              {t === 'all' ? t2('pz.all') : t}
+              {t === 'all' ? t2('pz.all') : themeLabel(t)}
             </button>
           ))}
         </div>
@@ -53,7 +55,7 @@ export default function PuzzleList() {
                   {ok ? <Icon name="check" className="h-4 w-4 shrink-0 text-emerald" /> : null}
                 </div>
                 <div className="mt-1 flex flex-wrap gap-1 px-1 pb-1">
-                  <Badge tone="muted">{p.theme}</Badge>
+                  <Badge tone="muted">{themeLabel(p.theme)}</Badge>
                 </div>
               </Link>
             </li>

@@ -192,7 +192,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      <main id="main" dir="rtl" className={`mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-12 ${dir === 'ltr' ? 'md:pl-72 md:pr-8' : 'md:pr-72 md:pl-8'}`}>
+      <main id="main" dir={dir} className={`mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-12 ${dir === 'ltr' ? 'md:pl-72 md:pr-8' : 'md:pr-72 md:pl-8'}`}>
         <CheatWarningBanner />
         {children}
       </main>
