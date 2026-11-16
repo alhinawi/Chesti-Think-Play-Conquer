@@ -17,3 +17,8 @@ export function EndgamesHeader() {
   const { t } = useI18n()
   return <PageHeader kicker={t('dl.endKicker')} title={t('dl.endTitle')} desc={t('dl.endDesc')} />
 }
+
+export function SettingsHeader() {
+  const { t } = useI18n()
+  return <PageHeader kicker={t('st.kicker')} title={t('st.title')} />
+}
