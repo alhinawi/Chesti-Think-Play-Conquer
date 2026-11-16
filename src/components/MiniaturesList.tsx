@@ -4,20 +4,21 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Badge } from './ui'
 import { MiniBoard } from './MiniBoard'
-import { ChipRow, FilterCard, FilterSelect, LEVEL_OPTS, matchesProgress, PROGRESS_OPTS, useDone } from './LibraryFilters'
+import { ChipRow, FilterCard, FilterSelect, levelOpts, matchesProgress, progressOpts, useDone } from './LibraryFilters'
 import { MINIATURES } from '../data/miniatures'
 import { replay, START_FEN } from '../lib/chess'
+import { useI18n } from '../lib/i18n'
 
-const WINNER_OPTS = [
-  { v: 'all', label: 'الكل' },
-  { v: 'w', label: 'كسب الأبيض' },
-  { v: 'b', label: 'كسب الأسود' },
+const winnerOpts = (t: (k: string) => string) => [
+  { v: 'all', label: t('lb.winAll') },
+  { v: 'w', label: t('lb.winW') },
+  { v: 'b', label: t('lb.winB') },
 ]
-const MATE_OPTS = [
-  { v: 'all', label: 'كل الأطوال' },
-  { v: '6-8', label: 'مات في 6-8' },
-  { v: '9-11', label: 'مات في 9-11' },
-  { v: '12+', label: 'مات في 12+' },
+const mateOpts = (t: (k: string) => string) => [
+  { v: 'all', label: t('lb.mateAll') },
+  { v: '6-8', label: t('lb.mateShort') },
+  { v: '9-11', label: t('lb.mateMid') },
+  { v: '12+', label: t('lb.mateLong') },
 ]
 
 function mateBucket(plies: number) {
@@ -26,6 +27,7 @@ function mateBucket(plies: number) {
 }
 
 export default function MiniaturesList() {
+  const { t: i18n } = useI18n()
   const [q, setQ] = useState('')
   const [winner, setWinner] = useState('all')
   const [level, setLevel] = useState('all')
@@ -34,7 +36,7 @@ export default function MiniaturesList() {
   const isDone = useDone('miniatures')
 
   const openingOpts = useMemo(
-    () => [{ v: 'all', label: 'كل الافتتاحيات' }, ...[...new Set(MINIATURES.map((t) => t.opening))].sort().map((o) => ({ v: o, label: o }))],
+    () => [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(MINIATURES.map((x) => x.opening))].sort().map((o) => ({ v: o, label: o }))],
     [],
   )
   const [opening, setOpening] = useState('all')
@@ -57,17 +59,17 @@ export default function MiniaturesList() {
   return (
     <>
       <FilterCard q={q} setQ={setQ} shown={filtered.length} total={MINIATURES.length} active={[winner, level, prog, mate, opening].filter((v) => v !== 'all').length}>
-        <ChipRow label="الفائز" options={WINNER_OPTS} value={winner} onChange={setWinner} />
-        <ChipRow label="المستوى" options={LEVEL_OPTS} value={level} onChange={setLevel} />
-        <ChipRow label="التقدم" options={PROGRESS_OPTS} value={prog} onChange={setProg} />
+        <ChipRow label={i18n('lb.winnerLabel')} options={winnerOpts(i18n)} value={winner} onChange={setWinner} />
+        <ChipRow label={i18n('lb.levelLabel')} options={levelOpts(i18n)} value={level} onChange={setLevel} />
+        <ChipRow label={i18n('lb.progLabel')} options={progressOpts(i18n)} value={prog} onChange={setProg} />
         <div className="flex flex-wrap gap-4">
-          <FilterSelect label="عدد نقلات المات" options={MATE_OPTS} value={mate} onChange={setMate} />
-          <FilterSelect label="الافتتاحية" options={openingOpts} value={opening} onChange={setOpening} />
+          <FilterSelect label={i18n('lb.mateCountLabel')} options={mateOpts(i18n)} value={mate} onChange={setMate} />
+          <FilterSelect label={i18n('lb.openingLabel')} options={openingOpts} value={opening} onChange={setOpening} />
         </div>
       </FilterCard>
-      <section aria-label="كل الماتشات الخاطفة">
+      <section aria-label={i18n('lb.minAria')}>
         {filtered.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">مفيش ماتشات مطابقة للفلاتر دي. جرّب توسّع البحث.</p>
+          <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">{i18n('lb.emptyMin')}</p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((t) => {
@@ -76,17 +78,17 @@ export default function MiniaturesList() {
                 <li key={t.id}>
                   <Link href={`/miniatures/${t.id}`} className="luxe-card flex h-full gap-3 rounded-2xl p-3 transition hover:border-gold/50">
                     <div className="w-28 shrink-0">
-                      <MiniBoard fen={fens[fens.length - 1]} flip={t.side === 'b'} label={`وضع المات في ${t.name}`} />
+                      <MiniBoard fen={fens[fens.length - 1]} flip={t.side === 'b'} label={i18n('lb.matePosLabel', { name: t.name })} />
                     </div>
                     <div className="min-w-0">
                       <h3 className="font-bold">{t.name}</h3>
                       <p className="text-xs text-muted" dir="ltr">{t.en}</p>
                       <p className="mt-1 line-clamp-3 text-sm text-muted">{t.summary}</p>
                       <div className="mt-2 flex flex-wrap gap-1">
-                        {isDone(t.id) && <Badge tone="emerald">خلصته ✓</Badge>}
-                        <Badge tone="danger">مات في {Math.ceil(t.moves.length / 2)}</Badge>
+                        {isDone(t.id) && <Badge tone="emerald">{i18n('lb.doneBadge')}</Badge>}
+                        <Badge tone="danger">{i18n('lb.mateInBadge', { n: Math.ceil(t.moves.length / 2) })}</Badge>
                         <Badge tone="muted">{t.opening}</Badge>
-                        <Badge tone={t.side === 'w' ? 'gold' : 'emerald'}>كسب {t.side === 'w' ? 'الأبيض' : 'الأسود'}</Badge>
+                        <Badge tone={t.side === 'w' ? 'gold' : 'emerald'}>{i18n('lb.wonBadge', { side: t.side === 'w' ? i18n('lb.sideW') : i18n('lb.sideB') })}</Badge>
                         <Badge tone="muted">{t.level}</Badge>
                       </div>
                     </div>
