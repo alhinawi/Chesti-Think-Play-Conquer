@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PageHeader } from '../../components/ui'
+import { MiniaturesHeader } from '../../components/ListHeaders'
 import MiniaturesList from '../../components/MiniaturesList'
 import { MINIATURES } from '../../data/miniatures'
 
@@ -12,14 +12,7 @@ export const metadata: Metadata = {
 export default function MiniaturesPage() {
   return (
     <>
-      <PageHeader
-        kicker="ماتشات خاطفة"
-        title="ماتشات قصيرة، درس كبير"
-        desc="ماتشات حقيقية بين لاعبين قويين (2500+ على Lichess) انتهت بكش مات على الرقعة في 6 لـ 15 نقلة. كل ماتش بيجاوب على سؤال واحد: إيه الغلطة اللي قلبته؟ الغلطة متعلم عليها بالأحمر ومتحقق منها بمحرك Stockfish، والبديل الصح مكتوب في الشرح."
-      />
-      <div className="mb-6 rounded-2xl border border-line bg-surface p-4 text-sm text-muted">
-        <strong className="text-fg">الترتيب من الأقصر للأطول</strong> — كل الماتشات من Lichess Elite Database (بيانات مفتوحة CC0)، كل نقلة متحقق منها بـ chess.js، والمات النهائي مؤكد بالمحرك.
-      </div>
+      <MiniaturesHeader />
       <MiniaturesList />
     </>
   )

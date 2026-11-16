@@ -4,21 +4,23 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Badge } from './ui'
 import { MiniBoard } from './MiniBoard'
-import { ChipRow, FilterCard, LEVEL_OPTS, matchesProgress, PROGRESS_OPTS, useDone } from './LibraryFilters'
+import { ChipRow, FilterCard, levelOpts, matchesProgress, progressOpts, useDone } from './LibraryFilters'
 import { OPENINGS } from '../data/openings'
 import { replay, START_FEN } from '../lib/chess'
+import { useI18n } from '../lib/i18n'
+import { levelSlug } from '../lib/i18n/dataLabels'
 
-const COLOR_OPTS = [
-  { v: 'all', label: 'الكل' },
-  { v: 'w', label: 'للأبيض' },
-  { v: 'b', label: 'للأسود' },
+const colorOpts = (t: (k: string) => string) => [
+  { v: 'all', label: t('lb.forAll') },
+  { v: 'w', label: t('lb.forW') },
+  { v: 'b', label: t('lb.forB') },
 ]
-const TYPE_OPTS = [
-  { v: 'all', label: 'كل الأنواع' },
-  { v: 'open', label: 'مفتوحة (e4 e5)' },
-  { v: 'semi', label: 'نص مفتوحة' },
-  { v: 'closed', label: 'مغلقة (d4)' },
-  { v: 'flank', label: 'جانبية' },
+const typeOpts = (t: (k: string) => string) => [
+  { v: 'all', label: t('lb.typeAll') },
+  { v: 'open', label: t('lb.typeOpen') },
+  { v: 'semi', label: t('lb.typeSemi') },
+  { v: 'closed', label: t('lb.typeClosed') },
+  { v: 'flank', label: t('lb.typeFlank') },
 ]
 
 /** classify from the first moves: e4+e5 open, e4 other semi-open, d4 closed, anything else flank */
@@ -27,9 +29,10 @@ export function openingType(moves: string[]): 'open' | 'semi' | 'closed' | 'flan
   if (moves[0] === 'd4') return 'closed'
   return 'flank'
 }
-const TYPE_LABEL: Record<string, string> = { open: 'مفتوحة', semi: 'نص مفتوحة', closed: 'مغلقة', flank: 'جانبية' }
+const TYPE_KEYS: Record<string, string> = { open: 'lb.typeOpen', semi: 'lb.typeSemi', closed: 'lb.typeClosed', flank: 'lb.typeFlank' }
 
 export default function OpeningsList() {
+  const { t } = useI18n()
   const [q, setQ] = useState('')
   const [side, setSide] = useState('all')
   const [level, setLevel] = useState('all')
@@ -52,14 +55,14 @@ export default function OpeningsList() {
   return (
     <>
       <FilterCard q={q} setQ={setQ} shown={filtered.length} total={OPENINGS.length} active={[side, level, prog, type].filter((v) => v !== 'all').length}>
-        <ChipRow label="بتلعب" options={COLOR_OPTS} value={side} onChange={setSide} />
-        <ChipRow label="المستوى" options={LEVEL_OPTS} value={level} onChange={setLevel} />
-        <ChipRow label="النوع" options={TYPE_OPTS} value={type} onChange={setType} />
-        <ChipRow label="التقدم" options={PROGRESS_OPTS} value={prog} onChange={setProg} />
+        <ChipRow label={t('lb.playAsLabel')} options={colorOpts(t)} value={side} onChange={setSide} />
+        <ChipRow label={t('lb.levelLabel')} options={levelOpts(t)} value={level} onChange={setLevel} />
+        <ChipRow label={t('lb.typeLabel')} options={typeOpts(t)} value={type} onChange={setType} />
+        <ChipRow label={t('lb.progLabel')} options={progressOpts(t)} value={prog} onChange={setProg} />
       </FilterCard>
-      <section aria-label="كل الافتتاحيات">
+      <section aria-label={t('lb.openAria')}>
         {filtered.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">مفيش افتتاحيات مطابقة للفلاتر دي. جرّب توسّع البحث.</p>
+          <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">{t('lb.emptyOpen')}</p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((o) => {
@@ -68,17 +71,17 @@ export default function OpeningsList() {
                 <li key={o.id}>
                   <Link href={`/openings/${o.id}`} className="luxe-card flex h-full gap-3 rounded-2xl p-3 transition hover:border-gold/50">
                     <div className="w-28 shrink-0">
-                      <MiniBoard fen={fens[fens.length - 1]} flip={o.side === 'b'} label={`الوضع الأخير في ${o.name}`} />
+                      <MiniBoard fen={fens[fens.length - 1]} flip={o.side === 'b'} label={t('lb.lastPosLabel', { name: o.name })} />
                     </div>
                     <div className="min-w-0">
                       <h3 className="font-bold">{o.name}</h3>
                       <p className="text-xs text-muted" dir="ltr">{o.en} • {o.eco}</p>
                       <p className="mt-1 line-clamp-3 text-sm text-muted">{o.summary}</p>
                       <div className="mt-2 flex flex-wrap gap-1">
-                        {isDone(o.id) && <Badge tone="emerald">خلصته ✓</Badge>}
-                        <Badge tone={o.level === 'سهل' ? 'emerald' : o.level === 'متوسط' ? 'gold' : 'danger'}>{o.level}</Badge>
-                        <Badge tone="muted">{TYPE_LABEL[openingType(o.moves)]}</Badge>
-                        <Badge tone="muted">{o.moves.filter((_, i) => i % 2 === 0).length} نقلة</Badge>
+                        {isDone(o.id) && <Badge tone="emerald">{t('lb.doneBadge')}</Badge>}
+                        <Badge tone={o.level === 'سهل' ? 'emerald' : o.level === 'متوسط' ? 'gold' : 'danger'}>{levelSlug(o.level) ? t(`pz.level${levelSlug(o.level)}`) : o.level}</Badge>
+                        <Badge tone="muted">{t(TYPE_KEYS[openingType(o.moves)] ?? 'lb.typeOpen')}</Badge>
+                        <Badge tone="muted">{t('lb.movesBadge', { n: o.moves.filter((_, i) => i % 2 === 0).length })}</Badge>
                       </div>
                     </div>
                   </Link>
