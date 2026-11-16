@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Badge, PageHeader } from '../../components/ui'
+import { Badge } from '../../components/ui'
+import { EndgamesHeader } from '../../components/DailyHeaders'
 import { MiniBoard } from '../../components/MiniBoard'
 import { ENDGAMES } from '../../data/endgames'
 
@@ -13,11 +14,7 @@ export const metadata: Metadata = {
 export default function EndgamesPage() {
   return (
     <>
-      <PageHeader
-        kicker="معمل النهايات"
-        title="الدور بيتكسب هنا"
-        desc="معظم الأدوار بين الهواة بتتحسم في النهاية. كل موقف هنا بيعلّمك تقنية حاسمة: حله بإيدك وافهم الفكرة."
-      />
+      <EndgamesHeader />
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {ENDGAMES.map((e) => (
           <li key={e.id}>
