@@ -5,8 +5,10 @@ import LocalGame from './LocalGame'
 import OnlineGame from './OnlineGame'
 import { Icon } from './ui'
 import { normalizeRoomCode } from '../lib/online'
+import { useI18n } from '../lib/i18n'
 
 export default function PlayFriend() {
+  const { t } = useI18n()
   const [tab, setTab] = useState<'local' | 'online'>('local')
   const [room, setRoom] = useState<string | null>(null)
 
@@ -19,13 +21,13 @@ export default function PlayFriend() {
   }, [])
 
   const tabs = [
-    { id: 'local', label: 'على نفس الجهاز', icon: 'users' },
-    { id: 'online', label: 'أونلاين بلينك', icon: 'globe' },
+    { id: 'local', label: t('pc.tabLocal'), icon: 'users' },
+    { id: 'online', label: t('pc.tabOnline'), icon: 'globe' },
   ] as const
 
   return (
     <div>
-      <div role="tablist" aria-label="طريقة اللعب" className="mb-5 inline-flex rounded-2xl border border-line bg-surface p-1">
+      <div role="tablist" aria-label={t('pc.modeAria')} className="mb-5 inline-flex rounded-2xl border border-line bg-surface p-1">
         {tabs.map((t) => (
           <button
             key={t.id}
