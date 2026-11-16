@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import DailyPuzzle from '../../components/DailyPuzzle'
-import { PageHeader } from '../../components/ui'
+import { DailyHeader } from '../../components/DailyHeaders'
 
 export const metadata: Metadata = {
   title: 'لغز اليوم',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHeader kicker="كل يوم" title="لغز اليوم" desc="لغز واحد كل يوم، هو هو لكل الناس. حلّه عشان السلسلة ماتقطعش." />
+      <DailyHeader />
       <DailyPuzzle />
     </>
   )
