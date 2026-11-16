@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import SettingsPanel from '../../components/SettingsPanel'
-import { PageHeader } from '../../components/ui'
+import { SettingsHeader } from '../../components/DailyHeaders'
 
 export const metadata: Metadata = {
   title: 'الإعدادات',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHeader kicker="الإعدادات" title="ظبّط Chesti على مزاجك" />
+      <SettingsHeader />
       <SettingsPanel />
     </>
   )
