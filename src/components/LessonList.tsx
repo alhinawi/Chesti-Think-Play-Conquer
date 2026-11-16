@@ -5,8 +5,10 @@ import { CHAPTERS } from '../data/lessons'
 import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 import { Icon } from './ui'
+import { useI18n } from '../lib/i18n'
 
 export default function LessonList() {
+  const { t, locale } = useI18n()
   const { lessons: doneAll } = useProgress()
   const { status } = useAuth()
   const done = status === 'authed' ? doneAll : []
@@ -20,12 +22,12 @@ export default function LessonList() {
               <div className="flex items-center gap-3">
                 <span className="text-4xl text-gold" aria-hidden>{c.glyph}</span>
                 <div>
-                  <p className="text-xs text-muted">الفصل {ci + 1}</p>
+                  <p className="text-xs text-muted">{t('ln.chapter', { n: ci + 1 })}</p>
                   <h2 id={`ch-${c.id}`} className="font-display text-xl font-bold">{c.title}</h2>
                   <p className="text-sm text-muted">{c.desc}</p>
                 </div>
               </div>
-              <span className="shrink-0 text-sm text-muted">{status === 'authed' ? `${count}/${c.lessons.length}` : `${c.lessons.length} ${c.lessons.length === 2 ? 'درسين' : c.lessons.length <= 10 ? 'دروس' : 'درس'}`}</span>
+              <span className="shrink-0 text-sm text-muted">{status === 'authed' ? `${count}/${c.lessons.length}` : locale === 'en' ? t('ln.lessonCount', { n: c.lessons.length }) : `${c.lessons.length} ${c.lessons.length === 2 ? 'درسين' : c.lessons.length <= 10 ? 'دروس' : 'درس'}`}</span>
             </div>
             <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {c.lessons.map((l, li) => {

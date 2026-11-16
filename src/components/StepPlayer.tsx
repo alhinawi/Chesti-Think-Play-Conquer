@@ -9,9 +9,8 @@ import { Button, Icon } from './ui'
 import { parseUci, replay, soundFor, START_FEN, toUci, tryMove, type UciMove } from '../lib/chess'
 import { play } from '../lib/sound'
 import type { Arr, ExplainStep, LineStep, Step, TaskStep } from '../data/types'
+import { useI18n } from '../lib/i18n'
 
-const PRAISE = ['برافو عليك!', 'عاش! بالظبط كده', 'إيه الحلاوة دي!', 'تمام التمام', 'جامد بجد!', 'أستاذ والله!']
-const WRONG = ['لأ، مش دي. بص تاني وجرب', 'قريبة، بس فيه أحسن', 'مش دي النقلة المطلوبة', 'ركّز شوية وجرب تاني']
 
 const pick = <T,>(a: T[]) => a[Math.floor(Math.random() * a.length)]
 const toArrows = (a?: Arr[]): BoardArrow[] => (a ?? []).map(([from, to, color]) => ({ from, to, color }))
@@ -52,6 +51,7 @@ function ExplainView({ step, onDone }: { step: ExplainStep; onDone: () => void }
 }
 
 export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?: () => void; compact?: boolean }) {
+  const { t } = useI18n()
   const { fens, history } = useMemo(() => replay(step.fen ?? START_FEN, step.moves), [step])
   const [ply, setPly] = useState(0)
   const [auto, setAuto] = useState(false)
@@ -137,7 +137,7 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
         <ChessBoard fen={fens[ply]} movable={false} lastMove={last ? [last.from, last.to] : null} orientation={step.orientation} />
         {controls}
         <div className="mt-3 min-h-12 rounded-xl border border-gold/25 bg-gold-soft px-3 py-2 text-sm" aria-live="polite">
-          {ply === 0 ? <span className="text-muted">شغّل عشان تشوف النقلات واحدة واحدة.</span> : <span className="ltr font-bold text-gold">{last?.san}</span>}
+          {ply === 0 ? <span className="text-muted">{t('ln.watchMoves')}</span> : <span className="ltr font-bold text-gold">{last?.san}</span>}
           {note && <RichText text={note} className="inline" />}
         </div>
         {moveList}
@@ -158,7 +158,7 @@ export function LineViewer({ step, onDone, compact }: { step: LineStep; onDone?:
           {!compact && <RichText text={step.text} className="text-[1.05rem]" />}
           <div className="mt-4 min-h-[4.5rem] rounded-xl border border-gold/25 bg-gold-soft p-4 text-[1.02rem]" aria-live="polite">
             {ply === 0 ? (
-              <span className="text-muted">دوس → أو شغّل عشان تشوف النقلات واحدة واحدة.</span>
+              <span className="text-muted">{t('ln.pressPlay')}</span>
             ) : (
               <>
                 <span className="ltr me-2 inline-block font-bold text-gold">{last?.san}</span>
@@ -178,6 +178,10 @@ function matches(expected: string, uci: string) {
 }
 
 export function TaskRunner({ step, onDone, alreadyDone, onWrong }: { step: TaskStep; onDone: () => void; alreadyDone?: boolean; onWrong?: () => void }) {
+  const { t } = useI18n()
+  const PRAISE = [t('ln.praise1'), t('ln.praise2'), t('ln.praise3'), t('ln.praise4'), t('ln.praise5'), t('ln.praise6')]
+  const WRONG = [t('ln.wrong1'), t('ln.wrong2'), t('ln.wrong3'), t('ln.wrong4')]
+  const PROGRESS = [t('ln.progress1'), t('ln.progress2'), t('ln.progress3')]
   const userColor = step.userColor ?? (new Chess(step.fen).turn() as 'w' | 'b')
   const [fen, setFen] = useState(step.fen)
   const [idx, setIdx] = useState(0)
@@ -260,7 +264,7 @@ export function TaskRunner({ step, onDone, alreadyDone, onWrong }: { step: TaskS
     const next = idx + 1
     setIdx(next)
     if (isMate || reached || next >= step.solution.length) finish()
-    else setMsg({ tone: 'info', text: pick(['صح! كمّل…', 'تمام، استنى ردّه…', 'حلوة! وبعدين؟']) })
+    else setMsg({ tone: 'info', text: pick(PROGRESS) })
     return true
   }
 
@@ -271,7 +275,7 @@ export function TaskRunner({ step, onDone, alreadyDone, onWrong }: { step: TaskS
     const stepOnce = () => {
       if (i >= step.solution.length) {
         setStatus('done')
-        setMsg({ tone: 'info', text: 'ده الحل. ابدأ من الأول وجربه بنفسك عشان يثبت في دماغك.' })
+        setMsg({ tone: 'info', text: t('ln.solutionShown') })
         onDone()
         return
       }
@@ -311,16 +315,16 @@ export function TaskRunner({ step, onDone, alreadyDone, onWrong }: { step: TaskS
           />
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             <Button variant="soft" onClick={reset}>
-              <Icon name="reset" className="h-4 w-4" /> من الأول
+              <Icon name="reset" className="h-4 w-4" /> {t('ln.restart')}
             </Button>
             {status === 'play' && (
               <Button variant="soft" onClick={() => setHint(true)} disabled={!expected || !userTurn}>
-                <Icon name="bulb" className="h-4 w-4" /> تلميح
+                <Icon name="bulb" className="h-4 w-4" /> {t('ln.hint')}
               </Button>
             )}
             {status === 'play' && (wrong >= 2 || alreadyDone) && (
               <Button variant="ghost" onClick={showSolution}>
-                <Icon name="eye" className="h-4 w-4" /> ورّيني الحل
+                <Icon name="eye" className="h-4 w-4" /> {t('ln.showSolution')}
               </Button>
             )}
           </div>
@@ -330,7 +334,7 @@ export function TaskRunner({ step, onDone, alreadyDone, onWrong }: { step: TaskS
         <div>
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1 text-xs font-bold">
             <span className={`h-3 w-3 rounded-full border ${userColor === 'w' ? 'border-black/20 bg-[#f4efe4]' : 'border-white/20 bg-[#1c1a17]'}`} />
-            إنت بتلعب بـ{userColor === 'w' ? 'الأبيض' : 'الأسود'}
+            {t('ln.playingAs', { color: userColor === 'w' ? t('ln.white') : t('ln.black') })}
           </div>
           <RichText text={step.text} className="text-[1.05rem]" />
           {msg && (

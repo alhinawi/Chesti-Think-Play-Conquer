@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Icon } from './ui'
+import { useI18n } from '../lib/i18n'
 
 const StageCtx = createContext(false)
 /** True for a board inside a play stage: it goes edge to edge on phones. */
@@ -28,6 +29,7 @@ export default function BoardStage({
   reserve?: number
   fsReserve?: number
 }) {
+  const { t } = useI18n()
   const ref = useRef<HTMLDivElement>(null)
   const [mode, setMode] = useState<'off' | 'native' | 'css'>('off')
 
@@ -100,15 +102,15 @@ export default function BoardStage({
         style={{ '--board-reserve': `${reserve}rem`, '--board-fs-reserve': `${fsReserve}rem` } as CSSProperties}
         role={fs ? 'dialog' : undefined}
         aria-modal={fs || undefined}
-        aria-label={fs ? 'الرقعة في ملء الشاشة' : undefined}
+        aria-label={fs ? t('ln.boardFs') : undefined}
       >
         {fs && (
           <div className="board-stage-bar">
             <button
               type="button"
               onClick={exit}
-              aria-label="اخرج من ملء الشاشة"
-              title="اخرج من ملء الشاشة"
+              aria-label={t('ln.exitFs')}
+              title={t('ln.exitFs')}
               className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface-2 text-ink hover:bg-gold-soft"
             >
               <Icon name="shrink" className="h-4 w-4" />
@@ -125,7 +127,7 @@ export default function BoardStage({
                 onClick={enter}
                 className="inline-flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs font-bold text-muted hover:bg-surface-2 hover:text-ink"
               >
-                <Icon name="expand" className="h-4 w-4" /> ملء الشاشة
+                <Icon name="expand" className="h-4 w-4" /> {t('ln.fs')}
               </button>
             </div>
           )}
