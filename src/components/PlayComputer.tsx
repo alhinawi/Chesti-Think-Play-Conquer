@@ -15,6 +15,7 @@ import { COACH, coachLine } from '../lib/coach'
 import { recordGame } from '../lib/progress'
 import { saveGame } from '../lib/api'
 import { MatchTelemetry } from '../lib/telemetry'
+import { LiveGameSession } from '../lib/liveGame'
 import { OPENINGS } from '../data/openings'
 import { Chess } from 'chess.js'
 import { celebrate } from './Celebrate'
@@ -60,6 +61,9 @@ export default function PlayComputer() {
   const [seed, setSeed] = useState<{ id: string; name: string; moves: string[] } | null>(null)
   const engineRef = useRef<Engine | null>(null)
   const telemetryRef = useRef<MatchTelemetry | null>(null)
+  const liveRef = useRef<LiveGameSession | null>(null)
+  const livePushed = useRef(0)
+  const [liveReady, setLiveReady] = useState(0)
   const gen = useRef(0)
 
   useEffect(() => {
@@ -138,6 +142,11 @@ export default function PlayComputer() {
   // sound for each new move
   const prevLen = useRef(0)
   useEffect(() => {
+    // relay every new half-move to the server (anti-cheat live session)
+    const sess = liveRef.current
+    if (sess && !sess.broken) {
+      while (livePushed.current < s.moves.length) sess.push(s.moves[livePushed.current++])
+    }
     if (s.moves.length > prevLen.current && s.moves.length > 0) {
       const last = game.history({ verbose: true }).at(-1)
       if (last) {
@@ -153,7 +162,7 @@ export default function PlayComputer() {
     prevLen.current = s.moves.length
     setHint(null)
     setEvalText(null)
-  }, [s.moves.length, game, s.color, bot])
+  }, [s.moves.length, game, s.color, bot, liveReady])
 
   // win / lose sound
   const recorded = useRef<string | null>(null)
@@ -171,16 +180,23 @@ export default function PlayComputer() {
     // only games that really ended now count, not a finished game loaded from storage
     if (s.moves.length > 0 && prevLen.current === s.moves.length && loadedKey.current !== key) {
       recordGame(bot.id, won)
-      saveGame({
-        result: won ? 'win' : !s.resigned && result.winner === null ? 'draw' : 'loss',
-        mode: 'computer',
+      const payload = {
+        result: (won ? 'win' : !s.resigned && result.winner === null ? 'draw' : 'loss') as 'win' | 'loss' | 'draw',
+        mode: 'computer' as const,
         opponent: bot.id,
-        color: s.color === 'w' ? 'white' : 'black',
+        color: (s.color === 'w' ? 'white' : 'black') as 'white' | 'black',
         moves: s.moves.length,
         pgn: game.pgn(),
         duration_seconds: telemetryRef.current?.durationSeconds() || undefined,
         telemetry: telemetryRef.current?.finish(level.id),
-      })
+      }
+      const sess = liveRef.current
+      if (sess && !sess.broken) {
+        // server finalizes + records the game; fall back to the old upload if the session broke
+        sess.end(payload.result, payload.telemetry?.signals).then((fate) => {
+          if (fate === 'legacy') saveGame(payload)
+        })
+      } else saveGame(payload)
     }
   }, [result.over, result.winner, s.color, s.started, s.resigned, s.moves, bot])
   const loadedKey = useRef<string | null>(null)
@@ -210,6 +226,20 @@ export default function PlayComputer() {
     setBotSays(botForLevel(s.level).greet)
     if (!telemetryRef.current) telemetryRef.current = new MatchTelemetry()
     telemetryRef.current.start()
+    // start the server-authoritative live session (anti-cheat); null when logged out/offline
+    liveRef.current = null
+    livePushed.current = 0
+    // seeded games (opening practice) start mid-position: the server starts
+    // from the initial position, so relaying them would corrupt timing data
+    if ((seed?.moves?.length ?? 0) === 0) {
+      const myGen = gen.current
+      LiveGameSession.start(botForLevel(s.level).id, color === 'w' ? 'white' : 'black').then((sess) => {
+        if (sess && gen.current === myGen) {
+          liveRef.current = sess
+          setLiveReady((x) => x + 1)
+        }
+      })
+    }
     engine() // warm up the engine while the user thinks
   }
 
