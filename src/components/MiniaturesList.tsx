@@ -27,7 +27,7 @@ function mateBucket(plies: number) {
 }
 
 export default function MiniaturesList() {
-  const { t: i18n, locale } = useI18n()
+  const { t: i18n } = useI18n()
   const [q, setQ] = useState('')
   const [winner, setWinner] = useState('all')
   const [level, setLevel] = useState('all')
@@ -35,10 +35,7 @@ export default function MiniaturesList() {
   const [mate, setMate] = useState('all')
   const isDone = useDone('miniatures')
 
-  const openingOpts = useMemo(
-    () => [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(MINIATURES.map((x) => x.opening))].sort().map((o) => ({ v: o, label: o }))],
-    [locale],
-  )
+  const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(MINIATURES.map((x) => x.opening))].sort().map((o) => ({ v: o, label: o }))]
   const [opening, setOpening] = useState('all')
 
   const filtered = useMemo(() => {
