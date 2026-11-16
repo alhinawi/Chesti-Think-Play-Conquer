@@ -1,8 +1,11 @@
 import { Hono, type MiddlewareHandler } from 'hono'
 import { cors } from 'hono/cors'
+import { Chess } from 'chess.js'
 import { hashPassword, newToken, sha256Hex, verifyPassword } from './crypto'
 import { asBody, email, int, isoDate, oneOf, str, ValidationError } from './validate'
 import { finishGoogleLogin, googleConfigured, startGoogleLogin } from './google'
+import { cleanTelemetry, engineBump, FLAG_THRESHOLD, scoreGame } from './anticheat'
+import { analyzeGame } from './engine'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
 
@@ -173,12 +176,51 @@ app.post('/api/games', async (c) => {
   const duration = int(b, 'duration_seconds', { min: 0, max: 86400 }) ?? null
   const playedAt = isoDate(b, 'played_at') ?? new Date().toISOString()
 
+  // Server-side move validation: a PGN that does not replay cleanly is rejected.
+  if (pgn) {
+    try {
+      const g = new Chess()
+      g.loadPgn(pgn)
+      if (g.history().length === 0) throw new Error('empty')
+    } catch {
+      throw new ValidationError({ pgn: 'invalid pgn' })
+    }
+  }
+
   const res = await c.env.DB.prepare(
     'INSERT INTO games (user_id, mode, opponent, color, result, pgn, moves, duration_seconds, played_at) VALUES (?,?,?,?,?,?,?,?,?)',
   )
     .bind(c.get('userId'), mode, opponent, color, result, pgn, moves, duration, playedAt)
     .run()
-  const game = await c.env.DB.prepare('SELECT * FROM games WHERE id = ?').bind(res.meta.last_row_id).first()
+  const gameId = res.meta.last_row_id as number
+
+  // Anti-cheat: store the client telemetry (if any) and score the game.
+  const telemetry = cleanTelemetry(b.telemetry)
+  if (telemetry) {
+    await c.env.DB.prepare('INSERT OR REPLACE INTO game_telemetry (game_id, user_id, move_times, signals) VALUES (?, ?, ?, ?)')
+      .bind(gameId, c.get('userId'), telemetry.move_times ? JSON.stringify(telemetry.move_times) : null, telemetry.signals ? JSON.stringify(telemetry.signals) : null)
+      .run()
+  }
+  const recent = await c.env.DB.prepare(
+    "SELECT result FROM games WHERE user_id = ? AND id != ? ORDER BY played_at DESC, id DESC LIMIT 10",
+  )
+    .bind(c.get('userId'), gameId)
+    .all<{ result: string }>()
+  const risk = scoreGame({
+    telemetry,
+    result,
+    moves,
+    durationSeconds: duration,
+    recentWins: recent.results.filter((r) => r.result === 'win').length,
+    recentGames: recent.results.length,
+  })
+  if (risk.score >= FLAG_THRESHOLD) {
+    await c.env.DB.prepare('INSERT OR REPLACE INTO game_flags (game_id, user_id, risk_score, reasons) VALUES (?, ?, ?, ?)')
+      .bind(gameId, c.get('userId'), risk.score, JSON.stringify(risk.reasons))
+      .run()
+  }
+  // Never leak the flag state to the submitting client.
+  const game = await c.env.DB.prepare('SELECT * FROM games WHERE id = ?').bind(gameId).first()
   return c.json({ game }, 201)
 })
 
@@ -255,7 +297,7 @@ app.get('/api/leaderboard', async (c) => {
                 SUM(CASE WHEN g.result = 'win' THEN 1 ELSE 0 END) AS wins,
                 SUM(CASE g.result WHEN 'win' THEN 3 WHEN 'draw' THEN 1 ELSE 0 END) AS points
          FROM games g JOIN users u ON u.id = g.user_id
-         WHERE g.played_at >= ?
+         WHERE g.played_at >= ? AND u.leaderboard_excluded = 0
          GROUP BY u.id ORDER BY points DESC, wins DESC, u.id ASC LIMIT ?`,
       )
         .bind(since, limit)
@@ -266,7 +308,7 @@ app.get('/api/leaderboard', async (c) => {
       await c.env.DB.prepare(
         `SELECT u.id AS user_id, u.name AS name, MAX(s.points) AS points
          FROM scores s JOIN users u ON u.id = s.user_id
-         WHERE s.kind = ? AND s.created_at >= ?
+         WHERE s.kind = ? AND s.created_at >= ? AND u.leaderboard_excluded = 0
          GROUP BY u.id ORDER BY points DESC, u.id ASC LIMIT ?`,
       )
         .bind(kind, since, limit)
@@ -361,6 +403,112 @@ app.get('/api/admin/overview', async (c) => {
     recentUsers,
     health: { database: true, google: googleConfigured(c.env), adminCount: adminEmails(c.env).length, generatedAt: now },
   })
+})
+
+// ---------- admin: anti-cheat review queue ----------
+// Soft actions only: flag, review (dismiss/confirm), leaderboard exclusion.
+// Nothing here bans, deletes games, or touches points - every decision stays
+// reversible and human.
+
+type FlagRow = {
+  game_id: number
+  user_id: number
+  risk_score: number
+  reasons: string
+  status: string
+  engine_match: number | null
+  engine_top3: number | null
+  acpl: number | null
+  analyzed_at: string | null
+  review_note: string | null
+  created_at: string
+  updated_at: string
+  name: string
+  email: string
+  opponent: string | null
+  result: string
+  color: string
+  moves: number
+  duration_seconds: number | null
+  played_at: string
+}
+
+const flagOut = (r: FlagRow) => ({
+  game_id: r.game_id,
+  user: { id: r.user_id, name: r.name, email: maskEmail(r.email) },
+  game: { opponent: r.opponent, result: r.result, color: r.color, moves: r.moves, duration_seconds: r.duration_seconds, played_at: r.played_at },
+  risk_score: r.risk_score,
+  reasons: JSON.parse(r.reasons) as string[],
+  status: r.status,
+  engine: r.analyzed_at ? { match: r.engine_match, top3: r.engine_top3, acpl: r.acpl, analyzed_at: r.analyzed_at } : null,
+  review_note: r.review_note,
+  created_at: r.created_at,
+})
+
+const FLAG_SELECT = `SELECT f.*, u.name AS name, u.email AS email,
+       g.opponent AS opponent, g.result AS result, g.color AS color,
+       g.moves AS moves, g.duration_seconds AS duration_seconds, g.played_at AS played_at
+  FROM game_flags f JOIN users u ON u.id = f.user_id JOIN games g ON g.id = f.game_id`
+
+app.get('/api/admin/anticheat/flags', async (c) => {
+  const status = c.req.query('status') ?? 'flagged'
+  if (!['flagged', 'dismissed', 'confirmed', 'all'].includes(status)) throw new ValidationError({ status: 'one of: flagged, dismissed, confirmed, all' })
+  const where = status === 'all' ? '' : 'WHERE f.status = ?'
+  const q = `${FLAG_SELECT} ${where} ORDER BY f.status = 'flagged' DESC, f.risk_score DESC, f.created_at DESC LIMIT 100`
+  const { results } = await (status === 'all' ? c.env.DB.prepare(q).all<FlagRow>() : c.env.DB.prepare(q).bind(status).all<FlagRow>())
+  const counts = Object.fromEntries(
+    (await c.env.DB.prepare('SELECT status, COUNT(*) AS n FROM game_flags GROUP BY status').all<{ status: string; n: number }>()).results.map((r) => [r.status, r.n]),
+  )
+  return c.json({ flags: results.map(flagOut), counts: { flagged: counts.flagged ?? 0, dismissed: counts.dismissed ?? 0, confirmed: counts.confirmed ?? 0 } })
+})
+
+// On-demand engine analysis for one flagged game. CPU-heavy by design limits
+// (depth-2, node-capped, sampled positions) and only ever admin-triggered.
+app.post('/api/admin/anticheat/flags/:gameId/analyze', async (c) => {
+  const gameId = Number(c.req.param('gameId'))
+  const game = await c.env.DB.prepare('SELECT id, user_id, pgn, color FROM games WHERE id = ?').bind(gameId).first<{ id: number; user_id: number; pgn: string | null; color: string }>()
+  if (!game || !game.pgn) return c.json({ error: 'not_found' }, 404)
+  const analysis = analyzeGame(game.pgn, game.color === 'black' ? 'b' : 'w')
+  const bump = engineBump(analysis)
+  const now = new Date().toISOString()
+  const existing = await c.env.DB.prepare('SELECT risk_score, reasons FROM game_flags WHERE game_id = ?').bind(gameId).first<{ risk_score: number; reasons: string }>()
+  const oldReasons = existing ? (JSON.parse(existing.reasons) as string[]) : []
+  const reasons = [...new Set([...oldReasons, ...bump.reasons])]
+  const score = Math.min(100, (existing?.risk_score ?? 0) + bump.bump)
+  await c.env.DB.prepare(
+    `INSERT INTO game_flags (game_id, user_id, risk_score, reasons, engine_match, engine_top3, acpl, analyzed_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(game_id) DO UPDATE SET risk_score = excluded.risk_score, reasons = excluded.reasons,
+       engine_match = excluded.engine_match, engine_top3 = excluded.engine_top3, acpl = excluded.acpl,
+       analyzed_at = excluded.analyzed_at, updated_at = excluded.updated_at`,
+  )
+    .bind(gameId, game.user_id, score, JSON.stringify(reasons), analysis.match, analysis.top3, analysis.acpl, now, now)
+    .run()
+  return c.json({ analysis: { ...analysis, bump: bump.bump, reasons }, risk_score: score })
+})
+
+app.post('/api/admin/anticheat/flags/:gameId/review', async (c) => {
+  const gameId = Number(c.req.param('gameId'))
+  const b = await json(c)
+  const action = oneOf(b, 'action', ['dismiss', 'confirm'] as const, true)!
+  const note = str(b, 'note', { max: 500 }) ?? null
+  const res = await c.env.DB.prepare('UPDATE game_flags SET status = ?, review_note = ?, updated_at = ? WHERE game_id = ?')
+    .bind(action === 'dismiss' ? 'dismissed' : 'confirmed', note, new Date().toISOString(), gameId)
+    .run()
+  return res.meta.changes ? c.json({ ok: true }) : c.json({ error: 'not_found' }, 404)
+})
+
+app.post('/api/admin/anticheat/exclude', async (c) => {
+  const b = await json(c)
+  const userId = int(b, 'user_id', { min: 1, max: 10_000_000, required: true })!
+  const excluded = b.excluded === true
+  const res = await c.env.DB.prepare('UPDATE users SET leaderboard_excluded = ? WHERE id = ?').bind(excluded ? 1 : 0, userId).run()
+  return res.meta.changes ? c.json({ ok: true, excluded }) : c.json({ error: 'not_found' }, 404)
+})
+
+app.get('/api/admin/anticheat/excluded', async (c) => {
+  const { results } = await c.env.DB.prepare('SELECT id, name, email FROM users WHERE leaderboard_excluded = 1 ORDER BY id DESC LIMIT 200').all<{ id: number; name: string; email: string }>()
+  return c.json({ excluded: results.map((u) => ({ id: u.id, name: u.name, email: maskEmail(u.email) })) })
 })
 
 export default app
