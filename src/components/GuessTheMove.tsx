@@ -2,26 +2,19 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { GAMES } from '../data/games'
-import { replay, START_FEN, toUci, turnName, type UciMove } from '../lib/chess'
+import { replay, START_FEN, toUci, type UciMove } from '../lib/chess'
 import { useAuth } from '../lib/auth'
 import { readProgress, recordGuess } from '../lib/progress'
 import { play } from '../lib/sound'
 import ChessBoard from './ChessBoard'
 import { Button } from './ui'
+import { useI18n } from '../lib/i18n'
 
 type Phase = 'guess' | 'retry' | 'reveal' | 'done'
 
-const PIECE_AR: Record<string, string> = {
-  p: 'بيدق',
-  n: 'حصان',
-  b: 'فيل',
-  r: 'قلعة',
-  q: 'وزير',
-  k: 'ملك',
-}
-
 /** وضع «خمّن النقلة»: العب دور بطل الدور وحاول تتوقع نقلاته قبل ما تشوفها. */
 export default function GuessTheMove({ gameId }: { gameId: string }) {
+  const { t } = useI18n()
   const g = GAMES.find((x) => x.id === gameId)!
   // بتخمّن نقلات الفائز (الأبيض عند التعادل)
   const side: 'w' | 'b' = g.result === '0-1' ? 'b' : 'w'
@@ -139,55 +132,55 @@ export default function GuessTheMove({ gameId }: { gameId: string }) {
       <div className="space-y-3">
         <div className="rounded-2xl border border-line bg-surface p-4">
           <p className="mb-1 text-sm text-muted">
-            إنت {side === 'w' ? 'الأبيض' : 'الأسود'} — خمّن نقلات {side === 'w' ? g.white : g.black}
+            {t(side === 'w' ? 'gm.youAreWhite' : 'gm.youAreBlack', { name: side === 'w' ? g.white : g.black })}
           </p>
           <div className="flex items-baseline gap-3">
             <span className="font-display text-3xl font-bold text-gold" dir="ltr">{score}</span>
-            <span className="text-sm text-muted">نقطة</span>
-            <span className="text-sm text-muted" dir="ltr">{hits}/{totalGuesses} من أول مرة</span>
+            <span className="text-sm text-muted">{t('gm.points')}</span>
+            <span className="text-sm text-muted" dir="ltr">{t('gm.firstTryCount', { hits, total: totalGuesses })}</span>
           </div>
-          {run >= 3 && <p className="mt-1 text-sm text-emerald-400">سلسلة {run} صح ورا بعض!</p>}
-          {authed && savedBest > 0 && phase !== 'done' && <p className="mt-1 text-xs text-muted">أحسن نتيجة ليك في الدور ده: <bdi dir="ltr">{savedBest}</bdi> نقطة.</p>}
+          {run >= 3 && <p className="mt-1 text-sm text-emerald-400">{t('gm.streak', { run })}</p>}
+          {authed && savedBest > 0 && phase !== 'done' && <p className="mt-1 text-xs text-muted">{t('gm.savedBest', { score: savedBest })}</p>}
         </div>
 
         <div className="min-h-20 rounded-2xl border border-line bg-surface p-4 text-sm" aria-live="polite">
           {phase === 'done' ? (
             <>
-              <p className="mb-2 font-display text-lg font-bold text-gold">خلّصت الدور!</p>
+              <p className="mb-2 font-display text-lg font-bold text-gold">{t('gm.doneTitle')}</p>
               <p>
-                خمّنت {hits} من {totalGuesses} من أول محاولة وجبت {score} نقطة.{' '}
+                {t('gm.doneSummary', { hits, total: totalGuesses, score })}
                 {hits === totalGuesses
-                  ? 'أداء أسطوري — زي البطل نفسه!'
+                  ? t('gm.verdictPerfect')
                   : hits >= totalGuesses * 0.7
-                    ? 'إحساسك بالمركز ممتاز.'
+                    ? t('gm.verdictGreat')
                     : hits >= totalGuesses * 0.4
-                      ? 'كويس، اتفرج على الدور في وضع المشاهدة وارجع تاني.'
-                      : 'الأبطال دول كانوا وحوش — اتفرج على الدور الأول وبعدين جرّب تاني.'}
+                      ? t('gm.verdictOk')
+                      : t('gm.verdictLow')}
               </p>
-              {best >= 2 && <p className="mt-1 text-sm text-muted">أطول سلسلة صح ورا بعض: {best} نقلات.</p>}
+              {best >= 2 && <p className="mt-1 text-sm text-muted">{t('gm.longestRun', { best })}</p>}
             </>
           ) : phase === 'reveal' ? (
             <p>
-              النقلة الصح كانت <strong dir="ltr">{expected?.san}</strong>. هتكمّل من هنا.
+              {t('gm.reveal', { san: expected?.san ?? '' })}
             </p>
           ) : phase === 'retry' ? (
             <p>
-              مش دي. تلميح: حرّك <strong>{PIECE_AR[expected?.piece ?? 'p']}</strong>.
+              {t('gm.retryHint', { piece: t(`gm.piece${(expected?.piece ?? 'p').toUpperCase()}`) })}
             </p>
           ) : expected && expected.color === side ? (
-            <p>دورك — إيه النقلة اللي لعبها {side === 'w' ? g.white : g.black} هنا؟</p>
+            <p>{t('gm.yourTurn', { name: side === 'w' ? g.white : g.black })}</p>
           ) : (
-            <p>نقلة الخصم ({turnName(side === 'w' ? 'b' : 'w')})...</p>
+            <p>{t('gm.opponentMove', { side: t(side === 'w' ? 'gm.sideBlack' : 'gm.sideWhite') })}</p>
           )}
           {note && <p className="mt-2 border-t border-line pt-2 text-muted">{note}</p>}
         </div>
 
         {phase === 'done' ? (
-          <Button onClick={reset} className="w-full">العبها تاني</Button>
+          <Button onClick={reset} className="w-full">{t('gm.playAgain')}</Button>
         ) : (
-          <Button onClick={reset} variant="ghost" className="w-full">من الأول</Button>
+          <Button onClick={reset} variant="ghost" className="w-full">{t('gm.fromStart')}</Button>
         )}
-        <p className="text-xs text-muted">+5 للنقلة الحاسمة (أكل أو كش أو مات) من أول مرة، +3 لأي نقلة صح، +1 في المرة التانية.</p>
+        <p className="text-xs text-muted">{t('gm.scoringNote')}</p>
       </div>
     </div>
   )
