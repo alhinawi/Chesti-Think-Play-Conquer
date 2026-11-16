@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import PuzzleSolver from './PuzzleSolver'
 import { useI18n } from '../lib/i18n'
+import { usePuzzleLoc } from '../lib/i18n/content'
 import { themeSlug, levelSlug } from '../lib/i18n/dataLabels'
 import { Badge } from './ui'
 import { PUZZLES } from '../data/puzzles'
@@ -11,6 +12,7 @@ import { today, useProgress } from '../lib/progress'
 import { dailyIndex, streakOf } from '../lib/rank'
 
 export default function DailyPuzzle() {
+  const lp = usePuzzleLoc()
   const [date, setDate] = useState<string | null>(null)
   const progress = useProgress()
   const { status } = useAuth()
@@ -35,7 +37,7 @@ export default function DailyPuzzle() {
         {authed && solvedToday && <Badge tone="emerald">{t('pz.solvedToday')}</Badge>}
         {authed && streak > 0 && <Badge tone="gold">{t('pz.dayStreak', { n: streak })}</Badge>}
       </div>
-      <h2 className="mb-4 font-display text-xl font-bold">{p.name}</h2>
+      <h2 className="mb-4 font-display text-xl font-bold">{lp(p).name}</h2>
       <PuzzleSolver key={p.id} puzzleId={p.id} nextId={next.id} daily={date} />
       <p className="mt-6 text-center text-sm text-muted">{t('pz.dailyNote')}</p>
     </div>

@@ -11,16 +11,19 @@ import RichText from './RichText'
 import { TaskRunner } from './StepPlayer'
 import { Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { usePuzzleLoc } from '../lib/i18n/content'
 
 /** daily = the local date when this is the puzzle of the day */
 export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: string; nextId: string; daily?: string }) {
   const { t } = useI18n()
   const p = PUZZLES.find((x) => x.id === puzzleId)!
+  const lp = usePuzzleLoc()
+  const loc = lp(p)
   const [solved, setSolved] = useState(false)
   const step = useMemo<TaskStep>(
     () => ({
       kind: 'task',
-      text: p.text,
+      text: loc.text,
       fen: p.fen,
       solution: p.solution,
       goal: /مات/.test(p.theme) ? 'mate' : undefined,
@@ -28,7 +31,7 @@ export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: st
       success: t('pz.success'),
       orientation: p.fen.split(' ')[1] === 'b' ? 'black' : 'white',
     }),
-    [p, t],
+    [p, t, loc.text],
   )
   const onDone = useCallback(() => {
     setSolved(true)
@@ -42,9 +45,9 @@ export default function PuzzleSolver({ puzzleId, nextId, daily }: { puzzleId: st
       {solved && (
         <div className="animate-fade-up mt-5 rounded-2xl border border-emerald/40 bg-emerald/5 p-4">
           <h2 className="mb-1 font-bold text-emerald">{t('pz.explainTitle')}</h2>
-          <RichText text={p.explain} />
+          <RichText text={loc.explain} />
           <div className="mt-3">
-            <ShareButton text={t('pz.shareText', { name: p.name })} path={`/puzzles/${p.id}/`} label={t('pz.shareLabel')} />
+            <ShareButton text={t('pz.shareText', { name: loc.name })} path={`/puzzles/${p.id}/`} label={t('pz.shareLabel')} />
           </div>
           <Link href={`/puzzles/${nextId}`} className="mt-3 inline-flex items-center gap-2 font-bold text-gold hover:underline">
             {t('pz.next')} <Icon name="prev" className="h-4 w-4 ltr:-scale-x-100" />
