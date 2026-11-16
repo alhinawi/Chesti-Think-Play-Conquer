@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import PuzzleSolver from '../../../components/PuzzleSolver'
+import PuzzleCrumb from '../../../components/PuzzleCrumb'
 import { Badge } from '../../../components/ui'
 import { PUZZLES } from '../../../data/puzzles'
 
@@ -29,11 +29,7 @@ export default async function PuzzlePage({ params }: Props) {
   const next = PUZZLES[(idx + 1) % PUZZLES.length]
   return (
     <article>
-      <nav aria-label="مسار الصفحة" className="mb-3 text-sm text-muted">
-        <Link href="/puzzles" className="hover:text-gold">الألغاز</Link>
-        <span className="mx-2">/</span>
-        <span>{p.theme}</span>
-      </nav>
+      <PuzzleCrumb theme={p.theme} />
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <h1 className="font-display text-2xl font-bold sm:text-3xl">{p.name}</h1>
         <Badge>{p.theme}</Badge>
