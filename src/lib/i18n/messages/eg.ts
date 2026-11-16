@@ -600,6 +600,22 @@ const eg = {
     signup: 'اعمل حساب',
     later: 'لاحقًا',
   },
+  w3: {
+    pieceP: 'عسكري',
+    pieceR: 'طابية',
+    pieceN: 'حصان',
+    pieceB: 'فيل',
+    pieceQ: 'وزير',
+    pieceK: 'ملك',
+    pickWhite: '{piece} أبيض على {sq}',
+    pickBlack: '{piece} أسود على {sq}',
+    next: 'الموقف التالي',
+    prev: 'الموقف السابق',
+    autoOff: 'إيقاف التدوير التلقائي',
+    autoOn: 'تشغيل التدوير التلقائي',
+    resetCam: 'إعادة الكاميرا لوضعها',
+    hint: 'اسحب عشان تلفّ الرقعة، وقرّب وبعّد بإصبعين، ودوس على أي قطعة تعرف اسمها ومكانها',
+  },
 }
 export default eg
 export type Messages = typeof eg

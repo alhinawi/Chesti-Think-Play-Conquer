@@ -601,5 +601,21 @@ const en: Messages = {
     signup: 'Create account',
     later: 'Later',
   },
+  w3: {
+    pieceP: 'Pawn',
+    pieceR: 'Rook',
+    pieceN: 'Knight',
+    pieceB: 'Bishop',
+    pieceQ: 'Queen',
+    pieceK: 'King',
+    pickWhite: 'White {piece} on {sq}',
+    pickBlack: 'Black {piece} on {sq}',
+    next: 'Next position',
+    prev: 'Previous position',
+    autoOff: 'Stop auto-rotate',
+    autoOn: 'Start auto-rotate',
+    resetCam: 'Reset the camera',
+    hint: 'Drag to rotate the board, pinch to zoom, and tap any piece to learn its name and square',
+  },
 }
 export default en
