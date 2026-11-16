@@ -222,11 +222,33 @@ export interface AntiCheatSummary {
   flags: { total: number; open: number; avgRisk: number | null; analyzed: number; avgMatch: number | null; avgTop3: number | null; avgAcpl: number | null }
   signals: { ips: number; devices: number; linkedAccounts: { id: number; name: string; email: string; via: 'ip' | 'device' }[] }
   startsLastHour: number
+  warnings: { total: number; recent: { kind: 'auto' | 'admin'; risk_score: number | null; created_at: string; seen_at: string | null }[] }
   hints: string[]
 }
 
 export function adminAntiCheatUserSummary(userId: number) {
   return req<{ summary: AntiCheatSummary }>(`/admin/anticheat/users/${userId}/summary`, { auth: true })
+}
+
+export function adminAntiCheatWarn(userId: number, gameId?: number) {
+  return req<{ ok: boolean }>('/admin/anticheat/warn', { method: 'POST', auth: true, body: { user_id: userId, ...(gameId ? { game_id: gameId } : {}) } })
+}
+
+export interface PlayerWarning {
+  id: number
+  message: string
+  kind: 'auto' | 'admin'
+  risk_score: number | null
+  created_at: string
+  seen_at: string | null
+}
+
+export function getWarnings() {
+  return req<{ warnings: PlayerWarning[] }>('/warnings', { auth: true })
+}
+
+export function markWarningSeen(id: number) {
+  return req<{ ok: boolean }>(`/warnings/${id}/seen`, { method: 'POST', body: {}, auth: true })
 }
 
 export function adminAntiCheatLinks() {
