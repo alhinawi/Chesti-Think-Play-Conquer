@@ -139,6 +139,8 @@ export interface SaveGameInput {
   moves?: number
   duration_seconds?: number
   played_at?: string
+  /** anti-cheat signals collected during the game (see lib/telemetry) */
+  telemetry?: { move_times: number[]; signals: { blurs: number; pastes: number; focus_losses: number; level?: number } }
 }
 
 /** fire-and-forget; silently skipped when logged out or offline */
@@ -179,4 +181,41 @@ export interface AdminOverview {
 /** Admin-only site stats. The worker rejects non-admin tokens with 403. */
 export function adminOverview(): Promise<AdminOverview> {
   return req<AdminOverview>('/admin/overview', { auth: true })
+}
+
+// ---------- admin: anti-cheat ----------
+
+export interface AntiCheatFlag {
+  game_id: number
+  user: { id: number; name: string; email: string }
+  game: { opponent: string | null; result: string; color: string; moves: number; duration_seconds: number | null; played_at: string }
+  risk_score: number
+  reasons: string[]
+  status: 'flagged' | 'dismissed' | 'confirmed'
+  engine: { match: number | null; top3: number | null; acpl: number | null; analyzed_at: string } | null
+  review_note: string | null
+  created_at: string
+}
+
+export function adminAntiCheatFlags(status: 'flagged' | 'dismissed' | 'confirmed' | 'all' = 'flagged') {
+  return req<{ flags: AntiCheatFlag[]; counts: { flagged: number; dismissed: number; confirmed: number } }>(`/admin/anticheat/flags?status=${status}`, { auth: true })
+}
+
+export function adminAntiCheatAnalyze(gameId: number) {
+  return req<{ analysis: { positions: number; match: number; top3: number; acpl: number; bump: number; reasons: string[] }; risk_score: number }>(
+    `/admin/anticheat/flags/${gameId}/analyze`,
+    { method: 'POST', auth: true },
+  )
+}
+
+export function adminAntiCheatReview(gameId: number, action: 'dismiss' | 'confirm', note?: string) {
+  return req<{ ok: boolean }>(`/admin/anticheat/flags/${gameId}/review`, { method: 'POST', auth: true, body: { action, note } })
+}
+
+export function adminAntiCheatExclude(userId: number, excluded: boolean) {
+  return req<{ ok: boolean; excluded: boolean }>('/admin/anticheat/exclude', { method: 'POST', auth: true, body: { user_id: userId, excluded } })
+}
+
+export function adminAntiCheatExcluded() {
+  return req<{ excluded: { id: number; name: string; email: string }[] }>('/admin/anticheat/excluded', { auth: true })
 }
