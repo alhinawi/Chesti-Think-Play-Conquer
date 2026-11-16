@@ -438,6 +438,8 @@ type FlagRow = {
   moves: number
   duration_seconds: number | null
   played_at: string
+  move_times: string | null
+  live: number
 }
 
 const flagOut = (r: FlagRow) => ({
@@ -448,14 +450,18 @@ const flagOut = (r: FlagRow) => ({
   reasons: JSON.parse(r.reasons) as string[],
   status: r.status,
   engine: r.analyzed_at ? { match: r.engine_match, top3: r.engine_top3, acpl: r.acpl, analyzed_at: r.analyzed_at } : null,
+  timing: { move_times: r.move_times ? (JSON.parse(r.move_times) as number[]) : null, trusted: r.live > 0 },
   review_note: r.review_note,
   created_at: r.created_at,
 })
 
 const FLAG_SELECT = `SELECT f.*, u.name AS name, u.email AS email,
        g.opponent AS opponent, g.result AS result, g.color AS color,
-       g.moves AS moves, g.duration_seconds AS duration_seconds, g.played_at AS played_at
-  FROM game_flags f JOIN users u ON u.id = f.user_id JOIN games g ON g.id = f.game_id`
+       g.moves AS moves, g.duration_seconds AS duration_seconds, g.played_at AS played_at,
+       t.move_times AS move_times,
+       (SELECT COUNT(*) FROM live_games lg WHERE lg.game_id = f.game_id) AS live
+  FROM game_flags f JOIN users u ON u.id = f.user_id JOIN games g ON g.id = f.game_id
+  LEFT JOIN game_telemetry t ON t.game_id = f.game_id`
 
 app.get('/api/admin/anticheat/flags', async (c) => {
   const status = c.req.query('status') ?? 'flagged'
