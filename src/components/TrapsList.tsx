@@ -23,7 +23,7 @@ function lenBucket(plies: number) {
 }
 
 export default function TrapsList() {
-  const { t: i18n, locale } = useI18n()
+  const { t: i18n } = useI18n()
   const [q, setQ] = useState('')
   const [side, setSide] = useState('all')
   const [level, setLevel] = useState('all')
@@ -32,10 +32,7 @@ export default function TrapsList() {
   const [len, setLen] = useState('all')
   const isDone = useDone('traps')
 
-  const openingOpts = useMemo(
-    () => [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(TRAPS.map((x) => x.opening))].sort().map((o) => ({ v: o, label: o }))],
-    [locale],
-  )
+  const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(TRAPS.map((x) => x.opening))].sort().map((o) => ({ v: o, label: o }))]
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase()
