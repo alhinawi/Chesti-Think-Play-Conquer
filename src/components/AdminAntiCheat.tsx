@@ -1,7 +1,9 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import * as api from '../lib/api'
+import { Engine } from '../lib/engine'
+import { analyzePgnWithEngine } from '../lib/anticheatAnalyze'
 import { Badge, Card, Icon } from './ui'
 
 const REASON_LABELS: Record<string, string> = {
@@ -34,6 +36,23 @@ export default function AdminAntiCheat() {
   const [excluded, setExcluded] = useState<{ id: number; name: string; email: string }[]>([])
   const [failed, setFailed] = useState(false)
   const [busy, setBusy] = useState<number | null>(null)
+  const engineRef = useRef<Engine | null>(null)
+
+  async function analyze(gameId: number) {
+    setBusy(gameId)
+    try {
+      const { game } = await api.adminAntiCheatGame(gameId)
+      if (!game.pgn) return
+      if (!engineRef.current) engineRef.current = new Engine()
+      const analysis = await analyzePgnWithEngine(game.pgn, game.color === 'black' ? 'b' : 'w', engineRef.current)
+      if (analysis.positions > 0) await api.adminAntiCheatSubmitAnalysis(gameId, analysis)
+      load()
+    } catch {
+      // keep the list as-is; the admin can retry
+    } finally {
+      setBusy(null)
+    }
+  }
 
   const load = useCallback(() => {
     setFailed(false)
@@ -146,11 +165,11 @@ export default function AdminAntiCheat() {
                     <button
                       type="button"
                       disabled={busy === f.game_id}
-                      onClick={() => act(f.game_id, () => api.adminAntiCheatAnalyze(f.game_id))}
+                      onClick={() => analyze(f.game_id)}
                       className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-line bg-surface px-3 py-2 text-xs font-bold transition hover:text-ink disabled:opacity-40"
                     >
                       <Icon name="search" className="h-4 w-4" />
-                      حلّل بالمحرك
+                      {busy === f.game_id ? 'بيحلّل…' : 'حلّل بالمحرك'}
                     </button>
                   )}
                   <button

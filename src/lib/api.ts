@@ -201,11 +201,17 @@ export function adminAntiCheatFlags(status: 'flagged' | 'dismissed' | 'confirmed
   return req<{ flags: AntiCheatFlag[]; counts: { flagged: number; dismissed: number; confirmed: number } }>(`/admin/anticheat/flags?status=${status}`, { auth: true })
 }
 
-export function adminAntiCheatAnalyze(gameId: number) {
-  return req<{ analysis: { positions: number; match: number; top3: number; acpl: number; bump: number; reasons: string[] }; risk_score: number }>(
-    `/admin/anticheat/flags/${gameId}/analyze`,
-    { method: 'POST', auth: true },
+/** the flagged game's record (incl. PGN) for local engine analysis in the admin's browser */
+export function adminAntiCheatGame(gameId: number) {
+  return req<{ game: { id: number; pgn: string | null; color: string; opponent: string | null; result: string; moves: number; played_at: string } }>(
+    `/admin/anticheat/flags/${gameId}/game`,
+    { auth: true },
   )
+}
+
+/** store the analysis the admin's browser computed; bump rules stay server-side */
+export function adminAntiCheatSubmitAnalysis(gameId: number, analysis: { positions: number; match: number; top3: number; acpl: number }) {
+  return req<{ risk_score: number; bump: number; reasons: string[] }>(`/admin/anticheat/flags/${gameId}/analysis`, { method: 'POST', auth: true, body: analysis })
 }
 
 export function adminAntiCheatReview(gameId: number, action: 'dismiss' | 'confirm', note?: string) {
