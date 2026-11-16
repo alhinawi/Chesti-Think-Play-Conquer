@@ -41,3 +41,13 @@ export function FriendHeader() {
   const { t } = useI18n()
   return <PageHeader kicker={t('pc.kicker')} title={t('pc.friendTitle')} />
 }
+
+export function World3DHeader() {
+  const { t } = useI18n()
+  return <PageHeader kicker={t('wp.hKicker')} title={t('wp.hTitle')} desc={t('wp.hDesc')} />
+}
+
+export function World3DProHeader() {
+  const { t } = useI18n()
+  return <PageHeader kicker={t('wp.pKicker')} title={t('wp.pTitle')} desc={t('wp.pDesc')} />
+}

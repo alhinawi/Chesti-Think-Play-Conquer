@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PageHeader } from '../../components/ui'
+import { World3DHeader } from '../../components/PlayHeaders'
 import World3DLoader from '../../components/World3DLoader'
 import { WORLD3D_POSITIONS } from '../../data/world3d'
 
@@ -12,11 +12,7 @@ export const metadata: Metadata = {
 export default function World3DPage() {
   return (
     <>
-      <PageHeader
-        kicker="عالم شطرنج 3D"
-        title="المواقف الخالدة بزاوية 360°"
-        desc="رقعة شطرنج ثلاثية الأبعاد بتلف بيها بحرية كاملة: شوف مات الأوبرا، وتضحية لاسكر، وصدمة الديب بلو من الزاوية اللي تعجبك."
-      />
+      <World3DHeader />
       <World3DLoader />
     </>
   )
