@@ -6,6 +6,7 @@ import { asBody, email, int, isoDate, oneOf, str, ValidationError } from './vali
 import { finishGoogleLogin, googleConfigured, startGoogleLogin } from './google'
 import { cleanTelemetry, engineBump, FLAG_THRESHOLD, scoreGame } from './anticheat'
 import { liveRoutes } from './live'
+import { recordAccountSignals } from './signals'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
 
@@ -112,6 +113,7 @@ app.post('/api/auth/register', async (c) => {
     .bind(name, mail, await hashPassword(password))
     .run()
   const user = (await c.env.DB.prepare('SELECT id, name, email, created_at, avatar FROM users WHERE id = ?').bind(res.meta.last_row_id).first<UserRow>())!
+  await recordAccountSignals(c.env.DB, user.id, c.req.header('cf-connecting-ip'), str(b, 'device_id', { max: 64 }))
   return c.json({ user: withAdmin(c.env, user), token: await openSession(c.env.DB, user.id) }, 201)
 })
 
@@ -125,6 +127,7 @@ app.post('/api/auth/login', async (c) => {
   // Run a hash even for unknown emails so timing does not reveal which emails exist.
   const ok = row ? await verifyPassword(password, row.password_hash) : (await hashPassword(password), false)
   if (!row || !ok) return c.json({ error: 'invalid_credentials' }, 401)
+  await recordAccountSignals(c.env.DB, row.id, c.req.header('cf-connecting-ip'), str(b, 'device_id', { max: 64 }))
   return c.json({ user: withAdmin(c.env, row), token: await openSession(c.env.DB, row.id) })
 })
 
@@ -533,6 +536,83 @@ app.post('/api/admin/anticheat/exclude', async (c) => {
 app.get('/api/admin/anticheat/excluded', async (c) => {
   const { results } = await c.env.DB.prepare('SELECT id, name, email FROM users WHERE leaderboard_excluded = 1 ORDER BY id DESC LIMIT 200').all<{ id: number; name: string; email: string }>()
   return c.json({ excluded: results.map((u) => ({ id: u.id, name: u.name, email: maskEmail(u.email) })) })
+})
+
+// Per-user anti-cheat rollup: multi-game stats, live-session behavior, engine
+// averages over analyzed games, and account-linking hints. All computed, all
+// soft - it informs the admin's review, it never acts on its own.
+app.get('/api/admin/anticheat/users/:userId/summary', async (c) => {
+  const userId = Number(c.req.param('userId'))
+  const u = await c.env.DB.prepare('SELECT id, name, email, created_at, leaderboard_excluded FROM users WHERE id = ?').bind(userId).first<{ id: number; name: string; email: string; created_at: string; leaderboard_excluded: number }>()
+  if (!u) return c.json({ error: 'not_found' }, 404)
+
+  const games = (await c.env.DB.prepare(
+    "SELECT COUNT(*) AS total, SUM(result = 'win') AS wins, SUM(result = 'loss') AS losses, SUM(result = 'draw') AS draws, SUM(played_at > strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-7 days')) AS last7d FROM games WHERE user_id = ?",
+  ).bind(userId).first<{ total: number; wins: number | null; losses: number | null; draws: number | null; last7d: number | null }>())!
+
+  const live = (await c.env.DB.prepare(
+    "SELECT SUM(status = 'finished') AS finished, SUM(status = 'abandoned') AS abandoned, SUM(status = 'active') AS active FROM live_games WHERE user_id = ?",
+  ).bind(userId).first<{ finished: number | null; abandoned: number | null; active: number | null }>())!
+
+  const flags = (await c.env.DB.prepare(
+    "SELECT COUNT(*) AS total, SUM(status = 'flagged') AS open, AVG(risk_score) AS avgRisk, COUNT(engine_match) AS analyzed, AVG(engine_match) AS avgMatch, AVG(engine_top3) AS avgTop3, AVG(acpl) AS avgAcpl FROM game_flags WHERE user_id = ?",
+  ).bind(userId).first<{ total: number; open: number | null; avgRisk: number | null; analyzed: number; avgMatch: number | null; avgTop3: number | null; avgAcpl: number | null }>())!
+
+  const starts = (await c.env.DB.prepare(
+    "SELECT COUNT(*) AS n FROM live_games WHERE user_id = ? AND created_at > strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-1 hour')",
+  ).bind(userId).first<{ n: number }>())!
+
+  const signalCounts = (await c.env.DB.prepare(
+    "SELECT SUM(kind = 'ip') AS ips, SUM(kind = 'device') AS devices FROM account_signals WHERE user_id = ?",
+  ).bind(userId).first<{ ips: number | null; devices: number | null }>())!
+
+  const { results: linked } = await c.env.DB.prepare(
+    `SELECT DISTINCT u.id, u.name, u.email, s2.kind AS via FROM account_signals s1
+     JOIN account_signals s2 ON s1.hash = s2.hash AND s1.user_id != s2.user_id
+     JOIN users u ON u.id = s2.user_id
+     WHERE s1.user_id = ? LIMIT 20`,
+  ).bind(userId).all<{ id: number; name: string; email: string; via: 'ip' | 'device' }>()
+
+  const hints: string[] = []
+  if ((flags.open ?? 0) >= 3) hints.push('multi_flagged')
+  if (flags.analyzed >= 2 && (flags.avgMatch ?? 0) >= 0.8) hints.push('engine_consistent')
+  if ((live.abandoned ?? 0) >= 3) hints.push('abandon_pattern')
+  if (linked.length > 0) hints.push('linked_accounts')
+
+  return c.json({
+    summary: {
+      user: { id: u.id, name: u.name, email: maskEmail(u.email), created_at: u.created_at, leaderboard_excluded: !!u.leaderboard_excluded },
+      games: { total: games.total, wins: games.wins ?? 0, losses: games.losses ?? 0, draws: games.draws ?? 0, last7d: games.last7d ?? 0 },
+      live: { finished: live.finished ?? 0, abandoned: live.abandoned ?? 0, active: live.active ?? 0 },
+      flags: { total: flags.total, open: flags.open ?? 0, avgRisk: flags.avgRisk, analyzed: flags.analyzed, avgMatch: flags.avgMatch, avgTop3: flags.avgTop3, avgAcpl: flags.avgAcpl },
+      signals: { ips: signalCounts.ips ?? 0, devices: signalCounts.devices ?? 0, linkedAccounts: linked.map((l) => ({ id: l.id, name: l.name, email: maskEmail(l.email), via: l.via })) },
+      startsLastHour: starts.n,
+      hints,
+    },
+  })
+})
+
+// Accounts sharing an IP hash or a device hash - multi-account review hints.
+app.get('/api/admin/anticheat/links', async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT s1.user_id AS a, s2.user_id AS b, s1.kind, COUNT(DISTINCT s1.hash) AS shared
+     FROM account_signals s1 JOIN account_signals s2 ON s1.hash = s2.hash AND s1.user_id < s2.user_id
+     GROUP BY a, b, s1.kind ORDER BY shared DESC LIMIT 100`,
+  ).all<{ a: number; b: number; kind: 'ip' | 'device'; shared: number }>()
+  const ids = [...new Set(results.flatMap((r) => [r.a, r.b]))]
+  const users = new Map<number, { name: string; email: string }>()
+  for (const id of ids) {
+    const u = await c.env.DB.prepare('SELECT name, email FROM users WHERE id = ?').bind(id).first<{ name: string; email: string }>()
+    if (u) users.set(id, { name: u.name, email: maskEmail(u.email) })
+  }
+  return c.json({
+    links: results.map((r) => ({
+      a: { id: r.a, ...users.get(r.a) },
+      b: { id: r.b, ...users.get(r.b) },
+      via: r.kind,
+      shared: r.shared,
+    })),
+  })
 })
 
 export default app
