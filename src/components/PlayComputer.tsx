@@ -5,6 +5,7 @@ import ChessBoard, { type BoardArrow } from './ChessBoard'
 import BoardStage from './BoardStage'
 import { ConfirmButton, HistoryNav, MoveList, PlayerBar, ResultCard, ReviewBanner } from './GameParts'
 import { Badge, Button, Icon } from './ui'
+import { resultText } from '../lib/i18n/resultText'
 import { gameResult, soundFor, toUci, type UciMove } from '../lib/chess'
 import { Engine, LEVELS } from '../lib/engine'
 import { formatEval, pickComputerMove, playUci } from '../lib/game'
@@ -356,7 +357,7 @@ export default function PlayComputer() {
   else if (result.over)
     outcome =
       result.winner === null
-        ? { title: t('pc.drawTitle'), text: result.text, tone: 'draw' }
+        ? { title: t('pc.drawTitle'), text: resultText(t, result), tone: 'draw' }
         : result.winner === s.color
           ? { title: t('pc.winTitle'), text: t('pc.winText', { n: Math.ceil(s.moves.length / 2) }) + (s.hints ? t('pc.winHints', { hints: s.hints }) : '') + '.', tone: 'win' }
           : { title: t('pc.loseTitle', { bot: bot.name }), text: t('pc.loseText'), tone: 'lose' }

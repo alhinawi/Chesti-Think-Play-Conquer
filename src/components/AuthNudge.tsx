@@ -4,12 +4,14 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../lib/auth'
 import { Button } from './ui'
+import { useI18n } from '../lib/i18n'
 
 const DISMISS_KEY = 'chesti-auth-nudge-dismissed'
 
 /** Friendly, dismissible sign-up prompt. Never blocks the content. */
 export default function AuthNudge() {
   const { status } = useAuth()
+  const { t } = useI18n()
   const [dismissed, setDismissed] = useState(true)
 
   useEffect(() => {
@@ -28,12 +30,12 @@ export default function AuthNudge() {
         ♞
       </span>
       <p className="min-w-0 flex-1 text-sm">
-        <b>عايز تقدمك يتحفظ من أي جهاز وتنافس في لوحة المتصدرين؟</b>{' '}
-        <span className="text-muted">اعمل حساب مجاني - تقدمك المحلي هيتحوّل لوحده.</span>
+        <b>{t('ab.nudgeTitle')}</b>{' '}
+        <span className="text-muted">{t('ab.nudgeDesc')}</span>
       </p>
       <div className="flex items-center gap-2">
         <Link href="/me">
-          <Button>اعمل حساب</Button>
+          <Button>{t('ab.signup')}</Button>
         </Link>
         <button
           type="button"
@@ -47,7 +49,7 @@ export default function AuthNudge() {
           }}
           className="rounded-lg px-3 py-2 text-sm font-bold text-muted hover:text-ink"
         >
-          لاحقًا
+          {t('ab.later')}
         </button>
       </div>
     </div>
