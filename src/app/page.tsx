@@ -15,7 +15,7 @@ import { WORLD3D_POSITIONS } from '../data/world3d'
 import { SITE } from '../lib/site'
 import { BOTS } from '../data/bots'
 import { BotAvatar } from '../components/BotAvatar'
-import { COACH } from '../lib/coach'
+import { coachName } from '../lib/coach'
 import { RANKS } from '../lib/rank'
 import { useI18n } from '../lib/i18n'
 import { useBotLoc } from '../lib/i18n/content'
@@ -39,7 +39,7 @@ const SECTIONS = [
 
 
 export default function Home() {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
   const bl = useBotLoc()
   const { rank: rk } = useRankLoc()
   const jsonLd = {
@@ -84,7 +84,7 @@ export default function Home() {
           <div className="animate-bubble mt-3 flex items-start gap-2 text-sm" style={{ animationDelay: '0.5s' }}>
             <span className="animate-float grid h-10 w-10 shrink-0 place-items-center rounded-full bg-emerald/20 text-xl" aria-hidden>☕</span>
             <p className="rounded-2xl rounded-ss-sm border border-emerald/30 bg-surface/90 px-3 py-2">
-              <strong className="me-1 text-emerald">{COACH.name}:</strong>
+              <strong className="me-1 text-emerald">{coachName(locale)}:</strong>
               {t('home.coachLine')}
             </p>
           </div>
