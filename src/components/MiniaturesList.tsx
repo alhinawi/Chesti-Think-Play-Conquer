@@ -8,6 +8,8 @@ import { ChipRow, FilterCard, FilterSelect, levelOpts, matchesProgress, progress
 import { MINIATURES } from '../data/miniatures'
 import { replay, START_FEN } from '../lib/chess'
 import { useI18n } from '../lib/i18n'
+import { useTrapLoc } from '../lib/i18n/content'
+import { levelSlug } from '../lib/i18n/dataLabels'
 
 const winnerOpts = (t: (k: string) => string) => [
   { v: 'all', label: t('lb.winAll') },
@@ -28,6 +30,7 @@ function mateBucket(plies: number) {
 
 export default function MiniaturesList() {
   const { t: i18n } = useI18n()
+  const lt = useTrapLoc()
   const [q, setQ] = useState('')
   const [winner, setWinner] = useState('all')
   const [level, setLevel] = useState('all')
@@ -35,7 +38,7 @@ export default function MiniaturesList() {
   const [mate, setMate] = useState('all')
   const isDone = useDone('miniatures')
 
-  const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(MINIATURES.map((x) => x.opening))].sort().map((o) => ({ v: o, label: o }))]
+  const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(MINIATURES.map((x) => x.opening))].sort().map((o) => ({ v: o, label: lt(MINIATURES.find((x) => x.opening === o)!).opening }))]
   const [opening, setOpening] = useState('all')
 
   const filtered = useMemo(() => {
@@ -69,7 +72,8 @@ export default function MiniaturesList() {
           <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">{i18n('lb.emptyMin')}</p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((t) => {
+            {filtered.map((t0) => {
+              const t = lt(t0)
               const { fens } = replay(START_FEN, t.moves)
               return (
                 <li key={t.id}>
@@ -86,7 +90,7 @@ export default function MiniaturesList() {
                         <Badge tone="danger">{i18n('lb.mateInBadge', { n: Math.ceil(t.moves.length / 2) })}</Badge>
                         <Badge tone="muted">{t.opening}</Badge>
                         <Badge tone={t.side === 'w' ? 'gold' : 'emerald'}>{i18n('lb.wonBadge', { side: t.side === 'w' ? i18n('lb.sideW') : i18n('lb.sideB') })}</Badge>
-                        <Badge tone="muted">{t.level}</Badge>
+                        <Badge tone="muted">{levelSlug(t.level) ? i18n(`pz.level${levelSlug(t.level)}`) : t.level}</Badge>
                       </div>
                     </div>
                   </Link>
