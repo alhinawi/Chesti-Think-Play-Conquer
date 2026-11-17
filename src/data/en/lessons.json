@@ -7,6 +7,38 @@
   "rules": {
    "title": "The important rules",
    "desc": "Check, checkmate, castling, en passant, promotion, and draws."
+  },
+  "mates": {
+   "title": "Basic checkmates",
+   "desc": "The mates every player must know with their eyes closed."
+  },
+  "opening": {
+   "title": "Opening principles",
+   "desc": "How to start the game right without memorizing."
+  },
+  "tactics": {
+   "title": "Tactics",
+   "desc": "The fork, the pin, the skewer, the discovered attack, and smothered mate."
+  },
+  "endgames": {
+   "title": "Endgames",
+   "desc": "When the pieces run out, the king becomes a hero."
+  },
+  "strategy": {
+   "title": "Middlegame master: the plan before the move",
+   "desc": "The difference between someone who moves pieces and someone who plays chess: a plan. Here you'll learn to read the board for the long run."
+  },
+  "famous-mates": {
+   "title": "Gallery of famous mates",
+   "desc": "Each of these mates has a name and a distinctive shape. Memorize the shape, and you'll see it jump out at you mid-game."
+  },
+  "endgame-lab": {
+   "title": "Practical endgames",
+   "desc": "Here games are won with technique, not luck: mates with the big pieces, and famous bridges and defenses."
+  },
+  "repertoire": {
+   "title": "Your personal opening",
+   "desc": "You don't have to memorize 100 lines. Understand the plan of each opening and pick what suits you."
   }
  },
  "lessons": {
@@ -221,6 +253,751 @@
     },
     {
      "text": "There are other ways to draw:\n\n- **Not enough material to mate**: like king against king, or king and bishop against king.\n- **Threefold repetition**: if the same position happens 3 times.\n- **Fifty-move rule**: 50 moves by each side with no capture and no pawn move.\n- **Agreement**: both players agree to a draw."
+    }
+   ]
+  },
+  "back-rank": {
+   "title": "Back rank mate",
+   "summary": "The king trapped behind its pawns.",
+   "steps": [
+    {
+     "text": "The black king is trapped behind its three pawns, and nobody protects the back rank. **Lock him in.**"
+    },
+    {
+     "text": "The black rook is the only piece protecting the back rank. Remove it and give mate."
+    },
+    {
+     "text": "**How do you protect yourself?** Move a pawn in front of your king one square (like `h6` here) to give it a **window** to escape through. Players call it \"luft\"."
+    }
+   ]
+  },
+  "queen-mate": {
+   "title": "Queen and king mate",
+   "summary": "The queen traps, the king comes closer.",
+   "steps": [
+    {
+     "text": "The queen alone can't deliver mate, **the king has to help**.\n\nThe plan:\n\n- The queen shrinks the black king's space until he reaches the edge.\n- Your king comes closer.\n- Watch out for **stalemate**: always leave the black king a square to move to until the moment of mate."
+    },
+    {
+     "text": "The two kings face each other. Give mate in one move."
+    },
+    {
+     "text": "And here too. There are two solutions!"
+    }
+   ]
+  },
+  "ladder": {
+   "title": "Ladder mate with two rooks",
+   "summary": "The two rooks walk the king up, step by step.",
+   "steps": [
+    {
+     "text": "The rook on `h4` locks the whole fourth rank. The other rook will give check on the fifth rank, so the king goes up one step. Then the two rooks swap roles until the king reaches the edge.\n\nKeep the rooks **far from the king** so he can't come near and capture them."
+    },
+    {
+     "text": "Drive the black king up to the last rank and give mate. Start with a check from the rook on `g1`.",
+     "hint": "Each time, move the rook behind, and give check on the rank where the king stands."
+    }
+   ]
+  },
+  "rook-mate": {
+   "title": "Rook and king mate",
+   "summary": "The kings face each other, and the rook locks the rank.",
+   "steps": [
+    {
+     "text": "With one rook the plan is the same: push the black king to the edge, and keep your king **right across from his** (this is called the opposition). Then a check from the rook on the edge is mate."
+    },
+    {
+     "text": "Give the mate."
+    }
+   ]
+  },
+  "center": {
+   "title": "Control the center",
+   "summary": "The four squares in the middle are the treasure.",
+   "steps": [
+    {
+     "text": "These four lit squares are **the center**. A piece in the center attacks more squares and reaches anywhere faster.\n\nThat's why the most famous first move is the king's pawn or the queen's pawn two squares."
+    },
+    {
+     "text": "Start the game with a move that controls the center.",
+     "success": "Excellent! `e4` and `d4` are among the strongest first moves."
+    }
+   ]
+  },
+  "develop": {
+   "title": "Develop your pieces",
+   "summary": "Knights and bishops first, and castle early.",
+   "steps": [
+    {
+     "text": "After the pawns, **develop the minor pieces** (knights and bishops) quickly, and **castle** so the king is safe.\n\nWatch this game and follow every move.",
+     "notes": {
+      "0": "A pawn in the center.",
+      "2": "The knight comes out and attacks the black pawn.",
+      "3": "Black protects his pawn and develops a piece at the same time.",
+      "4": "The bishop comes out to a nice square and looks at `f7`, Black's weakest square.",
+      "6": "Early castling: the king is safe and the rook is closer to the center.",
+      "9": "Both sides developed their pieces calmly. This is the **Italian** opening."
+     }
+    },
+    {
+     "text": "Develop the bishop to an active square so you can castle next.",
+     "success": "Nice! `Bc4` is the Italian and `Bb5` is the Spanish (Ruy Lopez)."
+    }
+   ]
+  },
+  "early-queen": {
+   "title": "Don't bring the queen out early",
+   "summary": "An early queen gets chased and wastes time.",
+   "steps": [
+    {
+     "text": "The queen is an expensive piece, so any cheap piece that attacks her forces her to run. That way the opponent develops his pieces **while chasing you**, and you waste time.",
+     "notes": {
+      "2": "White brought the queen out on move two and threatens `e5` and `f7`.",
+      "3": "Black protects `e5` and develops a piece.",
+      "5": "And chases the queen away with a pawn.",
+      "6": "The queen goes back, and threatens `f7` again.",
+      "7": "The knight blocks the threat and develops a new piece.",
+      "9": "Black developed 3 pieces and is ready to castle, while White wasted moves with the queen."
+     }
+    },
+    {
+     "text": "Summary of the opening principles:\n\n- Control **the center** with pawns.\n- Develop **knights and bishops** before rooks and the queen.\n- **Castle** early.\n- Don't move the same piece twice without a reason.\n- Don't bring the **queen** out early.\n- Connect the two rooks."
+    }
+   ]
+  },
+  "fork": {
+   "title": "The fork",
+   "summary": "One piece attacks two.",
+   "steps": [
+    {
+     "text": "**The fork**: one piece attacks two or more pieces at the same time. The opponent can save only one.\n\nThe knight here gives check to the king and at the same time attacks the rook. The king has to run, and the rook is lost."
+    },
+    {
+     "text": "Make a knight fork and win the rook.",
+     "hint": "Look for the knight square that attacks the king and the rook together."
+    },
+    {
+     "text": "Even the pawn makes forks! Attack the knight and the bishop together.",
+     "success": "The pawn on `d4` is protected by the other pawn and attacks two pieces. One of them is lost."
+    },
+    {
+     "text": "A queen fork: check the king and attack the rook in one move."
+    }
+   ]
+  },
+  "pin": {
+   "title": "The pin",
+   "summary": "A piece can't move because of what's behind it.",
+   "steps": [
+    {
+     "text": "**The pin**: a piece attacks a piece, and behind it is a more valuable piece.\n\nThe black knight here is **pinned**: if it moves, the king would be in check, and that's illegal. So the knight is **paralyzed**."
+    },
+    {
+     "text": "The knight is pinned and can't escape. **Attack it with something cheap** and win it.",
+     "hint": "Attack the pinned knight with a pawn, it can't escape."
+    }
+   ]
+  },
+  "skewer": {
+   "title": "The skewer",
+   "summary": "The valuable piece in front, and another behind it.",
+   "steps": [
+    {
+     "text": "**The skewer** is the opposite of the pin: the valuable piece (usually the king) is **in front**, and when it runs, the piece behind it is exposed."
+    },
+    {
+     "text": "Give a check that makes the king run, and capture the queen behind him."
+    }
+   ]
+  },
+  "discovered": {
+   "title": "The discovered attack",
+   "summary": "One piece moves, and the piece behind it attacks.",
+   "steps": [
+    {
+     "text": "**The discovered attack**: the rook is standing behind the bishop. If the bishop moves, the rook gives check to the king. So the bishop can go **anywhere** and attack anything, while the opponent is busy with the check.\n\nIf both pieces give check together, it's called **double check**, the strongest kind."
+    },
+    {
+     "text": "Move the bishop with a discovered check and win Black's most valuable piece."
+    }
+   ]
+  },
+  "smothered": {
+   "title": "Smothered mate",
+   "summary": "The king is suffocated among his own pieces.",
+   "steps": [
+    {
+     "text": "The black king is hemmed in by his own pieces. Only the knight can reach him. **Give mate.**"
+    },
+    {
+     "text": "This is the most famous move in chess, **Philidor's legacy**: sacrifice the queen so the rook locks in its own king, and then the knight finishes.",
+     "hint": "Sacrifice the queen on `g8`. The rook is forced to capture it.",
+     "success": "An artist! You sacrificed the queen and gave mate with the knight."
+    }
+   ]
+  },
+  "square-rule": {
+   "title": "The square rule",
+   "summary": "Can you catch the pawn or not? Calculate it in a second.",
+   "steps": [
+    {
+     "text": "Picture a **square** in your head from the pawn to the end of the board (from `a4` to `e8`).\n\nIf the king can **enter that square** on his turn, he will catch the pawn. If not, the pawn will promote."
+    },
+    {
+     "text": "You're Black. Enter the square so you can catch the pawn.",
+     "success": "There, you entered the square, and whatever the pawn does, you'll catch it."
+    }
+   ]
+  },
+  "opposition": {
+   "title": "The opposition",
+   "summary": "The kings face each other, and whoever is on move loses.",
+   "steps": [
+    {
+     "text": "**The opposition**: when the kings face each other with one square between them, **the side on move is forced to give way**.\n\nIn a king and pawn ending, if your king gets **two ranks in front of the pawn**, you'll usually win."
+    },
+    {
+     "text": "The king is walking in front of the pawn, not behind it. **Advance your king** to the sixth rank.",
+     "hint": "Your king must reach the sixth rank before the pawn.",
+     "success": "Exactly! Your king is in front of the pawn, and Black can't stop it."
+    }
+   ]
+  },
+  "weak-squares": {
+   "title": "Weak squares",
+   "summary": "A square no pawn can protect = a free home for the opponent's pieces.",
+   "steps": [
+    {
+     "text": "A weak square is a square **no pawn can ever protect**, like `d5` in front of you: Black moved the `c` and `e` pawns, so no pawn will ever come back to cover that square.\n\nPieces love these squares because they stand there **without anyone chasing them away**."
+    },
+    {
+     "text": "Look at White's knight on `c3`: it has its eye on `d5`. If a knight lands on a weak square inside your half of the board, it will cause you trouble on every move.\n\nThe rule: **think twice before moving a pawn**, because every pawn move leaves behind squares that can never be protected again."
+    },
+    {
+     "text": "You're White. Put the knight on the weak square `d5`.",
+     "hint": "The knight on `d4` can jump to the weakest square in Black's camp.",
+     "success": "Exactly! The knight stands in the middle of the board and nobody can chase it away."
+    }
+   ]
+  },
+  "open-files": {
+   "title": "The open file",
+   "summary": "The rook loves an empty file like coffee in the morning.",
+   "steps": [
+    {
+     "text": "An open file is a file with **no pawns at all**. A rook standing on it rules the position: she looks into the opponent's camp and waits to enter on the seventh or eighth rank.\n\nHere White and Black are standing on the same `d` file. Whoever controls this file has a real advantage."
+    },
+    {
+     "text": "The coffee rule: **a rook on the seventh rank = a nightmare for the opponent.** She eats the pawns that haven't moved yet, and traps the king on the last rank.\n\nThat's why when you take an open file, your next goal is right away: enter the seventh rank through it."
+    },
+    {
+     "text": "You're White. Use the open file and enter the seventh rank with the rook.",
+     "hint": "The rook on `d1` can enter the file all the way to the seventh rank.",
+     "success": "You entered the seventh rank! The pawns on `b7` and `f7` are now in your sights."
+    }
+   ]
+  },
+  "outposts": {
+   "title": "The outpost",
+   "summary": "A knight sitting in the heart of the opponent's camp that nobody can chase.",
+   "steps": [
+    {
+     "text": "An outpost is a square that is **protected by your pawn** and at the same time **the opponent can't chase you from with a pawn**.\n\nWhite's most famous outpost is `e5` when Black plays `d5` early: the knight on `f3` can jump there and become the king of the center."
+    },
+    {
+     "text": "You're White. Put the knight on the outpost `e5`.",
+     "hint": "The knight on `f3` has a golden square in the center.",
+     "success": "The knight on `e5` is like a pasha: it attacks `c6`, `f7`, `g4` and `d7`, and no pawn will chase it."
+    },
+    {
+     "text": "Don't worry if the opponent trades a piece to capture your knight on the outpost: he'll usually pay a price, like giving you a bishop for a knight or opening a file for you.\n\nThe point isn't the knight itself, the point is that **its presence narrows the opponent's choices**."
+    }
+   ]
+  },
+  "good-bad-bishop": {
+   "title": "The good bishop and the bad bishop",
+   "summary": "Is your bishop good or bad? Ask where your pawns stand.",
+   "steps": [
+    {
+     "text": "The **bad** bishop is the one whose pawns stand on the same color as its squares, so they lock it in like a wall.\n\nThe **good** bishop is the one whose pawns are on the other color, so it's free to run along the diagonals.\n\nLook at White's bishop on `e2`: White's pawns are on a mix of light and dark squares, so it's an in-between bishop, but if all the pawns were on light squares it would be a bad bishop."
+    },
+    {
+     "text": "If you find your bishop is bad, you have 3 solutions:\n\n1. **Move the pawns** to the other color if you can.\n2. **Take the bishop out** of the pawn wall before it gets locked in.\n3. **Trade it** for the opponent's good bishop or for a suitable piece."
+    },
+    {
+     "text": "You're White. Bring the bishop out from behind the pawns to an active square on `g4`.",
+     "hint": "The bishop on `e2` has an open diagonal toward the kingside.",
+     "success": "The bishop came out to `g4` and became active: it looks at `h5` and pressures the kingside."
+    }
+   ]
+  },
+  "knight-vs-bishop": {
+   "title": "Knight or bishop?",
+   "summary": "Two worth 3 points each, but not always equal.",
+   "steps": [
+    {
+     "text": "The knight and the bishop are each worth 3 points, but their real value depends on the shape of the position:\n\n- **Closed position** (lots of pawns jammed in the center): the knight is better, because it jumps over the crowd.\n- **Open position** (empty files and diagonals): the bishop is better, because it hits from far away."
+    },
+    {
+     "text": "In closed positions like this one, the knight circles around the weak squares one by one and harasses the king and the pawns.\n\nAnd if you have **two bishops against a bishop and a knight or two knights** in an open position, that's an advantage called \"the bishop pair\", and it wins a lot of games by itself."
+    },
+    {
+     "text": "You're White. Activate the knight from `e2` to `c3`.",
+     "hint": "The knight on `e2` needs to enter the game through the lane next to the pawns.",
+     "success": "The knight came in through `c3` and now looks at `d5` and `b5`. In closed positions the knight is the star of the show."
+    }
+   ]
+  },
+  "pawn-majority": {
+   "title": "Pawn majority",
+   "summary": "3 against 2 on one wing = a promotion factory in the endgame.",
+   "steps": [
+    {
+     "text": "Look at the kingside: White has 3 pawns against 2 for Black. This is called a **majority**.\n\nIn endgames, this majority moves forward together until it creates a **passed pawn** with no enemy pawn in its way, and then it runs until it promotes."
+    },
+    {
+     "text": "How do you advance the majority? The rule: **move the pawn that has no enemy pawn facing it first** (here `g`), then push the rest behind it.\n\nA famous mistake: moving the wrong pawn so it gets blocked, and your majority becomes a standing piece of wood."
+    },
+    {
+     "text": "You're White. Start advancing the kingside majority with the right move.",
+     "hint": "Start with the pawn that has an empty road ahead.",
+     "success": "Right! `g4` first, then `f4` and `h4` behind it, and the majority moved like a wave."
+    }
+   ]
+  },
+  "prophylaxis": {
+   "title": "Prevention is better than cure",
+   "summary": "Before you make your plan, ask: what does the opponent want to do?",
+   "steps": [
+    {
+     "text": "Prophylactic play is when you **prevent the opponent's plan before it starts**, instead of only thinking about your own plan.\n\nThe strongest players in history like Petrosian, Karpov and Carlsen were masters of this: they make you unable to play what you wanted in the first place."
+    },
+    {
+     "text": "Ask yourself the golden question after every opponent move: **\"What does this move want to do?\"**\n\nIf you see Black's bishop heading to `g4` to annoy you, a move like `h3` before it gets there stops the whole idea without losing anything."
+    },
+    {
+     "text": "You're White. Play the prophylactic move that prevents `Bg4`.",
+     "hint": "One small pawn move will keep Black's bishop off an annoying square.",
+     "success": "Exactly! `h3` closed `g4` in the face of Black's bishop before it even thought about it."
+    }
+   ]
+  },
+  "space": {
+   "title": "Space and the squeeze",
+   "summary": "Whoever has more space, their pieces play more comfortably.",
+   "steps": [
+    {
+     "text": "Space is counted by the number of squares your pawns look at in the opponent's half of the board.\n\nWhoever has more space can **move his pieces from one side to the other quickly**, and whoever has less space is cramped and his pieces bump into each other."
+    },
+    {
+     "text": "If you're the one who is cramped, the solution isn't to watch: **trade pieces**. Every trade gives you more room.\n\nAnd if you're the one with the space, do the opposite: **avoid trades** and keep the opponent's pieces crowded."
+    },
+    {
+     "text": "You're Black and cramped in this position. Play the trade that relieves you: `Ne4`.",
+     "hint": "Your knight on `f6` can trade itself for White's knight on `c3`.",
+     "success": "Right! This trade eases the squeeze: one piece fewer in a small space = longer breath."
+    }
+   ]
+  },
+  "anastasia-mate": {
+   "title": "Anastasia's mate",
+   "summary": "A queen sacrifice opens the h file and the rook finishes.",
+   "steps": [
+    {
+     "text": "Anastasia's mate is one of the most beautiful mates in history: a knight closes the escape squares, a queen is sacrificed on `h7`, and a rook lands on the `h` file to give mate.\n\nThe pattern is named after an old German novel where it appeared on the board."
+    },
+    {
+     "text": "The order matters: first the knight gives check from `e7` so the king runs to the corner, then the queen sacrifices herself on `h7`, and when the king takes her he is standing on the open `h` file... and the rook is ready."
+    },
+    {
+     "text": "You're White. Carry out the full Anastasia's mate: 3 moves for you and the opponent will reply in between.",
+     "hint": "Start with a check by the knight, and then think about a sacrifice on `h7`.",
+     "success": "Full Anastasia's mate! Knight + queen sacrifice + rook on the file. A masterpiece."
+    }
+   ]
+  },
+  "arabian-mate": {
+   "title": "The Arabian mate",
+   "summary": "A rook and knight trap the king in the corner. The oldest known mate.",
+   "steps": [
+    {
+     "text": "This is the oldest mate pattern on record, written in Arabic manuscripts more than a thousand years ago, when the Arabs were the masters of chess in the world.\n\nThe idea: **the knight covers two squares next to the king** (`g8` and `h7` from `f6`), and the rook gives mate protected by the knight."
+    },
+    {
+     "text": "Look at the knight on `f6`: by itself it locks `g8` and `h7`. So the black king stands on just one square, and all that's missing is the rook arriving.\n\nAll that's missing: a rook reaching `h7` while protected."
+    },
+    {
+     "text": "You're White. Carry out the Arabian mate in one move.",
+     "hint": "The rook on `a7` reaches the corner in one move.",
+     "success": "The Arabian mate! The knight protects the rook and closes the escape. A mate over a thousand years old."
+    }
+   ]
+  },
+  "greco-mate": {
+   "title": "Greco's mate",
+   "summary": "A bishop on the long diagonal and a queen giving mate on h7.",
+   "steps": [
+    {
+     "text": "Gioachino Greco, an Italian who lived in the 17th century, used to write down his games and sell them. One of his most famous ideas: the **queen and bishop battery** on the `b1-h7` diagonal.\n\nThe bishop on `c2` looks at `h7`, and the queen will use that protection."
+    },
+    {
+     "text": "The black king in the corner is trapped among his pawns: `f7` and `g7` lock him in, and if the queen reaches `h7` protected by the bishop it's mate right away, because `g8` is in the queen's range."
+    },
+    {
+     "text": "You're White. Deliver Greco's mate in one move.",
+     "hint": "The queen on `h5` and the bishop on `c2` look at the same square.",
+     "success": "Greco's mate! The queen is protected by the bishop from afar, and the king has nowhere to go."
+    }
+   ]
+  },
+  "morphy-mate": {
+   "title": "Morphy's mate",
+   "summary": "A rook on the last rank and a bishop locking the diagonal.",
+   "steps": [
+    {
+     "text": "Paul Morphy, the American of the 19th century, used to beat anyone blindfolded. His famous mate: **a rook on the eighth rank + a bishop locking the long diagonal**.\n\nLook at the bishop on `b2`: it covers `g7` and `h8` by itself."
+    },
+    {
+     "text": "The black king is locked in a small corner: `f7` and `h7` are his pawns, and `g7` and `h8` are in the bishop's range. So the eighth rank is his whole life.\n\nAny rook that reaches the eighth rank here = mate."
+    },
+    {
+     "text": "You're White. Deliver Morphy's mate in one move.",
+     "hint": "The eighth rank is empty in front of your rook.",
+     "success": "Morphy's mate! The rook on the eighth rank and the bishop locking the diagonal. Exactly like Morphy used to do."
+    }
+   ]
+  },
+  "hook-mate": {
+   "title": "The hook mate",
+   "summary": "A knight, a rook and a pawn make a net around the king.",
+   "steps": [
+    {
+     "text": "The Hook Mate is a complete fishing net: a **knight** covers the escape, a **pawn** protects the knight, and a **rook** delivers the blow.\n\nThe shape of the three pieces around the king looks like a hook, and that's where the name comes from."
+    },
+    {
+     "text": "You're White. Catch the king with the hook mate.",
+     "hint": "The knight on `f6` covers `h7` and `g8`. The rook knows the way.",
+     "success": "The hook mate! The rook is protected by the knight, and the king is caught in the net."
+    }
+   ]
+  },
+  "epaulette-mate": {
+   "title": "The epaulette mate",
+   "summary": "The king is smothered between two pieces beside him like a soldier's epaulette.",
+   "steps": [
+    {
+     "text": "The epaulette is named that because the king stands **between two of his own pieces** on the same rank, like the two stars on an officer's shoulder.\n\nThe rooks on `e8` and `g8` don't protect the king, they're what smothered him."
+    },
+    {
+     "text": "You're White. Smother the king between his epaulettes.",
+     "hint": "Your queen on `h4` can reach a diagonal and give check from next to the king.",
+     "success": "The epaulette mate! The king is smothered between his rooks, and the queen from `f6` controls everything."
+    }
+   ]
+  },
+  "dovetail-mate": {
+   "title": "The dovetail mate",
+   "summary": "The queen next to the king, and the opponent's pieces lock the rest.",
+   "steps": [
+    {
+     "text": "The Dovetail is the sibling of the epaulette, but on the diagonal: the king is hemmed in by his own pieces on two sides, and the queen gives mate from an adjacent square.\n\nHere Black's knight on `f8` and rook on `h8` are smothering their own king."
+    },
+    {
+     "text": "You're White. Find the mate from a square adjacent to the king.",
+     "hint": "The pawn on `e5` will protect the square the queen is heading to, and the bishop on `c4` covers the escape.",
+     "success": "The dovetail mate! The queen is protected by the pawn, the bishop locks `g8`, and Black's pieces smothered their own king."
+    }
+   ]
+  },
+  "blackburne-mate": {
+   "title": "Blackburne's mate",
+   "summary": "A knight, a queen and a bishop trap the castled king.",
+   "steps": [
+    {
+     "text": "Joseph Blackburne, the Englishman nicknamed \"the Black Death\", specialized in kingside mates.\n\nHis net: a **knight on `g5`** protects `h7`, and a **bishop** locks the escape square `f8` from afar."
+    },
+    {
+     "text": "You're White. Deliver Blackburne's mate in one move.",
+     "hint": "The knight on `g5` is ready to protect your queen on the most dangerous square.",
+     "success": "Blackburne's mate! The queen is protected by the knight, and the bishop locks `f8` from the other end of the board."
+    }
+   ]
+  },
+  "mate-kq": {
+   "title": "Mate with king and queen",
+   "summary": "Cut the board off from the king, bring your king closer, and watch out for stalemate.",
+   "steps": [
+    {
+     "text": "The queen alone can't give mate, **your king has to help**. The method is called \"cutting off the board\":\n\n1. The queen makes an imaginary line the king can't cross.\n2. Each time the king moves, you shrink the line.\n3. When the king is pushed to the edge, bring your king closer and deliver the mate."
+    },
+    {
+     "text": "A very important warning: **stalemate**. If the black king isn't in check and has no legal move, the game is a draw and all your work is gone.\n\nBefore your final move, always ask: does the king have a square to move to? If not, don't play that move."
+    },
+    {
+     "text": "You're White. Deliver mate in one move without stalemating the king.",
+     "hint": "Your king on `f7` protects the square next to the black king.",
+     "success": "Mate! The queen is protected by the king. And note: if you had played `Qg6` it would have been stalemate and a draw."
+    }
+   ]
+  },
+  "mate-kr": {
+   "title": "Mate with king and rook",
+   "summary": "The box method: shrink the king's prison rank by rank.",
+   "steps": [
+    {
+     "text": "Mate with the rook is a bit harder, and its method is called **the box**: imagine the black king inside a box, and every rook move makes that box smaller.\n\nHere the rook stands on the sixth rank, so the king is trapped in the last two ranks."
+    },
+    {
+     "text": "The rules:\n\n1. The rook cuts off a rank or a file.\n2. When the black king comes close to the rook, bring **your king** to meet him.\n3. In the end the king is trapped on the last rank and the rook comes down with mate."
+    },
+    {
+     "text": "You're White. The king is trapped on the last rank. Deliver the mate.",
+     "hint": "The black king is already on the last rank. Finish it.",
+     "success": "Mate! Your king on `g6` was covering all the escape squares."
+    }
+   ]
+  },
+  "pawn-race": {
+   "title": "The pawn race",
+   "summary": "King far away? Calculate the pawn's square before you run.",
+   "steps": [
+    {
+     "text": "The square rule: draw an imaginary square from the pawn to the promotion square. Here the square runs from `a5` to `a8` to `d8` to `d5`.\n\n**If the opponent's king can enter this square on his move, he will catch the pawn. If not, run and don't look back.**\n\nThe black king on `g6` is completely outside the square, so the pawn will promote on its own."
+    },
+    {
+     "text": "You're White. Promote the pawn. The black king will try to catch up, watch how he doesn't make it.",
+     "hint": "The black king is outside the square, which means your pawn is faster.",
+     "success": "You got a queen! Look: the black king kept running after you and didn't catch up. That's the difference between someone who calculates and someone who guesses."
+    }
+   ]
+  },
+  "lucena": {
+   "title": "The Lucena bridge",
+   "summary": "The most famous winning idea in rook endgames: build a bridge.",
+   "steps": [
+    {
+     "text": "Lucena: your pawn is on the seventh rank and close to promoting, but your king is out in front of it and the opponent will keep giving checks from far away.\n\nThe brilliant solution: **the bridge**. You put the rook on the fourth rank, preparing a place where your king can shelter from the checks."
+    },
+    {
+     "text": "Look at how the bridge is built: the rook on the fourth rank, the king walks to `c8` and `b8`, and the first check gets blocked by the rook with `Rb4`.",
+     "notes": {
+      "0": "First step: the rook comes to the fourth rank, getting ready for the bridge.",
+      "2": "The king steps out in front of the pawn toward c8.",
+      "3": "The opponent starts the checks from behind, and this is the most dangerous moment.",
+      "6": "The bridge is built! The rook blocks the check, and the pawn will promote on the next move."
+     }
+    }
+   ]
+  },
+  "philidor": {
+   "title": "The Philidor defense",
+   "summary": "How to get a draw from a rook ending that looks lost.",
+   "steps": [
+    {
+     "text": "Philidor: the opponent has a king and a pawn and a rook against your rook only. It looks lost, but there's a guaranteed draw:\n\n**Your rook keeps giving checks from behind the king, so he can't advance, and the pawn alone isn't enough.**"
+    },
+    {
+     "text": "Look at how the defense works: checks from behind until the king gives up, and then the pawn gets eaten.",
+     "notes": {
+      "0": "White pushed the pawn and is getting ready to promote.",
+      "1": "The first check from behind. The king has no place in front of him to hide.",
+      "5": "Check after check after check... the king can't find shelter.",
+      "7": "When the king moves away, the rook goes back behind the pawn: it will capture it next move, and the game is a draw."
+     }
+    }
+   ]
+  },
+  "queen-vs-pawn": {
+   "title": "Queen against a pawn about to promote",
+   "summary": "Check, the king blocks his pawn, your king comes closer... and repeat.",
+   "steps": [
+    {
+     "text": "The pawn is on the seventh rank and wants to promote, and you have only a queen and your king is far away. The famous method:\n\n1. **Check with the queen** until the opponent's king stands **in front of his pawn**.\n2. Then the pawn is blocked, so you can **bring your king closer** one move.\n3. Repeat until your king arrives and you capture the pawn."
+    },
+    {
+     "text": "An important exception: if the pawn is on the **a or h file** (a rook pawn) or the **c or f file** (a bishop pawn), the opponent can get a draw with a stalemate idea, because the king gets trapped in the corner.\n\nThat's why in endgames, a central pawn is more dangerous than a wing pawn when it reaches the seventh."
+    },
+    {
+     "text": "You're White. Start the technique with the first check.",
+     "hint": "The queen on `a1` has a check on the sixth rank.",
+     "success": "The first check! The king will stand in front of his pawn, and then you bring your king one step closer... and repeat until you capture the pawn."
+    }
+   ]
+  },
+  "italian-deep": {
+   "title": "The Italian: school of attack",
+   "summary": "e4 e5 and the bishop on c4 looks at Black's weakest square.",
+   "steps": [
+    {
+     "text": "The Italian is one of the oldest openings in history, and world champions still play it. The idea: the bishop goes to `c4` and looks at `f7`, the weakest square in Black's camp at the start, because it's protected only by the king."
+    },
+    {
+     "text": "The main line: White builds a strong pawn center with c3 and d4, and Black tries to pressure it.",
+     "notes": {
+      "4": "The bishop on c4: the key to the whole Italian.",
+      "6": "c3 prepares the central strike with d4.",
+      "8": "d4! White takes the center by force.",
+      "11": "A check with the bishop, and the game is still long, but White stands more comfortably."
+     }
+    },
+    {
+     "text": "You're White in the Italian. Play the famous preparation move.",
+     "hint": "Prepare the central strike: move the pawn that will support d4.",
+     "success": "Right! c3 prepares d4, and if Black captures you recapture with the pawn and your center is stronger."
+    }
+   ]
+  },
+  "ruy-lopez": {
+   "title": "The Spanish (Ruy Lopez)",
+   "summary": "The bishop on b5 pressures Black's knight and makes the game long and rich.",
+   "steps": [
+    {
+     "text": "Ruy Lopez, a Spanish priest of the 16th century, had his name stuck to the deepest opening in chess. The bishop comes to `b5` and pressures the knight that protects the `e5` pawn.\n\nGiants like Capablanca, Karpov and Carlsen built their fame on it."
+    },
+    {
+     "text": "The famous closed line: calm development, castling, and then a long fight over the center and the wings.",
+     "notes": {
+      "5": "a6: it asks the bishop \"will you take or will you retreat?\" - this is the start of the most famous line of the opening.",
+      "6": "The bishop keeps itself safe on the a2-g8 diagonal.",
+      "12": "c3 prepares d4 like in the Italian, but with more patience."
+     }
+    },
+    {
+     "text": "You're Black against the Spanish. Play the move every player in the world asks.",
+     "hint": "Ask the bishop a question: will it take the knight or retreat?",
+     "success": "Exactly! a6 is the most famous move in the Spanish: it gains space and prepares b5 at the same time."
+    }
+   ]
+  },
+  "sicilian": {
+   "title": "The Sicilian: weapon of fighters",
+   "summary": "c5 instead of e5: Black refuses the draw from the first move.",
+   "steps": [
+    {
+     "text": "1...c5! The Sicilian is the most famous reply to e4 at the professional level. Black attacks the center from the wing instead of from the center, and makes the game asymmetrical and full of fighting.\n\nFischer, Kasparov and Carlsen all fought with it."
+    },
+    {
+     "text": "The open Sicilian and the Najdorf version: Black castles on the kingside and strikes on the queenside.",
+     "notes": {
+      "1": "The idea: trade a wing pawn for a center pawn, and you'll have an extra center pawn in the endgame.",
+      "4": "White opened the center early - this is called the Open Sicilian.",
+      "9": "a6: this is the start of the \"Najdorf\", the most famous version in the whole Sicilian."
+     }
+    },
+    {
+     "text": "You're Black and the opponent played e4. Declare war: play the first move of the Sicilian.",
+     "hint": "You won't answer e4 with the same. Attack the center from the wing.",
+     "success": "Welcome to the Sicilian! An asymmetrical game and a fight from the first move."
+    }
+   ]
+  },
+  "caro-kann": {
+   "title": "The Caro-Kann: Black's fortress",
+   "summary": "c6 and then d5: a solid defense without locking in your bishop.",
+   "steps": [
+    {
+     "text": "The Caro-Kann is the safest defense against e4: you prepare d5 with c6, so if White captures on d5 you recapture with the pawn and your pawn structure stays sound.\n\nIts big advantage over the French: **your black bishop won't get locked behind your pawns**."
+    },
+    {
+     "text": "The classical line: Black develops his bishop to f5, then continues e6 and develops calmly.",
+     "notes": {
+      "3": "The main challenge: d5 in the face of White's center.",
+      "6": "The bishop comes out of the wall before e6 locks it in. This is the whole idea of the Caro-Kann.",
+      "11": "h6 opens a little window for the bishop on h7 if it's attacked."
+     }
+    },
+    {
+     "text": "You're Black in the Caro-Kann. Play the challenge move.",
+     "hint": "c6 was the preparation for one move. Play it.",
+     "success": "Right! d5 is the direct challenge. If White captures, you recapture with the c6 pawn and your structure is sound."
+    }
+   ]
+  },
+  "french": {
+   "title": "The French: patience and stubbornness",
+   "summary": "e6 and then d5: a solid pawn chain and a counterattack on its base.",
+   "steps": [
+    {
+     "text": "The French is the defense of the patient: you build a pawn chain from `d5` to `e6`, and make your center solid like a wall.\n\nIts only drawback: Black's dark-squared bishop gets locked behind the pawns. The good bishop and bad bishop lessons will teach you how to deal with it."
+    },
+    {
+     "text": "The Winawer version: Black hits the base of White's pawn chain on d4 with c5, and White has space and an attack on the kingside.",
+     "notes": {
+      "4": "Winawer: the bishop on b4 pins the knight and declares war.",
+      "6": "c5! The counterattack on the base of the pawn chain. This is the soul of the French.",
+      "10": "Black broke the pin on his knight and prepared his attack on the broken pawns."
+     }
+    },
+    {
+     "text": "You're Black. Play the first move of the French.",
+     "hint": "This move prepares the d5 challenge from behind cover.",
+     "success": "Welcome to the French! e6 first, and then d5 challenges the center."
+    }
+   ]
+  },
+  "london": {
+   "title": "The London system: a way of life",
+   "summary": "Almost the same setup against anything. Easy to learn, hard to break.",
+   "steps": [
+    {
+     "text": "The London system is the most famous \"lifestyle\" opening: d4, Bf4, e3, Nf3, Nbd2 and c3, almost the same setup however Black plays.\n\nPerfect if you want to play good chess without memorizing a library of lines. Even Carlsen plays it online."
+    },
+    {
+     "text": "The typical setup: a d4-e3-c3 pawn pyramid, a bishop on f4, knights on f3 and d2, and a king castled safely.",
+     "notes": {
+      "2": "The bishop comes out to f4 before e3 locks it in. This is the most important rule in the London.",
+      "8": "c3 supports the center and prepares e4 at the right time.",
+      "12": "Black challenged you with the bishop, and the bishop goes back to g3 and keeps looking along the diagonal."
+     }
+    },
+    {
+     "text": "You're White playing the London. Play the star of the system.",
+     "hint": "The dark-squared bishop is the star of the London. Bring it out before you lock it in.",
+     "success": "Right! Bf4 before e3. If you had played e3 first the bishop would have been jailed."
+    }
+   ]
+  },
+  "queens-gambit": {
+   "title": "The Queen's Gambit: elegance of kings",
+   "summary": "c4: offering the wing pawn in return for control of the center.",
+   "steps": [
+    {
+     "text": "The Queen's Gambit is one of the most refined openings: c4 offers the wing pawn, and if Black takes it, White takes the whole center with e4.\n\nHence the golden rule: **this gambit isn't really free** - White usually gets his pawn back."
+    },
+    {
+     "text": "The Queen's Gambit Declined: a long strategic battle over the d5 square and the c file.",
+     "notes": {
+      "2": "The gambit itself: pressure on d5 from the first minute.",
+      "3": "Black refused the pawn and fortified his center with e6 - this is the Queen's Gambit Declined.",
+      "12": "Black is preparing his bishop on b7 on the longest diagonal on the board."
+     }
+    },
+    {
+     "text": "You're White. Declare the Queen's Gambit.",
+     "hint": "Black fortified d5. Pressure it with your wing pawn.",
+     "success": "Exactly! c4 is the gambit: if Black takes, e4 will give you the whole center."
+    }
+   ]
+  },
+  "kings-indian": {
+   "title": "The King's Indian: the scorpion defense",
+   "summary": "Black gives up the center, castles, and then strikes one deadly blow.",
+   "steps": [
+    {
+     "text": "The King's Indian is the defense of the daring: Black lets White take the whole center, develops his bishop on `g7` on the longest diagonal, castles... and then **blows up the center with e5**.\n\nFischer and Kasparov won legendary games with it."
+    },
+    {
+     "text": "The typical setup: a knight on f6, a fianchetto on g7, castling, and then e5 or c5 at the right time.",
+     "notes": {
+      "2": "Black isn't fighting for the center right now. Patience.",
+      "5": "The bishop on g7: a sniper on the long diagonal.",
+      "10": "e5! The blow everything before it was preparing."
+     }
+    },
+    {
+     "text": "You're Black against d4. Start the King's Indian.",
+     "hint": "Start with the knight that looks at the center without occupying it.",
+     "success": "Right! Nf6 is the first step: it temporarily stops e4 and opens the road for the fianchetto and castling."
     }
    ]
   }
