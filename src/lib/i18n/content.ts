@@ -206,3 +206,50 @@ export function useGameLoc() {
     [locale, dict],
   )
 }
+
+type EncEn = Record<string, any>
+let enccache: EncEn | null = null
+
+/** Localized encyclopedia: articles, categories and glossary. Falls back to the original (Arabic). */
+export function useEncLoc() {
+  const { locale } = useI18n()
+  const [dict, setDict] = useState<EncEn | null>(enccache)
+  useEffect(() => {
+    if (locale !== 'en') return
+    if (enccache) {
+      setDict(enccache)
+      return
+    }
+    void import('../../data/en/encyclopedia.json').then((m) => {
+      enccache = (m as any).default as EncEn
+      setDict(enccache)
+    })
+  }, [locale])
+  const d = locale === 'en' ? dict : null
+  const article = useCallback(
+    <T extends { id: string; title: string; summary: string; tags?: string[]; blocks: any[] }>(a: T): T => {
+      const h = d?.[a.id] as Record<string, string> | undefined
+      if (!h) return a
+      const g = (k: unknown, fb: string) => h[JSON.stringify(k)] ?? fb
+      const blocks = a.blocks.map((b: any, i: number) => {
+        if ('h' in b) return { h: g([i, 'h'], b.h) }
+        if ('p' in b) return { p: g([i, 'p'], b.p) }
+        if ('list' in b) return { list: b.list.map((x: string, j: number) => g([i, 'l', j], x)) }
+        if ('board' in b) return { board: { ...b.board, caption: g([i, 'bc'], b.board.caption) } }
+        if ('line' in b) return { line: { ...b.line, caption: g([i, 'lc'], b.line.caption) } }
+        return b
+      })
+      return { ...a, title: g('title', a.title), summary: g('summary', a.summary), tags: a.tags?.map((t, i) => g(['tag', i], t)), blocks }
+    },
+    [d],
+  )
+  const category = useCallback(
+    <T extends { id: string; name: string; desc: string }>(c: T): T => {
+      const h = d?._cats?.[c.id] as [string, string] | undefined
+      return h ? { ...c, name: h[0], desc: h[1] } : c
+    },
+    [d],
+  )
+  const termDef = useCallback((i: number, fb: string): string => (d?._terms?.[i] as string | undefined) ?? fb, [d])
+  return { article, category, termDef }
+}
