@@ -11,6 +11,7 @@ import { Engine, LEVELS } from '../lib/engine'
 import { formatEval, pickComputerMove, playUci } from '../lib/game'
 import { play } from '../lib/sound'
 import { botForLevel } from '../data/bots'
+import { useBotLoc } from '../lib/i18n/content'
 import { BotAvatar } from './BotAvatar'
 import { COACH, coachLine } from '../lib/coach'
 import { recordGame } from '../lib/progress'
@@ -105,7 +106,9 @@ export default function PlayComputer() {
   useEffect(() => () => engineRef.current?.terminate(), [])
 
   const level = LEVELS.find((l) => l.id === s.level) ?? LEVELS[0]
-  const bot = botForLevel(level.id)
+  const bl = useBotLoc()
+  const botFor = (lv: number) => bl(botForLevel(lv))
+  const bot = botFor(level.id)
   const { game, sans, lastMove } = useMemo(() => playUci(s.moves), [s.moves])
   // review mode: `back` = how many plies behind the live position we're viewing (0 = live, chess.com style)
   const [back, setBack] = useState(0)
@@ -226,7 +229,7 @@ export default function PlayComputer() {
     setS((cur) => ({ ...cur, color, moves: seed?.moves ?? [], resigned: false, started: true, hints: 0 }))
     setCoach(null)
     setAnalyze(false)
-    setBotSays(botForLevel(s.level).greet)
+    setBotSays(botFor(s.level).greet)
     if (!telemetryRef.current) telemetryRef.current = new MatchTelemetry()
     telemetryRef.current.start()
     // start the server-authoritative live session (anti-cheat); null when logged out/offline
@@ -285,7 +288,7 @@ export default function PlayComputer() {
               <span className="flex items-center gap-2">
                 <BotAvatar bot={botForLevel(l.id)} />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-bold"><bdi className="ltr">{botForLevel(l.id).name}</bdi></span>
+                  <span className="block truncate text-sm font-bold"><bdi className="ltr">{botFor(l.id).name}</bdi></span>
                   <span className="text-xs text-muted">{t(`pc.el${l.id}Name`)} <bdi className="ltr">{l.id}/8</bdi></span>
                 </span>
               </span>
@@ -294,7 +297,7 @@ export default function PlayComputer() {
                   <span key={x.id} className={`h-1 flex-1 rounded-full ${x.id <= l.id ? 'bg-gold' : 'bg-line'}`} />
                 ))}
               </span>
-              <span className="mt-2 block text-xs text-muted">{botForLevel(l.id).tagline}</span>
+              <span className="mt-2 block text-xs text-muted">{botFor(l.id).tagline}</span>
             </button>
           ))}
         </div>

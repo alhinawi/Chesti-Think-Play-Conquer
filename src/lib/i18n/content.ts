@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useI18n } from './index'
+import { BOTS_EN, W3_EN } from '../../data/en/bots-w3'
 
 type PuzzleLike = { id: string; name: string; text: string; explain: string }
 type Dict = Record<string, [string, string, string]>
@@ -252,4 +253,30 @@ export function useEncLoc() {
   )
   const termDef = useCallback((i: number, fb: string): string => (d?._terms?.[i] as string | undefined) ?? fb, [d])
   return { article, category, termDef }
+}
+
+type BotLike = { id: string; tagline: string; greet: string; wins: string; loses: string; checked: string }
+
+/** Localized computer-opponent lines. Falls back to the original (Arabic). */
+export function useBotLoc() {
+  const { locale } = useI18n()
+  return useCallback(
+    <T extends BotLike>(b: T): T => {
+      const h = locale === 'en' ? BOTS_EN[b.id] : undefined
+      return h ? { ...b, ...h } : b
+    },
+    [locale],
+  )
+}
+
+/** Localized 3D position names and stories. Falls back to the original (Arabic). */
+export function useW3Loc() {
+  const { locale } = useI18n()
+  return useCallback(
+    <T extends { id: string; name: string; story: string }>(p: T): T => {
+      const h = locale === 'en' ? W3_EN[p.id] : undefined
+      return h ? { ...p, ...h } : p
+    },
+    [locale],
+  )
 }
