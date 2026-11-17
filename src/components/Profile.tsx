@@ -14,11 +14,13 @@ import { ENDGAMES } from '../data/endgames'
 import { useAuth } from '../lib/auth'
 import { today, useProgress } from '../lib/progress'
 import { ACHIEVEMENTS, bestStreakOf, rankOf, RANKS, streakOf, totalWins, XP, xpOf } from '../lib/rank'
+import { useRankLoc } from '../lib/i18n/content'
 
 export default function Profile() {
   const p = useProgress()
   const { status } = useAuth()
   const { t } = useI18n()
+  const { rank: rk, ach } = useRankLoc()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   if (!mounted || status === 'loading') return <div className="h-96 animate-pulse rounded-2xl bg-surface" />
@@ -41,10 +43,10 @@ export default function Profile() {
           </span>
           <div className="min-w-0 flex-1">
             <p className="text-sm text-muted">{t('me.yourRank')}</p>
-            <h2 className="font-display text-2xl font-bold text-gold sm:text-3xl">{r.name}</h2>
+            <h2 className="font-display text-2xl font-bold text-gold sm:text-3xl">{rk(r.name)}</h2>
             <p className="mt-1 text-sm" dir="auto">
               <bdi className="ltr font-bold">{xp}</bdi> {t('me.points')}
-              {r.next ? <> — {t('me.toNextRank', { n: r.next.xp - xp, name: r.next.name })}</> : ` — ${t('me.topRank')}`}
+              {r.next ? <> — {t('me.toNextRank', { n: r.next.xp - xp, name: rk(r.next.name) })}</> : ` — ${t('me.topRank')}`}
             </p>
             <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-black/30" role="progressbar" aria-valuenow={r.pct} aria-valuemin={0} aria-valuemax={100} aria-label={t('me.progressAria')}>
               <div className="h-full rounded-full bg-gradient-to-l from-gold-2 to-gold transition-all duration-700" style={{ width: `${r.pct}%` }} />
@@ -124,8 +126,9 @@ export default function Profile() {
           {t('me.achievements')} <span className="text-base text-muted"><bdi className="ltr">{unlocked.length}/{ACHIEVEMENTS.length}</bdi></span>
         </h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-          {ACHIEVEMENTS.map((a) => {
-            const on = unlocked.includes(a)
+          {ACHIEVEMENTS.map((a0) => {
+            const a = ach(a0)
+            const on = unlocked.includes(a0)
             return (
               <li key={a.id} className={`rounded-2xl border p-3 text-center transition ${on ? 'border-gold/50 bg-gold-soft' : 'border-line bg-surface opacity-55 grayscale'}`}>
                 <span className="block text-3xl" aria-hidden>{a.icon}</span>
@@ -165,7 +168,7 @@ export default function Profile() {
           {RANKS.map((x, i) => (
             <li key={x.name}>
               <Badge tone={i <= r.index ? 'gold' : 'muted'}>
-                <span className="inline-flex items-center gap-1.5">{x.icon} {x.name} <bdi className="ltr opacity-70">{x.xp}</bdi></span>
+                <span className="inline-flex items-center gap-1.5">{x.icon} {rk(x.name)} <bdi className="ltr opacity-70">{x.xp}</bdi></span>
               </Badge>
             </li>
           ))}
