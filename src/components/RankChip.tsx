@@ -5,10 +5,14 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../lib/auth'
 import { today, useProgress } from '../lib/progress'
 import { rankOf, streakOf, xpOf } from '../lib/rank'
+import { useI18n } from '../lib/i18n'
+import { useRankLoc } from '../lib/i18n/content'
 
 /** Small rank + streak pill in the header; links to the profile. */
 export default function RankChip() {
   const p = useProgress()
+  const { t } = useI18n()
+  const { rank } = useRankLoc()
   const { status } = useAuth()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
@@ -20,7 +24,7 @@ export default function RankChip() {
     <span className="flex items-center gap-1.5">
       <Link
         href="/me"
-        aria-label={`مستواك: ${r.name}، ${xp} نقطة`}
+        aria-label={t('lx.rankAria', { rank: rank(r.name), xp })}
         className="flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold-soft px-2.5 py-1 text-xs font-bold text-gold transition hover:border-gold"
       >
         <span className="shrink-0 text-base leading-none" aria-hidden>{r.icon}</span>
@@ -29,7 +33,7 @@ export default function RankChip() {
       {streak > 0 && (
         <Link
           href="/me"
-          aria-label={`${streak} يوم ورا بعض`}
+          aria-label={t('lx.streakAria', { n: streak })}
           className="ltr flex shrink-0 items-center gap-0.5 whitespace-nowrap rounded-full border border-[#f39c4a]/40 bg-[#f39c4a]/10 px-2 py-1 text-xs font-bold text-[#f39c4a] transition hover:border-[#f39c4a]"
         >
           🔥{streak}

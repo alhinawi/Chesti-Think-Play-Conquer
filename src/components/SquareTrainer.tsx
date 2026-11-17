@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSettings } from '../lib/settings'
 import { play } from '../lib/sound'
 import { Button } from './ui'
+import { useI18n } from '../lib/i18n'
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 const RANKS = ['1', '2', '3', '4', '5', '6', '7', '8']
@@ -13,6 +14,7 @@ const ROUND_SECONDS = 30
 type Phase = 'idle' | 'running' | 'done'
 
 export default function SquareTrainer() {
+  const { t } = useI18n()
   const { boardTheme } = useSettings()
   const [phase, setPhase] = useState<Phase>('idle')
   const [target, setTarget] = useState('')
@@ -87,7 +89,7 @@ export default function SquareTrainer() {
         className="grid w-full grid-cols-8 overflow-hidden rounded-xl border-4"
         style={{ borderColor: boardTheme.frame }}
         role="group"
-        aria-label="رقعة التدريب"
+        aria-label={t('lx.sqBoard')}
       >
         {squares.map((sq) => {
           const f = FILES.indexOf(sq[0])
@@ -106,7 +108,7 @@ export default function SquareTrainer() {
               className="aspect-square text-[10px] font-bold"
               style={{ backgroundColor: light ? boardTheme.light : boardTheme.dark, color: light ? boardTheme.dark : boardTheme.light, ...hitStyle }}
             >
-              <span className="sr-only sm:not-sr-only">{sq === target && phase === 'running' ? '؟' : ''}</span>
+              <span className="sr-only sm:not-sr-only">{sq === target && phase === 'running' ? '?' : ''}</span>
             </button>
           )
         })}
@@ -114,15 +116,15 @@ export default function SquareTrainer() {
       <div className="flex flex-col items-start gap-4">
         <div className="flex w-full flex-wrap items-center gap-3">
           <div className="rounded-2xl border border-line bg-surface px-5 py-3 text-center">
-            <p className="text-xs text-muted">الوقت</p>
+            <p className="text-xs text-muted">{t('lx.sqTime')}</p>
             <p className="ltr text-2xl font-bold text-gold">{left}</p>
           </div>
           <div className="rounded-2xl border border-line bg-surface px-5 py-3 text-center">
-            <p className="text-xs text-muted">النقاط</p>
+            <p className="text-xs text-muted">{t('lx.sqScore')}</p>
             <p className="ltr text-2xl font-bold">{score}</p>
           </div>
           <div className="rounded-2xl border border-line bg-surface px-5 py-3 text-center">
-            <p className="text-xs text-muted">أحسن نتيجة</p>
+            <p className="text-xs text-muted">{t('lx.sqBest')}</p>
             <p className="ltr text-2xl font-bold text-emerald">{best}</p>
           </div>
         </div>
@@ -130,19 +132,17 @@ export default function SquareTrainer() {
           <>
             {phase === 'done' && (
               <p className="rounded-xl border border-gold/30 bg-gold-soft p-3 text-sm">
-                {score >= 20 ? 'وحش! عينك على الرقعة زي الصقر.' : score >= 10 ? 'كويس جدًا، لسه شوية سرعة.' : 'البداية كده، المحترفين بيجيبوا 20+.'}{' '}
-                جبت <b>{score}</b> في {ROUND_SECONDS} ثانية.
+                {score >= 20 ? t('lx.sqGreat') : score >= 10 ? t('lx.sqGood') : t('lx.sqStart')} {t('lx.sqResult', { n: score, s: ROUND_SECONDS })}
               </p>
             )}
-            <Button onClick={start}>{phase === 'done' ? 'العب تاني' : 'ابدأ التحدي'}</Button>
+            <Button onClick={start}>{phase === 'done' ? t('lx.sqAgain') : t('lx.sqGo')}</Button>
             <p className="text-sm text-muted">
-              هنقولك خانة زي <span dir="ltr" className="font-mono font-bold text-gold">e4</span> وانت تدوس عليها على الرقعة بأسرع ما تقدر.
-              عندك {ROUND_SECONDS} ثانية، كل خانة صح بنقطة. الحروف من a لـ h والأرقام من 1 لـ 8 من ناحية الأبيض.
+              {t('lx.sqIntroA')} <span dir="ltr" className="font-mono font-bold text-gold">e4</span> {t('lx.sqIntroB', { s: ROUND_SECONDS })}
             </p>
           </>
         ) : (
           <p className="rounded-2xl border border-gold/30 bg-gold-soft px-6 py-4 text-center">
-            <span className="text-sm text-muted">دوس على</span>
+            <span className="text-sm text-muted">{t('lx.sqClick')}</span>
             <span dir="ltr" className="mt-1 block font-mono text-4xl font-bold text-gold">{target}</span>
           </p>
         )}
