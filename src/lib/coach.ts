@@ -1,5 +1,19 @@
 // "عم حسن", the café chess master who comments on your moves. Pure, so it can be tested.
 export const COACH = { name: 'عم حسن', title: 'معلّم الشطرنج بتاع القهوة' }
+export const COACH_EN = { name: 'Uncle Hassan', title: 'The coffeehouse chess master' }
+export const coachName = (locale: string) => (locale === 'en' ? COACH_EN.name : COACH.name)
+
+const LINES_EN: Record<string, string[]> = {
+  mate: ['Checkmate! Go order yourself a glass of tea on me.', 'Mate! Bless you, that was a clean finish.'],
+  promotion: ['The pawn got promoted! From humble pawn to queen, every pawn\'s dream.', 'Promotion! The game is in your pocket now.'],
+  castle: ['You castled. The king is safe and the rook is off to work.', 'Castling right on time. The king sits comfortably at home.'],
+  enpassant: ['En passant! Many people do not even know that move.'],
+  bigCapture: ['A serious capture! Just make sure it is not bait.', 'Wow! A heavy piece is gone.'],
+  capture: ['Nice capture.', 'Eat up and say thanks.', 'Bon appetit.'],
+  check: ['Check! Let him sweat a little.', 'A respectable check, but think about where he will run.'],
+  earlyQueen: ['Why is the queen out so early? Wait until the small pieces come out first.'],
+  center: ['A solid opening, you took the center.', 'That is it! The center first, my son.'],
+}
 
 export interface MoveFacts {
   san: string
@@ -29,8 +43,9 @@ const LINES: Record<string, string[]> = {
 const VALUE: Record<string, number> = { p: 1, n: 3, b: 3, r: 5, q: 9 }
 
 /** A line for the user's move, or null when nothing is worth saying. pick chooses among variants. */
-export function coachLine(m: MoveFacts, pick: (n: number) => number = (n) => Math.floor(Math.random() * n)): string | null {
-  const say = (k: string) => LINES[k][pick(LINES[k].length) % LINES[k].length]
+export function coachLine(m: MoveFacts, pick: (n: number) => number = (n) => Math.floor(Math.random() * n), locale = 'eg'): string | null {
+  const L = locale === 'en' ? LINES_EN : LINES
+  const say = (k: string) => L[k][pick(L[k].length) % L[k].length]
   if (m.mate) return say('mate')
   if (m.flags.includes('p') || m.promotion) return say('promotion')
   if (m.flags.includes('k') || m.flags.includes('q')) return say('castle')

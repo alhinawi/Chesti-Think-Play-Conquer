@@ -13,7 +13,7 @@ import { play } from '../lib/sound'
 import { botForLevel } from '../data/bots'
 import { useBotLoc } from '../lib/i18n/content'
 import { BotAvatar } from './BotAvatar'
-import { COACH, coachLine } from '../lib/coach'
+import { coachLine, coachName } from '../lib/coach'
 import { recordGame } from '../lib/progress'
 import { saveGame } from '../lib/api'
 import { MatchTelemetry } from '../lib/telemetry'
@@ -48,8 +48,10 @@ function load(): Saved {
   }
 }
 
+const LEVEL_EN: Record<number, string> = { 1: 'Absolute beginner', 2: 'Beginner', 3: 'Amateur', 4: 'Intermediate', 5: 'Strong', 6: 'Expert', 7: 'Master', 8: 'The Beast' }
+
 export default function PlayComputer() {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
   const [s, setS] = useState<Saved>(FRESH)
   const [loaded, setLoaded] = useState(false)
   const [pickColor, setPickColor] = useState<'w' | 'b' | 'random'>('w')
@@ -159,7 +161,7 @@ export default function PlayComputer() {
         telemetryRef.current?.tick(last.color === s.color)
         soundFor(last, game)
         if (last.color === s.color) {
-          const line = coachLine({ san: last.san, piece: last.piece, captured: last.captured, promotion: last.promotion, flags: last.flags, mate: game.isCheckmate(), check: game.inCheck(), moveNo: Math.ceil(s.moves.length / 2) })
+          const line = coachLine({ san: last.san, piece: last.piece, captured: last.captured, promotion: last.promotion, flags: last.flags, mate: game.isCheckmate(), check: game.inCheck(), moveNo: Math.ceil(s.moves.length / 2) }, undefined, locale)
           setCoach(line)
           if (game.inCheck() && !game.isCheckmate()) setBotSays(bot.checked)
         } else setBotSays(null)
@@ -410,7 +412,7 @@ export default function PlayComputer() {
 
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge>{level.name}</Badge>
+          <Badge>{locale === 'en' ? LEVEL_EN[level.id] ?? level.name : level.name}</Badge>
           <Badge tone="muted">{t('pc.playingAs', { color: s.color === 'w' ? t('pc.white') : t('pc.black') })}</Badge>
           {(view ? view.game.inCheck() : game.inCheck()) && !over && <Badge tone="danger">{t('pc.checkBadge')}</Badge>}
         </div>
@@ -432,7 +434,7 @@ export default function PlayComputer() {
             {coach && (
               <p key={`c-${coach}`} className="animate-bubble flex items-start gap-2 text-sm" aria-live="polite">
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald/20 text-base text-emerald" aria-hidden>☕</span>
-                <span className="rounded-2xl rounded-ss-sm border border-emerald/30 bg-emerald/5 px-3 py-2"><strong className="me-1 text-emerald">{COACH.name}:</strong>{coach}</span>
+                <span className="rounded-2xl rounded-ss-sm border border-emerald/30 bg-emerald/5 px-3 py-2"><strong className="me-1 text-emerald">{coachName(locale)}:</strong>{coach}</span>
               </p>
             )}
           </div>
