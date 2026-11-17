@@ -6,6 +6,7 @@ import { play } from '../lib/sound'
 import ChessBoard from './ChessBoard'
 import MoveControls from './MoveControls'
 import { Badge } from './ui'
+import { useI18n } from '../lib/i18n'
 
 type MatchGame = {
   w: string
@@ -26,6 +27,7 @@ const LETTERS = ['a', 'b', 'c', 'd', 'e'] as const
 const PAGE = 60
 
 export default function MatchesExplorer() {
+  const { t } = useI18n()
   const [index, setIndex] = useState<MatchesIndex | null>(null)
   const [letter, setLetter] = useState<(typeof LETTERS)[number]>('a')
   const [games, setGames] = useState<MatchGame[]>([])
@@ -80,7 +82,7 @@ export default function MatchesExplorer() {
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
       <div>
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <div className="flex rounded-xl border border-line bg-surface p-1 text-sm" role="tablist" aria-label="حرف ECO">
+          <div className="flex rounded-xl border border-line bg-surface p-1 text-sm" role="tablist" aria-label={t('lx.mxEco')}>
             {LETTERS.map((L) => (
               <button
                 key={L}
@@ -111,7 +113,7 @@ export default function MatchesExplorer() {
                 className={`rounded-lg px-3 py-1.5 font-bold transition ${result === r ? 'bg-gold text-[#1a1408]' : 'text-muted hover:text-ink'}`}
                 dir="ltr"
               >
-                {r === 'all' ? 'الكل' : r}
+                {r === 'all' ? t('lx.mxAll') : r}
               </button>
             ))}
           </div>
@@ -122,12 +124,12 @@ export default function MatchesExplorer() {
               setQ(e.target.value)
               setShown(PAGE)
             }}
-            placeholder="دوّر على لاعب أو افتتاحية أو ECO..."
+            placeholder={t('lx.mxSearch')}
             className="min-w-0 flex-1 rounded-xl border border-line bg-surface px-3 py-1.5 text-sm outline-none focus:border-gold/60"
           />
         </div>
         <p className="mb-2 text-xs text-muted">
-          {loading ? 'بنحمّل...' : `${filtered.length} ماتش`}
+          {loading ? t('lx.mxLoading') : t('lx.mxCount', { n: filtered.length })}
         </p>
         <ul className="grid max-h-[70vh] gap-2 overflow-y-auto pe-1">
           {!loading &&
@@ -157,13 +159,13 @@ export default function MatchesExplorer() {
                 onClick={() => setShown((s) => s + PAGE)}
                 className="w-full rounded-xl border border-line bg-surface py-2 text-sm font-bold text-muted transition hover:text-ink"
               >
-                عرض أكتر ({filtered.length - shown} باقيين)
+                {t('lx.mxMore', { n: filtered.length - shown })}
               </button>
             </li>
           )}
         </ul>
       </div>
-      <div>{sel ? <MatchReplay game={sel} /> : <p className="text-muted">اختار ماتش من القايمة.</p>}</div>
+      <div>{sel ? <MatchReplay game={sel} /> : <p className="text-muted">{t('lx.mxPick')}</p>}</div>
     </div>
   )
 }

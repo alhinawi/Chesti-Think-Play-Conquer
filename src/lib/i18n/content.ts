@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useI18n } from './index'
 import { BOTS_EN, W3_EN } from '../../data/en/bots-w3'
+import { ACH_EN, RANK_EN } from '../../data/en/ui-misc'
 
 type PuzzleLike = { id: string; name: string; text: string; explain: string }
 type Dict = Record<string, [string, string, string]>
@@ -279,4 +280,18 @@ export function useW3Loc() {
     },
     [locale],
   )
+}
+
+/** Localized rank and achievement names. Falls back to the original (Arabic). */
+export function useRankLoc() {
+  const { locale } = useI18n()
+  const rank = useCallback((name: string) => (locale === 'en' ? RANK_EN[name] ?? name : name), [locale])
+  const ach = useCallback(
+    <T extends { id: string; name: string; desc: string }>(a: T): T => {
+      const h = locale === 'en' ? ACH_EN[a.id] : undefined
+      return h ? { ...a, name: h[0], desc: h[1] } : a
+    },
+    [locale],
+  )
+  return { rank, ach }
 }

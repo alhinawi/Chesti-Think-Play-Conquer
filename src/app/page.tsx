@@ -19,6 +19,7 @@ import { COACH } from '../lib/coach'
 import { RANKS } from '../lib/rank'
 import { useI18n } from '../lib/i18n'
 import { useBotLoc } from '../lib/i18n/content'
+import { useRankLoc } from '../lib/i18n/content'
 
 const SECTIONS = [
   { href: '/learn', group: 'learn', icon: 'learn', key: 'learn', n: ALL_LESSONS.length },
@@ -40,6 +41,7 @@ const SECTIONS = [
 export default function Home() {
   const { t } = useI18n()
   const bl = useBotLoc()
+  const { rank: rk } = useRankLoc()
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -139,29 +141,29 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="ranks" className="relative mt-12 overflow-hidden rounded-3xl border border-gold/25 bg-surface p-5 sm:p-7">
-        <h2 id="ranks" className="font-display text-2xl font-bold">اطلع من «{RANKS[0].name}» لـ«{RANKS[RANKS.length - 1].name}»</h2>
-        <p className="mt-1 text-muted">كل درس ولغز ودور بيديك نقط. حافظ على سلسلة أيامك، واجمع الأوسمة، وشوف رتبتك بتطلع.</p>
+        <h2 id="ranks" className="font-display text-2xl font-bold">{t('lx.hmRanks', { a: rk(RANKS[0].name), b: rk(RANKS[RANKS.length - 1].name) })}</h2>
+        <p className="mt-1 text-muted">{t('lx.hmRanksDesc')}</p>
         <ol className="mt-4 flex flex-wrap gap-2">
           {RANKS.map((r) => (
             <li key={r.name} className="flex items-center gap-1.5 rounded-full border border-line bg-bg/60 px-3 py-1.5 text-sm">
-              <span className="text-lg leading-none text-gold" aria-hidden>{r.icon}</span> {r.name}
+              <span className="text-lg leading-none text-gold" aria-hidden>{r.icon}</span> {rk(r.name)}
             </li>
           ))}
         </ol>
         <LinkButton to="/me" variant="outline" className="mt-5">
-          <Icon name="star" /> شوف رتبتك
+          <Icon name="star" /> {t('lx.hmSeeRank')}
         </LinkButton>
       </section>
 
       <section aria-labelledby="path" className="mt-12">
-        <h2 id="path" className="mb-4 font-display text-2xl font-bold">مسار التعلم</h2>
+        <h2 id="path" className="mb-4 font-display text-2xl font-bold">{t('lx.hmPath')}</h2>
         <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CHAPTERS.map((c, i) => (
             <li key={c.id}>
               <Link href={`/learn/${c.lessons[0].id}`} className="flex items-center gap-3 rounded-xl border border-line bg-surface p-4 hover:border-gold/50">
                 <span className="text-3xl text-gold" aria-hidden>{c.glyph}</span>
                 <span>
-                  <span className="block text-xs text-muted">الفصل {i + 1}</span>
+                  <span className="block text-xs text-muted">{t('lx.hmChapter', { n: i + 1 })}</span>
                   <span className="font-bold">{c.title}</span>
                 </span>
               </Link>

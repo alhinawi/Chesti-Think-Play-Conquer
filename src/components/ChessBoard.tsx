@@ -6,6 +6,7 @@ import { Chess, type Square } from 'chess.js'
 import { useSettings } from '../lib/settings'
 import { isPromotionMove, kingSquareInCheck, type UciMove } from '../lib/chess'
 import { useInStage } from './BoardStage'
+import { useI18n } from '../lib/i18n'
 
 export interface BoardArrow {
   from: string
@@ -47,6 +48,7 @@ export default function ChessBoard({
   className = '',
   shake = 0,
 }: ChessBoardProps) {
+  const { t } = useI18n()
   const id = useId().replace(/:/g, '')
   const { settings, boardTheme } = useSettings()
   const [selected, setSelected] = useState<string | null>(null)
@@ -209,7 +211,7 @@ export default function ChessBoard({
       {pendingPromo && (
         <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[14px] bg-black/55 backdrop-blur-[2px]">
           <div className="animate-pop rounded-2xl border border-white/10 bg-[#1a1814] p-3 shadow-2xl" dir="rtl">
-            <p className="mb-2 text-center text-sm text-[#f2eadb]">العسكري وصل! هترقيه لإيه؟</p>
+            <p className="mb-2 text-center text-sm text-[#f2eadb]">{t('lx.promoTitle')}</p>
             <div className="flex gap-2">
               {(['q', 'r', 'b', 'n'] as const).map((p) => {
                 const key = `${promoColor}${p.toUpperCase()}`
@@ -217,7 +219,7 @@ export default function ChessBoard({
                 return (
                   <button
                     key={p}
-                    aria-label={{ q: 'وزير', r: 'طابية', b: 'فيل', n: 'حصان' }[p]}
+                    aria-label={t(`lx.promo${p.toUpperCase()}`)}
                     className="h-16 w-16 rounded-xl bg-[#ecd9b5] p-1 transition hover:scale-105 hover:bg-[#f3e4c4]"
                     onClick={() => {
                       const pp = pendingPromo
@@ -232,7 +234,7 @@ export default function ChessBoard({
               })}
             </div>
             <button className="mt-2 w-full text-xs text-[#a99d88] hover:text-white" onClick={() => setPendingPromo(null)}>
-              إلغاء
+              {t('lx.cancel')}
             </button>
           </div>
         </div>
