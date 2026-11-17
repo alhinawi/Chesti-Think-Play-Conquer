@@ -1,0 +1,618 @@
+{
+ "how-pieces-move": {
+  "\"title\"": "How the pieces move",
+  "\"summary\"": "A quick summary of how the six pieces move and what each is worth.",
+  "[\"tag\", 0]": "Beginner",
+  "[0, \"p\"]": "Each player starts with 16 pieces: a king, a queen, two rooks, two bishops, two knights and 8 pawns. White always moves first.",
+  "[1, \"l\", 0]": "**King:** one step in any direction. The most important piece: if he is checkmated, the game is over.",
+  "[1, \"l\", 1]": "**Queen:** any number of squares in a straight line or diagonally. The strongest piece, worth about 9 pawns.",
+  "[1, \"l\", 2]": "**Rook:** any number of squares in a straight line (rank or file). Worth about 5.",
+  "[1, \"l\", 3]": "**Bishop:** any number of squares diagonally, and it stays on the same square color for the whole game. Worth about 3.",
+  "[1, \"l\", 4]": "**Knight:** moves in an L shape, and it is the only piece that jumps over other pieces. Worth about 3.",
+  "[1, \"l\", 5]": "**Pawn:** moves one step forward (or two steps on its first move), and captures diagonally. Worth 1.",
+  "[2, \"bc\"]": "The starting position. The white queen is on a white square and the black queen on a black square.",
+  "[3, \"p\"]": "To learn each piece in detail with exercises, open the **Lessons** section."
+ },
+ "special-moves": {
+  "\"title\"": "Special moves",
+  "\"summary\"": "Castling, en passant and promotion.",
+  "[0, \"h\"]": "Castling",
+  "[1, \"p\"]": "The king moves two squares toward the rook, and the rook jumps beside him to the other side. It works only if the king and the rook haven't moved before, there are no pieces between them, the king isn't in check, and he doesn't pass through an attacked square.",
+  "[2, \"bc\"]": "White can castle kingside (O-O) or queenside (O-O-O).",
+  "[3, \"h\"]": "En passant",
+  "[4, \"p\"]": "If the opponent's pawn moves two squares and lands beside your pawn, you can capture it as if it had moved only one square. You must do it on the very next move, or the chance is gone.",
+  "[5, \"lc\"]": "Black played f5 with two steps, and White captured en passant with exf6.",
+  "[6, \"h\"]": "Promotion",
+  "[7, \"p\"]": "When a pawn reaches the last rank, it turns into any piece you choose except a king. Most of the time it becomes a queen."
+ },
+ "draws": {
+  "\"title\"": "How a game ends in a draw",
+  "\"summary\"": "Stalemate, repetition, the fifty-move rule, and not enough pieces.",
+  "[0, \"l\", 0]": "**Stalemate:** the player to move isn't in check but has no legal move.",
+  "[0, \"l\", 1]": "**Threefold repetition:** the exact same position occurs 3 times with the same player to move.",
+  "[0, \"l\", 2]": "**Fifty-move rule:** 50 moves by each player with no capture and no pawn move.",
+  "[0, \"l\", 3]": "**Insufficient material:** such as king against king, or king and knight against king.",
+  "[0, \"l\", 4]": "**Agreement:** the players agree to a draw.",
+  "[1, \"bc\"]": "Black is to move and isn't in check, but all the king's squares are attacked. This is stalemate, and the result is a draw.",
+  "[2, \"p\"]": "That's why, when you're far ahead, be careful not to stalemate your opponent's king without giving check."
+ },
+ "notation": {
+  "\"title\"": "Algebraic notation",
+  "\"summary\"": "How to read and write moves like Nf3 and exd5.",
+  "[0, \"p\"]": "Every square has a name: the file letter (from a to h) and the rank number (from 1 to 8). The square in the bottom-left corner from White's side is called a1.",
+  "[1, \"l\", 0]": "K king, Q queen, R rook, B bishop, N knight. A pawn has no letter.",
+  "[1, \"l\", 1]": "`Nf3` means the knight went to f3. And `e4` means the pawn went to e4.",
+  "[1, \"l\", 2]": "The letter x means a capture: `Bxc6` the bishop captured on c6, and `exd5` the e pawn captured on d5.",
+  "[1, \"l\", 3]": "`+` check, `#` checkmate, `O-O` short castling, and `O-O-O` long castling.",
+  "[1, \"l\", 4]": "`e8=Q` the pawn was promoted to a queen."
+ },
+ "italian": {
+  "\"title\"": "Italian Game",
+  "\"summary\"": "One of the oldest openings and among the easiest for beginners: the bishop eyes f7.",
+  "[\"tag\", 0]": "e4",
+  "[\"tag\", 1]": "Beginner",
+  "[0, \"lc\"]": "The basic Italian position.",
+  "[1, \"p\"]": "White holds the center with a pawn, develops the knight while attacking e5, and then puts the bishop on c4 eyeing f7, Black's weakest square.",
+  "[2, \"h\"]": "Black's most famous replies",
+  "[3, \"l\", 0]": "`Bc5`: the Giuoco Piano, where both sides develop calmly.",
+  "[3, \"l\", 1]": "`Nf6`: the Two Knights Defense, with a sharp attack if White plays Ng5.",
+  "[4, \"p\"]": "White's usual plan: c3 and d4 to win the center, or d3, castling and quiet play."
+ },
+ "ruy-lopez": {
+  "\"title\"": "Ruy Lopez",
+  "\"summary\"": "The champions' opening: the bishop presses on the knight that guards e5.",
+  "[\"tag\", 0]": "e4",
+  "[0, \"lc\"]": "The main line.",
+  "[1, \"p\"]": "The bishop on b5 attacks the knight that guards the e5 pawn, so there's constant pressure on the center. Black usually kicks the bishop with a6 and b5.",
+  "[2, \"p\"]": "Watch out for the **Noah's Ark Trap** in this line, which you'll find on the Traps page."
+ },
+ "sicilian": {
+  "\"title\"": "Sicilian Defence",
+  "\"summary\"": "The most famous reply to e4: Black fights for the center from the side.",
+  "[\"tag\", 0]": "e4",
+  "[\"tag\", 1]": "Defense",
+  "[0, \"lc\"]": "The Open Sicilian.",
+  "[1, \"p\"]": "Instead of answering with e5, Black plays c5 and presses on d4. The positions are asymmetrical, and both sides play to win.",
+  "[2, \"p\"]": "Among its most famous systems: the Najdorf, the Dragon and the Scheveningen."
+ },
+ "french": {
+  "\"title\"": "French Defence",
+  "\"summary\"": "A solid defense: e6 and then d5.",
+  "[\"tag\", 0]": "e4",
+  "[\"tag\", 1]": "Defense",
+  "[0, \"lc\"]": "The basic position.",
+  "[1, \"p\"]": "Black builds a strong pawn chain and hits the center with d5. The most famous drawback is that Black's bishop on c8 gets locked in behind the pawns."
+ },
+ "caro-kann": {
+  "\"title\"": "Caro-Kann Defence",
+  "\"summary\"": "Like the French, but the bishop comes out first.",
+  "[\"tag\", 0]": "e4",
+  "[\"tag\", 1]": "Defense",
+  "[0, \"lc\"]": "The classical line.",
+  "[1, \"p\"]": "Black prepares d5 with c6, so his bishop can come out to f5 before it gets locked in. The positions are solid and suit those who like safe play."
+ },
+ "queens-gambit": {
+  "\"title\"": "Queen's Gambit",
+  "\"summary\"": "White offers the c pawn to win the center.",
+  "[\"tag\", 0]": "d4",
+  "[0, \"lc\"]": "The Queen's Gambit Declined.",
+  "[1, \"p\"]": "If Black takes with dxc4 it's called the \"Queen's Gambit Accepted\", and White usually gets the pawn back easily. If he declines with e6 or c6 it's called \"Declined\" or \"Slav\".",
+  "[2, \"p\"]": "In this line there's the famous **Bishop Trap**, which you'll find on the Traps page."
+ },
+ "london": {
+  "\"title\"": "London System",
+  "\"summary\"": "An easy system to memorize: roughly the same setup against any reply.",
+  "[\"tag\", 0]": "d4",
+  "[\"tag\", 1]": "Beginner",
+  "[0, \"lc\"]": "White's usual setup.",
+  "[1, \"p\"]": "White brings the bishop out to f4 before e3, and builds a pawn pyramid on c3, d4 and e3. It suits anyone who wants one opening to play at once without memorizing much."
+ },
+ "kings-indian": {
+  "\"title\"": "King's Indian Defence",
+  "\"summary\"": "Black leaves the center to White and then attacks it.",
+  "[\"tag\", 0]": "d4",
+  "[\"tag\", 1]": "Defense",
+  "[0, \"lc\"]": "The basic position.",
+  "[1, \"p\"]": "The bishop on g7 eyes the center from afar, and Black waits for the right moment to strike with e5 or c5. The positions are sharp with attacks on the king from both sides."
+ },
+ "fork-pin-skewer": {
+  "\"title\"": "Fork, pin and skewer",
+  "\"summary\"": "The 3 most important tactical blows you must know.",
+  "[0, \"h\"]": "The fork",
+  "[1, \"p\"]": "One piece attacks two or more pieces at the same time. The opponent saves one and you take the other.",
+  "[2, \"bc\"]": "Ne7+ a fork on the king and the queen.",
+  "[3, \"h\"]": "The pin",
+  "[4, \"p\"]": "A piece that can't move because if it moves, the more valuable piece behind it will be captured (or the king will be in check).",
+  "[5, \"h\"]": "The skewer",
+  "[6, \"p\"]": "The opposite of a pin: the more valuable piece is in front, and when it runs away the piece behind it is captured.",
+  "[7, \"bc\"]": "Re1+ a skewer: the king moves and the queen is captured."
+ },
+ "discovered-attack": {
+  "\"title\"": "Discovered attack and double check",
+  "\"summary\"": "When a piece moves and opens the road for a piece behind it.",
+  "[0, \"p\"]": "A discovered attack happens when you move a piece and uncover a line for another piece behind it (a queen, rook or bishop). If the uncovered line gives check, the opponent must answer the check, and the piece that moved does whatever it wants.",
+  "[1, \"bc\"]": "Nxc4+ the knight takes the queen and the rook gives check.",
+  "[2, \"p\"]": "Double check: both pieces give check together. The only solution is for the king to move."
+ },
+ "basic-mates": {
+  "\"title\"": "Famous mating patterns",
+  "\"summary\"": "Back-rank mate, the Arabian mate, smothered mate, and others.",
+  "[0, \"l\", 0]": "**Back-rank mate:** a rook or queen on the last rank, and the king is locked behind his pawns.",
+  "[0, \"l\", 1]": "**Arabian mate:** a rook and a knight close in on the king in the corner.",
+  "[0, \"l\", 2]": "**Smothered mate:** a knight gives check to a king surrounded by his own pieces.",
+  "[0, \"l\", 3]": "**Ladder mate:** two rooks push the king to the edge.",
+  "[1, \"bc\"]": "The Arabian mate: Rh7#.",
+  "[2, \"p\"]": "You can practice all these patterns in the **Puzzles** section."
+ },
+ "opening-principles": {
+  "\"title\"": "Opening principles",
+  "\"summary\"": "Five rules to play any opening without memorizing.",
+  "[\"tag\", 0]": "Beginner",
+  "[0, \"l\", 0]": "Hold the center with pawns (e4, d4, e5, d5).",
+  "[0, \"l\", 1]": "Develop your knights and bishops early, and usually the knight before the bishop.",
+  "[0, \"l\", 2]": "Castle early so the king is safe.",
+  "[0, \"l\", 3]": "Don't bring the queen out early, because the opponent will chase her and gain time.",
+  "[0, \"l\", 4]": "Don't move the same piece twice in the opening without a reason."
+ },
+ "pawn-structure": {
+  "\"title\"": "Pawn structure",
+  "\"summary\"": "The isolated, doubled, backward and passed pawn.",
+  "[0, \"l\", 0]": "**Isolated pawn:** no pawns of the same color on the two files beside it, so no pawn can protect it.",
+  "[0, \"l\", 1]": "**Doubled pawns:** two pawns of the same color on the same file, which is usually a weakness.",
+  "[0, \"l\", 2]": "**Backward pawn:** the pawns beside it have moved ahead of it, and it can't advance safely.",
+  "[0, \"l\", 3]": "**Passed pawn:** the opponent has no pawns in front of it or on the two files beside it. A powerful weapon in endgames.",
+  "[1, \"bc\"]": "The b5 pawn is a passed pawn, and nothing can stop it except the king."
+ },
+ "king-pawn-endgame": {
+  "\"title\"": "King and pawn endgames",
+  "\"summary\"": "The square rule and the opposition.",
+  "[0, \"h\"]": "The square rule",
+  "[1, \"p\"]": "Draw a square from the pawn to the promotion rank. If the defending king can enter that square on his move, he will catch the pawn.",
+  "[2, \"h\"]": "The opposition",
+  "[3, \"p\"]": "When the two kings face each other with one square between them, the player to move has to step aside. The one who \"holds the opposition\" wins the space.",
+  "[4, \"bc\"]": "Black is to move and White holds the opposition, so White will win."
+ },
+ "rook-endgames": {
+  "\"title\"": "Rook endgames",
+  "\"summary\"": "The most common endgames in real games.",
+  "[0, \"l\", 0]": "Put the rook **behind** the passed pawn, whether it's yours or your opponent's.",
+  "[0, \"l\", 1]": "An active rook is more important than an extra pawn.",
+  "[0, \"l\", 2]": "Cut the opponent's king off from the pawn with the rook on a file or rank."
+ },
+ "chess-history": {
+  "\"title\"": "History of chess",
+  "\"summary\"": "From India to Persia to the Arabs to Europe.",
+  "[0, \"p\"]": "The oldest known form of the game is called **Chaturanga** in India. It moved to Persia as **Shatranj**, and then to the Arabs after the conquest of Persia, who cared about it a lot and wrote puzzles for it that they called \"mansubat\".",
+  "[1, \"p\"]": "From Andalusia and Sicily it reached Europe, where the rules of the queen and the bishop were changed and they became much stronger, and that's the form we play today.",
+  "[2, \"p\"]": "Words like \"checkmate\" come from Persian, and mean \"the king is dead\" or \"the king is besieged\"."
+ },
+ "kasparov": {
+  "\"title\"": "Garry Kasparov",
+  "\"summary\"": "World champion for 15 years, and the highest rating in history at the time.",
+  "[\"tag\", 0]": "World champion",
+  "[0, \"p\"]": "Garry Kasparov (born 1963 in Baku) won the World Championship in 1985 from Karpov at age 22, making him the youngest world champion at the time. He kept the title until 2000, when he lost it to Kramnik.",
+  "[1, \"l\", 0]": "His highest rating: **2851**, which stayed a record for years.",
+  "[1, \"l\", 1]": "He played Karpov in 5 World Championship matches, one of the fiercest rivalries in history.",
+  "[1, \"l\", 2]": "He retired from professional chess in 2005 while still ranked number one in the world.",
+  "[2, \"p\"]": "His style was strongly attacking with deep opening preparation, and his books like the series **My Great Predecessors** are among the most important chess books.",
+  "[3, \"p\"]": "In 1997 he lost a famous match to IBM's computer **Deep Blue**, a turning point in the history of man and machine."
+ },
+ "carlsen": {
+  "\"title\"": "Magnus Carlsen",
+  "\"summary\"": "World champion from 2013 to 2023, and the highest rating in all of history.",
+  "[\"tag\", 0]": "World champion",
+  "[0, \"p\"]": "Magnus Carlsen (born 1990 in Norway) won the World Championship in 2013 from Viswanathan Anand, and defended the title 4 times: against Anand in 2014, Karjakin in 2016, Caruana in 2018, and Nepomniachtchi in 2021.",
+  "[1, \"p\"]": "In 2023 he decided to give up the title by choice, so the Chinese **Ding Liren** became world champion. Carlsen kept playing and became the first player to pass a rating of **2882**.",
+  "[2, \"l\", 0]": "His style: he wins equal positions that look like there's nothing in them, and his endgames are legendary.",
+  "[2, \"l\", 1]": "World champion in classical, rapid and blitz at the same time more than once.",
+  "[2, \"l\", 2]": "The longest unbeaten streak in history: 125 classical games.",
+  "[3, \"p\"]": "Many people say he is the greatest player in history, and he plays almost every opening."
+ },
+ "fischer": {
+  "\"title\"": "Bobby Fischer",
+  "\"summary\"": "The American who broke Soviet dominance in 1972.",
+  "[\"tag\", 0]": "World champion",
+  "[0, \"p\"]": "Bobby Fischer (1943-2008) was a child prodigy: US champion at 14, and a grandmaster at 15.",
+  "[1, \"p\"]": "On the road to the World Championship he beat Taimanov and Larsen **6-0** and **6-0** in knockout matches, which never happened before or since.",
+  "[2, \"p\"]": "In 1972 in Reykjavik he beat **Boris Spassky** in the \"Match of the Century\", and became the first American world champion. The match had a big political dimension during the Cold War.",
+  "[3, \"p\"]": "In 1975 he refused to play under FIDE's conditions, so the title was taken from him and went to Karpov without a game. After that he stayed away from chess for many years."
+ },
+ "morphy": {
+  "\"title\"": "Paul Morphy",
+  "\"summary\"": "America's genius of the 19th century, the king of romantic attack.",
+  "[\"tag\", 0]": "Legend",
+  "[0, \"p\"]": "Paul Morphy (1837-1884) from New Orleans learned chess when he was young and beat everyone he met in America while still in his twenties.",
+  "[1, \"p\"]": "In 1858 he traveled to Europe and easily beat the strongest players of the continent, so he was considered the unofficial world champion, before the World Championship even existed.",
+  "[2, \"p\"]": "His most famous game is \"**the Opera Game**\" against Duke Karl and Count Isouard, played in an opera box in Paris, and it ends with a queen sacrifice and a beautiful mate.",
+  "[3, \"lc\"]": "The whole Opera Game. Notice the speed of development and the sacrifice at the end.",
+  "[4, \"p\"]": "He retired while still young and went back to work in law, and his name stayed a symbol of beautiful attack."
+ },
+ "tal": {
+  "\"title\"": "Mikhail Tal",
+  "\"summary\"": "\"The Magician from Riga\": the most dangerous attacking player in history.",
+  "[\"tag\", 0]": "World champion",
+  "[0, \"p\"]": "Mikhail Tal (1936-1992) from Riga, the capital of Latvia, won the World Championship in 1960 from Botvinnik at age 23, making him the youngest world champion at the time. He lost the rematch in 1961.",
+  "[1, \"p\"]": "His style was unique: bold sacrifices not all of which were sound by calculation, but which put the opponent under terrible pressure until he erred. His famous saying: \"There are two kinds of sacrifices: correct ones and mine\".",
+  "[2, \"p\"]": "Despite health problems all his life, he kept playing and winning tournaments until the end of his life, and he was very loved by the public.",
+  "[3, \"p\"]": "If you want to learn attack and sacrifices, Tal's games are the best school."
+ },
+ "capablanca": {
+  "\"title\"": "José Raúl Capablanca",
+  "\"summary\"": "The Cuban \"chess machine\", world champion 1921-1927.",
+  "[\"tag\", 0]": "World champion",
+  "[0, \"p\"]": "Capablanca (1888-1942) from Havana, Cuba, won the World Championship in 1921 from Emanuel Lasker, who had held the title for 27 years.",
+  "[1, \"p\"]": "From 1916 to 1924 he almost never lost a game, and he played with a simplicity and clarity that made the hardest positions look easy. That's why he was nicknamed \"the chess machine\".",
+  "[2, \"p\"]": "He lost the title in 1927 to **Alexander Alekhine** in a big surprise, and they never agreed on a rematch.",
+  "[3, \"p\"]": "His endgames were the strongest of his generation, and his books like \"Chess Fundamentals\" are still taught today."
+ },
+ "judit-polgar": {
+  "\"title\"": "Judit Polgár",
+  "\"summary\"": "The strongest woman in the history of chess, and she broke men's records.",
+  "[\"tag\", 0]": "Legend",
+  "[0, \"p\"]": "Judit Polgár (born 1976 in Budapest) became a grandmaster in 1991 at age 15, breaking Bobby Fischer's record as the youngest grandmaster in history at the time.",
+  "[1, \"p\"]": "She almost never played women's tournaments, and kept competing in open men's tournaments, reaching a top rating of **2735** and entering the world top 10.",
+  "[2, \"p\"]": "She beat Kasparov, Karpov, Carlsen, Anand and other world champions in official games, the most famous being her win over Kasparov in 2002.",
+  "[3, \"p\"]": "Her father Laszlo Polgar raised her and her sisters on the idea that genius is made through training, and this experiment is one of the most famous stories of upbringing in the world."
+ },
+ "bassem-amin": {
+  "\"title\"": "Bassem Amin",
+  "\"summary\"": "The first Arab and African player to pass a 2700 rating.",
+  "[\"tag\", 0]": "Egypt",
+  "[\"tag\", 1]": "Grandmaster",
+  "[0, \"p\"]": "Bassem Amin (born 1988 in Tanta) is an Egyptian grandmaster, who received the title in 2006. He is the first player from Egypt, the Arab world and Africa to pass the **2700** rating barrier.",
+  "[1, \"p\"]": "He has been African champion several times, represented Egypt in the Olympiads and world championships, and won big international tournaments in Europe and the Arab world.",
+  "[2, \"p\"]": "Among his important achievements: he is the first African to qualify for the World Cup and reach its advanced rounds, and he became a role model for a whole generation of Arab players.",
+  "[3, \"p\"]": "His style is complete: deep openings and precise calculation, and he plays with confidence against the greats."
+ },
+ "ahmed-adly": {
+  "\"title\"": "Ahmed Adly",
+  "\"summary\"": "The first Egyptian and African to win the World Junior Championship.",
+  "[\"tag\", 0]": "Egypt",
+  "[\"tag\", 1]": "Grandmaster",
+  "[0, \"p\"]": "Ahmed Adly (born 1987 in Cairo) is the first grandmaster in Egypt's history, who received the title in 2005.",
+  "[1, \"p\"]": "In 2007 he won the **World Junior Championship (under 20)**, the first world title for Egypt and Africa in chess.",
+  "[2, \"p\"]": "African champion more than once, and he took part in the World Cup and in the Chess Olympiad with Egypt's national team.",
+  "[3, \"p\"]": "Known for his attacking style and fighting spirit, and he opened the way for the generation of Egyptians who came after him."
+ },
+ "chess-arab-egypt": {
+  "\"title\"": "Chess among the Arabs and in Egypt",
+  "\"summary\"": "The Arabs carried chess to the world, and Egypt is among the oldest chess countries.",
+  "[0, \"p\"]": "After the conquest of Persia, the Arabs took the game of chess and carried it with them. In Baghdad in the Abbasid era the game reached its peak, and professional players appeared who lived off chess.",
+  "[1, \"l\", 0]": "**Al-Adli** and **Al-Razi** are among the oldest known Arab champions in the ninth century.",
+  "[1, \"l\", 1]": "**Abu Bakr al-Suli** (died 946) was the greatest player of his era, and wrote the first chess books.",
+  "[1, \"l\", 2]": "The Arabs invented **mansubat**: chess puzzles with rules and prizes, and they are the grandfather of the puzzles we solve today.",
+  "[1, \"l\", 3]": "Words like \"shaykh\" for the piece and \"firzan\" for the queen and \"fil\" stayed in European languages with similar names.",
+  "[2, \"p\"]": "From Andalusia and Sicily the Arabs carried the game to Europe, where the rules of the queen and the bishop changed in the 15th century, and it became the modern game we play.",
+  "[3, \"p\"]": "In Egypt chess has a long history from the Mamluk era to today, and Egypt is now one of the strongest countries in Africa and the Arab world with champions like Ahmed Adly and Bassem Amin."
+ },
+ "world-champions": {
+  "\"title\"": "World chess champions",
+  "\"summary\"": "The full list from Steinitz in 1886 to Gukesh in 2024.",
+  "[0, \"p\"]": "The official World Championship began in 1886, and these are the crowned champions in order:",
+  "[1, \"l\", 0]": "**Wilhelm Steinitz** (1886-1894): the first official champion, and the founder of positional play.",
+  "[1, \"l\", 1]": "**Emanuel Lasker** (1894-1921): the longest reign: 27 years.",
+  "[1, \"l\", 2]": "**Capablanca** (1921-1927), then **Alekhine** (1927-1935 and 1937-1946).",
+  "[1, \"l\", 3]": "**Max Euwe** (1935-1937): the only surprise that broke Alekhine's streak.",
+  "[1, \"l\", 4]": "**Botvinnik** (1948-1963 with two breaks): the father of the Soviet school.",
+  "[1, \"l\", 5]": "**Smyslov** (1957-1958), **Tal** (1960-1961), **Petrosian** (1963-1969).",
+  "[1, \"l\", 6]": "**Spassky** (1969-1972), **Fischer** (1972-1975).",
+  "[1, \"l\", 7]": "**Karpov** (1975-1985), **Kasparov** (1985-2000), **Kramnik** (2000-2007).",
+  "[1, \"l\", 8]": "**Anand** (2007-2013), **Carlsen** (2013-2023).",
+  "[1, \"l\", 9]": "**Ding Liren** (2023-2024), **Gukesh Dommaraju** (2024-): the Indian who won the title at 18, the youngest world champion in history.",
+  "[2, \"p\"]": "From 1993 to 2006 there were two parallel titles because of a split in chess, until the title was unified by the Kramnik-Topalov match in 2006."
+ },
+ "computers-chess": {
+  "\"title\"": "Computers and chess",
+  "\"summary\"": "From Deep Blue to Stockfish and AlphaZero: the machine passed the human.",
+  "[0, \"p\"]": "The dream is old: since the 18th century and the famous \"Turk\" doll (which had a human hidden inside), people have dreamed of a machine that plays chess.",
+  "[1, \"p\"]": "In 1997 IBM's computer **Deep Blue** beat world champion Garry Kasparov in a 6-game match, the first time a machine beat a world champion in an official match.",
+  "[2, \"l\", 0]": "**Stockfish**: the strongest open-source engine, used by all players for preparation and analysis.",
+  "[2, \"l\", 1]": "**AlphaZero** (2017): taught itself chess with no human knowledge, played in a wonderful attacking style, and beat Stockfish in a famous match.",
+  "[2, \"l\", 2]": "**Leela Chess Zero**: an open-source project built on the same idea as AlphaZero.",
+  "[3, \"p\"]": "Today any phone is stronger than the world champion. Engines changed preparation and openings, but the real beauty is still in the game between one human and another."
+ },
+ "chess-olympiad": {
+  "\"title\"": "Chess Olympiad",
+  "\"summary\"": "The biggest team tournament in the world, played every two years.",
+  "[0, \"p\"]": "The Chess Olympiad is the biggest team event in the game: national teams from all countries play in teams of 4 boards, and it's organized by the International Chess Federation (FIDE) every two years.",
+  "[1, \"p\"]": "The first official Olympiad was in London in 1927. The Soviet Union dominated it for many years, and after its breakup it was won by countries like Russia, Ukraine, China, India, Armenia and Uzbekistan.",
+  "[2, \"p\"]": "Egypt is among the countries that attend regularly, and Egypt's men's and women's teams represent Africa and the Arabs in every edition, and achieved respectable results on the top boards.",
+  "[3, \"p\"]": "In the 2024 Olympiad in Budapest, India won the gold medal in both the men's and women's sections together, the first time this happened for a single country."
+ },
+ "deflection": {
+  "\"title\"": "Deflection",
+  "\"summary\"": "You force a defending piece to leave its job, so what it was protecting falls.",
+  "[0, \"p\"]": "Deflection is when you attack a defending piece or capture it by force, so it has to leave the square or the piece it was protecting. The result: a mate or an exposed piece.",
+  "[1, \"bc\"]": "The rook on e8 protects the king. We will deflect it by force.",
+  "[2, \"lc\"]": "White traded off the defending rook, and the queen finished the mate on the back rank.",
+  "[3, \"p\"]": "The idea is always: look for the piece that is \"holding everything\" in the opponent's position, and ask yourself: how do I deflect or remove it?"
+ },
+ "overloading": {
+  "\"title\"": "Overloading",
+  "\"summary\"": "One piece carries two duties, so you press on it until one of them falls.",
+  "[0, \"p\"]": "Overloading is a special form of deflection: the opponent's piece is asked to defend two things at the same time. You attack one, so it has to leave the other.",
+  "[1, \"lc\"]": "Black's queen was protecting the rook and the bishop together: when she had to go back to take the rook, the bishop on `e6` was lost for nothing.",
+  "[2, \"p\"]": "When you find a piece on the opponent's side with more than one defensive job, that's usually a weak point you can exploit."
+ },
+ "zwischenzug": {
+  "\"title\"": "Zwischenzug",
+  "\"summary\"": "Instead of the \"forced\" reply, you play an in-between move that gains you something.",
+  "[0, \"p\"]": "A zwischenzug (German for \"in-between move\") is when, instead of answering the opponent's threat at once, you play an attacking move first that forces him to answer it, and then you come back and continue your calculation with a gain.",
+  "[1, \"lc\"]": "Instead of Black recapturing his lost knight, he played d5 in between: a fork on the bishop and the knight, and he'll get his piece back in a better position.",
+  "[2, \"p\"]": "Its most famous use is to \"sell\" a piece that will be captured anyway by capturing something first, instead of recapturing at once.",
+  "[3, \"p\"]": "Be careful: automatic replies waste chances. Before you answer any capture, ask yourself: is there a better move in between?"
+ },
+ "desperado": {
+  "\"title\"": "Desperado",
+  "\"summary\"": "Your piece is going to die anyway? Sell it for the highest price.",
+  "[0, \"p\"]": "The desperado is a simple idea: if one of your pieces will be captured whatever happens, don't let it be captured for nothing. Capture as much as possible with it before it goes.",
+  "[1, \"lc\"]": "The bishop would be kicked by a6, so instead of going back empty-handed, it captured the knight first. That's the desperado principle in its simplest form.",
+  "[2, \"p\"]": "The idea shows up a lot in the middlegame: a trapped knight captures a pawn, or a bishop sacrifices itself in a capture before it gets locked in.",
+  "[3, \"p\"]": "On the other hand: when you're a piece up, don't rush to recapture, because your opponent will probably play an in-between move or sell his desperado piece."
+ },
+ "prophylaxis": {
+  "\"title\"": "Prophylaxis",
+  "\"summary\"": "Ask yourself what the opponent wants to do, and stop him before he starts.",
+  "[0, \"p\"]": "Prophylaxis is an idea popularized by Aron Nimzowitsch: before you think of your own plan, ask yourself \"what does my opponent want to play next move?\" and if something bothers you, prevent it.",
+  "[1, \"l\", 0]": "Your opponent wants to pin your knight with Bg4? Play `h3` first.",
+  "[1, \"l\", 1]": "He wants to bring his rook to the open file? Cover the squares he could enter.",
+  "[1, \"l\", 2]": "He wants to hit the center with d5? Increase your pressure on the d5 square first.",
+  "[2, \"p\"]": "Great players like Petrosian, Karpov and Carlsen depend on prophylaxis: they win without leaving the opponent any counter plan at all.",
+  "[3, \"p\"]": "A practical rule: if you can't find a plan for yourself, look for the opponent's plan and stop it. That's not passive play, that's smart play."
+ },
+ "minority-attack": {
+  "\"title\"": "Minority attack",
+  "\"summary\"": "You attack with two pawns against the opponent's three pawns to create a weakness.",
+  "[0, \"p\"]": "The minority attack is a famous plan in the **Queen's Gambit Declined**: White attacks the queenside with two pawns (a and b) against three of Black's pawns, and the goal isn't to capture, but to force Black to trade so that he is left with a weak pawn.",
+  "[1, \"lc\"]": "The famous Carlsbad structure. White will prepare the b4-b5 advance.",
+  "[2, \"l\", 0]": "The plan: `Rb1`, then `b4`, then `b5`.",
+  "[2, \"l\", 1]": "If Black captures on b5, a weak d5 or c6 pawn remains.",
+  "[2, \"l\", 2]": "And if he doesn't capture, White captures on c6 and Black is left with a backward pawn on c6.",
+  "[3, \"p\"]": "This plan teaches you that an attack doesn't have to be on the king: you can attack the pawn structure itself and win a permanent weakness."
+ },
+ "open-files": {
+  "\"title\"": "Open files",
+  "\"summary\"": "The rook is the queen of the open files, and the seventh rank is the rook's paradise.",
+  "[0, \"p\"]": "An open file is a file with no pawns at all, and a half-open file has only an opponent's pawn on it. Rooks live on these files because from them they reach the heart of the opponent's position.",
+  "[1, \"bc\"]": "The a file is open. White will occupy it with the rook and reach the seventh rank.",
+  "[2, \"l\", 0]": "Put your rook on the open file before the opponent does so.",
+  "[2, \"l\", 1]": "Double rooks (or rook and queen) on the same file if you need more power.",
+  "[2, \"l\", 2]": "Your goal is to reach the seventh rank: a rook there eats pawns and restricts the opponent's king.",
+  "[2, \"l\", 3]": "A half-open file is excellent for pressure on the pawn on it.",
+  "[3, \"p\"]": "Nimzowitsch's advice: an open file by itself is worth nothing if you can't enter through it. Look for an entry square."
+ },
+ "rating-titles": {
+  "\"title\"": "Ratings and titles",
+  "\"summary\"": "The Elo system, and the titles of grandmaster, international master and others.",
+  "[0, \"p\"]": "Players' strength is measured by the **Elo** system: a number that rises when you win and drops when you lose, and the amount depends on your opponent's strength. Beat a player higher than you? You'll get a lot of points. Lose to a lower one? You'll lose a lot.",
+  "[1, \"p\"]": "The International Chess Federation FIDE calculates an official rating for each time control: classical, rapid and blitz. A rating of 2700+ means you're among the world's greats.",
+  "[2, \"h\"]": "The official titles",
+  "[3, \"l\", 0]": "**Grandmaster (GM):** the highest title. Needs 3 norms in strong tournaments and a rating of at least 2500.",
+  "[3, \"l\", 1]": "**International Master (IM):** norms + a rating of 2400.",
+  "[3, \"l\", 2]": "**FIDE Master (FM):** a rating of 2300.",
+  "[3, \"l\", 3]": "**Candidate Master (CM):** a rating of 2200.",
+  "[3, \"l\", 4]": "There are parallel titles for women (WGM, WIM, WFM and WCM) with lower requirements.",
+  "[4, \"p\"]": "The title stays with you for life, and a norm is a very strong result in a recognized tournament against titled players."
+ },
+ "chess-clock": {
+  "\"title\"": "The chess clock and time controls",
+  "\"summary\"": "Classical, rapid, blitz and bullet, and what happens when time runs out.",
+  "[0, \"p\"]": "Each player has limited time on the clock, and you press a button after each move so your clock stops and your opponent's clock runs. If your time runs out before the game ends, you lose **on time** (unless your opponent has no possible way to mate, in which case it's a draw).",
+  "[1, \"l\", 0]": "**Classical:** usually 90 minutes or more for each player with seconds added per move.",
+  "[1, \"l\", 1]": "**Rapid:** from 10 to 60 minutes.",
+  "[1, \"l\", 2]": "**Blitz:** less than 10 minutes, and the most famous formats are 3+2 and 5 minutes.",
+  "[1, \"l\", 3]": "**Bullet:** one or two minutes for the whole game. Speed and nerves.",
+  "[2, \"p\"]": "There are two systems of extra time: **Increment** is added to your clock after each move, and **Delay** gives you grace seconds before your clock starts running.",
+  "[3, \"p\"]": "In official tournaments you may not stop the clock except for a legal reason, and if you touch a piece and can move it, you must move it."
+ },
+ "opposition": {
+  "\"title\"": "Opposition of the kings",
+  "\"summary\"": "The most important weapon in pawn endgames: the one to move has to give way.",
+  "[0, \"p\"]": "Opposition happens when the two kings stand facing each other with one square between them. The player to move has to step aside, and the other gains space and advances.",
+  "[1, \"bc\"]": "White plays Ke6 and holds the opposition, so Black must step aside from e8. Then the pawn advances with the king's support.",
+  "[2, \"l\", 0]": "**Direct opposition:** the kings are on the same file or rank with one square between them.",
+  "[2, \"l\", 1]": "**Distant opposition:** 3 or 5 squares between them. The same idea: who forces the other to move first.",
+  "[2, \"l\", 2]": "**Key squares:** if your king reaches them, the pawn wins whatever happens.",
+  "[3, \"p\"]": "In king and pawn endgames, many games are decided by one question: who will hold the opposition?"
+ },
+ "lucena-philidor": {
+  "\"title\"": "Lucena and Philidor",
+  "\"summary\"": "The two most important positions in rook endgames: one wins and one draws.",
+  "[0, \"h\"]": "The Lucena position (the win)",
+  "[1, \"p\"]": "Your pawn is on the seventh rank, your king is in front of it and your rook is far away. The famous plan: bring the rook to the fourth rank and build a \"bridge\" that protects your king from the checks as he comes out.",
+  "[2, \"bc\"]": "The Lucena position. White wins: he plays Ra4 and then brings the king out and blocks Black's checks with the rook on the fourth rank.",
+  "[3, \"h\"]": "The Philidor position (the draw)",
+  "[4, \"p\"]": "The defender puts his rook on the sixth rank to stop the attacker's king from advancing. And when the pawn advances, the rook drops to the first rank and gives checks from behind until the draw.",
+  "[5, \"lc\"]": "Black stopped the white king from reaching e6 with the rook on a6. And when the pawn advanced, he dropped Ra1 and will keep giving checks from behind: a draw.",
+  "[6, \"p\"]": "Memorize these two positions and you will win and save many, many games in rook endgames."
+ },
+ "greek-gift": {
+  "\"title\"": "The Greek Gift",
+  "\"summary\"": "The most famous sacrifice in chess: a bishop is taken on h7 and the mate follows.",
+  "[\"tag\", 0]": "Advanced",
+  "[0, \"p\"]": "The Greek Gift is capturing the h7 pawn with your bishop: **Bxh7+**. The king takes the bishop, your knight goes to g5 with check, and your queen goes to h5, and it's usually mate.",
+  "[1, \"lc\"]": "The bishop was sacrificed, the knight gave check, and the queen came to the h file. Mate on h7 or h8 is now very close.",
+  "[2, \"h\"]": "When does it work?",
+  "[3, \"l\", 0]": "The opponent's king is castled and **h7 is protected only by a pawn** (no knight on f6 to defend).",
+  "[3, \"l\", 1]": "You have a **knight that can reach g5** with check without being captured.",
+  "[3, \"l\", 2]": "Your queen can reach the **h file** quickly, and an e5 pawn or another bishop covers the escape squares.",
+  "[3, \"l\", 3]": "The opponent has no quick defense like ...Bf5 or a rook that takes your knight on g5.",
+  "[4, \"p\"]": "If one of these conditions is missing, the sacrifice may just be a lost bishop. Calculate to the end before you sacrifice."
+ },
+ "windmill": {
+  "\"title\"": "The Windmill",
+  "\"summary\"": "A discovered check after a discovered check: a rook that turns around and eats the whole seventh rank.",
+  "[\"tag\", 0]": "Advanced",
+  "[0, \"p\"]": "The windmill is a series of discovered checks: a piece moves with an ordinary check, and at the same time uncovers a discovered check from a piece behind it, then goes back again, and so on. The opponent has only one square to go to each time, so you keep eating everything on the way.",
+  "[1, \"lc\"]": "The rook gives an ordinary check, and the bishop on b2 gives a discovered check every time the rook leaves the diagonal. The black king goes to h8 and back to g8 by force, and the whole seventh rank is eaten.",
+  "[2, \"p\"]": "The most famous example in history: Torre against Lasker (Moscow 1925), where the windmill won a queen and many pieces.",
+  "[3, \"p\"]": "Look for this position when you have a bishop or rook on a diagonal or file of the opponent's king, and another piece in front of it that can give a check and come back."
+ },
+ "back-rank": {
+  "\"title\"": "Back rank weakness",
+  "\"summary\"": "A king locked behind his pawns dies to a back-rank mate.",
+  "[0, \"p\"]": "When the king castles and stays behind three pawns (f, g and h) with no \"window\" to get out through, any rook or queen that reaches the first rank with check is mate at once.",
+  "[1, \"lc\"]": "The three pawns lock their own king: Qe8 is mate, there is no escape square and no piece to protect.",
+  "[2, \"h\"]": "How do you avoid it?",
+  "[3, \"l\", 0]": "Make a **window** for your king early: move one of the three pawns (usually h6 or g6) before you regret it.",
+  "[3, \"l\", 1]": "Keep a rook behind the first rank to protect it if you won't make a window.",
+  "[3, \"l\", 2]": "And attack yourself: if your opponent has no window, look for how to bring a rook or queen to the first rank."
+ },
+ "zugzwang": {
+  "\"title\"": "Zugzwang",
+  "\"summary\"": "The position where any move makes you lose, but the rules say you have to move.",
+  "[\"tag\", 0]": "Advanced",
+  "[0, \"p\"]": "Zugzwang (German for \"compulsion to move\") is a strange position: if you had the right to \"pass\" your turn, you'd be fine or even winning. But chess has no skipping, so any move you play ruins your position.",
+  "[1, \"p\"]": "The most famous example: Saemisch against Nimzowitsch (Copenhagen 1923). Nimzowitsch strangled White until there was no useful move left: every piece that moves loses something, so Saemisch resigned with all the pieces on the board.",
+  "[2, \"p\"]": "Zugzwang appears a lot in **pawn endgames**: the player to move loses the opposition and the important squares. That's why endgame calculation depends on \"who is to move\" and not only on the pieces.",
+  "[3, \"p\"]": "The practical idea: in endgames, sometimes the strongest plan is to **give the move** to the opponent (with a technique called a waiting move or triangulation with the king) instead of playing a move that loses."
+ },
+ "isolated-pawn": {
+  "\"title\"": "The isolated pawn",
+  "\"summary\"": "A pawn with no neighbors: a weakness in endgames and a strength in the middlegame.",
+  "[0, \"p\"]": "The isolated pawn is one with no pawns of its own color on the files beside it, so nothing protects it except pieces. The most famous case: the isolated queen's pawn on d4 or d5.",
+  "[1, \"bc\"]": "White's pawn on d4 is isolated: there's no pawn on c or e to protect it. The e5 square in front of it became an ideal base for Black's pieces.",
+  "[2, \"l\", 0]": "**Its strengths:** it gives you space and strong squares for your pieces (e5 and c5 for White) and supports an attack in the center and on the king.",
+  "[2, \"l\", 1]": "**Its weaknesses:** your pieces must protect it all the time, the square in front of it becomes a safe base for the opponent's knight, and in endgames it becomes an easy target.",
+  "[2, \"l\", 2]": "**The plan against it:** blockade it, trade pieces, put your knight in front of it, and press on it with rooks and the queen from the file.",
+  "[2, \"l\", 3]": "**The plan with it:** attack before the pieces get traded, and use the space it gives you in the center."
+ },
+ "bishop-pair": {
+  "\"title\"": "The bishop pair",
+  "\"summary\"": "Two bishops together in an open game: real strength that can be worth a pawn.",
+  "[0, \"p\"]": "The bishop pair means you kept both of your bishops and the opponent traded one of his. The two bishops cover the white and black squares together, and they're terrific in open games and long-range attack.",
+  "[1, \"p\"]": "The two bishops are stronger when the board is **open**: few pawns in the center and long lines. On a closed board the knight is better because it jumps over pawns.",
+  "[2, \"l\", 0]": "If you have the bishop pair: open the game, trade the center pawns, and don't rush to trade one of the bishops.",
+  "[2, \"l\", 1]": "If you're against the bishop pair: close the board with your pawns, put your pawns on the color of the opponent's strong bishop, and look to trade one of the two bishops.",
+  "[3, \"p\"]": "Many greats (Fischer most famously) preferred the bishop to the knight and would give a whole pawn as compensation for the bishop pair in suitable positions."
+ },
+ "alekhine": {
+  "\"title\"": "Alexander Alekhine",
+  "\"summary\"": "The fourth world champion and the most violent attacking player of his era.",
+  "[0, \"p\"]": "Alexander Alekhine (1892-1946) was a Russian-French player, the fourth world champion in history. He won the title from Capablanca in 1927 in a big surprise, since Capablanca almost never lost.",
+  "[1, \"p\"]": "Alekhine worked on chess like mad: deep analysis, opening preparation and a terrifying attacking talent. His games are full of surprise blows and sacrifices calculated in an amazing way.",
+  "[2, \"p\"]": "What distinguished him is that he played **against his natural style** when the position demanded: he could strategically strangle or attack ferociously, and that made him the hardest opponent of his generation.",
+  "[3, \"p\"]": "The opening \"Alekhine's Defense\" (1.e4 Nf6) still carries his name today, and its idea is that Black lures White's pawns forward and then hits them."
+ },
+ "lasker": {
+  "\"title\"": "Emanuel Lasker",
+  "\"summary\"": "World champion for 27 years: a record nobody came near.",
+  "[0, \"p\"]": "Emanuel Lasker (1868-1941) was a German mathematician and philosopher, the second world champion in history, and he held the title from 1894 to 1921: **27 straight years**, a record in almost any sport.",
+  "[1, \"p\"]": "Lasker was famous for playing \"the player, not the moves\": he chose lines that were psychologically hard for his opponent even if they weren't the objectively strongest, and won games that looked equal or lost.",
+  "[2, \"p\"]": "He lived through all of chess's revolutions: he played against Steinitz, Tarrasch, Capablanca and Alekhine, and presented ideas in defense and counterattack that are still taught.",
+  "[3, \"p\"]": "His book \"Common Sense in Chess\" is one of the most famous beginners' books in history, and its basic idea: chess is a struggle, and the winner is the one who fights better, not the one who memorizes more."
+ },
+ "karpov": {
+  "\"title\"": "Anatoly Karpov",
+  "\"summary\"": "The 12th world champion and a legend of suffocating positional play.",
+  "[0, \"p\"]": "Anatoly Karpov (born 1951) is the 12th world champion. He took the title in 1975 when Fischer refused to play, and then proved himself by winning very strong tournaments for ten full years.",
+  "[1, \"p\"]": "His style is called \"positional strangulation\": he takes a small amount of space, stops the opponent's plans before they start (prophylaxis), and turns a small advantage into a win without allowing any counter chance. His games look calm but the opponent is slowly being strangled.",
+  "[2, \"p\"]": "His struggle with Kasparov in the World Championships from 1984 to 1990 is the greatest rivalry in chess history: 5 matches and more than 140 games at the highest level.",
+  "[3, \"p\"]": "Karpov is among the players who won the most tournaments in history (more than 160 major tournaments), and his model games are still a reference for anyone who wants to learn positional play."
+ },
+ "anand": {
+  "\"title\"": "Viswanathan Anand",
+  "\"summary\"": "Five-time world champion and the fastest mind in the history of the game.",
+  "[0, \"p\"]": "Viswanathan Anand (born 1969) from India is the 15th world champion. The first grandmaster in India's history, and the main reason India became a chess superpower today.",
+  "[1, \"p\"]": "He was nicknamed \"the Rocket from Madras\" because he played with amazing speed from a young age: he finished his games in minutes while keeping very high accuracy.",
+  "[2, \"p\"]": "He won the World Championship 5 times (2000, 2007, 2008, 2010 and 2012) and defended his title against different generations: Kramnik, Topalov and Gelfand, before losing it to Carlsen in 2013.",
+  "[3, \"p\"]": "Among his greatest qualities is that he evolved with time: he started as an attacking blitz player, and became one of the strongest players in openings and endgames in history, and he still plays and coaches today."
+ },
+ "steinitz": {
+  "\"title\"": "Wilhelm Steinitz",
+  "\"summary\"": "The first world champion in history and the father of scientific chess.",
+  "[0, \"p\"]": "Wilhelm Steinitz (1836-1900) was the first official world champion in history (1886). Before him chess was attack, sacrifices and fun; he is the one who turned it into a science.",
+  "[1, \"p\"]": "His basic theory: **an attack must not begin unless you have a real advantage**. If the opponent has no weakness, the attack backfires on you. That's why the one with an advantage must attack, or the advantage goes away.",
+  "[2, \"p\"]": "He presented ideas that are still fundamental today: the value of the center, central weaknesses, the importance of accumulating small gains, and that the king itself is a strong piece in endgames.",
+  "[3, \"p\"]": "Many people of his generation mocked his \"boring\" style, but he beat everyone with it, and proved that chess is laws and not only talent. Every professional player today plays with his ideas without noticing."
+ },
+ "_cats": {
+  "rules": [
+   "Rules",
+   "How the game is played exactly"
+  ],
+  "openings": [
+   "Openings",
+   "The most famous starts of a game and their ideas"
+  ],
+  "tactics": [
+   "Tactics",
+   "The blows that win pieces"
+  ],
+  "strategy": [
+   "Strategy",
+   "Long-term planning"
+  ],
+  "endgames": [
+   "Endgames",
+   "When few pieces are left on the board"
+  ],
+  "history": [
+   "History",
+   "Where chess came from and where it went"
+  ],
+  "players": [
+   "Champions and players",
+   "The greatest who played chess"
+  ]
+ },
+ "_terms": [
+  "The king is under attack, and you must answer the threat on the same move.",
+  "The king is in check and no move can save him. The game is over.",
+  "Not in check but no legal move. The result is a draw.",
+  "The king and rook move together so the king can hide.",
+  "A pawn reaches the last rank and turns into another piece.",
+  "Capturing a pawn that moved two squares as if it had moved one.",
+  "One piece attacks two or more pieces at the same time.",
+  "A piece can't move because the one behind it is worth more.",
+  "An attack on a valuable piece, and when it runs away the piece behind it is captured.",
+  "A piece moves and opens a line for a piece behind it.",
+  "Two pieces give check together, and the king must move.",
+  "Sacrificing one or more pawns in the opening to gain time or space.",
+  "Bringing the pieces out of their first squares to active squares.",
+  "Each player captures a piece of roughly equal value from the other.",
+  "Taking a rook in return for a bishop or a knight.",
+  "A pawn that no opposing pawns can stop on its way to promotion.",
+  "A pawn with no pawns of its color on the two files beside it.",
+  "Two pawns of the same color on the same file.",
+  "The kings face each other with one square between them, and the player to move steps aside.",
+  "A position where any move spoils your position, and you wish you didn't have to move.",
+  "Being the one who attacks while the opponent keeps answering.",
+  "The bishop on g2 or b2 (or g7 or b7) after moving the pawn one step.",
+  "A file with no pawns at all, good for rooks.",
+  "A square protected by a pawn, where the opponent's pawns can't kick your piece out.",
+  "A player's first rank, where the king can be mated if he has no escape.",
+  "Moving a pawn in front of the king so he has an escape square.",
+  "Giving up a piece on purpose for a bigger gain.",
+  "The stage after the opening, when there are still many pieces.",
+  "The stage where pieces are fewer and the king becomes an active piece.",
+  "The same position repeats 3 times, so it's a draw.",
+  "One move in terms of time. If you gain a tempo, your opponent wasted a move.",
+  "A number that says who is better. Roughly +1 means White is a pawn up.",
+  "A rating system that measures players' strength: you win and lose points depending on your opponent's strength.",
+  "The highest title in chess, earned with norms and a rating of at least 2500, and it stays with you for life.",
+  "A very strong result in a recognized tournament against titled players, counted toward the title requirements.",
+  "Fast chess: each player has less than 10 minutes for the whole game.",
+  "A time control between classical and blitz, usually from 10 to 60 minutes.",
+  "Faster than blitz: one or two minutes for the whole game.",
+  "A tiebreak game: White gets more time but Black wins with a draw.",
+  "An unexpected in-between move played before the reply that looks forced.",
+  "A piece asked to defend two things, so you attack it until one of them falls.",
+  "Forcing a defending piece to leave its square or the piece it protects.",
+  "Opening a line or square for another piece with a decisive move, usually by moving your own piece out of the way.",
+  "A piece that will be captured anyway, so it sells itself by capturing the most it can before it goes.",
+  "Stopping the opponent's plan before it starts, instead of waiting to deal with it.",
+  "An attack with fewer pawns on a wing where the opponent has more pawns, aiming to create a weak pawn.",
+  "A file with none of your pawns but with an opposing pawn, good for rook pressure.",
+  "A bishop locked behind its own pawns that stand on the same color as its squares.",
+  "Pawns standing behind each other diagonally, protecting each other, and the weak point is the base.",
+  "A pawn whose neighboring pawns have moved ahead of it, so it can't advance safely and becomes a target.",
+  "A group of connected pawns separated from the rest. The more islands you have, the weaker your structure.",
+  "Non-material gains in return for a sacrificed piece or pawn: attack, piece activity, or a time advantage.",
+  "A position where any move makes you lose, but there is no skipping a turn.",
+  "A series of repeated discovered checks that eat the opponent's pieces one after another.",
+  "The classic bishop sacrifice on h7 (or h2) against a castled king with no defense.",
+  "Keeping both of your bishops against an opponent who traded one of his: a strong advantage in open games.",
+  "A mate with a rook or queen on the first rank against a king locked behind his pawns."
+ ]
+}
