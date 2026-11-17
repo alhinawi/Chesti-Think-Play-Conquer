@@ -12,12 +12,13 @@ import MoveControls from './MoveControls'
 
 /** غلاف الدور: وضع المشاهدة أو وضع «خمّن النقلة». */
 export default function GameViewer({ gameId }: { gameId: string }) {
+  const en = useI18n().locale === 'en'
   const [mode, setMode] = useState<'watch' | 'guess'>(() =>
     typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('mode') === 'guess' ? 'guess' : 'watch',
   )
   return (
     <div>
-      <div className="mb-4 inline-flex rounded-xl border border-line bg-surface p-1 text-sm" role="tablist" aria-label="وضع العرض">
+      <div className="mb-4 inline-flex rounded-xl border border-line bg-surface p-1 text-sm" role="tablist" aria-label={en ? 'View mode' : 'وضع العرض'}>
         <button
           type="button"
           role="tab"
@@ -25,7 +26,7 @@ export default function GameViewer({ gameId }: { gameId: string }) {
           onClick={() => setMode('watch')}
           className={`rounded-lg px-4 py-1.5 font-bold transition ${mode === 'watch' ? 'bg-gold text-[#1a1408]' : 'text-muted hover:text-ink'}`}
         >
-          مشاهدة
+          {en ? 'Watch' : 'مشاهدة'}
         </button>
         <button
           type="button"
@@ -34,7 +35,7 @@ export default function GameViewer({ gameId }: { gameId: string }) {
           onClick={() => setMode('guess')}
           className={`rounded-lg px-4 py-1.5 font-bold transition ${mode === 'guess' ? 'bg-gold text-[#1a1408]' : 'text-muted hover:text-ink'}`}
         >
-          خمّن النقلة
+          {en ? 'Guess the move' : 'خمّن النقلة'}
         </button>
       </div>
       {mode === 'guess' ? <GuessTheMove gameId={gameId} /> : <ReplayViewer gameId={gameId} />}
@@ -104,7 +105,7 @@ function ReplayViewer({ gameId }: { gameId: string }) {
           go={go}
           auto={auto}
           onToggle={() => (ply >= n && !auto ? (setPly(0), setAuto(true)) : setAuto((a) => !a))}
-          playLabel={auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
+          playLabel={auto ? (en ? 'Pause' : 'وقّف') : ply === n ? (en ? 'Restart' : 'من الأول') : en ? 'Play' : 'عرض'}
         />
       </div>
       <div className="flex flex-col gap-4">
@@ -121,7 +122,7 @@ function ReplayViewer({ gameId }: { gameId: string }) {
             </p>
           )}
         </div>
-        <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label="النقلات">
+        <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label={en ? 'Moves' : 'النقلات'}>
           {g.moves.map((m, i) => (
             <li key={i}>
               <button
