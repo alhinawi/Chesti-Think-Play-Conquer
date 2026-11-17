@@ -42,7 +42,7 @@ export default function PuzzleList() {
       </div>
       {next && (
         <Link href={`/puzzles/${next.id}`} className="mb-5 inline-flex items-center gap-2 font-bold text-gold hover:underline">
-          <Icon name="bulb" /> {solved.length ? t2('pz.nextPuzzle') : t2('pz.startFirst')}: {next.name}
+          <Icon name="bulb" /> {solved.length ? t2('pz.nextPuzzle') : t2('pz.startFirst')}: {lp(next).name}
         </Link>
       )}
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
