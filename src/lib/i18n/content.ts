@@ -117,3 +117,33 @@ export function useOpeningLoc() {
     [locale, dict],
   )
 }
+
+type TrapEn = { name: string; opening: string; summary: string; avoid: string; notes: Record<string, string> }
+type TrapLike = { id: string; name: string; opening: string; summary: string; avoid: string; notes: string[] }
+let tcache: Record<string, TrapEn> | null = null
+
+/** Localized trap text. Falls back to the original (Arabic) when a translation is missing. */
+export function useTrapLoc() {
+  const { locale } = useI18n()
+  const [dict, setDict] = useState<Record<string, TrapEn> | null>(tcache)
+  useEffect(() => {
+    if (locale !== 'en') return
+    if (tcache) {
+      setDict(tcache)
+      return
+    }
+    void import('../../data/en/traps.json').then((m) => {
+      tcache = (m as any).default as Record<string, TrapEn>
+      setDict(tcache)
+    })
+  }, [locale])
+  return useCallback(
+    <T extends TrapLike>(t: T): T => {
+      const h = locale === 'en' && dict ? dict[t.id] : undefined
+      if (!h) return t
+      const notes = t.notes.map((n, i) => h.notes[String(i)] ?? n)
+      return { ...t, name: h.name, opening: h.opening, summary: h.summary, avoid: h.avoid, notes }
+    },
+    [locale, dict],
+  )
+}

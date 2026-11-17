@@ -10,10 +10,14 @@ import ChessBoard from './ChessBoard'
 import RichText from './RichText'
 import MoveControls from './MoveControls'
 import { Button } from './ui'
+import { useI18n } from '../lib/i18n'
+import { useTrapLoc } from '../lib/i18n/content'
 
 export default function TrapViewer({ trapId, items, bucket }: { trapId: string; items?: Trap[]; bucket?: 'traps' | 'miniatures' }) {
-  const t = (items ?? TRAPS).find((x) => x.id === trapId)!
-  const { fens, history } = useMemo(() => replay(START_FEN, t.moves), [t])
+  const en = useI18n().locale === 'en'
+  const lt = useTrapLoc()
+  const t = lt((items ?? TRAPS).find((x) => x.id === trapId)!)
+  const { fens, history } = useMemo(() => replay(START_FEN, t.moves), [t.moves])
   const [ply, setPly] = useState(0)
   const [auto, setAuto] = useState(false)
   const n = t.moves.length
@@ -58,7 +62,7 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
   }, [go, ply])
 
   const last = ply > 0 ? history[ply - 1] : null
-  const note = ply > 0 ? t.notes[ply - 1] : 'اضغط "اللي بعده" أو شغّل العرض عشان تشوف الفخ نقلة بنقلة.'
+  const note = ply > 0 ? t.notes[ply - 1] : (en ? 'Press "Next" or start the show to see the trap move by move.' : 'اضغط "اللي بعده" أو شغّل العرض عشان تشوف الفخ نقلة بنقلة.')
   const isMistake = ply - 1 === t.mistake
 
   return (
@@ -78,7 +82,7 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
           go={go}
           auto={auto}
           onToggle={() => (ply >= n && !auto ? (setPly(0), setAuto(true)) : setAuto((a) => !a))}
-          playLabel={auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
+          playLabel={en ? (auto ? 'Stop' : ply === n ? 'Restart' : 'Play') : auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
         />
       </div>
       <div className="flex flex-col gap-4">
@@ -88,13 +92,13 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
               {Math.floor((ply - 1) / 2) + 1}.{(ply - 1) % 2 ? '..' : ''} {last.san}
             </p>
           )}
-          {isMistake && <p className="mb-1 text-sm font-bold text-danger">الغلطة القاتلة</p>}
+          {isMistake && <p className="mb-1 text-sm font-bold text-danger">{en ? 'The fatal mistake' : 'الغلطة القاتلة'}</p>}
           {note ? <RichText text={note} /> : <p> </p>}
         </div>
         <div>
-          <Button variant="soft" onClick={() => go(t.mistake + 1)}>ورّيني الغلطة</Button>
+          <Button variant="soft" onClick={() => go(t.mistake + 1)}>{en ? 'Show me the mistake' : 'ورّيني الغلطة'}</Button>
         </div>
-        <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label="النقلات">
+        <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label={en ? 'Moves' : 'النقلات'}>
           {t.moves.map((m, i) => (
             <li key={i}>
               <button
