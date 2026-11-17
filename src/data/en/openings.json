@@ -1,0 +1,314 @@
+{
+ "italian-game": {
+  "name": "The Italian",
+  "summary": "The oldest attacking opening: the bishop on c4 looks at f7, and the center is taken with c3 and d4.",
+  "notes": {
+   "4": "The bishop on c4: it looks at Black's weakest square, f7.",
+   "6": "c3 prepares d4 without losing the center.",
+   "8": "d4! The central strike.",
+   "10": "White got his pawn back and his center is stronger."
+  },
+  "planW": "Take the center with c3 and d4, castle quickly, and then attack on the kingside with Re1 and Nbd2-f1-g3.",
+  "planB": "Pressure White's center with d5 at the right time, or play the quiet version with d6 and Bb6."
+ },
+ "ruy-lopez": {
+  "name": "The Spanish (Ruy Lopez)",
+  "summary": "The deepest opening in chess: long pressure on Black from the first moves to the end of the game.",
+  "notes": {
+   "4": "The bishop threatens the knight that protects e5.",
+   "5": "a6 asks the bishop: will you take or retreat?",
+   "10": "Re1 protects e4 and prepares a mobile center.",
+   "14": "c3 prepares d4 and opens a path for the bishop to c2."
+  },
+  "planW": "Build your center with c3 and d4, reroute the knight b1-d2-f1-g3, and wait for the moment to strike on the kingside.",
+  "planB": "Fortify e5, expand on the queenside with b5, and prepare the counter-strike d5."
+ },
+ "sicilian-najdorf": {
+  "name": "The Sicilian Najdorf",
+  "summary": "Kasparov's choice: full flexibility for Black and a counterattack on the queenside.",
+  "notes": {
+   "1": "The Sicilian: Black attacks the center from the wing.",
+   "5": "The Open Sicilian: White opened the center early.",
+   "9": "a6! The Najdorf: it stops pieces from landing on b5 and prepares b5 and e5.",
+   "11": "e5: Black kicks the knight out of the center."
+  },
+  "planW": "Attack on the kingside with f3, g4 and O-O-O, and use the d5 square.",
+  "planB": "Counterattack with b5 and Bb7, pressure the c file, and think about d5 to break the center."
+ },
+ "sicilian-dragon": {
+  "name": "The Sicilian Dragon",
+  "summary": "The bishop on g7 like a dragon: the most dangerous diagonal in chess and a war on both wings.",
+  "notes": {
+   "9": "The Dragon: the bishop goes to g7 on the long diagonal.",
+   "12": "f3 protects e4 and prepares the opposite-side castling attack.",
+   "13": "Qd2: White intends O-O-O and h4-h5."
+  },
+  "planW": "Castle long, push h4-h5, trade off Black's dark-squared bishop with Bh6, and open the h file.",
+  "planB": "The bishop on g7 is your soul: don't trade it for free. Attack with Rc8 and a6-b5 and pressure c3."
+ },
+ "french-defense": {
+  "name": "The French",
+  "summary": "A wall of pawns and a counterattack on its base: the defense of the patient and stubborn.",
+  "notes": {
+   "1": "e6: preparation for d5 from behind cover.",
+   "5": "Winawer: the bishop pins the knight and declares war.",
+   "7": "c5! The strike at the base of the pawn chain. The soul of the French.",
+   "9": "Black broke the pin and broke up White's pawns."
+  },
+  "planW": "Use the space on the kingside: f4-f5 or an attack with h4, and watch the weakness of the dark squares.",
+  "planB": "Hit the d4 base with c5, Nc6 and Qb6, and in endgames White's broken structure will be held to account."
+ },
+ "caro-kann": {
+  "name": "The Caro-Kann",
+  "summary": "The safest defense against e4: a sound structure, a free bishop, and comfortable endgames.",
+  "notes": {
+   "1": "c6: preparing d5 without locking in the bishop.",
+   "7": "The bishop comes out of the wall before e6. This is the whole idea of the Caro-Kann.",
+   "10": "h4 attacks the bishop, and h6 opens a window for it on h7."
+  },
+  "planW": "Expand with h4-h5 or play the Advance version with e5, and sometimes pressure the weakness on d6.",
+  "planB": "Keep developing calmly: e6, Nd7 and Ngf6, trade pieces, and your endgames are usually more comfortable."
+ },
+ "queens-gambit": {
+  "name": "The Queen's Gambit",
+  "summary": "Strategic pressure from the first move: c4 besieges d5 and the fight is long and rich.",
+  "notes": {
+   "2": "The gambit: pressure on d5 with the wing pawn.",
+   "3": "Black declined and fortified his center with e6.",
+   "6": "The bishop pins the knight against the king.",
+   "13": "b6 prepares the bishop on b7 on the longest diagonal."
+  },
+  "planW": "Control the c file, prepare to break through the center with e4, and pressure the tired d5 square.",
+  "planB": "Free your position with c5 or e5 at the right time, and get the white-squared bishop out of its prison with b6 and Bb7."
+ },
+ "kings-indian": {
+  "name": "The King's Indian",
+  "summary": "Black leaves the center, fortifies his king, and then blows everything up with one strike.",
+  "notes": {
+   "2": "Black isn't fighting for the center right now. Patience.",
+   "5": "The bishop on g7: a sniper on the long diagonal.",
+   "11": "e5! The blow everything else was preparing for.",
+   "13": "The center is closed, and now it's a war of the wings: Black with f5 and White with c5."
+  },
+  "planW": "Expand on the queenside with c5, and don't open the kingside for any reason.",
+  "planB": "Prepare f5 with the knight on e7 or g8, and then the kingside attack with pawns: f5-f4 and g5-g4."
+ },
+ "london-system": {
+  "name": "The London System",
+  "summary": "The same setup against almost anything: the least memorizing and the most safety possible.",
+  "notes": {
+   "2": "The bishop comes out before e3 locks it in. The most important rule in the London.",
+   "8": "c3 supports d4 and prepares a safe home for the bishop.",
+   "12": "The bishop goes back to g3 instead of being traded, and keeps looking along the diagonal."
+  },
+  "planW": "Continue the setup: Bd3, O-O and Ne5, and then either e4 or an attack on the kingside with Qf3 and h4.",
+  "planB": "Hit the center with c5 or e5, and trade off the London dark-squared bishop if you can."
+ },
+ "english-opening": {
+  "name": "The English",
+  "summary": "c4: control of d5 from the wing, and flexibility that lets you transpose into any system.",
+  "notes": {
+   "0": "The English: White controls d5 without a center pawn.",
+   "4": "It looks like a reversed Sicilian: White has an extra move.",
+   "6": "The fianchetto supports the center from afar."
+  },
+  "planW": "Control d5 with pieces, not pawns, and pressure the queenside with Rb1 and b4.",
+  "planB": "Hold the center with d5 or play quietly with d6 and g6, and watch out for the b4-b5 pressure."
+ },
+ "scandinavian": {
+  "name": "The Scandinavian",
+  "summary": "d5 in the face of e4 from the first move: direct, solid, and easy to learn.",
+  "notes": {
+   "1": "The challenge from the first move: d5!",
+   "3": "The queen takes back the pawn. Its only drawback: the queen will be chased.",
+   "5": "Qa5: the safe place for the queen, and from there she pressures the wing.",
+   "11": "c6 protects d5 and opens an exit for the queen."
+  },
+  "planW": "Gain time by chasing the queen with Nc3 and Bd2, and keep developing fast.",
+  "planB": "Develop calmly: Bf5 or Bg4, e6, Nbd7, and don't rush the queen back again."
+ },
+ "pirc-defense": {
+  "name": "The Pirc",
+  "summary": "Leave the center to White and besiege it: the defense of the cunning with cool nerves.",
+  "notes": {
+   "2": "Black lets White take the whole center.",
+   "6": "The fianchetto: the bishop on g7 besieges the center from afar.",
+   "11": "Bg4 pressures d4 through the knight."
+  },
+  "planW": "Take the center, but don't push all the pawns early: every push leaves weak squares behind.",
+  "planB": "Besiege the center with pieces, and strike it with e5 or c5 when ready, and the kingside isn't for show."
+ },
+ "kings-gambit": {
+  "name": "The King's Gambit",
+  "summary": "The boldest opening in history: the f4 pawn is a gift to break the center and attack f7 before Black can breathe.",
+  "notes": {
+   "2": "f4: the gambit. White gives a pawn in return for the center and the attack.",
+   "3": "Black accepted the challenge and took the pawn.",
+   "5": "g5: Black tries to keep the loot by force.",
+   "8": "Ne5! The knight at the center of the attack: the King's Gambit square.",
+   "13": "The position is on fire: White has development and a center, and Black holds an extra pawn but is undeveloped."
+  },
+  "planW": "Develop at lightning speed, open the f file, and aim everything at f7. If Black clings to the pawn, he'll be choked in development.",
+  "planB": "Give the pawn back at the right time (usually d5) and continue your development: whoever holds onto the loot to the end loses the game."
+ },
+ "queens-indian": {
+  "name": "The Queen's Indian",
+  "summary": "A calm and solid defense: the bishop on b7 besieges e4 from afar without Black putting a pawn in the center.",
+  "notes": {
+   "5": "b6: the bishop will come out on the longest diagonal on the board, a8-h1.",
+   "7": "Bb7 besieges e4 and keeps White from expanding easily.",
+   "13": "Ne4! Occupying the center with pieces, not pawns: the philosophy of the Indian school.",
+   "16": "Black continued his development soundly and there isn't a single weakness in his camp."
+  },
+  "planW": "Expand in the center with e4 if you can, or play on the queenside with b4 and a4.",
+  "planB": "Control e4, clarify the pieces with no future, and then attack White's center with d5 or c5."
+ },
+ "slav-defense": {
+  "name": "The Slav Defense",
+  "summary": "The most solid reply to the Queen's Gambit: c6 protects d5 without locking in the bishop, and Black always comes out with sound pieces.",
+  "notes": {
+   "3": "c6: the support for d5. The c8 bishop stays free - the Slav's advantage over the ordinary defense.",
+   "7": "dxc4: Black takes the gambit seriously.",
+   "9": "Bf5: the bishop came out before e6, and if it had waited it would have been locked in.",
+   "12": "White got his pawn back but Black stands solid as a rock."
+  },
+  "planW": "Use your space in the center, and prepare e4 or play on the half-open c file.",
+  "planB": "Continue your development in peace, and then break the center with c5 or e5 at the moment your pieces are ready."
+ },
+ "scotch-game": {
+  "name": "The Scotch",
+  "summary": "A direct and honest opening: `d4` on move three opens the game early and gives White a mobile center and free pieces.",
+  "notes": {
+   "4": "**d4!** The immediate strike: instead of maneuvering, White opens the center right away.",
+   "7": "**...Bc5** Black replies with attacking development - the game becomes open and fun.",
+   "9": "**...Qf6** A famous idea: pressure on the `d4` knight and the `f2` pawn at the same time.",
+   "13": "The center is broken and all the pieces are free: the Scotch gives an open game without the complexity of the Italian."
+  },
+  "planW": "Open the center early with d4, develop with checks and pressure on f7, and use the extra space before Black pulls himself together.",
+  "planB": "Meet the center with a center: d5 at the right time frees your pieces, and don't be afraid of trades - the position is equal but alive."
+ },
+ "grunfeld-defense": {
+  "name": "The Grünfeld",
+  "summary": "The defense of the rebels: Black lets White build a huge pawn center, and then demolishes it with long-range piece pressure on the big diagonal.",
+  "notes": {
+   "5": "**...d5!** The direct challenge: the Grünfeld isn't a diplomatic defense.",
+   "9": "**...Nxc3** gives White the dream center d4-e4... in appearance only.",
+   "11": "**...Bg7** The bishop on the big diagonal a1-h8: the Grünfeld's secret weapon that will hit the whole center.",
+   "15": "**...c5** The counterattack begins: every white center pawn becomes a target, not a strength.",
+   "23": "**...Na5** The knight heads for c4: the Grünfeld turns from a defense into a full counterattack."
+  },
+  "planW": "Keep your center and complete it in peace: d5 at the right moment gains space, but every extra advance creates a target.",
+  "planB": "Let them build the center and then tear it down: pressure with Bg7, c5, Nc6 and Bg4 - when a huge center falls, it falls all at once."
+ },
+ "petrov-defense": {
+  "name": "Petrov's Defense",
+  "summary": "The calm Russian defense: Black attacks the `e4` pawn at once instead of defending `e5` - an equal game without complexity.",
+  "notes": {
+   "3": "**...Nf6!** Attack is the best defense: Black attacks the `e4` pawn right away.",
+   "5": "**...d6** Patience first: the immediate capture `...Nxe4` too early would have given White the initiative.",
+   "7": "**...Nxe4** Now the capture is safe: the game is completely equal.",
+   "13": "**...Be7** Calm development: the Petrov isn't about attack, it's about solidity.",
+   "17": "A comfortable position for Black: a draw isn't a defeat, and White has to justify his initiative."
+  },
+  "planW": "Press on `e5` and try to create a kingside attack with `c4` and `Re1`, but the position leans toward a draw if Black is accurate.",
+  "planB": "Be accurate in development and don't rush to capture: `...d6` first, and then `...Nxe4` safely. An equal game against a player stronger than you is a win."
+ },
+ "nimzo-indian": {
+  "name": "The Nimzo-Indian",
+  "summary": "The most refined defense against `d4`: the bishop pressures `c3` and doubles the pawns - a strategic battle between structure and the two bishops.",
+  "notes": {
+   "5": "**...Bb4!** The Nimzo: it stops `e4` by pressuring the knight, not with pawns.",
+   "11": "**...c5** The strike at the center: everything in the Nimzo revolves around `d4` and `e4`.",
+   "15": "**...Bxc3** The historic deal: Black gives a bishop in return for doubling White's pawns - a permanent weakness.",
+   "19": "**...Qc7** The queen pressures the doubled pawns: a long-term target for the big games."
+  },
+  "planW": "Keep your bishops and strike in the center quickly before the weakness is felt: the Nimzo becomes critical if White falls behind.",
+  "planB": "Trade `...Bxc3` at the moment you double the pawns, and then besiege and pressure them: patience eats the center slowly."
+ },
+ "vienna-game": {
+  "name": "The Vienna",
+  "summary": "The cunning opening: `Nc3` looks calm, and then tactical surprises on the kingside catch even the strongest players.",
+  "notes": {
+   "2": "**Nc3** The Vienna: White hides his intentions - no obvious `Nf3` and no early `Bc4`.",
+   "5": "**...Nxe4** Black thinks he's won a pawn...",
+   "6": "**Qh5!** The surprise: the queen attacks and the knight is poisoned.",
+   "10": "**Nb5!** The threat of a check on `c7`: the Vienna turns from calm to a storm in one move.",
+   "16": "**Nxc7+** The royal check: the `a8` rook falls and Black has no castling.",
+   "18": "The knight looks odd on `a8` but White has won material and the initiative: the Vienna rewards boldness."
+  },
+  "planW": "Play it cunningly: develop calmly and then strike fast on the kingside with `f4` or `Bc4` - the relaxed Black gets surprised.",
+  "planB": "Reply with `...d5` early or play the solid version `...Nc6` and `...Bb4`, and watch out for `Qh5` if you plan to take `e4`."
+ },
+ "catalan": {
+  "name": "The Catalan",
+  "summary": "The opening of world championships: your bishop on the big diagonal pressures the queenside all game - a delicious, slow poison.",
+  "notes": {
+   "4": "**g3** The whole idea of the Catalan: the bishop goes to `g2` and looks along the longest diagonal on the board.",
+   "7": "**...dxc4** Black takes the pawn - and White leaves it for now, trusting the diagonal.",
+   "14": "**Qxc4** The pawn comes back with interest: the pressure on `b7` and `a8` remains.",
+   "19": "**...Be4** Black tries to close the diagonal: the real Catalan battle has begun. A typical position from here: long-term pressure for White, and accurate defense required from Black."
+  },
+  "planW": "Don't rush: the pressure of the `g2` bishop grows with time. Free the rooks onto open files and pressure the queenside.",
+  "planB": "Close the diagonal with `...Be4` and `...c6`, and free yourself with `...c5` at the right moment before the pressure chokes you."
+ },
+ "alekhine-defense": {
+  "name": "Alekhine's Defense",
+  "summary": "Provocation itself: Black makes White's pawns chase his knight until they overextend, and then strikes them. The opening of the fourth world champion.",
+  "notes": {
+   "1": "**...Nf6!** Alekhine's Defense: Black lures White's pawns to advance and overextend so he can strike them later.",
+   "8": "**f4** The four pawns attack: the fiercest reply to Alekhine, and White's center looks frightening.",
+   "21": "**...f6!** The counter-strike prepared from the start: breaking the advanced center.",
+   "23": "The position is equal: White's center has been broken but development makes the difference, and Black is solid and ready for the middlegame."
+  },
+  "planW": "Don't overextend carelessly: develop behind your pawns and keep your center, and use the `d6` square if Black miscalculates.",
+  "planB": "Provoke and strike: besiege the advanced pawns with `...d6` and `...f6`, and keep your pieces pressuring `d4` and `e5` until the center falls."
+ },
+ "dutch-defense": {
+  "name": "The Dutch",
+  "summary": "The fighting reply to `d4`: Black takes control of the `e4` square by force from the first move and builds a kingside attack - sometimes at the expense of his king's safety.",
+  "notes": {
+   "1": "**...f5** The Dutch: Black takes control of `e4` by force from the first move.",
+   "7": "**...d5** The Stonewall: a rock in the center, but the `c8` bishop becomes Black's chronic problem.",
+   "17": "**...Ne4** The central knight: the soul of the Dutch and the key to its attack on the king.",
+   "21": "A battle of open squares: Black holds `e4` and White looks for weak dark squares around the Stonewall."
+  },
+  "planW": "Besiege the Stonewall: trade off the bad `g2` bishop against `d6`, and pressure the dark squares (`e5` especially) and the locked-in `c8` bishop.",
+  "planB": "Build the Stonewall with patience (`...d5` `...c6`), focus your knight on `e4`, and solve the `c8` bishop problem early with `...b6` or `...Bd7-e8-h5`."
+ },
+ "reti-opening": {
+  "name": "The Réti",
+  "summary": "An opening of the hypermodern school: White besieges the center from afar with pieces and a fianchettoed bishop, and strikes it at the right moment.",
+  "notes": {
+   "0": "**Nf3** The Réti: maximum flexibility, and White reveals his intentions very slowly.",
+   "2": "**c4** Pressure on `d5` from the wing: the essence of the hypermodern school - besiege the center instead of occupying it.",
+   "22": "**e4** The central explosion: the Réti turns into a real war at exactly the right time.",
+   "29": "**...c5** Black's natural reply: a counter-strike on the center, and a lively position for both sides."
+  },
+  "planW": "Besiege from afar and strike on time: two bishops on the long diagonals, safe castling, and an `e4` explosion when all your pieces are ready.",
+  "planB": "Build a solid wall with `...c6` and `...e6`, develop calmly, and hit the center with `...c5` or `...dxc4` when White overextends."
+ },
+ "benoni-defense": {
+  "name": "The Modern Benoni",
+  "summary": "The fiercest reply to `d4`: Black sells space in return for a merciless counterattack on the queenside and the big diagonal. The opening of Fischer and Tal.",
+  "notes": {
+   "3": "**...c5** The Benoni: an immediate challenge to the center pawn, and Black accepts an advanced white center in return for sharp counterplay.",
+   "11": "**...g6** The bishop goes to `g7`: from the big diagonal it will look at the `b2` pawn and the half-open `e` file.",
+   "23": "**...Rb8** The classic preparation for `...b5`: breaking open the queenside is the dream of every Benoni player.",
+   "27": "**...Nh5** The knight heads toward `f4`: Black attacks on both wings, and White has to win before he's crushed."
+  },
+  "planW": "Use the space: pressure the weak `d6` pawn, tighten your grip on `c4` and `e4`, and don't give Black the chance for `...b5` for free.",
+  "planB": "Counterattack is a way of life: the `g7` bishop, pressure on the `e` file, `...a6` and `...b5`, and an active knight on `e5`. Don't play it if you like quiet."
+ },
+ "philidor-defense": {
+  "name": "Philidor's Defense",
+  "summary": "Solidity first: Black builds a small tight wall and waits for White to overextend. The opening of Philidor, who said \"pawns are the soul of chess\".",
+  "notes": {
+   "3": "**...d6** Philidor: protecting `e5` with the pawn, not the knight, and a solid wall from day one.",
+   "13": "**...c6** The wall is completed: Black is entrenched in a small but tight house.",
+   "19": "**...d5!** The central strike: when the fortification is complete, Black breaks the center and frees his pieces.",
+   "23": "The position is nearly equal: Black solved all his problems without giving White any target."
+  },
+  "planW": "Don't rush to break the wall: keep developing, take space quietly (`a4` for example), and pressure the `e5` point until Black is forced to resolve it on your terms.",
+  "planB": "Patience is your weapon: fortify `e5`, develop behind the wall, and then strike with `...d5` or `...exd4` at a time that suits you. The wall isn't surrender, it's tactics."
+ }
+}
