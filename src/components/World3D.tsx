@@ -7,6 +7,7 @@ import { WORLD3D_POSITIONS } from '../data/world3d'
 import { Icon } from './ui'
 import RichText from './RichText'
 import { useI18n } from '../lib/i18n'
+import { useW3Loc } from '../lib/i18n/content'
 
 const FILES = 'abcdefgh'
 
@@ -335,7 +336,8 @@ export default function World3D() {
     setIndex((i) => (i + dir + WORLD3D_POSITIONS.length) % WORLD3D_POSITIONS.length)
   }, [])
 
-  const pos = WORLD3D_POSITIONS[index]
+  const w3 = useW3Loc()
+  const pos = w3(WORLD3D_POSITIONS[index])
 
   return (
     <div>
@@ -414,7 +416,7 @@ export default function World3D() {
               i === index ? 'border-gold bg-gold-soft font-bold' : 'border-line bg-surface hover:border-gold/40'
             }`}
           >
-            {p.name}
+            {w3(p).name}
           </button>
         ))}
       </div>
