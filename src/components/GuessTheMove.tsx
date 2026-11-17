@@ -9,6 +9,7 @@ import { play } from '../lib/sound'
 import ChessBoard from './ChessBoard'
 import { Button } from './ui'
 import { useI18n } from '../lib/i18n'
+import { useGameLoc } from '../lib/i18n/content'
 
 type Phase = 'guess' | 'retry' | 'reveal' | 'done'
 
@@ -16,6 +17,7 @@ type Phase = 'guess' | 'retry' | 'reveal' | 'done'
 export default function GuessTheMove({ gameId }: { gameId: string }) {
   const { t } = useI18n()
   const g = GAMES.find((x) => x.id === gameId)!
+  const gl = useGameLoc()(g)
   // بتخمّن نقلات الفائز (الأبيض عند التعادل)
   const side: 'w' | 'b' = g.result === '0-1' ? 'b' : 'w'
   const { fens, history } = useMemo(() => replay(START_FEN, g.moves), [g])
@@ -115,7 +117,7 @@ export default function GuessTheMove({ gameId }: { gameId: string }) {
     setSavedBest((b) => Math.max(b, score))
   }, [phase]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const note = ply > 0 && phase !== 'done' ? g.notes[ply - 1] : undefined
+  const note = ply > 0 && phase !== 'done' ? gl.notes[ply - 1] : undefined
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -132,7 +134,7 @@ export default function GuessTheMove({ gameId }: { gameId: string }) {
       <div className="space-y-3">
         <div className="rounded-2xl border border-line bg-surface p-4">
           <p className="mb-1 text-sm text-muted">
-            {t(side === 'w' ? 'gm.youAreWhite' : 'gm.youAreBlack', { name: side === 'w' ? g.white : g.black })}
+            {t(side === 'w' ? 'gm.youAreWhite' : 'gm.youAreBlack', { name: side === 'w' ? gl.white : gl.black })}
           </p>
           <div className="flex items-baseline gap-3">
             <span className="font-display text-3xl font-bold text-gold" dir="ltr">{score}</span>
@@ -168,7 +170,7 @@ export default function GuessTheMove({ gameId }: { gameId: string }) {
               {t('gm.retryHint', { piece: t(`gm.piece${(expected?.piece ?? 'p').toUpperCase()}`) })}
             </p>
           ) : expected && expected.color === side ? (
-            <p>{t('gm.yourTurn', { name: side === 'w' ? g.white : g.black })}</p>
+            <p>{t('gm.yourTurn', { name: side === 'w' ? gl.white : gl.black })}</p>
           ) : (
             <p>{t('gm.opponentMove', { side: t(side === 'w' ? 'gm.sideBlack' : 'gm.sideWhite') })}</p>
           )}
