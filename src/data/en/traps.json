@@ -1,0 +1,603 @@
+{
+ "fools-mate": {
+  "name": "Fool's Mate",
+  "opening": "Any opening",
+  "summary": "The fastest mate in chess: just two moves. It happens when White opens the road to his own king.",
+  "notes": {
+   "0": "A weak move: this pawn was protecting the king, and doesn't control the center.",
+   "1": "Black takes the center and opens the road for the queen.",
+   "2": "The fatal mistake! Now the diagonal from h4 to the king is completely open.",
+   "3": "Checkmate. No piece can step in between, and the king has no square to flee to."
+  },
+  "avoid": "Don't move the f and g pawns early for no reason, especially both one after the other. They're the wall protecting your king."
+ },
+ "scholars-mate": {
+  "name": "Scholar's Mate (mate in four)",
+  "opening": "King's opening",
+  "summary": "The queen and bishop cooperate on the f7 square, which is Black's weakest square at the start because only the king protects it.",
+  "notes": {
+   "2": "The bishop looks at f7.",
+   "4": "The queen attacks f7 too, and also threatens the e5 pawn.",
+   "5": "The mistake! The knight attacks the queen, but doesn't protect f7. The right move was g6 or Qe7.",
+   "6": "Checkmate. The queen is protected by the bishop, so the king can't capture her."
+  },
+  "avoid": "When the queen and bishop look at f7, protect the square with Qe7 or g6, and then attack the queen with the knight. A queen that comes out early costs her owner time if handled right."
+ },
+ "legals-mate": {
+  "name": "Légal's Mate",
+  "opening": "Bishop's opening / Philidor Defense",
+  "summary": "White sacrifices the queen on purpose, and greedy Black takes her, and then he's mated by the two knights and the bishop.",
+  "notes": {
+   "5": "The bishop pins the knight against the queen.",
+   "7": "A slow move, and Black didn't notice the danger.",
+   "8": "A queen sacrifice! The knight isn't really pinned, because White has a mate if the queen is taken.",
+   "9": "Greed! Taking the queen loses the game. The right move was dxe5, losing only a pawn.",
+   "10": "Check, and the king is forced to move.",
+   "12": "Checkmate with the knight. The king is trapped by the two knights and the bishop."
+  },
+  "avoid": "Before you take a big piece \"for free\", ask yourself: why did the opponent leave it? And look for every check the opponent can give afterward."
+ },
+ "blackburne-shilling": {
+  "name": "Blackburne Shilling Gambit trap",
+  "opening": "Italian Game",
+  "summary": "Black leaves the e5 pawn unprotected and puts the knight in the center. If White captures with the knight and keeps being greedy, he gets smothered-mated.",
+  "notes": {
+   "5": "A strange move: the knight leaves the e5 pawn unprotected.",
+   "6": "White takes the pawn, and this is the start of the problem. Better was Nxd4 or c3.",
+   "7": "The queen attacks the knight and the g2 pawn at the same time.",
+   "8": "Fatal greed: the knight attacks the queen and the rook, but Black has the stronger move.",
+   "9": "The queen takes g2 and threatens the rook.",
+   "11": "Check, and the bishop is forced to step in.",
+   "13": "Smothered checkmate: the king is trapped by his own pieces."
+  },
+  "avoid": "If the opponent leaves his knight on d4 in front of your bishop and knight, the easiest is to take it with Nxd4 or just keep developing normally. And if you take e5 and the queen comes out to g5, retreat with the knight or protect g2 immediately."
+ },
+ "fishing-pole": {
+  "name": "Fishing Pole Trap",
+  "opening": "Spanish (Ruy Lopez)",
+  "summary": "Black throws his knight to g4 like bait. If White takes it with the h3 pawn, the h file opens and Black's queen gives mate.",
+  "notes": {
+   "7": "The bait: the knight goes to g4 for no obvious reason.",
+   "9": "Black leaves the knight where it is and protects with the h pawn.",
+   "10": "White took the bait! Now the h file will open onto the king.",
+   "11": "The pawn captured back, and the black rook now looks at h2 and h1.",
+   "12": "White tries to defend.",
+   "13": "The queen comes to h2, and mate is near.",
+   "15": "There's no defense: the queen will enter h1 or h2 with checkmate next move."
+  },
+  "avoid": "If the opponent leaves a \"free\" piece near your king and the h file might open, don't capture right away. Make sure the opponent's lines toward your king are closed."
+ },
+ "elephant-trap": {
+  "name": "Elephant Trap",
+  "opening": "Queen's Gambit Declined",
+  "summary": "White thinks Black's knight is pinned and he can take the pawn for free. But Black has a reply that wins a whole piece.",
+  "notes": {
+   "6": "The bishop pins the knight against the queen.",
+   "7": "A move that looks like it leaves the knight pinned, but it's a trap.",
+   "10": "The mistake! White thinks the f6 knight is pinned.",
+   "11": "The black knight captures, and leaves the queen in front of the bishop!",
+   "12": "White takes the queen...",
+   "13": "...but Black has a check with the bishop.",
+   "14": "White has to block with the queen.",
+   "15": "Black takes the queen with check.",
+   "17": "Black got the queen back, and came out with an extra knight."
+  },
+  "avoid": "A pin isn't always a real pin. Before you capture with a piece that's protected by a pinned piece, check whether the opponent can leave the queen and reply with a check."
+ },
+ "englund-trap": {
+  "name": "Englund Gambit trap",
+  "opening": "Englund Gambit",
+  "summary": "Black sacrifices a pawn, and if White tries to take everything with the bishop, Black delivers mate with the queen on c1.",
+  "notes": {
+   "1": "A gambit: Black leaves a pawn.",
+   "5": "The queen pressures the e5 pawn.",
+   "7": "Check with the queen.",
+   "9": "The queen takes the b2 pawn and threatens the rook.",
+   "10": "The mistake! It had to be Nc3 or Bc3 after the rook is properly protected.",
+   "11": "The bishop pins the c3 bishop.",
+   "15": "Checkmate. The king is trapped and no piece can step in between."
+  },
+  "avoid": "When the opponent's queen gets into your camp, make sure every square next to your king is protected, and don't leave the king on the first rank with the opponent's queen in front of it."
+ },
+ "lasker-trap": {
+  "name": "Lasker Trap",
+  "opening": "Albin Countergambit",
+  "summary": "A rare trap: the black pawn promotes to a knight with check early in the game, and then the bishop grabs White's queen too.",
+  "notes": {
+   "3": "The Albin Countergambit: Black sacrifices a pawn.",
+   "5": "The pawn enters White's territory.",
+   "6": "The mistake: `e3`? A natural move that looks like it solves the problem, but it opens the door to the trap.",
+   "7": "`Bb4+`! A check that pressures the defense.",
+   "9": "`dxe3`! The pawn opens everything: it attacks the bishop and the `f2` pawn.",
+   "10": "The fatal mistake: `Bxb4`?? White is happy to take the bishop \"for free\"...",
+   "11": "`exf2+`! A check with a pawn about to promote, and the king is forced to move.",
+   "12": "The king can't go to `e1` because of the check, and if he takes the pawn with `Kxf2` he loses his queen to `Qxd1`.",
+   "13": "`fxg1=N+`! Promotion to a knight with check - the most famous promotion in opening history. If it promoted to a queen, the rook would have captured it.",
+   "14": "`Rxg1` The rook has to take the knight.",
+   "15": "`Bg4+`! A check with the bishop - and the white queen on `d1` is exposed on the diagonal.",
+   "16": "The king moves...",
+   "17": "`Bxd1` and the bishop takes the queen - Black wins a whole queen from an opening trap."
+  },
+  "avoid": "In the Albin Countergambit, the pawn on d4 is dangerous: play Nf3 instead of e3. And if you get to dxe3, never take the bishop on b4 - play exd4 or Qxd8+ first."
+ },
+ "noahs-ark": {
+  "name": "Noah's Ark Trap",
+  "opening": "Spanish (Ruy Lopez)",
+  "summary": "The white bishop gets locked in by a chain of black pawns on a6, b5 and c4, and is lost in the end.",
+  "notes": {
+   "14": "The mistake! The queen takes the pawn, but Black will chase her.",
+   "15": "The pawn attacks the queen, and the chain closes on the bishop.",
+   "17": "The bishop attacks the queen again.",
+   "21": "The white bishop is trapped for good. The black pawns locked it in, and it will be lost."
+  },
+  "avoid": "In the Spanish, when the bishop is on b3 and the black pawns are on a6 and b5, calculate carefully before capturing in the center with the queen, and make an exit for the bishop with a4 or c3."
+ },
+ "siberian-trap": {
+  "name": "Siberian Trap",
+  "opening": "Smith-Morra Gambit (Sicilian)",
+  "summary": "The black knight goes to d4 and the queen on c7 looks at h2, and the result is mate or winning the queen.",
+  "notes": {
+   "4": "The Smith-Morra Gambit: White sacrifices a pawn.",
+   "11": "The queen looks at h2 from afar.",
+   "15": "The knight attacks h2 together with the queen.",
+   "16": "The mistake! White kicks the knight, but Black has a strong move.",
+   "17": "The knight attacks the white queen, and if the queen moves, Qh2 is mate. White will lose the queen."
+  },
+  "avoid": "When the opponent's queen and knight look at a square next to your king, don't make a pawn move in front of your king. Better to bring a piece that protects that square."
+ },
+ "mortimer-trap": {
+  "name": "Mortimer Trap",
+  "opening": "Spanish: Mortimer Defense",
+  "summary": "Black leaves the e5 pawn unprotected. If White takes it, Black chases the bishop with a pawn, and then forks with the queen and wins the knight.",
+  "notes": {
+   "7": "A move that looks wrong, leaving the e5 pawn unprotected.",
+   "8": "White takes the pawn.",
+   "9": "The pawn attacks the bishop.",
+   "10": "The mistake! The bishop runs away, but the knight on e5 is still unprotected.",
+   "11": "A fork: check with the queen, and at the same time an attack on the knight on e5. Black will win a piece."
+  },
+  "avoid": "When you take a pawn for free, look at all the checks the opponent can give, especially the check that attacks another unprotected piece."
+ },
+ "kieninger-trap": {
+  "name": "Kieninger Trap",
+  "opening": "Budapest Gambit",
+  "summary": "White kicks the black knight without seeing that his king will get smothered-mated by the knight.",
+  "notes": {
+   "3": "The Budapest Gambit: Black sacrifices a pawn.",
+   "9": "Check with the bishop.",
+   "11": "The queen pressures the e file.",
+   "12": "White attacks the bishop.",
+   "13": "The knight takes the e5 pawn and leaves the bishop.",
+   "14": "The mistake! White takes the bishop.",
+   "15": "Smothered checkmate! The knight gives check, the king is trapped by his own pieces, and the e2 pawn can't capture because it's pinned."
+  },
+  "avoid": "Before you capture a piece, look at the squares next to your king: if your king is locked in by your own pieces, any check from a knight can be mate."
+ },
+ "caro-smother": {
+  "name": "Caro-Kann smothered trap",
+  "opening": "Caro-Kann",
+  "summary": "A natural move played in a thousand games, and then a smothered mate on the very next move: the most famous short trap in the Caro-Kann.",
+  "notes": {
+   "6": "The knight goes to `e4` and everything is natural up to here.",
+   "7": "Black prepares his usual safe development.",
+   "8": "**Qe2** A quiet move that looks innocent, but it sets a trap.",
+   "9": "The fatal mistake! **...Ngf6** is a very ordinary move - played in thousands of games - but here it's forced mate. The right move is **...Ndf6** or **...e6**.",
+   "10": "**Nd6#** Smothered mate in the middle of the board: the knight can't be captured and the king is locked among his own pieces."
+  },
+  "avoid": "After Qe2 in the Caro-Kann, never rush ...Ngf6: play ...e6 or ...Ndf6 first. Any \"natural\" move should be checked when the opponent's knight is near your king."
+ },
+ "marshall-trap": {
+  "name": "Marshall Trap",
+  "opening": "Petrov",
+  "summary": "The legendary Marshall trap in the Petrov: a \"natural\" rook move is met by a bishop sacrifice on `h2` that wins material and the attack.",
+  "notes": {
+   "14": "**c4** White pressures the center and everything seems under control.",
+   "15": "**...Bg4** Marshall's famous bishop: it's preparing something heavy.",
+   "16": "**cxd5** White thinks he's winning.",
+   "17": "**...f5!** The knight gets pinned on `e4` and the attack prepares on the `d6-h2` diagonal.",
+   "18": "The mistake! **Re1** is 100% natural, but the king on `g1` is now exposed. It had to be something like `Be3`.",
+   "19": "**...Bxh2+!** The sacrifice that earned a century of fame: the bishop strikes and the king is forced to take it.",
+   "20": "The king captures...",
+   "21": "**...Nxf2** and the knight attacks the queen and takes the bishop on `d3`: Black has material and the attack, and the game is practically decided."
+  },
+  "avoid": "In the Petrov, when Black's knight is pinned on e4 and his bishop on g4, beware of the Bxh2+ sacrifice before any \"ordinary\" rook move: check the d6-h2 diagonal first."
+ },
+ "fried-liver": {
+  "name": "Fried Liver Attack",
+  "opening": "Two Knights",
+  "summary": "The most famous attack in school chess: the knight sacrifices itself on `f7` and the black king runs into the middle of the board while still in the opening.",
+  "notes": {
+   "6": "**Ng5** The attack on `f7`: the weakest square in Black's camp.",
+   "7": "**...d5** The right reply: it closes the bishop's diagonal.",
+   "9": "The mistake! **...Nxd5** gets the pawn back but opens the door to the Fried Liver. The right move is **...Na5** or **...Nd4**.",
+   "10": "**Nxf7!!** The famous sacrifice: the knight sacrifices itself to pull the king out.",
+   "11": "The king is forced to capture...",
+   "12": "**Qf3+** The queen comes in with check and the king will pay the price.",
+   "13": "**...Ke6** The black king in the middle of the board and the game is still in the opening!",
+   "14": "**Nc3** attacks the exposed knight and the material comes back with interest.",
+   "16": "The king will keep running under fire: a win for White straight out of the opening book."
+  },
+  "avoid": "In the Two Knights Defense after Ng5, never take the pawn with ...Nxd5: play ...Na5 (the main line) or ...Nd4 or ...b5. The cheap one costs a lot."
+ },
+ "traxler": {
+  "name": "Traxler Counterattack",
+  "opening": "Two Knights",
+  "summary": "The harshest reply to Ng5: Black ignores `f7` completely and sells material in return for a mating attack on the white king - the most famous counterattack in history.",
+  "notes": {
+   "6": "**Ng5** White threatens `f7` and thinks he's the attacker...",
+   "7": "**...Bc5!** The Traxler: Black ignores the threat completely and turns the tables.",
+   "8": "The mistake! **Nxf7** White captures thinking he's winning - the right move was **Bxf7+** only.",
+   "9": "**...Bxf2+!** The bishop sacrifices itself and the king is dragged out of his home.",
+   "10": "There's no declining: declining was worse.",
+   "11": "**...Nxe4+** The knight enters with check and the king is in the open.",
+   "13": "**...Qh4** The queen comes in and the threats on `g3` and `h2` are terrifying.",
+   "14": "A desperate attempt to kick the queen away...",
+   "15": "**...Nxg3** The knight sacrifices too!",
+   "17": "**...Qxg3+** and mate follows: a complete win for Black - which is why professionals respect the Traxler to this day."
+  },
+  "avoid": "Against the Two Knights, don't play Ng5 and take on f7 carelessly: the Traxler punishes greed immediately. And if you're Black: ...Bc5! turns the defense into a nightmare for White."
+ },
+ "tarrasch-trap": {
+  "name": "Tarrasch Trap",
+  "opening": "Closed Spanish",
+  "summary": "Marco against Tarrasch 1892: a \"natural\" castling loses to tactics in the most famous strategic trap in the Spanish.",
+  "notes": {
+   "13": "The mistake! **...O-O?** looks like the most natural move in the world, but it loses to the tactics that follow. The right move is **...exd4** first.",
+   "20": "**Nxe5!** The chain begins: exchanges calculated precisely by Tarrasch.",
+   "24": "**Nd3!** The golden move: the knight retreats and Black thinks he's won a piece...",
+   "30": "**Bg5!** The `d8` rook is in the noose and the trouble continues.",
+   "34": "**c4** and the rook is trapped: White wins the difference. This trap was played in an official tournament in 1892 and still punishes early castling today."
+  },
+  "avoid": "In the Closed Spanish, don't castle before resolving the central tension: play ...exd4 or keep the tension. The \"natural\" early castling loses to tactics here."
+ },
+ "halosar-trap": {
+  "name": "Halosar Trap",
+  "opening": "Blackmar-Diemer",
+  "summary": "Black takes all the offered pawns and chases the queen with ...Bg4, and then comes the reply that turns the tables: Nb5!!",
+  "notes": {
+   "8": "**Qxf3** The Halosar trap starts here: the queen stands in the storm and looks exposed.",
+   "10": "**Be3** The black queen went deep into White's camp on her own...",
+   "13": "The mistake! **...Bg4?** attacks the queen and looks like a winning move, but it carries a disaster.",
+   "14": "**Nb5!!** The deadly reply: White ignores the attack on his queen and threatens **Nxc7 mate**!",
+   "15": "**...Na6** An attempt to cover `c7`...",
+   "16": "**Qxb7** and White wins a pawn with a crushing attack: the `a6` knight is under fire and the checks follow one after another. The most famous trap in the Blackmar-Diemer Gambit."
+  },
+  "avoid": "Against the Blackmar-Diemer, don't take all the offered pawns: keep developing and bring the queen back early. And never try to chase their queen with ...Bg4: Nb5 turns it against you."
+ },
+ "damiano-trap": {
+  "name": "Damiano Defense Trap",
+  "opening": "Damiano Defense",
+  "summary": "The oldest documented trap in chess history (1512): the ...f6 move that looks like it defends the center loses the game from the start.",
+  "notes": {
+   "3": "The mistake! **...f6?** Damiano's Defense: it opens the most dangerous diagonal against your king (`a2-g8`) and paralyzes the `g8` knight from the second move of the game.",
+   "4": "**Nxe5!** The immediate sacrifice: the pawn isn't protected enough.",
+   "6": "**Qh5+** The check that exposes the broken diagonal.",
+   "8": "**Qxe5+** The queen captures and looks at the corner.",
+   "10": "**Qxh8** and the rook fell: a full advantage for White before the moves pass ten.",
+   "12": "**Kd1** Black got a pawn back but the loss is complete. Damiano documented this lesson in 1512 and players still fall for it every day."
+  },
+  "avoid": "Never play ...f6 in the opening: it breaks the king's diagonal and paralyzes your knight. Defend the e5 pawn with ...Nc6 or ...d6 and develop your pieces."
+ },
+ "stafford-gambit": {
+  "name": "Stafford Gambit trap",
+  "opening": "Petrov's Defense",
+  "summary": "The most famous online trap: Black sacrifices a pawn and his knight in return for a crushing attack on White's king.",
+  "notes": {
+   "0": "White starts with e4 and everything is natural.",
+   "1": "e5 is natural.",
+   "2": "The knight attacks the pawn.",
+   "3": "Petrov's Defense: a counterattack on the e4 pawn.",
+   "4": "White takes the pawn and is happy.",
+   "5": "Here the trap starts: Black offers his knight!",
+   "6": "White captures. He looks like he's won a piece.",
+   "7": "Black takes back with the pawn and opens the bishop's diagonal.",
+   "8": "White fortifies his center.",
+   "9": "The bishop looks at the weakest square, f2.",
+   "10": "The mistake: Bg5 looks like nice development, but it falls into the trap.",
+   "11": "Nxe4! The sacrifice: the knight for free? Of course not.",
+   "12": "White takes the knight...",
+   "13": "and the queen takes the bishop. The result: Black won a pawn and opened all the lines on White's king, and the coming attack is very hard to meet."
+  },
+  "avoid": "Against the Petrov, after Nxe5 Nc6 play Nxc6 and then Nc3 or d4 calmly. Don't take the sacrificed knight on e4, and don't play Bg5 early: keep your eye on f2."
+ },
+ "budapest-trap": {
+  "name": "Budapest Trap",
+  "opening": "Budapest Gambit",
+  "summary": "Mate by the knight in the heart of White's camp: the move that looks like it wins a bishop loses the game immediately.",
+  "notes": {
+   "0": "White starts with d4.",
+   "1": "Natural development.",
+   "2": "White occupies the other center square.",
+   "3": "The Budapest Gambit: Black offers the e5 pawn!",
+   "4": "White accepts the gambit.",
+   "5": "The knight chases the pawn right away.",
+   "6": "White protects the pawn with the bishop.",
+   "7": "Black develops and pressures.",
+   "8": "Natural development.",
+   "9": "Check with the bishop: it squeezes White.",
+   "10": "The knight blocks the check.",
+   "11": "The queen comes to the e file: look closely at the e2 square, this is the key to the coming mate.",
+   "12": "White kicks the bishop and is happy he'll capture it.",
+   "13": "The knight goes back to take the pawn.",
+   "14": "The disaster: axb4 takes the bishop \"for free\"...",
+   "15": "Nd3 mate! The knight gives check, and the king is locked by his own pieces: the queen on d1, the bishop on f1 and the pawn on f2, and the e2 pawn is pinned by the black queen on the e file."
+  },
+  "avoid": "In the Budapest, don't take the bishop on b4 with the wing pawn if your knight is still on d2. Play Nc3 or Nbd2 and continue developing, and the pieces will come calmly."
+ },
+ "tennison-gambit": {
+  "name": "Tennison Gambit",
+  "opening": "Réti Opening",
+  "summary": "Black kicks the knight with h6, and then finds his queen sold cheaply.",
+  "notes": {
+   "0": "White starts quietly with Nf3.",
+   "1": "Black occupies the center.",
+   "2": "The surprise: e4! A gambit right away.",
+   "3": "Black takes the pawn. Why not?",
+   "4": "The knight attacks f7 like in Scholar's Mate.",
+   "5": "Black protects and develops.",
+   "6": "White offers another pawn!",
+   "7": "Black takes the second one too. Very materialistic.",
+   "8": "The bishop takes the pawn back and looks at the kingside.",
+   "9": "The mistake: h6 kicks the knight, and looks very logical.",
+   "10": "Nxf7! A sacrifice: a fork on the queen and the rook.",
+   "11": "The king is forced to capture the knight.",
+   "12": "Bg6 check: the bishop drags the king out.",
+   "13": "The king takes the bishop...",
+   "14": "and the queen takes Black's queen on d8 with no reply. White won a queen for a knight and a bishop, and the game is practically over."
+  },
+  "avoid": "If the opponent sacrificed two pawns in the opening, don't kick the knight with h6 while you're behind in development. Play Nf6 and Be6 or e6, and watch any piece looking at f7."
+ },
+ "owen-trap": {
+  "name": "Owen's Defense Trap",
+  "opening": "Owen's Defense",
+  "summary": "Black takes a pawn on g2, and after 6 moves he gets mated out of the blue.",
+  "notes": {
+   "0": "White starts with e4.",
+   "1": "Owen's Defense: Black prepares his bishop on the a8-h1 diagonal.",
+   "2": "White takes the center.",
+   "3": "The bishop on the longest diagonal on the board.",
+   "4": "Calm development.",
+   "5": "Black attacks White's center with f5.",
+   "6": "White captures.",
+   "7": "The bishop takes the g2 pawn and threatens the rook. It looks like he's won!",
+   "8": "Qh5 check: the queen suddenly enters the game.",
+   "9": "Black blocks with the g6 pawn.",
+   "10": "White captures, and the diagonal onto the king opened.",
+   "11": "The fatal mistake: Nf6 attacks the queen. Very logical in appearance.",
+   "12": "gxh7 discovered check! The queen attacks the king from behind the pawn.",
+   "13": "The knight takes the queen to protect the king...",
+   "14": "Bg6 mate! The bishop on g6 gives check, and Black's king is locked by his own pieces: the queen on d8 and the pawns on d7 and e7 lock everything."
+  },
+  "avoid": "After fxg6 don't play Nf6 attacking the queen. Play Bg7 to protect the king and answer the threat, or Qe7. The queen isn't important when the king is in danger."
+ },
+ "evans-gambit": {
+  "name": "Evans Gambit: the crushed defense",
+  "opening": "Italian",
+  "summary": "Black takes three pawns in a row, and finds himself under an attack he can't withstand.",
+  "notes": {
+   "0": "An ordinary Italian at the start.",
+   "1": "Everything is natural so far.",
+   "2": "The knight attacks e5.",
+   "3": "The knight protects.",
+   "4": "The bishop on c4.",
+   "5": "The bishop on c5.",
+   "6": "The Evans Gambit! White offers the wing pawn to gain time.",
+   "7": "Black accepts.",
+   "8": "c3: pressure on the bishop and preparing d4.",
+   "9": "The bishop goes back to a5.",
+   "10": "d4: White takes the whole center. This is the idea of the gambit.",
+   "11": "Black captures.",
+   "12": "White castles instead of getting the pawn back.",
+   "13": "The mistake: dxc3! Black takes a third pawn and looks happy. But this is exactly what White wants.",
+   "14": "Qb3! A double strike on f7 and the b file.",
+   "15": "Black protects with the queen.",
+   "16": "e5! The queen gets chased from the defense.",
+   "17": "The queen runs.",
+   "18": "And White gets the pawn back and his attack is terrifying: all his pieces are developed and Black has only 3 pawns and not a single piece outside its home except the queen."
+  },
+  "avoid": "If you accept the Evans Gambit, don't take the third pawn on c3. Play d3 or Nge7 or go back with the bishop and continue your development. Material isn't everything when you're 4 moves behind in development."
+ },
+ "rubinstein-trap": {
+  "name": "Rubinstein Trap",
+  "opening": "Queen's Gambit Declined",
+  "summary": "A natural move that looks fine (f5) loses a pawn to the hanging knight, and if you capture with the pawn you trap your queen with Bc7.",
+  "notes": {
+   "22": "The bishop retreats and looks completely calm.",
+   "23": "The mistake: f5? A very natural move, but the knight on d5 is now hanging without enough protection.",
+   "24": "Nxd5! The knight captures for free. And if you capture with the pawn cxd5?? Bc7 comes and your queen is trapped."
+  },
+  "avoid": "In the Orthodox, don't play f5 while your knight is hanging on d5: play ...Ndf6 or ...Ndf8 first to undo the hanging."
+ },
+ "qga-queen-trap": {
+  "name": "Queen trap in the Queen's Gambit Accepted",
+  "opening": "Queen's Gambit Accepted",
+  "summary": "Black tries to protect the extra pawn with b5 and c6, but after axb5 cxb5 he falls into a hanging position: Qf3! attacks a8 and the rook is lost.",
+  "notes": {
+   "5": "Black tries to protect the extra pawn.",
+   "7": "Another fortification of the pawn... and the start of the problem.",
+   "9": "The mistake: cxb5? It opens the a5-e1 diagonal and the c8 bishop is now hanging.",
+   "10": "Qf3! The queen hits the rook on a8 and the bishop on c8 at the same time - one of them is lost."
+  },
+  "avoid": "If you take the pawn in the Queen's Gambit Accepted, don't try to keep it with b5 and c6: give it back calmly and keep developing, or protect it with a6, not b5."
+ },
+ "smith-morra-trap": {
+  "name": "Smith-Morra Trap",
+  "opening": "Smith-Morra Gambit (Sicilian)",
+  "summary": "The famous Fajarowicz rule: against the Smith-Morra never play Bg4 - Bxf7+! and after the knight check your queen on g4 is gone.",
+  "notes": {
+   "15": "The mistake: Bg4? The rule: against the Smith-Morra this bishop must never go to g4.",
+   "16": "Bxf7+! The bishop sacrifice with check.",
+   "18": "Ng5+! Another check and the king is exposed.",
+   "20": "Qxg4 and the queen takes the bishop that nothing protects - White wins a whole piece."
+  },
+  "avoid": "Against the Smith-Morra, don't move your bishop to g4 before you castle or move his knight away from those squares: play ...Be7 or ...e6 and keep developing calmly."
+ },
+ "boden-kieseritzky": {
+  "name": "Boden-Kieseritzky Trap",
+  "opening": "Bishop's opening",
+  "summary": "White sacrifices a knight in the opening, and if Black lingers in the natural line, he takes Nxe5! and grabs everything with the queen on e5.",
+  "notes": {
+   "5": "White offers his knight!",
+   "7": "Black captured... and now he has to defend correctly.",
+   "10": "The mistake: Be7? Calm development at a time when there's no time.",
+   "11": "Nxe5! Capturing for free.",
+   "13": "Qh5+ check and the queen comes into the heart of the home.",
+   "15": "Qxe5 and White's queen holds the whole board."
+  },
+  "avoid": "Against the Boden-Kieseritzky, after dxc3 don't defend with pawns only: play c6 or Nc6, and don't forget your king is still in the center and Qh5+ is always there."
+ },
+ "london-queen-trap": {
+  "name": "London System queen trap",
+  "opening": "London System",
+  "summary": "Black takes the greedy b2 pawn, but Nb5! closes everything: the queen is trapped and the rook on a8 falls, and if he tries to save it with Na6, Rb1 comes after it.",
+  "notes": {
+   "9": "The mistake: Qxb2?? The greedy b2 pawn - the most famous poisoned pawn in the system.",
+   "10": "Nb5! The knight closes the queen's retreat and threatens Nc7+ to take the rook. The queen is trapped."
+  },
+  "avoid": "The b2 pawn in the London System is poisoned: never take it with your queen. Attack the center with c5 or e6 and keep the queen where she is - a queen that goes out to capture early gets trapped."
+ },
+ "giuoco-piano-trap": {
+  "name": "Giuoco Piano Trap",
+  "opening": "Italian - Giuoco Piano",
+  "summary": "Black takes the bishop on a1 and feels like a winner, but Bxf7+ and Bg5 and Ne5 put his king in the fire - a famous attack that wins by force.",
+  "notes": {
+   "13": "Black takes the knight.",
+   "17": "Bxc3? The bishop captures and stays exposed.",
+   "19": "The mistake: Bxa1?? The greedy capture of the rook - the beginning of the end.",
+   "20": "Bxf7+! The check drives the king out.",
+   "22": "Bg5! The bishop comes with pressure on the hanging knight.",
+   "24": "Ne5! The knight in the center and mating threats from every side."
+  },
+  "avoid": "In the Giuoco Piano after Qb3, don't take the rook on a1: play d5 or Bxc3 and go back with the bishop - the rook is a deadly trap."
+ },
+ "philidor-trap": {
+  "name": "Philidor Trap",
+  "opening": "Philidor Defense",
+  "summary": "A natural developing move (Ngf6) loses the queen: dxe5 and after the exchanges Bxf7+ takes with check and grabs the queen on d8.",
+  "notes": {
+   "7": "The mistake: Ngf6?? Natural development that looks completely safe...",
+   "8": "dxe5! White opens the center.",
+   "10": "Nxe5! The sacrifice that breaks everything.",
+   "12": "Bxf7+! The bishop sacrifices itself with check.",
+   "14": "Qxd8 and the queen takes the queen - White wins on pieces."
+  },
+  "avoid": "In the Philidor Defense, don't develop the g-knight to f6 before you resolve the e5 pawn: play exd4 or Be7 first, and watch the hanging d8."
+ },
+ "dutch-trap": {
+  "name": "Dutch Trap",
+  "opening": "Dutch Defense",
+  "summary": "Black chases the bishop with pawns until he captures it, but the pawn that fell opens the king: Qh5# mate right away.",
+  "notes": {
+   "3": "Black chases the bishop.",
+   "5": "Another chase...",
+   "7": "And a third! The bishop looks trapped.",
+   "9": "The mistake: fxg3?? The capture opens the dead king's diagonal.",
+   "10": "Qh5# mate - the diagonal that opened costs the whole game."
+  },
+  "avoid": "In the Dutch, don't chase the bishop with h6 and g5 and f4 one after another: every pawn move weakens your king. Develop your knight first and open e6."
+ },
+ "smyslov-caro-trap": {
+  "name": "Smyslov Trap",
+  "opening": "Caro-Kann - Smyslov variation",
+  "summary": "A natural kicking move (h6) provokes the sacrifice: Nxf7! and the king gets pulled out to the middle of the board and the queen comes to e2 with a mate threat.",
+  "notes": {
+   "10": "Smyslov plays Ng5!? - it looks like a waste of time, and this is the start of the trap.",
+   "15": "The mistake: h6?? A natural kick of the knight... but it allows the sacrifice.",
+   "16": "Nxf7! The knight sacrifices itself on f7.",
+   "18": "Ng5+! Another check and the king is exposed in the middle.",
+   "20": "Qe6+ and the queen finishes it - mate is very near and there's no defense."
+  },
+  "avoid": "Against the Smyslov variation (Ng5), don't kick the knight with h6 before castling: play O-O first or Qc7, and always check Nxf7! before you move the pawn."
+ },
+ "french-advance-trap": {
+  "name": "Tarrasch Trap (French Advance)",
+  "opening": "French - Advance variation",
+  "summary": "Bd3 looks like a mistake that loses a pawn, and Black goes down to take with the queen... but Bb5+! and after the exchange the queen gets pinned to the king on the d file and trapped - one of the most famous queen traps in history.",
+  "notes": {
+   "10": "Bd3!? Tarrasch offers the d4 pawn as bait - it looks like a mistake and is actually a trap.",
+   "15": "The mistake: Qxd4?? The queen goes down to take the pawn...",
+   "16": "Bb5+! Check and the queen can't move.",
+   "18": "Bxd7+! A forced exchange.",
+   "19": "And the king takes its place on the d file...",
+   "20": "Qxd4!! The queen takes the queen that's hanging on the king - Black loses a whole queen."
+  },
+  "avoid": "In the French Advance, if the d4 pawn is broken in this order, never take it with the queen: Bb5+ traps her on the king's file. Keep developing with Nge7 or Bd7 first."
+ },
+ "magnus-smith-trap": {
+  "name": "Magnus Smith Trap",
+  "opening": "Sicilian - Sozin attack",
+  "summary": "Black takes the greedy pawn, but Bxf7+! drags the king out and then Qxd8 takes the queen and no piece brings it back - a whole queen for free.",
+  "notes": {
+   "14": "e5! The kick that opens the trap.",
+   "15": "The mistake: dxe5?? A natural capture that looks relieving...",
+   "16": "Bxf7+! The bishop sacrifices with check.",
+   "18": "Qxd8 and the queen takes the queen - and not a single black piece brings it back."
+  },
+  "avoid": "In the Sozin, after e5 never take the pawn: move the knight (Nd7 or Ng4) and keep your queen protected - any capture opens d8 for a Bxf7+ strike."
+ },
+ "petrov-trap": {
+  "name": "Petrov Trap",
+  "opening": "Petrov's Defense",
+  "summary": "Black copies White and takes the pawn, but after Qe2 the knight is pinned, and if he thinks of going back with Nf6, Nc6+ comes, a discovered check, and Black's queen is gone.",
+  "notes": {
+   "4": "Black copies White and takes the pawn - an inaccurate move but not a disaster on its own.",
+   "6": "Qe2! The queen pins the knight on the e file against the king.",
+   "7": "The mistake: Nf6?? The natural escape looks fine... but it opens the file.",
+   "8": "Nc6+! A discovered check from the queen and the knight attacks Black's queen at the same time.",
+   "10": "Nxd8 and the knight takes the queen - Black loses his queen for a knight."
+  },
+  "avoid": "In the Petrov, don't copy the capture: play 3...d6 first, and after Qe2 support the knight with Qe7 or d5, and never retreat the knight while it's pinned."
+ },
+ "greco-trap": {
+  "name": "Greco Trap",
+  "opening": "Italian - Giuoco Piano",
+  "summary": "Black takes your bishop on c3 and thinks he's winning, but after Qb3! the double strike comes the big greed: Bxa1?? taking the rook - and from here the deadly attack on the bare king has no way back.",
+  "notes": {
+   "17": "Bxc3? The bishop captures and enters the range of the double strike.",
+   "18": "Qb3! A double strike on the bishop and the f7 pawn.",
+   "19": "The mistake: Bxa1?? The greedy capture of the rook - the beginning of the end.",
+   "20": "Bxf7+! The check brings the king out of his home.",
+   "22": "Bg5! The knight on e7 is pinned and there's no good defense.",
+   "24": "Ne5! The knight in the center and mate is a matter of time."
+  },
+  "avoid": "In the Italian, after 9.O-O play 9...d5 or Bxc3 just once and with calculation: this position has been studied since Greco's time - the greedy capture loses to the attack."
+ },
+ "wayward-queen-trap": {
+  "name": "Wayward Queen counter-trap",
+  "opening": "Early queen attack (Wayward Queen)",
+  "summary": "White attacks with Qb3 on f7 and b7 and thinks he's winning, but Nd4! turns the tables: the king goes to e7 safely, and after b5! the bishop is besieged and White loses his queen or a piece.",
+  "notes": {
+   "4": "The mistake: Qb3?? A double strike that looks winning on f7 and b7 - and it's the start of the disaster.",
+   "5": "Nd4! The deadly reply: an attack on the queen and the c2 pawn is hanging.",
+   "6": "Bxf7+ White continues his plan and captures with check...",
+   "7": "Ke7! The king moves calmly - no mate, and the attack is over.",
+   "9": "b5! The pawn chases the queen and besieges the bishop on f7.",
+   "11": "Nxb3! The knight takes the queen.",
+   "13": "Kxf7 and the king takes the besieged bishop - Black wins a queen and a piece."
+  },
+  "avoid": "Don't bring your queen out early: an early attack with Qh5 and Bc4 against a player who knows the reply loses a piece - develop your pieces first."
+ },
+ "fajarowicz-trap": {
+  "name": "Fajarowicz Trap",
+  "opening": "Budapest Gambit",
+  "summary": "White plays g3 to fianchetto, which looks like the calmest move in the world - but Nxf2! is a sacrifice that breaks everything: the king gets dragged out, the bishop comes with check, and White's queen is lost.",
+  "notes": {
+   "12": "The mistake: g3?? A calm fianchetto that looks safe - and the knight on e4 is waiting for it.",
+   "13": "Nxf2! The sacrifice breaks the white camp.",
+   "15": "Bxg3+! Another bishop sacrifices itself with check.",
+   "17": "Qxd1 and the queen takes the queen - White loses his queen for a knight and a bishop."
+  },
+  "avoid": "Against the Budapest don't rush the fianchetto: play Qc2 first and control e4, and then fianchetto at your leisure with the knight under control."
+ },
+ "wing-gambit-trap": {
+  "name": "Wing Gambit Trap",
+  "opening": "Sicilian - Wing Gambit",
+  "summary": "White continues the sacrifice plan and takes axb4, but the queen comes out Qe5+! check and at the same time attacks the exposed a1 rook - White loses the rook.",
+  "notes": {
+   "8": "The mistake: axb4?? The capture opens the a1-h6 diagonal onto the rook.",
+   "9": "Qe5+! Check and an attack on the rook at the same time.",
+   "11": "Qxa1 and the queen takes the rook - Black wins on material."
+  },
+  "avoid": "In the Wing Gambit, after the queen comes to d5 never take axb4: play Nf3 or Bb2 first and protect the rook before you open the file."
+ }
+}

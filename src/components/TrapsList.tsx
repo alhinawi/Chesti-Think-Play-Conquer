@@ -8,6 +8,8 @@ import { ChipRow, FilterCard, FilterSelect, levelOpts, matchesProgress, progress
 import { TRAPS } from '../data/traps'
 import { TRAP_STRENGTH } from '../data/trap-strength'
 import { replay, START_FEN } from '../lib/chess'
+import { levelSlug } from '../lib/i18n/dataLabels'
+import { useTrapLoc } from '../lib/i18n/content'
 import { useI18n } from '../lib/i18n'
 
 const lenOpts = (t: (k: string) => string) => [
@@ -24,6 +26,7 @@ function lenBucket(plies: number) {
 
 export default function TrapsList() {
   const { t: i18n } = useI18n()
+  const lt = useTrapLoc()
   const [q, setQ] = useState('')
   const [side, setSide] = useState('all')
   const [level, setLevel] = useState('all')
@@ -32,7 +35,7 @@ export default function TrapsList() {
   const [len, setLen] = useState('all')
   const isDone = useDone('traps')
 
-  const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(TRAPS.map((x) => x.opening))].sort().map((o) => ({ v: o, label: o }))]
+  const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(TRAPS.map((x) => x.opening))].sort().map((o) => ({ v: o, label: lt(TRAPS.find((x) => x.opening === o)!).opening }))]
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase()
@@ -69,7 +72,8 @@ export default function TrapsList() {
           <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">{i18n('lb.emptyTraps')}</p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((t) => {
+            {filtered.map((t0) => {
+              const t = lt(t0)
               const { fens } = replay(START_FEN, t.moves)
               return (
                 <li key={t.id}>
@@ -90,7 +94,7 @@ export default function TrapsList() {
                         )}
                         <Badge tone="muted">{t.opening}</Badge>
                         <Badge tone={t.side === 'w' ? 'gold' : 'emerald'}>{i18n('lb.setByBadge', { side: t.side === 'w' ? i18n('lb.sideW') : i18n('lb.sideB') })}</Badge>
-                        <Badge tone="muted">{t.level}</Badge>
+                        <Badge tone="muted">{levelSlug(t.level) ? i18n(`pz.level${levelSlug(t.level)}`) : t.level}</Badge>
                       </div>
                     </div>
                   </Link>
