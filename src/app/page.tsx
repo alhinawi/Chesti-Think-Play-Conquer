@@ -18,6 +18,7 @@ import { BotAvatar } from '../components/BotAvatar'
 import { COACH } from '../lib/coach'
 import { RANKS } from '../lib/rank'
 import { useI18n } from '../lib/i18n'
+import { useBotLoc } from '../lib/i18n/content'
 
 const SECTIONS = [
   { href: '/learn', group: 'learn', icon: 'learn', key: 'learn', n: ALL_LESSONS.length },
@@ -38,6 +39,7 @@ const SECTIONS = [
 
 export default function Home() {
   const { t } = useI18n()
+  const bl = useBotLoc()
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -129,7 +131,7 @@ export default function Home() {
                     <span className="text-xs text-muted">{t('home.level')} <bdi className="ltr">{b.level}</bdi></span>
                   </span>
                 </span>
-                <span className="mt-2 text-sm text-muted">«{b.greet}»</span>
+                <span className="mt-2 text-sm text-muted">«{bl(b).greet}»</span>
               </Link>
             </li>
           ))}
