@@ -599,5 +599,987 @@
    "11": "Qxa1 and the queen takes the rook - Black wins on material."
   },
   "avoid": "In the Wing Gambit, after the queen comes to d5 never take axb4: play Nf3 or Bb2 first and protect the rook before you open the file."
+ },
+ "budapest-boxed-king": {
+  "name": "The king his own pieces smothered",
+  "opening": "Budapest Defense",
+  "summary": "White developed his knight to the wrong square, so the king got smothered by his own pieces: his queen, knight, bishop and pawn locked every square, and the bishop landed on f2 with checkmate on move six.",
+  "notes": {
+   "3": "The Budapest Gambit: Black sacrifices a pawn to open lines and attack quickly.",
+   "5": "The knight looks at f2 and e3.",
+   "9": "The bishop takes a dangerous post on the a7-g1 diagonal.",
+   "10": "The fatal mistake! The knight locked in his own king completely: he's now surrounded by his queen (d1), pawn (e2), bishop (f1) and knight (d2). The right move was `e3`, opening an escape square for the king.",
+   "11": "**Checkmate!** The bishop is protected by the `g4` knight so the king can't capture it, and there's not a single empty square around him. He was smothered by his own pieces."
+  },
+  "avoid": "Don't crowd your king with your own pieces early. Before you develop a knight to d2, make sure the king has an escape square like e2 or d1."
+ },
+ "englund-back-rank": {
+  "name": "Back rank mate in 7 moves",
+  "opening": "Englund Gambit",
+  "summary": "After the queens came off, White took his knight far away and left the first rank open. The rook came down to d1 with checkmate, and the king has no squares.",
+  "notes": {
+   "7": "The bishop on g4 covers e2 and d1 and prevents comfortable development.",
+   "10": "The queens are traded, but that doesn't mean the danger is over.",
+   "11": "The rook is now on the open d file, with her eye on the first rank.",
+   "12": "The fatal mistake! The knight left its post and `d1` is unprotected. The right move was `Nc3` to cover that square.",
+   "13": "**Checkmate!** The rook holds the whole first rank, the bishop on g4 covers e2, and the f2 pawn locks the king in. Nothing can capture the rook or step in between."
+  },
+  "avoid": "Even after the queens are traded, the first rank stays dangerous. Develop the b1 knight to c3 early so it covers d1."
+ },
+ "bdg-knight-mate": {
+  "name": "Pawn greed and a knight mate",
+  "opening": "Blackmar-Diemer Gambit",
+  "summary": "Black got greedy for a pawn while still undeveloped and uncastled, so the knight jumped to d6 with checkmate and the king is hemmed in by his own pieces.",
+  "notes": {
+   "4": "The Blackmar-Diemer Gambit: White sacrifices a pawn for fast development and an attack.",
+   "12": "The knight went back to the center and is now close to d6.",
+   "13": "The fatal mistake! Greed for the d4 pawn while behind in development and without castling. The right move was `Nxe4`, removing the dangerous knight.",
+   "14": "**Checkmate!** The knight on d6 covers f7, c8 and e8, the h4 bishop covers d8, and the king is locked behind his knight and pawn."
+  },
+  "avoid": "Against the gambit, being greedy for extra pawns before you finish developing and castle costs the game. Remove the attacking pieces first."
+ },
+ "caro-queen-hunt": {
+  "name": "The queen that went out to eat",
+  "opening": "Caro-Kann Defense",
+  "summary": "White went out with his queen to eat pawns while behind in development, so Black's queen came down to d1 with checkmate on the open first rank.",
+  "notes": {
+   "6": "A dangerous wing push: White plays on both wings and hasn't developed a single piece behind it.",
+   "12": "The queen went out to eat the d5 pawn - far from home and behind in development.",
+   "14": "The fatal mistake! The queen stands in the center without support, and the first rank is wide open. The right move was `Nc3`, developing and protecting d1.",
+   "15": "**Checkmate!** The queen came down to d1: nothing can capture her, and the king is locked in - the f2 pawn, the f1 bishop and d2 covered by the queen."
+  },
+  "avoid": "Don't go out with your queen to eat pawns when your development is behind. The rule: two knights, two bishops and castling before the queen's adventures."
+ },
+ "sicilian-legal-reborn": {
+  "name": "Légal's trap strikes again",
+  "opening": "Sicilian Defense",
+  "summary": "The same idea as Légal's mate from 1750: White sacrificed his queen, and greedy Black took it, so mate came with a bishop on f7 protected by the knight.",
+  "notes": {
+   "8": "The bishop looks at f7.",
+   "14": "Légal's sacrifice! The knight takes the pawn, and the queen lets herself be taken by the bishop.",
+   "15": "The fatal mistake! Greed for the queen. The right move was `Nxe5`, taking the knight and winning pawns with nothing happening.",
+   "16": "**Checkmate!** The bishop on f7 is protected by the knight on e5, d7 is under the knight, and d8 is locked by Black's own queen. A classic ending that is 275 years old."
+  },
+  "avoid": "If your opponent suddenly leaves his queen to be taken, stop and ask why. There's probably a mate behind it: take the knight, don't take the queen."
+ },
+ "pirc-weak-f7": {
+  "name": "The weak f7 square",
+  "opening": "Pirc Defense",
+  "summary": "Black developed his knight and forgot that f7 is protected only by the king, so the queen came in with checkmate, supported by the bishop.",
+  "notes": {
+   "8": "The bishop looks at f7 - Black's weakest square because only the king protects it.",
+   "15": "The fatal mistake! The knight developed but left f7 with no extra protection. The right move was `e5`, closing the bishop's diagonal and preventing the mate.",
+   "16": "**Checkmate!** The queen on f7 is protected by the c4 bishop, and the king is locked among his knight, bishop and rook."
+  },
+  "avoid": "The f7 square (and f2 for you) is the weakest square early on. Before any developing move, ask: is f7 well protected?"
+ },
+ "three-knights-wrong-knight": {
+  "name": "The wrong knight",
+  "opening": "Three Knights Opening",
+  "summary": "One move with the wrong knight turned the game into a forced mate: a net of a knight and a bishop smothered the king on f8.",
+  "notes": {
+   "8": "The knight jumps to the center, pressuring c7 and f6.",
+   "11": "The fatal mistake! The wrong knight. With Nge7 Black loses by force as happened. The right move was `Nce7`, protecting without blocking the way.",
+   "15": "Black took the queen... but this was the trap: the knight left its sensitive post.",
+   "16": "**Check!** The knight on f6 covers e8, g8 and d7, so the king is forced to f8.",
+   "18": "**Checkmate!** The bishop on h6 can't be captured because the g pawn went down to g6, and the knight covers all the escape squares. A complete mating net."
+  },
+  "avoid": "When you move a knight, ask: is this the right knight? The wrong knight can block the king's escape square and turn the game into a forced mate."
+ },
+ "ruy-lopez-poisoned-pawn": {
+  "name": "The poisoned center pawn",
+  "opening": "Ruy Lopez",
+  "summary": "Black took the e4 pawn with his kingside open, so a knight check came and then the queen on f7 with checkmate.",
+  "notes": {
+   "9": "Black attacks the center with f5 - a bold move but it opens his king's diagonal.",
+   "14": "The knight takes f5 and threatens a jump to g7 with check.",
+   "15": "The fatal mistake! Greed for the e4 pawn and forgetting his king is exposed. The right move was `d5`, closing the center and attacking the bishop.",
+   "16": "**Check!** The knight strikes on g7 and Black is forced to capture.",
+   "18": "**Check!** The queen entered the game and the king ran to f8.",
+   "20": "**Checkmate!** The queen on f7 is protected by the b3 bishop on the long diagonal, and every escape square is covered."
+  },
+  "avoid": "The pawn in the center isn't free if your kingside is open. Before capturing, look at the opponent's forcing moves: checks, captures, threats."
+ },
+ "slav-queen-raid": {
+  "name": "A queen on b7 and mate on f7",
+  "opening": "Slav Defense",
+  "summary": "Black closed his bishop's diagonal with e6 and left his king in the middle, so the queen stole b7 and came back to f7 with checkmate in two moves.",
+  "notes": {
+   "12": "The knight jumps to e5 and looks at f7 and c6.",
+   "16": "The queen pressures b7 and f7 at the same time - a double fork.",
+   "17": "The fatal mistake! e6 blocked the f5 bishop's view and left the king in the middle without protection. The right move was `Nxe5`, removing the dangerous knight.",
+   "18": "The queen stole the pawn on her way to f7.",
+   "20": "**Checkmate!** The queen on f7 is protected by the e5 knight, and the knight is protected by the f4 bishop - a complete chain of protection."
+  },
+  "avoid": "Before you close your bishop's diagonal with e6, make sure your king is safe. Removing the attacking piece comes before completing development."
+ },
+ "philidor-poisoned-b4": {
+  "name": "The poisoned b4 pawn",
+  "opening": "Philidor Defense",
+  "summary": "Black's queen got excited about the b4 pawn, so the knight that had been offered for capture long ago jumped to c7 with checkmate.",
+  "notes": {
+   "13": "Black expands on the queenside while his king is still in the center.",
+   "16": "The knight takes b5 while offered for capture - but taking it is wrong.",
+   "18": "A bishop covers d8 and e7 - preparing the mating net.",
+   "21": "The fatal mistake! The queen got excited about the pawn. The right move was `Qb6`, staying close to defend.",
+   "22": "**Checkmate!** The knight on c7: the king is besieged - d8 and e7 are under the g5 bishop, f8 is his bishop, and no piece can reach the knight."
+  },
+  "avoid": "The free pawn is sometimes poisoned. Before capturing, look at the opponent's forcing moves afterward: checks, captures, threats."
+ },
+ "scotch-blocked-bishop": {
+  "name": "The knight that blocked the way",
+  "opening": "Scotch Game",
+  "summary": "Black developed his knight to e7 and blocked his bishop's way, and the white knight living on the kingside finished the game with checkmate.",
+  "notes": {
+   "8": "The knight jumps forward and looks at g7.",
+   "10": "**Check!** The knight came down to live inside the kingside.",
+   "18": "The bishop looks at f7 on the long diagonal.",
+   "19": "The fatal mistake! The knight went back to e7 and blocked the f8 bishop, leaving the king without protection. The right move was `Be6`, challenging the c4 bishop.",
+   "20": "**Check!** The bishop pressures from h6.",
+   "22": "**Checkmate!** The knight on f6 covers d7, the c4 bishop covers f7, and the king is locked behind his own knight."
+  },
+  "avoid": "When you develop a piece, don't block the way of another piece. Ne7 locked in the bishop and left the king alone in the middle of the attack."
+ },
+ "french-h7-break": {
+  "name": "How h7 gets broken",
+  "opening": "French Defense - Winawer",
+  "summary": "A knight on g5 + a queen coming to h7 = mate. Black put his knight back home instead of capturing the knight, so it ended in one move.",
+  "notes": {
+   "16": "White builds a kingside attack with the h pawn.",
+   "20": "The knight reached g5 - it threatens mate on h7 together with the queen.",
+   "22": "The queen comes to h7 on the open file.",
+   "23": "The fatal mistake! He put the knight back home and forgot the threat completely. The right move was `hxg5`, capturing the knight - without it there's no protection for the mate.",
+   "24": "**Checkmate!** The queen on h7 is protected by the g5 knight, and the king is hemmed in: h8 and g8 are under the queen and f8 is his rook."
+  },
+  "avoid": "A knight on g5 in front of a castled king + a queen nearby = red alert. If you can capture the knight, capture it immediately."
+ },
+ "barnes-rook-dance": {
+  "name": "The rook that went back and forth",
+  "opening": "Barnes Defense",
+  "summary": "Black played f6 and g5 and kept moving the rook back and forth instead of developing, so the h5-e8 diagonal opened and the queen came with checkmate on move seven.",
+  "notes": {
+   "1": "Almost the weakest opening move: f6 weakens the king's diagonal with no gain.",
+   "3": "And g5 too: the h5-e8 diagonal is now wide open.",
+   "6": "The white bishop started playing on the wings comfortably - there's no pressure on him.",
+   "11": "The fatal mistake! A third rook move back and forth, and development has stopped. The right move was `dxc6`, finally taking the bishop.",
+   "12": "**Checkmate!** The queen on h5 covers e8 on the diagonal opened by f6 and g5, and the king is locked among his own pieces."
+  },
+  "avoid": "The opening has 3 goals: a new piece every move, control of the center, castling. The rook isn't an opening piece."
+ },
+ "english-suffocated-knight": {
+  "name": "The knight that smothered the king",
+  "opening": "English Opening",
+  "summary": "White took a bishop far away amid the crowd, so Black's knight jumped to f3 with checkmate: the king is surrounded by his pieces, and the e2 pawn is pinned to the queen and can't capture.",
+  "notes": {
+   "4": "Black comes down to attack the weak e4 pawn.",
+   "5": "A trade of two knights in the center.",
+   "6": "The queen on e7 isn't just pressuring e4 - she also pins the e2 pawn to the king on the e file.",
+   "12": "The fatal mistake! White took the bishop and forgot his king's squares are empty. The right move was `dxe5`, staying pressured in the center.",
+   "13": "**Checkmate!** The knight on f3 can't be captured because the e2 pawn is pinned to the queen, and the king is locked: d1 his queen, e2 his pawn, f1 his bishop, f2 his other pawn."
+  },
+  "avoid": "Before you capture a piece far from your king, count the escape squares around him. If a pawn is pinned to a queen on the same file, the king is weaker than he looks."
+ },
+ "modern-opened-diagonal": {
+  "name": "The diagonal that opened by itself",
+  "opening": "Modern Defense",
+  "summary": "Black weakened his king's diagonal with f6 and g5, and White sacrificed a knight and got mate with a bishop on h5.",
+  "notes": {
+   "3": "A counter-build of attack by White: e4/d4/f4 pawns.",
+   "4": "The bishop went back home - a sign that Black will gamble on the wing.",
+   "9": "The fatal mistake! f6 opens the h5-e8 diagonal that the king stands on. The right move was `d5`, answering in the center.",
+   "11": "And g5 too - the diagonal opened all the way.",
+   "12": "The knight takes g5: a sacrifice that opens the road for the bishop.",
+   "14": "**Checkmate!** The bishop on h5 is protected by the knight on g5, and the diagonal is open to the king with nothing in the middle."
+  },
+  "avoid": "The f and g pawns in front of your king aren't a toy: each one opens a diagonal. Move them if there's a real reason, not just to \"attack\"."
+ },
+ "levitsky-greedy-queen": {
+  "name": "The queen that left home",
+  "opening": "Levitsky Attack",
+  "summary": "Black's queen went out to eat pawns on the queenside, and White's queen came down to d8 with checkmate from behind - the eighth rank unguarded.",
+  "notes": {
+   "1": "The Levitsky Attack: the bishop comes out early to pressure the knight.",
+   "5": "The queen gives check and provokes White.",
+   "11": "The fatal mistake! The queen is walking behind the pawns and the eighth rank is empty. The right move was `Be7`, continuing development and preparing castling.",
+   "13": "The queen ate another pawn... and the king is completely alone.",
+   "14": "**Checkmate!** The queen on d8 is protected by the h4 bishop on the diagonal, and there isn't a single black piece next to the king."
+  },
+  "avoid": "A queen that goes out to eat pawns early leaves her home unguarded. Develop and castle first, and then think about the loot."
+ },
+ "english-defense-rook-hunter": {
+  "name": "The rook hunter",
+  "opening": "English Defense",
+  "summary": "Black's bishop kept hunting rooks in White's corner, and meanwhile the queen and a pawn finished the game on f7.",
+  "notes": {
+   "4": "Black tries to use the open center with Bb4 and f5.",
+   "9": "The queen gives check - the start of the mating plan.",
+   "11": "Check, and the king is forced to move because e7 is blocked by the pawn.",
+   "15": "The fatal mistake! The bishop took the other rook while completely away from the defense. The right move was `dxe6`, capturing the dangerous pawn that protects the mate.",
+   "16": "**Checkmate!** The queen on f7 is protected by the e6 pawn, and the king is hemmed in by his own pieces."
+  },
+  "avoid": "A rook in the corner is a fake prize if the price is 3 moves in the attack. Before hunting pieces, ask: who is attacking whom?"
+ },
+ "sicilian-fast-reply": {
+  "name": "The wrong quick reply",
+  "opening": "Sicilian Defense - Morphy Gambit",
+  "summary": "Black answered the gambit with an emotional d5 push, so the queen stole d5 and then f7 was checkmate with the knight carrying it.",
+  "notes": {
+   "2": "The Morphy Gambit: White sacrifices a pawn for terrifying development speed.",
+   "9": "Black won a pawn... but his position is fragile.",
+   "11": "The fatal mistake! The emotional d5 push opened the road for White's queen. The right move was `Nf6`, attacking the knight calmly.",
+   "12": "Check, and the knight is forced to stop.",
+   "14": "The queen took d5 and the knight attacks her...",
+   "16": "**Checkmate!** But the queen doesn't run - she jumps to f7 protected by the e5 knight. The king is locked among his bishop and knight."
+  },
+  "avoid": "Against the gambit, an emotional reply in the center is more dangerous than calmly accepting. The captured pawn has a price: lost development moves."
+ },
+ "london-castle-into-trap": {
+  "name": "Castling into the trap",
+  "opening": "London System",
+  "summary": "Black castled long to escape the pressure, and threw his king right into a mating net: a queen, a knight and a bishop were waiting for him on c8.",
+  "notes": {
+   "10": "The knight jumps to b5 - looking at c7 and a7.",
+   "13": "The fatal mistake! d6 opened the d6 square for the white bishop. The right move was `Be7`, continuing kingside development and castling short.",
+   "14": "The queen pressures the whole queenside.",
+   "16": "The bishop took the pawn and now covers b8 and c7.",
+   "17": "Castling long looks like an escape... but this is exactly what White was waiting for.",
+   "18": "**Checkmate!** The knight on a7: the king is besieged - b8 and c7 are under the bishop, d7 under the queen, and d8 is his rook. A complete net of 3 pieces."
+  },
+  "avoid": "Castling isn't automatic protection: castle toward the attacking pieces and you're throwing your king into the fire. Look at the opponent's pieces first, then choose the wing."
+ },
+ "veresov-greedy-queen": {
+  "name": "Same queen movie",
+  "opening": "Veresov Attack",
+  "summary": "The same story as the Levitsky game: Black's queen went out to eat pawns, and White's queen came down to d8 with checkmate protected by the h4 bishop.",
+  "notes": {
+   "2": "The Veresov: the bishop comes out to pressure the knight from the first move.",
+   "13": "The queen gives check and starts a pawn-eating trip.",
+   "15": "The queen ate the c5 pawn - a small loot amid a big danger.",
+   "17": "The fatal mistake! The e5 push opened the game onto a king in the middle without guard. The right move was `Nc6`, developing and covering d8.",
+   "18": "**Checkmate!** The queen on d8 is protected by the h4 bishop on the far diagonal. The same lesson as the Levitsky game: a queen that steals pawns leaves her home."
+  },
+  "avoid": "If your queen is far from your king and the d file is open, expect Qd8 at any moment. Development is more important than a pawn."
+ },
+ "caro-king-walk": {
+  "name": "The king that went for a walk",
+  "opening": "Caro-Kann Defense",
+  "summary": "Black took the sacrificed bishop and walked his king to g6 instead of going back home, so the white knight made a tour and finished with checkmate on h8.",
+  "notes": {
+   "4": "The Marozy-style gambit: White sacrifices a pawn for a strong center.",
+   "10": "The bishop looks at f7 from early on.",
+   "14": "A sacrifice! The bishop takes f7 with check.",
+   "16": "A check with the knight, and the king is in the open.",
+   "17": "The fatal mistake! The king went to g6 - to the edge of the board. The right move was `Ke8`, going back to protect his pieces and hide.",
+   "18": "The knight makes a tour: f7 covers the king from behind.",
+   "20": "**Checkmate!** The knight on h8 gives check, and the king is besieged: f6 is under the f1 rook, f5 under the e4 pawn, h6 and g5 under the c1 bishop, and h5 under the queen. A full radar."
+  },
+  "avoid": "When your king is forced to walk, go back toward protecting your pieces - don't go forward alone. A king in the middle of the board is an easy target."
+ },
+ "baltic-rook-behind-queen": {
+  "name": "The rook behind the queen",
+  "opening": "Baltic Defense",
+  "summary": "White took a bishop back with his own bishop while open on his king, so Black's queen came down to d2 with checkmate and a rook behind her on the open file.",
+  "notes": {
+   "2": "The Baltic Defense: the bishop comes out before e6 - free, but unconventional.",
+   "5": "A temporary sacrifice: the bishop takes the rook but comes back again.",
+   "17": "Black castled long - and the d file became his weapon.",
+   "20": "The fatal mistake! White took the bishop while his king is still in the center and the first rank is empty. The right move was `Bf4`, staying developed and protecting d2.",
+   "21": "**Checkmate!** The queen on d2 is protected by the d8 rook on the open file, and the king's squares are all locked by his own pieces: f2 pawn, f1 bishop, d1 covered by the queen."
+  },
+  "avoid": "Before any capture in the middle of an attack, check your first rank: if it's open and the opponent has a working file, it all may be suicide."
+ },
+ "paleface-king-hunt": {
+  "name": "The king that came down to fight",
+  "opening": "Paleface Attack",
+  "summary": "White's king was forced out to d2 in the middle of the board, and Black's queen chased him until she finished it with a checkmate backed by a pawn.",
+  "notes": {
+   "1": "White plays unconventionally from the start (an early f3).",
+   "7": "Black castled, and White still hasn't developed - a big problem is being prepared.",
+   "15": "The queen starts the chase with a check.",
+   "18": "The king in the middle of the board - never his place in the game.",
+   "20": "The fatal mistake! The knight went back to f3 without protecting anything. The right move was `Qf3`, the queen standing next to her king and covering e3.",
+   "21": "**Checkmate!** The queen on e3 is protected by the d4 pawn, and all the king's squares are locked: c1 his bishop, d1 his queen, c2 his pawn, and the rest under the queen."
+  },
+  "avoid": "If your king got pulled forward, your only priority is to put him back or surround him with pieces. A \"natural\" move like Nf3 then may be the last one."
+ },
+ "damiano-king-hunt": {
+  "name": "From e8 to mate",
+  "opening": "Damiano Defense",
+  "summary": "The Damiano Defense (f6) is famous for being a mistake, and this game shows why: White sacrificed the knight and dragged the king from e8 all the way to g6 and finished him there.",
+  "notes": {
+   "3": "Damiano: f6 protects e5 in theory...",
+   "4": "But White captures again! A famous sacrifice that is 500 years old.",
+   "6": "Check, and the king is forced out because g6 is pinned to the queen.",
+   "8": "Every check drags the king one square farther from his home.",
+   "21": "The fatal mistake! The rook went back to f8 without stopping the chase. The right move was `Ng4`, attacking the queen and clearing the way.",
+   "22": "**Checkmate!** The queen on g5 is protected by the c1 bishop on the long diagonal, and f7 is under the b3 bishop. The king was dragged 4 squares and died in the open."
+  },
+  "avoid": "The Damiano Defense (2...f6) is weak at its root: it weakens the king's diagonal and takes the best square from the knight. Play e6 or Nf6 instead."
+ },
+ "alekhine-knight-dance": {
+  "name": "The knight dance around the king",
+  "opening": "Alekhine's Defense",
+  "summary": "Black's knight kept giving checks from c2 and d4 while the white king walked right and left, until the queen finished on d3 supported by the bishop.",
+  "notes": {
+   "5": "Black lets the e5 pawn be taken and compensates with quick pressure.",
+   "11": "The knight attacks the white camp from inside.",
+   "14": "The fatal mistake! The knight developed to d2 and blocked his own king and bishop. The right move was `Qb3`, attacking the annoying knight and protecting the wing.",
+   "17": "The first check - and the king was forced to go to e2.",
+   "19": "A second check - and the king goes back, like a game of tug of war.",
+   "23": "**Checkmate!** The queen on d3 is protected by the f5 bishop, e1 is under the c2 knight, and the king is locked between his queen and his knight."
+  },
+  "avoid": "An attacking knight inside your camp is more dangerous than an ordinary piece: kicking it or capturing it is a priority before any natural-looking development."
+ },
+ "dutch-long-diagonal": {
+  "name": "The deadly long diagonal",
+  "opening": "Dutch Defense",
+  "summary": "White chased the queen with a knight, so the queen took the g2 pawn with checkmate: the b7 bishop had been sitting on the long diagonal waiting from the start.",
+  "notes": {
+   "1": "The Dutch Defense: Black controls e4 from afar.",
+   "9": "The b7 bishop is sitting on the long diagonal - with his eye on g2 from this move.",
+   "15": "The queen moves toward the kingside - the smell is clear.",
+   "21": "The queen reached g6 - looking at g2 together with the bishop.",
+   "22": "The fatal mistake! The knight jumped to chase the queen without calculating. The right move was `Be2`, putting a piece between the king and the diagonal.",
+   "23": "**Checkmate!** The queen takes g2 protected by the b7 bishop on the long diagonal, and the king is besieged: f1 his rook, h1 under the queen."
+  },
+  "avoid": "A bishop on the long diagonal (a1-h8 or a8-h1) + a queen near your king = alarm. Put a piece on the diagonal before you attack."
+ },
+ "hubsch-queen-raid": {
+  "name": "The queen that came down to finish",
+  "opening": "Hübsch Gambit",
+  "summary": "White took a pawn and opened his king's diagonal, so Black's queen came down to d4 and then f2 with checkmate on move eight.",
+  "notes": {
+   "4": "The Hübsch Gambit: White sacrifices the `e4` pawn to control the center.",
+   "9": "A strong reply: Black hits the center instead of holding the pawn.",
+   "10": "The fatal mistake! The capture opened the king's diagonal and left `f2` unprotected. The engine saw `Be3`.",
+   "11": "The queen came down to the center: a pawn up and the start of an attack.",
+   "13": "The bishop on the diagonal that protects `f2` - everything is getting ready.",
+   "14": "A very natural move... but far too late.",
+   "15": "**Checkmate!** The queen on `f2` is protected by the `c5` bishop, and the king is locked among his own pieces."
+  },
+  "avoid": "If you accept a gambit, don't keep capturing for nothing: every capture that opens a line on your king has to be calculated."
+ },
+ "kan-h2-mate": {
+  "name": "The pawn that emptied his home",
+  "opening": "Sicilian Defense - Kan",
+  "summary": "White tried to kick an attacking knight with h3, so he emptied the h2 square the pawn was protecting - the queen came down in its place with checkmate.",
+  "notes": {
+   "7": "The Kan: Black plays flexibly and waits.",
+   "13": "A statement of intent: an early attack on the kingside.",
+   "15": "The knight jumped: the eye is on `h2`.",
+   "16": "The fatal mistake! `h3` looks like a kick of the knight, but it emptied the `h2` square the pawn was protecting. The engine suggested `g3`.",
+   "17": "**Checkmate!** The queen came down to `h2` in the pawn's place - protected by the knight on `g4`, and the knight isn't even forced to move."
+  },
+  "avoid": "Don't empty a pawn that protects a square next to your king in order to kick a piece: first ask who will enter in its place."
+ },
+ "sicilian-nd6-smother": {
+  "name": "The knight that smothered the home",
+  "opening": "Sicilian Defense",
+  "summary": "Black took a pawn and fell behind in development, and when the knight jumped toward d6 the rook went to the wrong file - Nd6 checkmate and the king is locked by his own pieces.",
+  "notes": {
+   "6": "White hits the knight early: a rush to open the game.",
+   "13": "Black won a pawn... but still hasn't developed or castled.",
+   "16": "The knight jumps to `b5`: the eye on `d6`.",
+   "17": "The fatal mistake! The rook moved instead of removing the danger. The engine: `Bxb5` would have captured the knight and ended the story.",
+   "18": "**Checkmate!** The knight on `d6`: the king is hemmed in by his own pieces - the bishop on `d7` and the pawn on `e7` leave him no room."
+  },
+  "avoid": "A clear threat by one piece has the cheapest solution: capture it. Don't keep attacking while you haven't castled yet."
+ },
+ "torre-poisoned-b2": {
+  "name": "The poisoned b2 pawn",
+  "opening": "Torre Attack",
+  "summary": "Black's queen went out early to eat the poisoned b2, so White's knight entered c7 with check and stayed behind the king until the queen finished on d5.",
+  "notes": {
+   "4": "The Torre: the bishop comes out early to bother the knight.",
+   "9": "The queen came out early: she looks at `b2`.",
+   "11": "The fatal mistake! Taking the poisoned `b2`: the queen is far from her king and the white knight takes `d5` with check threats. The engine: `Nxc3` was much better.",
+   "12": "The knight in the center threatens `Nc7+`.",
+   "14": "The bishop removes the guard of `c7`.",
+   "16": "Check! The start of the king hunt.",
+   "18": "Another check with a pawn - the king is thrown back square after square.",
+   "20": "**Checkmate!** The queen on `d5` is protected by the `c7` knight, and all the escape squares are covered."
+  },
+  "avoid": "The `b2` pawn before development is famously poisoned: a queen that goes out to eat early leaves her king alone."
+ },
+ "english-bh3-box": {
+  "name": "The king that stayed in the middle",
+  "opening": "English Opening",
+  "summary": "White opened the center before castling, so the knight came down with check on f3, the king ran to f1, and the bishop on h3 finished it: mate with the king hemmed in by his own pieces.",
+  "notes": {
+   "1": "Black answers the English as if he's still playing White.",
+   "9": "The bishop on the `f2` diagonal from early on - and it will stay here until the end of the game.",
+   "10": "White continued developing... without thinking of castling.",
+   "18": "The fatal mistake! The `d4` push opened the center while the king is still standing in it. The engine: castling `O-O` was the salvation.",
+   "19": "A check with the knight! The king is forced to move.",
+   "20": "The king went to the corner... the wrong corner.",
+   "21": "**Checkmate!** The bishop on `h3` gives check on the diagonal - the king is locked by his pieces: a bishop on `e2` and a pawn on `f2`."
+  },
+  "avoid": "Don't open the center while your king is still in it: castle first, and then move the center pawns."
+ },
+ "kalashnikov-poisoned-d6": {
+  "name": "The poisoned d6 pawn",
+  "opening": "Sicilian - Kalashnikov",
+  "summary": "White's queen came down to eat the d6 pawn, so Black's rook stood on the open file and the queen was chased until Black finished with Qd2 checkmate.",
+  "notes": {
+   "7": "The Kalashnikov: Black challenges the knight early.",
+   "13": "Kicking the knight to `a3` - completely out of the game.",
+   "17": "A clever offer of a trade: Black swaps his \"bad\" bishop for the active bishop.",
+   "20": "The fatal mistake! The queen took the poisoned `d6` pawn. The engine: `Nc2` would have continued the game normally.",
+   "21": "The rook on the open file - the queen is in trouble.",
+   "22": "An escape that looks nice: it attacks `b7`... but too late.",
+   "23": "**Checkmate!** The queen on `d2` is protected by the rook on the open file, and the first rank is exposed."
+  },
+  "avoid": "Your queen isn't a taxi: every trip to eat a faraway pawn has a price - look for the open file next to your king."
+ },
+ "anti-nimzo-knight-net": {
+  "name": "The two-knight net",
+  "opening": "Anti-Nimzo Indian",
+  "summary": "Black wasted two moves with his queen behind a poisoned pawn, and then a bishop capture opened all the lines - White's two knights made a net around the king and Nf5 finished it with checkmate.",
+  "notes": {
+   "11": "The queen came out early: she's after the `c4` pawn.",
+   "12": "White left the pawn right in front of her - an announced bait.",
+   "13": "Black accepted the bait: the queen is now exposed in the middle of the board.",
+   "15": "The queen went back... but two moves were wasted.",
+   "19": "The fatal mistake! The bishop capture opened the `c` file and the center onto Black's king. The engine: `Nc6` was calm development.",
+   "20": "The knight jumps to `b5`: `c7` became a danger.",
+   "22": "A check with the knight! The king is forced out.",
+   "23": "The king in the center... and the other knight is coming.",
+   "24": "**Checkmate!** The second knight on `f5`: the king is besieged - `d8` his queen and `f6` his knight, and the two knights cover the rest."
+  },
+  "avoid": "The queen isn't a tool for eating pawns: every early queen move is a lost developing move for your pieces."
+ },
+ "center-game-back-rank": {
+  "name": "The back rank opened",
+  "opening": "Center Game",
+  "summary": "Black took a \"free\" pawn in the center, so the queens were traded with check, and the d file opened: White's rook came down to the back rank Rd8 with checkmate.",
+  "notes": {
+   "2": "The Center Game: White sacrifices a pawn so his queen comes out early.",
+   "4": "The queen in the center from move three - a bold old school.",
+   "17": "Black offers a queen trade to relax.",
+   "19": "The fatal mistake! The knight took the `e5` pawn that looks free. The engine: `Bd7` was calm development.",
+   "20": "White captures with the knight...",
+   "21": "and Black captures with the queen thinking he's winning.",
+   "22": "The queens are traded... with check!",
+   "23": "The pawn captured - and opened the `d` file all the way.",
+   "24": "**Checkmate!** The rook on `d8` is protected by the `g5` bishop on the diagonal - the back rank is exposed and the king is locked behind his pawns."
+  },
+  "avoid": "If a queen trade comes with check and opens a file onto your back rank, it's not a trade - it's a trap."
+ },
+ "from-gambit-queen-net": {
+  "name": "The queen and bishop net",
+  "opening": "Bird Opening - From Gambit",
+  "summary": "Black's queen went after a pawn and left f6 unprotected, so the bishop opened the way with check and the queen finished on f6, helped by the c1 bishop that had stayed home from the start.",
+  "notes": {
+   "0": "The Bird: White builds on the kingside from move one.",
+   "1": "The From Gambit: Black sacrifices a pawn to provoke White.",
+   "10": "The knight eyes `f7` from early on.",
+   "12": "The queen joins the attack: `f7` is under double pressure.",
+   "15": "Black won the knight... but his queen is far from the defense.",
+   "21": "The fatal mistake! The queen went to eat a pawn and left `f6` bare. The engine: `Qh4` would have guarded everything.",
+   "22": "Check! The bishop opens the king's house.",
+   "24": "**Checkmate!** The queen on `f6` is protected by the `f1` rook on the open file, and the quiet `c1` bishop covers `h6` from afar."
+  },
+  "avoid": "Before you take your queen away from your king for a pawn, ask: which square was she guarding?"
+ },
+ "nimzo-larsen-long-diagonal": {
+  "name": "The long diagonal decides",
+  "opening": "Nimzo-Larsen Attack",
+  "summary": "Black wasted 3 moves with his knight chasing pawns on the kingside, and White lined up queen and bishop on the long diagonal: Qxg7 checkmate.",
+  "notes": {
+   "0": "Nimzo-Larsen: the bishop heads for the long diagonal from move one.",
+   "17": "Black sends his knight on an attack.",
+   "19": "Another knight jump - Black eyes `c2`.",
+   "21": "Black took a pawn and threatens a rook... a fake attack.",
+   "22": "The queen quietly goes to `g3`: the eye is on `g7`.",
+   "23": "The fatal mistake! The knight took another pawn and Black forgot his king. The engine: `Bf6` would have defended `g7`.",
+   "24": "**Checkmate!** The queen took `g7`, protected by the `b2` bishop on the long diagonal - the bishop played on move one decided it."
+  },
+  "avoid": "A knight on the rim eats pawns... and watches the mate. The real attack is toward the king, not the corner."
+ },
+ "kid-f2-sacrifice": {
+  "name": "The poisoned knight gift",
+  "opening": "King's Indian Defense",
+  "summary": "White refused to take an exposed knight, so Black sacrificed it on f2, pulled the king out of his house, and all the black pieces gathered on him until Bh3 checkmate.",
+  "notes": {
+   "13": "Black opens the center - the start of the attack plan.",
+   "15": "The rook on the `e` file: direct pressure on the `e4` pawn.",
+   "17": "Black takes the pawn: the knight looks hanging... but there's a tactic.",
+   "18": "The fatal mistake! White ran with his knight to attack instead of taking the exposed knight. The engine: simply `Nxe4`.",
+   "19": "A sacrifice! The knight takes `f2` - if the king takes it...",
+   "20": "The king accepted the challenge and left his house.",
+   "21": "Check with the queen - the king is in the open.",
+   "23": "The bishop took the knight: all the black pieces are now around the king.",
+   "25": "**Checkmate!** The bishop on `h3` - the king is locked by his own pieces: a rook on `e1` and a bishop on `e2` leave him no room."
+  },
+  "avoid": "A hanging piece that isn't captured has a reason: look for the tactic before you run away with your piece."
+ },
+ "kia-corner-mate": {
+  "name": "The king in the corner",
+  "opening": "King's Indian Attack",
+  "summary": "White attacked on the queenside with his king nearly bare, so Black broke through with the knight, trapped the king in the corner, and the queen finished on g1.",
+  "notes": {
+   "9": "Black trades the fianchettoed bishop - the white king's most important defender.",
+   "11": "The queen entered `h3`: right next to the king.",
+   "19": "The knight jumped to `g4`: `h2` is under pressure.",
+   "20": "The fatal mistake! The rook went to attack on the queenside and the king's house was left alone. The engine: `cxd5` was better.",
+   "21": "The knight took the pawn - and opens `e2` for the finish.",
+   "23": "Check! The knight takes another pawn with check.",
+   "24": "The king was squeezed into the corner.",
+   "25": "Check! A lonely forced stand...",
+   "27": "**Checkmate!** The queen took the knight on `g1`, protected by the `e2` knight, and the king is locked in the corner."
+  },
+  "avoid": "Don't send your rooks to attack on one wing while your king is exposed on the other: the faster attack wins."
+ },
+ "benko-knight-outpost": {
+  "name": "The knight that reached c3",
+  "opening": "Benko Gambit",
+  "summary": "White blocked a check with his knight on e2, so Black's knight entered c3, and after a short sequence the queen took that very knight: Qxe2 checkmate.",
+  "notes": {
+   "5": "The Benko Gambit: Black sacrifices a pawn for long pressure on the queenside.",
+   "19": "Black got his pawn back and is perfectly comfortable.",
+   "21": "A quiet check with the queen - and White still hasn't castled.",
+   "22": "The fatal mistake! The knight stood in front of the check... but `e2` became a weakness. The engine: `Qe2` would have protected the king.",
+   "23": "The knight entered the heart of the position: `c3` is now the base of the attack.",
+   "25": "The bishop challenges the trade - if White captures...",
+   "26": "He captured... and opened the road to the finish.",
+   "27": "**Checkmate!** The queen took the knight on `e2`, protected by the knight on `c3` which also covers `d1`."
+  },
+  "avoid": "A knight that blocks a check is pinned and exposed: block with a protected piece or with the queen."
+ },
+ "horwitz-f7-crash": {
+  "name": "f7 without a guard",
+  "opening": "Horwitz Defense",
+  "summary": "Black's bishop went to take a knight in the center and left f7 bare, so White's queen finished at once - and the knight that had been giving check 3 moves earlier protected the mate.",
+  "notes": {
+   "8": "White announces a kingside attack very early.",
+   "20": "A knight check in the middle of the board.",
+   "21": "The king was forced to move - and won't castle again.",
+   "25": "The queen got a pawn back... but far from her king.",
+   "27": "The fatal mistake! The bishop took the knight and left `f7` unguarded. The engine: `Be6` would have protected everything.",
+   "28": "**Checkmate!** The queen took `f7`, protected by the knight on `d6` - the king has no square."
+  },
+  "avoid": "Before you move a piece that protects a square next to your king, make sure who will protect it afterwards."
+ },
+ "vant-kruijs-greedy-bishop": {
+  "name": "The bishop that went for a rook",
+  "opening": "Van't Kruijs Opening",
+  "summary": "White's bishop went to the far edge to take a rook, and Black chased the king in the middle: castling was prevented, and the queen finished on e2 backed by the a6 bishop from afar.",
+  "notes": {
+   "11": "Black prepares his bishop on the long diagonal.",
+   "22": "White took the rook... but the bishop left home and went to the far edge.",
+   "23": "The knight reached `b4`: `c2` is under threat and the queen has to run.",
+   "25": "The other bishop presses on `f1` - castling is now impossible.",
+   "27": "The rook on the open file.",
+   "28": "The fatal mistake! The knight went to attack while the king is still in the middle and bare. The engine: `a3` would have kicked the knight.",
+   "29": "**Checkmate!** The queen on `e2`, protected by the `a6` bishop on the long diagonal - the bishop that prevented castling decided it."
+  },
+  "avoid": "A rook in the corner isn't loot if the price is your bishop and falling behind in development: castle first, loot later."
+ },
+ "colle-greek-gift": {
+  "name": "The Greek gift",
+  "opening": "Colle System",
+  "summary": "Black played the Greek gift by the book: the bishop sacrificed on h2, the knight checked, the queen came down, and a pawn broke the house - in the end the king was smothered among his own pieces.",
+  "notes": {
+   "17": "Black starts a classic pawn attack on the kingside.",
+   "19": "A sacrifice! The bishop blows up the king's house - the famous Greek gift.",
+   "20": "The king took... and was forced out of his house.",
+   "21": "A knight check - the attack completes.",
+   "23": "The queen arrived: `h2` is under threat.",
+   "25": "The queen came down to `h2` with check.",
+   "27": "The pawn continues breaking the house.",
+   "28": "The fatal mistake! The bishop took the knight and left the first rank. The engine: `gxh4` would have taken the pawn and opened an escape square.",
+   "29": "**Checkmate!** The queen on `h1` - the king is locked: his queen on `e2` and his pawns block all the squares."
+  },
+  "avoid": "The moment you see `Bxh2+`, calculate it to the end: this sacrifice is a known pattern called the Greek gift."
+ },
+ "caro-g6-sac": {
+  "name": "The bishop sacrifice on g6",
+  "opening": "Caro-Kann - Two Knights",
+  "summary": "Black underestimated a clear threat on the kingside, so the queen came in with check, the bishop sacrificed on g6, and the queen took the pawn: checkmate on move 11.",
+  "notes": {
+   "2": "The Two Knights Attack against the Caro-Kann: White plays aggressively from move one.",
+   "7": "Black exchanged the bishop for the knight - an ordinary trade.",
+   "10": "White kicks the knight and gains space.",
+   "12": "A poisoned pawn: it opens a long diagonal toward the king.",
+   "13": "Black took... and the diagonal really opened.",
+   "14": "The bishop eyes the kingside - the threat is clear: `Qh5+`.",
+   "15": "The fatal mistake! This move doesn't deal with the real threat. The engine wanted `g6` to block the diagonal at once.",
+   "16": "Check! The queen entered the opened diagonal.",
+   "17": "Black had to block with a pawn.",
+   "18": "A sacrifice! The bishop blows up the block with check.",
+   "19": "The capture is almost forced.",
+   "20": "**Checkmate!** The queen on `g6` is protected by the `d3` bishop, and the king is locked among his own pieces."
+  },
+  "avoid": "If your opponent has prepared `Qh5+` and a diagonal is open to your king, block the diagonal immediately - there's no time for other moves."
+ },
+ "veresov-qd7-mate": {
+  "name": "The queen that entered d7",
+  "opening": "Richter-Veresov Attack",
+  "summary": "Black went with his bishop to eat far from the real battle, so White's queen entered d7 on the open file: checkmate on move 12.",
+  "notes": {
+   "4": "Veresov: pressure on the knight from the first moves.",
+   "6": "White sacrifices the center pawn for fast development.",
+   "10": "White opens the `d` file.",
+   "12": "The queen on `d2`: the eye is on the open file.",
+   "14": "Long castling: the rook on the `d` file too - the pressure doubled.",
+   "21": "The fatal mistake! The bishop went to eat a pawn far from the real battle. The engine wanted `Rd8` to protect `d7`.",
+   "22": "**Checkmate!** The queen on `d7`, protected by the `d1` rook on the open file, and the `g5` bishop locks the king's escape."
+  },
+  "avoid": "Before you take a pawn far from the center of play, ask: which point was this piece defending?"
+ },
+ "devin-greedy-g-pawn": {
+  "name": "The greedy pawn on the wing",
+  "opening": "Devin Gambit",
+  "summary": "White pushed his wing pawns one after another without castling, so Black opened the game, and the queen came down to h4 and then f2: checkmate on move 12.",
+  "notes": {
+   "4": "The Devin Gambit: White pushes the wing pawn early - a big adventure.",
+   "7": "The knight in the center from early on - and it will stay here until the end of the game.",
+   "10": "The check forced the king to move - no more castling.",
+   "15": "Black opens lines on the kingside.",
+   "18": "Check... but the black king will hide behind White's own pawn.",
+   "19": "The best cover: the opponent's pawn blocks the file in front of his king.",
+   "20": "The fatal mistake! The queen went looking for something far away while her king is open. The engine wanted `Nh3` to protect `f2`.",
+   "21": "The queen arrived: `f2` is the target.",
+   "22": "An attempt to kick the bishop - far too late.",
+   "23": "**Checkmate!** The queen on `f2`, protected by the `e4` knight - the knight that stood in the center since move four decided it."
+  },
+  "avoid": "Don't push your kingside pawns one after another before castling: every push opens a line coming at you."
+ },
+ "caro-exchange-two-bishops": {
+  "name": "Mate with two bishops",
+  "opening": "Caro-Kann - Exchange",
+  "summary": "The queens were traded early and everyone relaxed, but White's two bishops broke into the kingside: a rook check, the king ran to the wrong corner, and a bishop finished it without a queen.",
+  "notes": {
+   "2": "White gains space in the center.",
+   "12": "Check - and the queens were traded very early.",
+   "18": "The bishop annoys the `f6` knight.",
+   "20": "The other bishop entered `h7` - the two bishops control the kingside diagonals.",
+   "21": "Black blocked the diagonal, but opened heavy squares around his king.",
+   "22": "A rook check on the open file.",
+   "23": "The fatal mistake! The king went to the wrong corner: he got locked among his pawns. The engine wanted `Kd8` to keep a path for the king.",
+   "24": "**Checkmate!** The `h6` bishop locks `g7`, the `h7` bishop locks `g8`, and the rook controls the `e` file - mate without a queen at all."
+  },
+  "avoid": "When the game is heading to the end, don't squeeze your king into the corner without an escape path: bishops love the corner."
+ },
+ "english-qg7-net": {
+  "name": "The net on g7",
+  "opening": "English Opening",
+  "summary": "Black took a knight and opened the g file onto his own king by mistake, so White's rook stood on it, the bishop came down to h6, and the queen walked the long diagonal to g7: checkmate.",
+  "notes": {
+   "12": "White kicks the bishop and expands on the queenside.",
+   "13": "The knight entered the center with a blow on the queen.",
+   "15": "Black won a knight... but the capture opened the `g` file - and White will benefit from it.",
+   "18": "The rook on the open file: the eye on `g7`.",
+   "20": "The bishop on `h6`: it locks the king's escape and prepares the finish.",
+   "21": "Black blocked... but opened the long `a1-h8` diagonal.",
+   "22": "The capture opens the queen's diagonal from `b2` to `g7`.",
+   "23": "The fatal mistake! The knight left its place and the diagonal opened completely. The engine preferred `a5` hitting the wing.",
+   "24": "**Checkmate!** The queen on `g7`, protected by the `h6` bishop and by the queen's long diagonal - double protection."
+  },
+  "avoid": "Don't open the `g` file in front of your castled king if your opponent can place a rook on it: this is one of the most famous mating patterns."
+ },
+ "caro-nxf7-hunt": {
+  "name": "The sacrifice on f7",
+  "opening": "Caro-Kann - Classical",
+  "summary": "The knight sacrificed itself on f7 and pulled the king from his house, and the pawns completed the siege square by square until the g6 pawn finished with checkmate.",
+  "notes": {
+   "11": "Black asks the knight a question... and the answer is a surprise.",
+   "12": "A sacrifice! The knight hits `f7` - the weakest point in Black's camp.",
+   "13": "The king took... and was forced out of his house.",
+   "14": "The bishop on the `a2-g8` diagonal: the king can't hide.",
+   "16": "Another check - the king is thrown from square to square.",
+   "18": "The pawns became part of the attack: kicking the bishop and besieging the house.",
+   "20": "A check with the other bishop - the king to the corner.",
+   "22": "The pawns close the last escape squares.",
+   "23": "The fatal mistake! The bishop went to the far edge to take a rook while his king is being besieged. The engine wanted `Qe7` to defend.",
+   "24": "**Checkmate!** With a pawn! The house was broken by wing pawns after the sacrifice pulled the king from his place."
+  },
+  "avoid": "If your king is running, nothing is more important than defense: far loot during a siege costs you the game."
+ },
+ "kid-king-hunt-nb4": {
+  "name": "The king hunt in the center",
+  "opening": "King's Indian Defense",
+  "summary": "White attacked on the wing before castling, so Black opened the game in his face: the queen drove the king out with check after check into the center, and a knight finished with checkmate.",
+  "notes": {
+   "9": "Black hits the center early.",
+   "14": "White attacks on the kingside before castling - an adventure.",
+   "15": "An immediate reply: Black breaks the wing.",
+   "18": "The fatal mistake! The capture opened the game in front of an uncastled king. The engine preferred `Bg5`.",
+   "19": "The knight took the pawn - and all the black pieces gather on the king.",
+   "21": "Check! The king ran out.",
+   "23": "Another check - the king was pushed to the center.",
+   "24": "The king in the heart of the board: the most dangerous place he can be.",
+   "25": "**Checkmate!** With a knight! The queen closes the escape squares and the knight finishes - a lesson in why you must castle early."
+  },
+  "avoid": "Don't attack on the wing while your king is still in the center: if the opponent opens the game, your king pays the price."
+ },
+ "modern-poisoned-a2": {
+  "name": "The poisoned a2 pawn",
+  "opening": "Modern Defense",
+  "summary": "Black's queen went to the far edge to eat the a2 pawn, so White's knight entered c7 with check, a pawn continued with check, and the queen took the rook on d8: checkmate on move 14.",
+  "notes": {
+   "11": "Black hits the center from the wing.",
+   "15": "The queen came out early - her eye is on the pawns.",
+   "19": "The rook on the `d` file... on the same line as White's queen.",
+   "20": "The knight in the center: `c7` is under threat.",
+   "21": "The fatal mistake! The queen went to eat a pawn at the far edge and left everything. The engine wanted `Qxd2+` to trade the queens.",
+   "22": "Check! The knight in the heart of the camp.",
+   "24": "A check with a pawn - the king is thrown.",
+   "25": "The king took the pawn... but is now exposed in the center.",
+   "26": "**Checkmate!** The queen took the rook on `d8`, protected by the `d1` rook on the open file - the price of the `a2` pawn was the whole game."
+  },
+  "avoid": "Queenside pawns before development are famously poisoned: a queen that goes out to eat early leaves her king alone."
+ },
+ "veresov-battery-g7": {
+  "name": "The long diagonal that decided",
+  "opening": "Richter-Veresov Attack",
+  "summary": "Black moved his queen without seeing the threat on the board: White's queen was eyeing g7 and the c3 bishop was waiting on the long diagonal. One move finished the game on move 13.",
+  "notes": {
+   "4": "Veresov: the bishop presses on the knight from the first moves.",
+   "10": "A trade - but Black replied with a blow in the center: `dxc3`.",
+   "12": "The bishop stood on the long `a1-h8` diagonal. Remember this square.",
+   "16": "The queen in the center: pressing, with an eye on the kingside.",
+   "20": "Long castling - the rook on the open `d` file.",
+   "22": "The queen took a pawn, and more importantly: she now looks at `g7` with no blocker.",
+   "23": "The fatal mistake! The queen went to press on the queenside while the real threat was on `g7`. The engine wanted `Bg5+`, a counter-check that gains time.",
+   "24": "**Checkmate!** The queen on `g7`, protected by the `c3` bishop that has stood on the long diagonal since move seven."
+  },
+  "avoid": "Before any attacking move, ask yourself: what is the opponent's threat on the board right now? One move makes the difference."
+ },
+ "philidor-opened-diagonal-f2": {
+  "name": "The knight that left its place",
+  "opening": "Philidor Defense - Lion Variation",
+  "summary": "White attacked with wing pawns while his king was still in the middle, and Black gathered his pieces around him. The moment the knight left d4 and opened the diagonal, the queen came down to f2: checkmate on move 13.",
+  "notes": {
+   "8": "White prepares the `g4` push - an attacking plan, but the king is still in the center.",
+   "10": "The pawns are pushed and the king hasn't castled - an adventure.",
+   "15": "The knight in the center, eyeing the weak squares around the white king.",
+   "19": "The other knight reached `g4`: it will protect `f2` when the queen arrives.",
+   "21": "The queen on the `b6-f2` diagonal... but the `d4` knight blocked the road.",
+   "22": "White opened the game more - and the king is still on `e1`.",
+   "24": "The fatal mistake! The knight left `d4` and opened the queen's diagonal onto `f2`. The engine wanted `g6` to keep pressing the wing.",
+   "25": "**Checkmate!** The queen on `f2`, protected by the `g4` knight, and the white king is locked behind his own pieces: queen on `d1`, bishop on `f1`."
+  },
+  "avoid": "A piece standing quietly may be blocking a dangerous diagonal. Before you move it, look at the road you will open."
+ },
+ "french-cornered-king-g7": {
+  "name": "The king that chose the wrong corner",
+  "opening": "French Defense - Classical",
+  "summary": "Black broke his own king's wing by capturing, and then ran with the king to the wrong corner. White's queen entered h6, and the knight returned to h5 to protect the mate: Qg7 checkmate on move 14.",
+  "notes": {
+   "11": "Black opened the kingside by capturing - his king's squares are now exposed.",
+   "18": "The knight eyes `g7` from early on.",
+   "20": "Check! The knight entered deep.",
+   "21": "The fatal mistake! The king went to the corner where his rook stands - and got locked. The engine wanted `Kd7` to run to the queenside, where there is space.",
+   "22": "The queen arrived: the eye is on `g7`.",
+   "23": "The king was forced to go back - no other place.",
+   "24": "The knight returned to `h5`: it now protects the mating point.",
+   "26": "**Checkmate!** The queen on `g7`, protected by the `h5` knight, and the king is besieged by his pawns on `f7` and `h7` and his rook on `h8`."
+  },
+  "avoid": "When your king is forced to move, choose the direction with space - a corner turns into a cage very fast."
+ },
+ "caro-bxf7-queen-e6": {
+  "name": "The f7 sacrifice and mate without protection",
+  "opening": "Caro-Kann - Two Knights",
+  "summary": "Black put his bishop on g4 without protection, so White sacrificed the bishop on f7, checked with the knight and grabbed the bishop, and the queen finished on e6: checkmate with the king locked behind his own pieces on move 14.",
+  "notes": {
+   "8": "The Two Knights idea against the Caro-Kann: the queen prepares to take `e4`.",
+   "11": "Quiet development - this bishop had an important covering role.",
+   "17": "The fatal mistake! The bishop went to `g4` without protection and left `f7` exposed. The engine wanted `Bd5` to keep holding the center.",
+   "18": "A sacrifice! The bishop breaks the king's wing with check.",
+   "19": "The king took - and left his castle.",
+   "20": "A knight check, eyeing the `g4` bishop at the same time: a fork.",
+   "22": "White got the material back, and with a clear edge.",
+   "25": "The queen entered the center, but the king is still exposed.",
+   "26": "**Checkmate!** The queen on `e6` without protection - she doesn't need it: the king is locked behind his pawns on `g7` and `h7`, his bishop on `f8` and his rook on `h8`."
+  },
+  "avoid": "A bishop that annoys a knight without protection = a target. Always ask: who protects this piece if it's attacked?"
+ },
+ "modern-h-pawn-f7": {
+  "name": "The creeping h pawn",
+  "opening": "Queen's Pawn Opening - Modern Defense",
+  "summary": "The h pawn was pushed to h4, h5 and h6 and choked the kingside, and the queen stood on h5 with check. Black played a quiet move on the other wing at the most dangerous moment, so the queen entered f7: checkmate on move 14.",
+  "notes": {
+   "12": "White begins the crawl on the kingside very early.",
+   "17": "Black opened the `g` file... and White's `h` pawn is still crawling.",
+   "18": "The pawn reached `h6`: a real choke around the king.",
+   "20": "Check! The queen entered the open files.",
+   "21": "The king was locked in the corner.",
+   "24": "The knight reached `g5`: it protects `f7` before the queen enters.",
+   "25": "The fatal mistake! A quiet move on the queenside while the king is being besieged. The engine wanted `Qe8` to come back and help defend.",
+   "26": "**Checkmate!** The queen on `f7`, protected by the `g5` knight, and all the escape squares are covered."
+  },
+  "avoid": "When your king is being besieged, there are no quiet moves: every move has to deal with the threat."
+ },
+ "english-wrong-capture-h7": {
+  "name": "Capturing with the wrong piece",
+  "opening": "English Opening",
+  "summary": "White prepared a classic mate: a bishop on the long diagonal, a knight on g5, and a queen eyeing h7. Black captured with the wrong piece, so the queen took h7: checkmate on move 14.",
+  "notes": {
+   "6": "The bishop on the long `a1-h8` diagonal - eyeing the kingside from afar.",
+   "8": "The rook prepared the `g4` push - White attacks early.",
+   "12": "A pawn breakthrough: the game opens on the king's side.",
+   "22": "The knight on `g5`: the eye on `h7`.",
+   "24": "White removed the defender of `h7`... and asks: what will you capture with?",
+   "25": "The fatal mistake! Capturing with the bishop left the rook on `f8` blocking the king's escape square. The engine wanted `Rxf6`: then after `Qxh7+` the king would find `f8` empty to run to.",
+   "26": "**Checkmate!** The queen on `h7`, protected by the `g5` knight, and Black's rook on `f8` locks his own king."
+  },
+  "avoid": "When you capture a piece, think about what the capture leaves behind: which square this piece was blocking or emptying."
+ },
+ "fort-knox-queen-h2": {
+  "name": "The declined trade",
+  "opening": "French Defense - Rubinstein",
+  "summary": "Black's queen took the d4 pawn and survived, and White declined to trade queens when he had the chance. One move later the queen came down to h2: checkmate on move 14.",
+  "notes": {
+   "7": "Fort Knox: quiet, solid development of the bishop.",
+   "17": "The queen took the center pawn - risky, but Black calculated it.",
+   "21": "The queen came back to the center safely.",
+   "23": "The bishop on the `d6-h2` diagonal: the eye on the kingside.",
+   "25": "A trade offer - and the two queens are now on one `h` file.",
+   "26": "The fatal mistake! The queen went hunting a faraway pawn and left the `h` file open. The engine wanted `Qxh5`, trading and ending the danger.",
+   "27": "**Checkmate!** The queen on `h2`, protected by the `d6` bishop on the diagonal, and the king is locked behind his pieces."
+  },
+  "avoid": "If the opponent's queen offers a trade while on your king's file, the trade is usually safety - don't refuse it without a reason."
+ },
+ "najdorf-queen-g7-file": {
+  "name": "The queen's eye on g7",
+  "opening": "Sicilian - Najdorf",
+  "summary": "White moved his queen to the kingside in two moves, and Black continued his plan on the other wing as if nothing was happening. One move later the queen took g7: checkmate on move 14.",
+  "notes": {
+   "10": "Attacking development: the bishop eyes the kingside from early on.",
+   "20": "The knight reached `f5`: its eye is on `g7` from now.",
+   "22": "The queen heads for the kingside.",
+   "23": "Pressure on the `c` file - but the real danger is on the other wing.",
+   "24": "The queen stood on the `g` file: the threat of `Qxg7` mate is now on the table.",
+   "25": "The fatal mistake! Black continued his queenside attack and ignored the threat. The engine wanted `Nh5`, attacking the queen and defending `g7` in the same move.",
+   "26": "**Checkmate!** The queen on `g7`, protected by the `f5` knight, and the king is locked behind his pawns on `f7` and `h7` and his rook on `f8`."
+  },
+  "avoid": "When the opponent's queen stands on an open file toward your king, stop your plan immediately and defend - one move ends the game."
+ },
+ "four-knights-smothered-e2": {
+  "name": "Smothered by a knight",
+  "opening": "Four Knights - Marshall",
+  "summary": "Black played the famous Marshall sacrifice, and White answered with a passive retreat instead of taking the knight. The attack exploded: a knight sacrifice on g3, and after the capture, the other knight landed on e2 with checkmate on move 14.",
+  "notes": {
+   "6": "The Spanish in the Four Knights - one of the soundest lines.",
+   "11": "The Marshall sacrifice: Black leaves the `e5` pawn for a fast attack.",
+   "16": "White gained space and attacks the `f6` knight.",
+   "18": "The fatal mistake! A passive retreat at the most dangerous moment. The engine wanted `exf6`, taking the knight and keeping it nearly equal - after the retreat, Black was winning by more than 4 pawns.",
+   "19": "The bishop pins the knight and starts the attack on the kingside.",
+   "23": "The queen arrived: the threats on `h2` and `g3` came together.",
+   "24": "The capture opened the door. White was losing anyway, but this speeds up the end.",
+   "25": "A sacrifice! The threat is `Qh1#`, and the engine sees a forced mate in two whatever White plays.",
+   "26": "White took the knight... and opened the road for the other knight.",
+   "27": "**Checkmate!** The knight from `d4` to `e2`. The king is smothered: his rook on `f1` and pawn on `g2` lock him in, the queen covers `h1` and `h2`, and the bishop on `b6` covers `f2`."
+  },
+  "avoid": "Before you take an attacking piece, ask: what does the capture open? Here every capture opened a mating square for another piece."
+ },
+ "french-greedy-queen-e7": {
+  "name": "The queen's eating tour",
+  "opening": "French Defense - Two Knights",
+  "summary": "Black's queen went out to eat: a pawn, then a rook, and she could have taken another rook and kept it equal. Instead she came back with no gain, so White's queen entered e7: checkmate on move 14.",
+  "notes": {
+   "15": "A bishop sacrifice: White has to take with the queen.",
+   "17": "The queen began an eating tour on the queenside.",
+   "18": "The king moved forward - dangerous, but Black is busy eating.",
+   "19": "The queen took the rook. A lot of material... but very far from the defense.",
+   "20": "White prepares the queen's entry from `c5`.",
+   "21": "The fatal mistake! The queen came back with no gain. The engine wanted `Qxh1`, taking the other rook - and even then it's only equal!",
+   "22": "The queen entered: her eye is on `e7` from now.",
+   "24": "The game opened more and the king is still in the center.",
+   "25": "He took the bishop too - and the queen is still far from her king.",
+   "26": "**Checkmate!** The queen on `e7`, protected by the `g5` bishop, and the king is besieged: his own knight locks `d7`, and the `g5` bishop covers `d8`."
+  },
+  "avoid": "If your queen goes out to eat, continue with the eating that has meaning or come back quickly - the worst thing is to go and return with no gain."
+ },
+ "english-open-file-f7": {
+  "name": "The f file that opened",
+  "opening": "English Opening",
+  "summary": "White put his queen on the f file and his knight on e5. Black took the knight in the middle, so the f file opened at once: the queen took f7, checkmate on move 15.",
+  "notes": {
+   "22": "The knight in the center: its eye on `f7`, `d7` and `c6`.",
+   "24": "The queen on the `f` file - eyeing `f7` from afar, with the bishop still blocking.",
+   "25": "Black traded the bishops...",
+   "26": "White recaptured with the bishop - and the file is still blocked.",
+   "27": "The fatal mistake! The capture removed the last blocker on the `f` file: the queen now looks at `f7` directly. The engine wanted `Nxe5` to take the central knight first.",
+   "28": "**Checkmate!** The queen, protected by the `e5` knight, and the king is locked behind his own pieces: the `d7` knight, the `e7` bishop and the `d8` queen."
+  },
+  "avoid": "When you trade pieces, look at the files and diagonals the trade opens - not only at the pieces removed."
+ },
+ "kia-backrank-d8": {
+  "name": "Back-rank mate in the middle of tactics",
+  "opening": "King's Indian Attack",
+  "summary": "The queens were traded early, but the tactics didn't stop: a chain of captures and checks, and in the middle of the chaos Black played a quiet pawn move - White's rook came down to d8: checkmate on move 15.",
+  "notes": {
+   "13": "The queens traded early - the look is calm...",
+   "14": "But the rook stood on the `d` file from now.",
+   "24": "The knight reached `c6`: it covers `d8` and `e7` - remember these squares.",
+   "25": "Check - but this isn't the real problem.",
+   "26": "The king escaped the check.",
+   "27": "The fatal mistake! A quiet move at the most dangerous moment: `Rd8` mate was on the table. The engine wanted `Nd7` to block the mating square.",
+   "28": "**Checkmate!** The rook on `d8` protected by the `c6` knight, and their `f7` pawn and `f8` bishop lock their own king."
+  },
+  "avoid": "Back-rank mate comes in the middle of tactics while you're focused elsewhere - always ask: is my back rank secure?"
+ },
+ "caro-king-walk-d1": {
+  "name": "The king that walked in front of the rook",
+  "opening": "Caro-Kann - Two Knights",
+  "summary": "After the queens were traded, White walked his king in front of a file where Black's rook stood. A bishop check, a forced retreat, and the rook came down to d1: checkmate on move 15.",
+  "notes": {
+   "21": "The queens were traded - and Black is slightly better thanks to the bishop pressure.",
+   "23": "The bishop on the `c5-f2` diagonal: direct pressure on the kingside.",
+   "25": "Long castling: the rook on `d8` now eyes the open `d` file.",
+   "26": "The fatal mistake! The king walked in front of a file with a rook on it. The engine wanted `h4` to continue the game without risk.",
+   "27": "A bishop check - the king is forced to go back.",
+   "28": "The return... onto the same open file.",
+   "29": "**Checkmate!** The rook is protected by the `g4` bishop, the `c5` bishop covers `f2`, and White's bishop on `f1` locks his own king."
+  },
+  "avoid": "A file with an opponent's rook on it = a forbidden zone for your king. Stay away from it before any other plan."
+ },
+ "pirc-king-hunt-h7": {
+  "name": "The king hunt in the Pirc",
+  "opening": "Pirc Defense - Austrian Attack",
+  "summary": "White broke the king's wing with the h pawn and opened its file for his rook. Black ran with his rook to eat a pawn instead of a counter-check to ease the pressure, so the queen entered with two checks in a row and the knight finished on h7: move 15.",
+  "notes": {
+   "12": "White begins the pawn crawl on the kingside early.",
+   "16": "The `h` file opened - the `h1` rook joined the battle without moving.",
+   "18": "A check with the pawn - the kingside was completely broken.",
+   "20": "The knight threatens the rook and eyes `e6` and `h7`.",
+   "23": "The fatal mistake! The rook ran and took a pawn, leaving the king bare. The engine wanted `Qa5+`, a counter-check to ease the pressure - Black was clearly lost, but this move turned it into a forced mate in 3.",
+   "24": "Check! The queen entered the open diagonal.",
+   "26": "Another check - the king is locked in the corner.",
+   "28": "**Checkmate!** The knight on `h7`, protected by the `h1` rook on the open file, and the queen on `e6` covers all the escape squares: `e7`, `e8`, `f7` and `g8`."
+  },
+  "avoid": "When your king is being besieged, a counter-check is sometimes the only defense - running with pieces only gains time and doesn't solve the problem."
+ },
+ "caro-queen-ignored-f7": {
+  "name": "The queen nobody chased away",
+  "opening": "Caro-Kann - Tartakower",
+  "summary": "White's queen stood on h5 from move seven, and Black's king lost castling rights early. Black attacked the queen with his knight and assumed she had to go back - but the queen took f7: checkmate on move 15.",
+  "notes": {
+   "12": "The queen came out early: direct pressure on the kingside.",
+   "17": "Black lost castling rights - the king is stuck in the center.",
+   "22": "The bishop on the `c4-f7` diagonal: it guards the sensitive square from afar.",
+   "24": "An exchange with check...",
+   "25": "...and Black recaptured with the knight.",
+   "26": "White castled and continued developing - the calm before the storm.",
+   "27": "The fatal mistake! Black attacked the queen assuming she must go back - but the mate was on the table. The engine wanted `h6` to secure the squares around the king.",
+   "28": "**Checkmate!** The queen on `f7`, protected by the `c4` bishop, and all the escape squares are covered: `e7`, `e8` and `g8` under the queen's eye, and `g7` blocked by Black's own pawn."
+  },
+  "avoid": "Attacking the queen doesn't force her back if she has a mate - before you attack a piece, make sure the opponent has no deadly reply."
+ },
+ "sicilian-battery-g2": {
+  "name": "The long-diagonal battery",
+  "opening": "Sicilian - Four Knights",
+  "summary": "Black put his bishop on b7 and his queen in front of it on the same diagonal, and sacrificed the knight so White would capture. The capture left the diagonal open, so the queen came down to g2: checkmate on move 14.",
+  "notes": {
+   "15": "The bishop on the long diagonal - eyeing `g2` from afar.",
+   "23": "The queen in front of the bishop on the same diagonal: a battery on `g2`.",
+   "24": "White attacks the knight - but the real danger is on the diagonal.",
+   "25": "A sacrifice! If White captures with the pawn, mate comes at once.",
+   "26": "The fatal mistake! The capture left the diagonal open and mate is on the table. The engine wanted `Bf3` to block the bishop's diagonal and protect `g2`.",
+   "27": "**Checkmate!** The queen on `g2`, protected by the `b7` bishop that has stood in place since move eight."
+  },
+  "avoid": "A long diagonal with a queen and a bishop on it = a bomb. Block it with a light piece before it opens."
  }
 }
