@@ -11,6 +11,7 @@ import { GAMES } from '../data/games'
 import { play as sfx } from '../lib/sound'
 import { Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { useGameLoc } from '../lib/i18n/content'
 
 const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1)
 
@@ -64,6 +65,9 @@ export default function World3DPro() {
   const { t: tr } = useI18n()
   const trRef = useRef(tr)
   trRef.current = tr
+  const gl = useGameLoc()
+  const glRef = useRef(gl)
+  glRef.current = gl
   const mountRef = useRef<HTMLDivElement>(null)
   const [themeId, setThemeId] = useState(DEFAULT_THEME)
   const [preset, setPreset] = useState<string>('classic')
@@ -499,13 +503,14 @@ export default function World3DPro() {
 
     const showReplayStatus = () => {
       if (!replayGame) return
+      const rg = glRef.current(replayGame)
       let txt: string
       if (replayIdx === 0) {
-        txt = `${replayGame.name} - ${replayGame.white} ${trRef.current('wp.replayVs')} ${replayGame.black} (${replayGame.year})`
+        txt = `${rg.name} - ${rg.white} ${trRef.current('wp.replayVs')} ${rg.black} (${rg.year})`
       } else {
         const num = Math.ceil(replayIdx / 2)
         txt = `${num}. ${replayGame.moves[replayIdx - 1]}`
-        const note = replayGame.notes[replayIdx - 1]
+        const note = rg.notes[replayIdx - 1]
         if (note) txt += ` - ${note}`
         if (replayIdx >= replayGame.moves.length) {
           const res = trRef.current(replayGame.result === '1-0' ? 'wp.whiteWon' : replayGame.result === '0-1' ? 'wp.blackWon' : 'wp.drawResult')
@@ -785,7 +790,7 @@ export default function World3DPro() {
             >
               {GAMES.map((g) => (
                 <option key={g.id} value={g.id}>
-                  {g.name} ({g.year})
+                  {gl(g).name} ({g.year})
                 </option>
               ))}
             </select>
