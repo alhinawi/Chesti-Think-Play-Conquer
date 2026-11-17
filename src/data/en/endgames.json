@@ -1,0 +1,80 @@
+{
+ "queen-mate-net": {
+  "name": "Queen Mate Net",
+  "theme": "Mate in 1",
+  "text": "The black king is trapped in the corner. Find the mate in one move.",
+  "explain": "**Qa8#**: the white king on `g6` covers `g7`, `h7` and `g8`, so the queen check on the eighth rank is mate with no extra cover needed. King and queen work as one team: the king confines, the queen strikes."
+ },
+ "rook-lift-mate": {
+  "name": "Rook Lift Mate",
+  "theme": "Mate in 2",
+  "text": "The rook is in the far corner and the black king is on the eighth rank. Bring it to mate in two moves.",
+  "explain": "**Ra1!** shuts the a file so the king is left with only `c8`, then **Ra8#** is mate on the rank: the white king on `c6` covers `b7` and `d7`, so there is no escape. Sometimes the strongest move is the quiet preparation."
+ },
+ "back-rank-block": {
+  "name": "The Late Block",
+  "theme": "Mate in 2",
+  "text": "The black king is locked behind his pawns. Break through on the eighth rank and finish the game.",
+  "explain": "**Ra8+** forces the rook to block with `Re8`, but the block itself closes the last escape square: **Rxe8#**. That is the back-rank idea: a king with no air dies to a single rook."
+ },
+ "promotion-race": {
+  "name": "The Promotion Race",
+  "theme": "Pawn promotion",
+  "text": "The pawn has an open road to promote and the black king is running behind it. Push forward without stopping.",
+  "explain": "The square rule: a king outside the pawn's square will never catch it. **e5-e6-e7-e8=Q** and the black king chases in vain. In pawn endings, the speed of the pawn matters more than anything else."
+ },
+ "opposition-win": {
+  "name": "The Royal Opposition",
+  "theme": "King opposition",
+  "text": "One pawn separates you from the win, and the two kings face each other. Play the opposition right and take the key square.",
+  "explain": "**e5+** pushes the king back, then **Ke4** and **Kf5** take the opposition: whoever has to move loses the square. After **e6+** and **Ke5** the promotion is guaranteed. Opposition means your opponent is the one who has to step aside, not you."
+ },
+ "corner-pocket": {
+  "name": "The Corner Siege",
+  "theme": "King and pawn vs king",
+  "text": "The pawn is about to promote and the black king is stuck in the corner. Play it right: rushing the promotion ruins everything.",
+  "explain": "If you promote at once (g8=Q) the king takes it. The right move is **Kf7!** first: zugzwang forces the king to `h7`, then **g8=Q+** with a safe check and **Qg6#** is mate. In pawn endings, one move of patience is the difference between a win and a draw."
+ },
+ "bn-final-net": {
+  "name": "The Final Net",
+  "theme": "Bishop and knight mate",
+  "text": "The black king is stuck on `a8` - a corner of the bishop's color, so the right corner. You have a bishop, a knight and a king: mate in one move.",
+  "explain": "**Bd5#**! The knight on `a6` covers `b8`, the king on `b6` covers `a7` and `b7`, and the bishop checks along the long diagonal. This is the essence of the bishop and knight mate: you drive the king to a corner **of your bishop's color** (not any corner), and with the W maneuver you close the net square by square until you reach this picture."
+ },
+ "bn-knight-tour": {
+  "name": "The Knight's Tour",
+  "theme": "Bishop and knight mate",
+  "text": "The king is in the right corner but the knight is still far away on `a1`. Lead it on a short tour and close the net: mate in 5 moves.",
+  "explain": "**Be6+!** closes `c8` and leaves the king only `a8` and `b8`, then the knight makes the tour **Nc2-Nb4-Na6+**: each move brings it closer to the magic square `a6` that covers `b8`. Finally **Bd5#** with the full net. This is exactly the end of the W school: the bishop restricts, the knight circles and the king besieges."
+ },
+ "lucena-bridge": {
+  "name": "The Lucena Bridge",
+  "theme": "Rook and pawn ending",
+  "text": "The famous Lucena position: the pawn is on `b7` and the king is coming out in front of it, but the opponent's rook will give side checks. The solution? Build a bridge.",
+  "explain": "**Rd4!** is the whole idea: the rook goes to the fourth rank **before** the king comes out. After **Kc7** the checks come, but **Rb4!** closes the bridge: the rook shields the king from the side checks and the pawn promotes. The rule: in Lucena, build the bridge before you bring the king out, not after the checks bother you."
+ },
+ "philidor-shield": {
+  "name": "The Philidor Shield",
+  "theme": "Drawing with a rook",
+  "text": "You are Black and a pawn down in a rook ending? There is still a way out: the Philidor position guarantees a draw if you play it right.",
+  "explain": "**...Rb6!** locks your rook on the sixth rank: the opponent's king can't pass without pushing the pawn. When he pushes it (**e6**) you drop at once **...Rb1!** to the first rank and give checks from behind: the king has no pawn to hide behind. Sixth rank first, checks from behind second - this is the Philidor recipe from 1777 and it still works today."
+ },
+ "square-rule": {
+  "name": "The Square Rule",
+  "theme": "Passed pawn",
+  "text": "Black's king is far from your passed pawn. Will he catch it? Try it yourself: push the pawn to promotion.",
+  "explain": "The square rule: draw a square from the pawn to the promotion square and count the same distance beside it. If the opponent's king is **outside** the square and it's his move, he can't enter it, and the pawn succeeds without help. Here the black king is fully outside the square: each step he takes closer, the pawn steps forward, and it promotes in the end. Don't count squares every turn: calculate once with the rule."
+ },
+ "arabian-mate": {
+  "name": "The Arabian Mate",
+  "theme": "Mate in 1",
+  "text": "The oldest recorded mating pattern in history: a knight and a rook against a king in the corner. Find the mate in one.",
+  "explain": "**Rxh7#**: the knight on `f6` protects the rook and covers `g8` at the same time, and the `g7` pawn blocks the king's escape. This pattern is documented in medieval Arabic chess manuscripts and is still called the Arabian mate today: the knight protects and besieges, and the rook strikes along the rank with the king."
+ },
+ "epaulette-mate": {
+  "name": "The Epaulette Mate",
+  "theme": "Mate in 1",
+  "text": "Black's king is hemmed in between two rooks like a military shoulder epaulette. Mate in one with the queen.",
+  "explain": "**Qe6#**: the queen strikes from a distance on the `e` file, and the king can't move left or right because his own rooks block the way (`d8` and `f8`), and he can't go back because the queen covers `d7` and `f7` diagonally. The harshest kind of confinement is when your own pieces become your cage."
+ }
+}

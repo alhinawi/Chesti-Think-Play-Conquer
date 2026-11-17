@@ -10,10 +10,12 @@ import RichText from './RichText'
 import { TaskRunner } from './StepPlayer'
 import { Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { useEndgameLoc } from '../lib/i18n/content'
 
 export default function EndgamePlayer({ endgameId, nextId }: { endgameId: string; nextId: string }) {
   const { t } = useI18n()
-  const e = ENDGAMES.find((x) => x.id === endgameId)!
+  const lt = useEndgameLoc()
+  const e = lt(ENDGAMES.find((x) => x.id === endgameId)!)
   const [solved, setSolved] = useState(false)
   const step = useMemo<TaskStep>(
     () => ({
@@ -26,7 +28,7 @@ export default function EndgamePlayer({ endgameId, nextId }: { endgameId: string
       success: t('dl.endSuccess'),
       orientation: e.fen.split(' ')[1] === 'b' ? 'black' : 'white',
     }),
-    [e, t],
+    [e.text, e.fen, e.solution, e.goal, t],
   )
   const onDone = useCallback(() => {
     setSolved(true)
