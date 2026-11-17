@@ -147,3 +147,31 @@ export function useTrapLoc() {
     [locale, dict],
   )
 }
+
+type EndgameEn = { name: string; theme: string; text: string; explain: string }
+type EndgameLike = { id: string; name: string; theme: string; text: string; explain: string }
+let ecache: Record<string, EndgameEn> | null = null
+
+/** Localized endgame text. Falls back to the original (Arabic) when a translation is missing. */
+export function useEndgameLoc() {
+  const { locale } = useI18n()
+  const [dict, setDict] = useState<Record<string, EndgameEn> | null>(ecache)
+  useEffect(() => {
+    if (locale !== 'en') return
+    if (ecache) {
+      setDict(ecache)
+      return
+    }
+    void import('../../data/en/endgames.json').then((m) => {
+      ecache = (m as any).default as Record<string, EndgameEn>
+      setDict(ecache)
+    })
+  }, [locale])
+  return useCallback(
+    <T extends EndgameLike>(e: T): T => {
+      const h = locale === 'en' && dict ? dict[e.id] : undefined
+      return h ? { ...e, ...h } : e
+    },
+    [locale, dict],
+  )
+}
