@@ -859,14 +859,14 @@ export default function World3DPro() {
               </button>
             ))}
           </div>
-          <div className="pointer-events-auto flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
+          <div className="pointer-events-auto flex max-w-full flex-wrap gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
             {CAM_PRESETS.map((p) => (
               <button
                 key={p.id}
                 type="button"
                 onClick={() => setPreset(p.id)}
                 aria-pressed={preset === p.id}
-                className={`rounded-lg px-3 py-1.5 text-sm transition ${preset === p.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
+                className={`rounded-lg px-2 py-1.5 text-sm transition sm:px-3 ${preset === p.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
               >
                 {tr(`wp.cam${cap(p.id)}`)}
               </button>
@@ -875,27 +875,27 @@ export default function World3DPro() {
         </div>
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-2 sm:hidden">
-        <div className="flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
+        <div className="flex max-w-full flex-wrap gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
           {WORLD3D_THEMES.map((t) => (
             <button
               key={t.id}
               type="button"
               onClick={() => setThemeId(t.id)}
               aria-pressed={themeId === t.id}
-              className={`rounded-lg px-3 py-1.5 text-sm transition ${themeId === t.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
+              className={`rounded-lg px-2 py-1.5 text-sm transition sm:px-3 ${themeId === t.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
             >
               {tr(`wp.theme${cap(t.id)}`)}
             </button>
           ))}
         </div>
-        <div className="flex gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
+        <div className="flex max-w-full flex-wrap gap-1 rounded-xl bg-black/55 p-1 backdrop-blur">
           {CAM_PRESETS.map((p) => (
             <button
               key={p.id}
               type="button"
               onClick={() => setPreset(p.id)}
               aria-pressed={preset === p.id}
-              className={`rounded-lg px-3 py-1.5 text-sm transition ${preset === p.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
+              className={`rounded-lg px-2 py-1.5 text-sm transition sm:px-3 ${preset === p.id ? 'bg-gold font-bold text-black' : 'text-ink hover:bg-white/10'}`}
             >
               {tr(`wp.cam${cap(p.id)}`)}
             </button>
