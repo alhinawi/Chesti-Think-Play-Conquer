@@ -6,15 +6,18 @@ import { useAuth } from '../lib/auth'
 import { useProgress } from '../lib/progress'
 import { Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { useLessonLoc } from '../lib/i18n/content'
 
 export default function LessonList() {
   const { t, locale } = useI18n()
+  const ll = useLessonLoc()
   const { lessons: doneAll } = useProgress()
   const { status } = useAuth()
   const done = status === 'authed' ? doneAll : []
   return (
     <div className="space-y-8">
-      {CHAPTERS.map((c, ci) => {
+      {CHAPTERS.map((c0, ci) => {
+        const c = ll.chapter(c0)
         const count = c.lessons.filter((l) => done.includes(l.id)).length
         return (
           <section key={c.id} aria-labelledby={`ch-${c.id}`}>
@@ -30,7 +33,8 @@ export default function LessonList() {
               <span className="shrink-0 text-sm text-muted">{status === 'authed' ? `${count}/${c.lessons.length}` : locale === 'en' ? t('ln.lessonCount', { n: c.lessons.length }) : `${c.lessons.length} ${c.lessons.length === 2 ? 'درسين' : c.lessons.length <= 10 ? 'دروس' : 'درس'}`}</span>
             </div>
             <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {c.lessons.map((l, li) => {
+              {c.lessons.map((l0, li) => {
+                const l = ll.lesson(l0)
                 const isDone = done.includes(l.id)
                 return (
                   <li key={l.id}>

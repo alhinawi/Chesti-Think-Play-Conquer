@@ -9,10 +9,12 @@ import { play } from '../lib/sound'
 import { StepView } from './StepPlayer'
 import { Button, Icon } from './ui'
 import { useI18n } from '../lib/i18n'
+import { useLessonLoc } from '../lib/i18n/content'
 
 export default function LessonPlayer({ lessonId, nextId, nextTitle }: { lessonId: string; nextId?: string; nextTitle?: string }) {
   const { t } = useI18n()
-  const lesson = ALL_LESSONS.find((l) => l.id === lessonId)!
+  const ll = useLessonLoc()
+  const lesson = ll.lesson(ALL_LESSONS.find((l) => l.id === lessonId)!)
   const router = useRouter()
   const [i, setI] = useState(0)
   const [done, setDone] = useState<boolean[]>(() => lesson.steps.map(() => false))
@@ -61,7 +63,7 @@ export default function LessonPlayer({ lessonId, nextId, nextTitle }: { lessonId
           </Button>
         ) : finished ? (
           <Button onClick={() => router.push(nextId ? `/learn/${nextId}` : '/puzzles')}>
-            {nextId ? t('ln.nextLesson', { title: nextTitle ?? '' }) : t('ln.tryPuzzles')} <Icon name="prev" className="h-4 w-4 ltr:-scale-x-100" />
+            {nextId ? t('ln.nextLesson', { title: nextId ? ll.title(nextId, nextTitle ?? '') : '' }) : t('ln.tryPuzzles')} <Icon name="prev" className="h-4 w-4 ltr:-scale-x-100" />
           </Button>
         ) : (
           <span className="text-sm text-muted">{t('ln.finishFirst')}</span>

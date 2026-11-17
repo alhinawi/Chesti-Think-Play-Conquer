@@ -1,0 +1,228 @@
+{
+ "chapters": {
+  "basics": {
+   "title": "First steps: the pieces and how they move",
+   "desc": "You'll learn the board, and how every piece moves and captures."
+  },
+  "rules": {
+   "title": "The important rules",
+   "desc": "Check, checkmate, castling, en passant, promotion, and draws."
+  }
+ },
+ "lessons": {
+  "board": {
+   "title": "The board and its squares",
+   "summary": "64 squares, and every square has a name.",
+   "steps": [
+    {
+     "text": "Welcome to Chesti! The board has **64 squares**, alternating light and dark.\n\nFirst rule: the square in the **bottom right corner** must be **light**.\n\nThe files are letters from `a` to `h`, and the ranks are numbers from `1` to `8`. So every square has a name like an address, like `e4` and `d5` that are lit up in front of you."
+    },
+    {
+     "text": "Each player has 16 pieces:\n\n- 8 **pawns**\n- 2 **rooks** in the corners\n- 2 **knights** next to the rooks\n- 2 **bishops** next to the knights\n- 1 **queen** on a square of her own color (the white queen on a light square)\n- The **king**, the most important piece in the whole game\n\nWhite always moves first."
+    },
+    {
+     "text": "Let's try it: move the pawn in front of the king to the `e4` square. You can drag it with your finger, or tap it and then tap the square.",
+     "hint": "The pawn in front of the king is on `e2`. Take it to `e4`."
+    }
+   ]
+  },
+  "pawn": {
+   "title": "The pawn",
+   "summary": "Moves forward, and captures diagonally.",
+   "steps": [
+    {
+     "text": "The pawn is the smallest piece, but it has real value.\n\n- It moves **forward only**, one square.\n- **On its first move only**, it can go two squares.\n- **It never goes backward.**"
+    },
+    {
+     "text": "This pawn hasn't moved yet. Move it **two squares** in one go."
+    },
+    {
+     "text": "The pawn **doesn't capture forward**, it captures **diagonally** (one square diagonally forward). Capture the black pawn.",
+     "hint": "The pawn captures diagonally forward, toward `d5`."
+    },
+    {
+     "text": "If there is a piece directly in front of the pawn, **the pawn is blocked** and can't move, even if that piece belongs to the opponent. Here the two pawns face each other and neither can move."
+    }
+   ]
+  },
+  "rook": {
+   "title": "The rook",
+   "summary": "Straight lines, all the way.",
+   "steps": [
+    {
+     "text": "The rook moves **in a straight line**: forward, backward, right, left, any number of squares as long as nothing blocks the way.\n\nIt's worth about **5 pawns**."
+    },
+    {
+     "text": "The black knight is on the same file as your rook. **Capture it!**"
+    },
+    {
+     "text": "And this time on the same rank. Capture the bishop."
+    }
+   ]
+  },
+  "bishop": {
+   "title": "The bishop",
+   "summary": "Diagonally, and on one color all game.",
+   "steps": [
+    {
+     "text": "The bishop moves **diagonally** any number of squares.\n\nThat's why a bishop that starts on a dark square **stays on dark squares the whole game**, and the one on a light square stays on light. It's worth about **3 pawns**."
+    },
+    {
+     "text": "There's a loose rook. Can the bishop capture it? Try."
+    }
+   ]
+  },
+  "queen": {
+   "title": "The queen",
+   "summary": "The strongest piece: rook + bishop.",
+   "steps": [
+    {
+     "text": "The queen moves like a **rook and a bishop combined**: straight and diagonally, all the way.\n\nThat's why she's the strongest piece, worth about **9 pawns**. Take good care of her!"
+    },
+    {
+     "text": "Capture the knight with the queen."
+    }
+   ]
+  },
+  "knight": {
+   "title": "The knight",
+   "summary": "Jumps in an L shape.",
+   "steps": [
+    {
+     "text": "The knight is the strangest piece: it moves **two squares in one direction and then one square sideways**, like the letter **L**.\n\nIt's **the only piece that jumps over other pieces**. It's worth about **3 pawns**."
+    },
+    {
+     "text": "Capture the pawn with the knight."
+    },
+    {
+     "text": "At the start of the game, the knight is the only piece (besides the pawns) that can move, because it jumps. Develop either knight.",
+     "success": "Exactly! The best square for the knight is usually `f3` or `c3`, toward the center."
+    }
+   ]
+  },
+  "king": {
+   "title": "The king",
+   "summary": "One square, but it's everything.",
+   "steps": [
+    {
+     "text": "The king moves **one square** in any direction.\n\nThe king **can't be captured**, and the whole point of the game is to trap the opponent's king. And you can't move your king to a square the opponent attacks."
+    },
+    {
+     "text": "The king captures too. Capture this pawn."
+    }
+   ]
+  },
+  "values": {
+   "title": "Captures and piece values",
+   "summary": "Capture the more valuable piece first.",
+   "steps": [
+    {
+     "text": "To know when a trade is good for you, memorize these values:\n\n- Pawn = **1**\n- Knight = **3**\n- Bishop = **3**\n- Rook = **5**\n- Queen = **9**\n- King = priceless\n\nIf you give a knight and take a rook, you came out ahead."
+    },
+    {
+     "text": "Your queen can capture the pawn or the rook, and both are unprotected. Which one will you take?",
+     "hint": "The rook is worth 5 and the pawn is worth 1."
+    }
+   ]
+  },
+  "check": {
+   "title": "Check",
+   "summary": "When the king is attacked.",
+   "steps": [
+    {
+     "text": "When a piece attacks the king, it's called **check**. You must respond right away in one of three ways:\n\n- **Move the king** away\n- **Block** the path with a piece\n- **Capture** the piece giving check"
+    },
+    {
+     "text": "You're Black and the rook is giving check to your king. **Move the king.**"
+    },
+    {
+     "text": "The black bishop is giving check. This time **block the check with the knight**.",
+     "hint": "The knight can jump to `d2` or `c3` and stand in the bishop's way."
+    },
+    {
+     "text": "Your turn to give check. Check the black king with the rook."
+    }
+   ]
+  },
+  "mate": {
+   "title": "Checkmate",
+   "summary": "Check and no escape = you win.",
+   "steps": [
+    {
+     "text": "**Checkmate** means the king is in check, and there's no way to escape, block, or capture the piece giving check. The game is over right then.\n\nLook here: the rook is giving check, and the black king is trapped behind its pawns. That's checkmate."
+    },
+    {
+     "text": "Make the same move: **checkmate in one move**."
+    },
+    {
+     "text": "Checkmate with the queen. There's more than one solution.",
+     "hint": "Your king covers `a7` and `b7`. You need to cover the back rank."
+    }
+   ]
+  },
+  "castling": {
+   "title": "Castling",
+   "summary": "One move that protects the king and brings out the rook.",
+   "steps": [
+    {
+     "text": "**Castling** is the only move where you move two pieces: the king moves **two squares** toward the rook, and the rook jumps **over and lands next to it on the other side**.\n\nConditions:\n\n- The king and the rook **haven't moved** before.\n- No pieces between them.\n- The king is **not in check**, and won't pass through or land on an attacked square."
+    },
+    {
+     "text": "Castle kingside (short castling): drag the king **two squares right**."
+    },
+    {
+     "text": "And now long castling, on the queen's side: drag the king **two squares left**."
+    },
+    {
+     "text": "Here White **can't castle short**: the black bishop attacks `f1`, and the king can't pass through an attacked square. But long castling is allowed."
+    }
+   ]
+  },
+  "en-passant": {
+   "title": "En passant",
+   "summary": "The rule many people don't know.",
+   "steps": [
+    {
+     "text": "If the opponent's pawn moves two squares from its start and lands **next to** your pawn, you can capture it as if it had moved only one square.\n\nBut note: you must capture it **on the very next move**, otherwise the chance is gone.",
+     "notes": {
+      "0": "The black pawn moved two squares and passed next to the white pawn, as if running away from it.",
+      "1": "The white pawn **captures it as if it had moved only one square**, and lands on `d6`. This is **en passant**."
+     }
+    },
+    {
+     "text": "Black just moved `d5` two squares. **Capture it en passant!**",
+     "hint": "Your pawn on `e5` can go to `d6` and capture the pawn next to it."
+    }
+   ]
+  },
+  "promotion": {
+   "title": "Promotion",
+   "summary": "A pawn becomes a queen.",
+   "steps": [
+    {
+     "text": "If a pawn reaches **the last rank**, it must promote to any piece: queen, rook, bishop, or knight. Usually we choose the **queen** because she's the strongest.\n\nSo you can end up with two or three queens!"
+    },
+    {
+     "text": "Take the pawn to the end of the board and **promote it to a queen**.",
+     "hint": "Take the pawn to `e8` and choose the queen."
+    }
+   ]
+  },
+  "draws": {
+   "title": "Draws and stalemate",
+   "summary": "How a winning game becomes a draw.",
+   "steps": [
+    {
+     "text": "**Stalemate**: it's Black's turn, his king is **not in check**, but he has no legal move. Then the game is a **draw**!\n\nWhite was winning by a big margin here, and threw the game away. Watch out for it."
+    },
+    {
+     "text": "Give **checkmate** without causing stalemate.",
+     "hint": "If you play `Qc7` it's stalemate! Look for a check that covers the back rank."
+    },
+    {
+     "text": "There are other ways to draw:\n\n- **Not enough material to mate**: like king against king, or king and bishop against king.\n- **Threefold repetition**: if the same position happens 3 times.\n- **Fifty-move rule**: 50 moves by each side with no capture and no pawn move.\n- **Agreement**: both players agree to a draw."
+    }
+   ]
+  }
+ }
+}
