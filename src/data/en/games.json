@@ -1,0 +1,831 @@
+{
+ "legals-mate": {
+  "name": "Légal's Mate",
+  "white": "Legal de Kermur",
+  "black": "Sam Berry",
+  "place": "Paris",
+  "summary": "A famous fake queen sacrifice: Legal let his queen be taken and won with two knights and a bishop in 7 moves.",
+  "notes": {
+   "5": "The bishop took the queen: the trap is set.",
+   "8": "Nxe5!! Legal leaves his queen hanging: if Black takes it, he loses the game.",
+   "9": "Bxd1?? The bait was swallowed. Taking the knight was correct, continuing a slightly worse game.",
+   "10": "Bxf7+ The count begins: the king is pulled to the center.",
+   "12": "Nd5# Mate with three minor pieces while Black's queen watches from d1."
+  },
+  "lesson": "Don't take an offered queen without calculating: most queens offered in the opening are poison."
+ },
+ "immortal-game": {
+  "name": "The Immortal Game",
+  "white": "Adolf Anderssen",
+  "black": "Lionel Kieseritzky",
+  "place": "London",
+  "summary": "Anderssen sacrifices both rooks, the queen and a bishop to reach mate with just three minor pieces. The most famous game in history.",
+  "notes": {
+   "2": "The King's Gambit: a pawn for attacking speed, the language of romantic chess.",
+   "16": "Black takes pawns and pieces while White calmly builds his attack.",
+   "28": "Bxf4: White is ready to lose his rook to continue the attack.",
+   "34": "Bd6!! A bishop sacrifice that stops the black king from escaping.",
+   "37": "Black took another rook, but White has a forced mate.",
+   "42": "Qf6+! The queen sacrifice itself.",
+   "44": "Be7# Mate with a bishop and two knights after sacrificing the queen and both rooks: that's why it's called the Immortal."
+  },
+  "lesson": "Initiative and attack are worth more than material: an opponent who hasn't finished development is dead, however much of your army he eats."
+ },
+ "evergreen-game": {
+  "name": "The Evergreen Game",
+  "white": "Adolf Anderssen",
+  "black": "Jean Dufresne",
+  "place": "Berlin",
+  "summary": "Another queen sacrifice from Anderssen, and the mate comes from a bishop standing in the heart of Black's position like a tree that never wilts.",
+  "notes": {
+   "6": "The Evans Gambit: White gives a pawn to steal the initiative.",
+   "30": "Nf6+! A fork that opens lines on the kingside.",
+   "37": "Qxf3 took the queen, but the game is already over: the big sacrifice is coming.",
+   "40": "Qxd7+!! The queen is offered to be taken, and Black is forced to take it.",
+   "42": "Bf5+ The bishop comes back and cuts off every escape route.",
+   "46": "Bxe7# Mate with bishops: six pawns and a queen for Black are of no use."
+  },
+  "lesson": "The right sacrifice starts from precise calculation of the attacking lines, not from hoping the opponent errs."
+ },
+ "paulsen-morphy-1857": {
+  "name": "Louis Paulsen vs Paul Morphy",
+  "white": "Louis Paulsen",
+  "black": "Paul Morphy",
+  "place": "USA-01.Congress",
+  "summary": "Louis Paulsen vs Paul Morphy - USA-01.Congress 1857. White won after 36 moves.",
+  "notes": {},
+  "lesson": "A game from USA-01.Congress (1857), shown move by move exactly as it was played."
+ },
+ "opera-game": {
+  "name": "The Opera Game",
+  "white": "Paul Morphy",
+  "black": "Duke Karl and Count Isouard",
+  "place": "Paris",
+  "summary": "Morphy plays against two noblemen while listening to the opera: fast development, a queen sacrifice, and mate with a bishop and a rook.",
+  "notes": {
+   "7": "Black lost time taking a knight instead of developing his pieces.",
+   "12": "Qb3 double pressure on b7 and f7: the weakest square at the start.",
+   "18": "Nxb5! Morphy sacrifices a piece to open the file and keep Black from castling.",
+   "22": "The black king is stuck in the center with no shelter, and the rooks storm in.",
+   "30": "Qb8+! A queen sacrifice that prepares the mate.",
+   "32": "Rd8# A clean mate: two pieces are enough when development is complete."
+  },
+  "lesson": "Whoever develops fast and attacks first usually wins before move 20."
+ },
+ "steinitz-mongredien-1862": {
+  "name": "William Steinitz vs Augustus Mongredien",
+  "white": "Wilhelm Steinitz",
+  "black": "Augustus Mongredien",
+  "place": "London mt",
+  "summary": "Wilhelm Steinitz vs Augustus Mongredien - London mt 1862. White won by checkmate after 29 moves.",
+  "notes": {},
+  "lesson": "A game from London mt (1862), shown move by move exactly as it was played."
+ },
+ "zukertort-blackburne-1883": {
+  "name": "Johannes Hermann Zukertort vs Joseph Henry Blackburne",
+  "white": "Johannes Zukertort",
+  "black": "Joseph Blackburne",
+  "place": "London+",
+  "summary": "Johannes Zukertort vs Joseph Blackburne - London+ 1883. The game was drawn after 31 moves.",
+  "notes": {},
+  "lesson": "A game from London+ (1883), shown move by move exactly as it was played."
+ },
+ "lasker-bauer-1889": {
+  "name": "Emanuel Lasker vs Johann Bauer",
+  "white": "Emanuel Lasker",
+  "black": "Johann Bauer",
+  "place": "Amsterdam",
+  "summary": "Emanuel Lasker vs Johann Bauer - Amsterdam 1889. White won after 38 moves.",
+  "notes": {},
+  "lesson": "A game from Amsterdam (1889), shown move by move exactly as it was played."
+ },
+ "steinitz-bardeleben": {
+  "name": "Steinitz - von Bardeleben, Hastings 1895",
+  "white": "Wilhelm Steinitz",
+  "black": "Curt von Bardeleben",
+  "place": "Hastings",
+  "summary": "Steinitz sacrifices his rook and paralyzes Black completely, and von Bardeleben couldn't bear the defeat so he got up and left the hall without resigning.",
+  "notes": {
+   "32": "**d5!** Breaking the center at exactly the right time: Black's king is still in the middle, and Steinitz opens the lines.",
+   "38": "**Qg4** Pressure from every side: Black suffers but holds together on the surface.",
+   "42": "**Rxe7+!!** The immortal rook sacrifice: if Black takes, he walks into a losing chase, so he kept refusing and suffering.",
+   "46": "**Rg7+** The rook can't be taken and the king turns: every move is a check without White losing anything.",
+   "48": "**Rxh7+** Von Bardeleben got up and left the hall! Steinitz showed the audience the forced mate: `...Kg8` `Rg7+` `Kh8` `Qh4+` `Kxg7` `Qh7+` and then `Qh8#`."
+  },
+  "lesson": "The untouchable piece: sometimes the strongest threat is the one you leave hanging. When your opponent is tied up and paralyzed, free offers win."
+ },
+ "pillsbury-gunsberg-1895": {
+  "name": "Harry Nelson Pillsbury vs Isidor Gunsberg",
+  "white": "Harry Pillsbury",
+  "black": "Isidor Gunsberg",
+  "place": "Hastings",
+  "summary": "Harry Pillsbury vs Isidor Gunsberg - Hastings 1895. White won after 40 moves.",
+  "notes": {},
+  "lesson": "A game from Hastings (1895), shown move by move exactly as it was played."
+ },
+ "pillsbury-tarrasch-1895": {
+  "name": "Harry Nelson Pillsbury vs Siegbert Tarrasch",
+  "white": "Harry Pillsbury",
+  "black": "Siegbert Tarrasch",
+  "place": "Hastings",
+  "summary": "Harry Pillsbury vs Siegbert Tarrasch - Hastings 1895. White won by checkmate after 52 moves.",
+  "notes": {},
+  "lesson": "A game from Hastings (1895), shown move by move exactly as it was played."
+ },
+ "pillsbury-lasker-1896": {
+  "name": "Harry Nelson Pillsbury vs Emanuel Lasker",
+  "white": "Harry Pillsbury",
+  "black": "Emanuel Lasker",
+  "place": "Nuremberg",
+  "summary": "Harry Pillsbury vs Emanuel Lasker - Nuremberg 1896. White won after 50 moves.",
+  "notes": {},
+  "lesson": "A game from Nuremberg (1896), shown move by move exactly as it was played."
+ },
+ "lasker-napier-1904": {
+  "name": "Emanuel Lasker vs William Ewart Napier",
+  "white": "Emanuel Lasker",
+  "black": "William Napier",
+  "place": "Cambridge Springs",
+  "summary": "Emanuel Lasker vs William Napier - Cambridge Springs 1904. White won after 35 moves.",
+  "notes": {},
+  "lesson": "A game from Cambridge Springs (1904), shown move by move exactly as it was played."
+ },
+ "rubinsteins-immortal": {
+  "name": "Rubinstein's Immortal, Lodz 1907",
+  "white": "George Rotlewi",
+  "black": "Akiba Rubinstein",
+  "place": "Lodz",
+  "summary": "Rubinstein turns the board into a symphony: a rook sacrifice, a rook offering itself to 3 pieces, and a finish so beautiful the game is still taught today.",
+  "notes": {
+   "39": "**...Ng4!** The start: the knight advances and the threats around `h2` gather.",
+   "41": "**...Qh4!** The queen enters, and the bishop on `e4` can't be taken because of the counterplay on `h2`.",
+   "43": "**...Rxc3!!** The immortal sacrifice: the rook is broken to open all the attacking lines.",
+   "45": "**...Rd2!!** The move of the century: the rook offers itself to 3 pieces at once, and nobody can take it.",
+   "49": "**...Rh3!** White resigned: there is no defense against `Bxh3` or `...Rxh2#`. The hall stood to watch a masterpiece."
+  },
+  "lesson": "Coordination matters more than material: every piece on the right square is stronger than a confused rook and queen. When the pieces talk to each other, the sacrifices come by themselves."
+ },
+ "rotlewi-rubinstein-1907": {
+  "name": "Georg A Rotlewi vs Akiba Rubinstein",
+  "white": "George Rotlewi",
+  "black": "Akiba Rubinstein",
+  "place": "Lodz",
+  "summary": "George Rotlewi vs Akiba Rubinstein - Lodz 1907. White won after 15 moves.",
+  "notes": {},
+  "lesson": "A game from Lodz (1907), shown move by move exactly as it was played."
+ },
+ "rubinstein-lasker-1909": {
+  "name": "Akiba Rubinstein vs Emanuel Lasker",
+  "white": "Akiba Rubinstein",
+  "black": "Emanuel Lasker",
+  "place": "St Petersburg",
+  "summary": "Akiba Rubinstein vs Emanuel Lasker - St Petersburg 1909. White won after 40 moves.",
+  "notes": {},
+  "lesson": "A game from St Petersburg (1909), shown move by move exactly as it was played."
+ },
+ "gold-coins-game": {
+  "name": "The Gold Coins Game",
+  "white": "Stefan Levitsky",
+  "black": "Frank Marshall",
+  "place": "Breslau",
+  "summary": "Qg3!! A move that made the spectators throw gold coins onto the board: a queen offered to be taken three ways, and none of them saves White.",
+  "notes": {
+   "4": "Marshall breaks the center instead of defending it: his attacking style from move one.",
+   "33": "Bxc3 the start of harvesting pawns: Black opens the lines on the kingside.",
+   "37": "Nd4! The knight settles in the heart of the board and threatens forks.",
+   "43": "Rxh3 breaking the white shelter around the king.",
+   "45": "Qg3!! The legendary move: if fxg3 comes Ne2+ and Rxh1#, if hxg3 comes Ne2#, and if Qxg3 comes Nde2+ winning the queen. White resigned at once."
+  },
+  "lesson": "A move that breaks the rules of appearance (a queen to be taken?) can be the strongest move of the game if the calculation is behind it."
+ },
+ "lasker-thomas": {
+  "name": "Lasker - Thomas, London 1912",
+  "white": "Emanuel Lasker",
+  "black": "Sir George Thomas",
+  "place": "London",
+  "summary": "Lasker sacrifices his queen and drags the black king from one side of the board to the other, ending with the strangest checkmate in history: by moving his own king.",
+  "notes": {
+   "18": "**Qh5** The queen comes out: Lasker is preparing for the most famous sacrifice of his career.",
+   "20": "**Qxh7+!!** The queen is thrown into the fire! Black has to take, and the king begins a journey of terror.",
+   "21": "**...Kxh7** There is no refusing: and this is the first step on a trip from `h7` all the way to `g1`.",
+   "26": "**h4+** The king is dragged forward by force: every move is a check, and there is no time to breathe.",
+   "34": "**Kd2#!** Mate by moving the king! Lasker chose the strangest ending possible, and he could have mated by castling too."
+  },
+  "lesson": "The king hunt: a sacrifice that opens the king is worth it when you're sure the chase ends in mate. Calculate to the end before you sacrifice."
+ },
+ "levitsky-marshall-1912": {
+  "name": "Stepan M Levitsky vs Frank James Marshall",
+  "white": "Stepan Levitsky",
+  "black": "Frank Marshall",
+  "place": "DSB-18.Kongress",
+  "summary": "Stepan Levitsky vs Frank Marshall - DSB-18.Kongress 1912. Black won after 23 moves.",
+  "notes": {},
+  "lesson": "A game from DSB-18.Kongress (1912), shown move by move exactly as it was played."
+ },
+ "lasker-capablanca-1914": {
+  "name": "Emanuel Lasker vs Jose Raul Capablanca",
+  "white": "Emanuel Lasker",
+  "black": "Jose Raul Capablanca",
+  "place": "St Petersburg prel",
+  "summary": "Emanuel Lasker vs Jose Raul Capablanca - St Petersburg prel 1914. The game was drawn after 49 moves.",
+  "notes": {},
+  "lesson": "A game from St Petersburg prel (1914), shown move by move exactly as it was played."
+ },
+ "capablanca-marshall-1918": {
+  "name": "Jose Raul Capablanca vs Frank James Marshall",
+  "white": "Jose Raul Capablanca",
+  "black": "Frank Marshall",
+  "place": "New York",
+  "summary": "Jose Raul Capablanca vs Frank Marshall - New York 1918. White won after 36 moves.",
+  "notes": {},
+  "lesson": "A game from New York (1918), shown move by move exactly as it was played."
+ },
+ "adams-torre": {
+  "name": "Adams - Torre, New Orleans 1920",
+  "white": "Edwin Adams",
+  "black": "Carlos Torre",
+  "place": "New Orleans",
+  "summary": "The white queen offers herself to be taken 3 times in a row, and nobody can touch her: the most famous lesson in the idea of the overloaded piece.",
+  "notes": {
+   "16": "**Nd5** Quiet central pressure, but the real plan is being prepared on the back rank.",
+   "34": "**Qg4!!** The queen offers herself for free! If Black takes, the weakness on the back rank collapses.",
+   "36": "**Qc4!!** Another offer: the queen circles around Black's queen, which is tied to guarding the rook.",
+   "38": "**Qc7!!** A third offer in a row! Black's queen is paralyzed: overloaded with guarding pieces and unable to take or escape.",
+   "44": "**Qxb7** Torre resigned: the back rank collapses onto `Re8` after any defense. A short game but an immortal one."
+  },
+  "lesson": "The overloaded piece: when one piece carries two duties, hit both at the same time - and don't be afraid to offer your queen for free if taking it is impossible."
+ },
+ "bogoljubow-alekhine-1922": {
+  "name": "Efim Bogoljubow vs Alexander Alekhine",
+  "white": "Efim Bogoljubov",
+  "black": "Alexander Alekhine",
+  "place": "Vienna",
+  "summary": "Efim Bogoljubov vs Alexander Alekhine - Vienna 1922. The game was drawn after 33 moves.",
+  "notes": {},
+  "lesson": "A game from Vienna (1922), shown move by move exactly as it was played."
+ },
+ "capablanca-tartakower-1924": {
+  "name": "Jose Raul Capablanca vs Saviely Tartakower",
+  "white": "Jose Raul Capablanca",
+  "black": "Savielly Tartakower",
+  "place": "New York",
+  "summary": "Jose Raul Capablanca vs Savielly Tartakower - New York 1924. Black won after 30 moves.",
+  "notes": {},
+  "lesson": "A game from New York (1924), shown move by move exactly as it was played."
+ },
+ "reti-capablanca-1924": {
+  "name": "Richard Reti vs Jose Raul Capablanca",
+  "white": "Richard Reti",
+  "black": "Jose Raul Capablanca",
+  "place": "New York",
+  "summary": "Richard Reti vs Jose Raul Capablanca - New York 1924. White won after 31 moves.",
+  "notes": {},
+  "lesson": "A game from New York (1924), shown move by move exactly as it was played."
+ },
+ "reti-alekhine-1925": {
+  "name": "Richard Reti vs Alexander Alekhine",
+  "white": "Richard Reti",
+  "black": "Alexander Alekhine",
+  "place": "Baden-Baden",
+  "summary": "Richard Reti vs Alexander Alekhine - Baden-Baden 1925. Black won after 42 moves.",
+  "notes": {},
+  "lesson": "A game from Baden-Baden (1925), shown move by move exactly as it was played."
+ },
+ "flohr-euwe-1932": {
+  "name": "Salo Flohr vs Max Euwe",
+  "white": "Salo Flohr",
+  "black": "Max Euwe",
+  "place": "Bern",
+  "summary": "Salo Flohr vs Max Euwe - Bern 1932. The game was drawn after 20 moves.",
+  "notes": {},
+  "lesson": "A game from Bern (1932), shown move by move exactly as it was played."
+ },
+ "euwe-alekhine-1935": {
+  "name": "Max Euwe vs Alexander Alekhine",
+  "white": "Max Euwe",
+  "black": "Alexander Alekhine",
+  "place": "World Championship 16th",
+  "summary": "Max Euwe vs Alexander Alekhine - World Championship 16th 1935. White won after 30 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 16th (1935), shown move by move exactly as it was played."
+ },
+ "botvinnik-capablanca-1938": {
+  "name": "Mikhail Botvinnik vs Jose Raul Capablanca",
+  "white": "Mikhail Botvinnik",
+  "black": "Jose Raul Capablanca",
+  "place": "AVRO",
+  "summary": "Mikhail Botvinnik vs Jose Raul Capablanca - AVRO 1938. White won after 41 moves.",
+  "notes": {},
+  "lesson": "A game from AVRO (1938), shown move by move exactly as it was played."
+ },
+ "geller-euwe-1953": {
+  "name": "Efim P Geller vs Max Euwe",
+  "white": "Efim Geller",
+  "black": "Max Euwe",
+  "place": "Candidats Tournament",
+  "summary": "Efim Geller vs Max Euwe - Candidats Tournament 1953. Black won after 26 moves.",
+  "notes": {},
+  "lesson": "A game from Candidats Tournament (1953), shown move by move exactly as it was played."
+ },
+ "botvinnik-smyslov-1954": {
+  "name": "Mikhail Botvinnik vs Vassily Smyslov",
+  "white": "Mikhail Botvinnik",
+  "black": "Vasily Smyslov",
+  "place": "World Championship 20th",
+  "summary": "Mikhail Botvinnik vs Vasily Smyslov - World Championship 20th 1954. Black won after 58 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 20th (1954), shown move by move exactly as it was played."
+ },
+ "game-of-the-century": {
+  "name": "The Game of the Century",
+  "white": "Donald Byrne",
+  "black": "Bobby Fischer",
+  "place": "New York",
+  "summary": "Fischer is 13 years old and plays a legendary queen sacrifice against one of America's strongest players: Be6, a move that entered history.",
+  "notes": {
+   "20": "Na4! Young Fischer attacks the queen and turns the table.",
+   "24": "Nxe4!! The start of the brilliant tactic: the knight unravels everything.",
+   "33": "Be6!! The most famous move in American chess: Fischer sacrifices his queen because the c4 bishop is pinned to the king.",
+   "37": "A series of consecutive checks that win back pawns and pieces while White gasps.",
+   "47": "The pinned knight on d1 falls, and White is now defending for his king's skin.",
+   "77": "Rc2# Mate at the end: a 13-year-old boy taught the grown-ups a lesson."
+  },
+  "lesson": "Pins and forks are the weapon of the small against the big: a piece pinned to the king has no defensive value."
+ },
+ "fischer-petrosian-1959": {
+  "name": "Robert James Fischer vs Tigran V Petrosian",
+  "white": "Bobby Fischer",
+  "black": "Tigran Petrosian",
+  "place": "Candidats Tournament",
+  "summary": "Bobby Fischer vs Tigran Petrosian - Candidats Tournament 1959. Black won after 68 moves.",
+  "notes": {},
+  "lesson": "A game from Candidats Tournament (1959), shown move by move exactly as it was played."
+ },
+ "tal-smyslov-1959": {
+  "name": "Mihail Tal vs Vassily Smyslov",
+  "white": "Mikhail Tal",
+  "black": "Vasily Smyslov",
+  "place": "Candidats Tournament",
+  "summary": "Mikhail Tal vs Vasily Smyslov - Candidats Tournament 1959. White won after 65 moves.",
+  "notes": {},
+  "lesson": "A game from Candidats Tournament (1959), shown move by move exactly as it was played."
+ },
+ "spassky-bronstein-1960": {
+  "name": "Boris V Spassky vs David I Bronstein",
+  "white": "Boris Spassky",
+  "black": "David Bronstein",
+  "place": "Mar del Plata",
+  "summary": "Boris Spassky vs David Bronstein - Mar del Plata 1960. The game was drawn after 29 moves.",
+  "notes": {},
+  "lesson": "A game from Mar del Plata (1960), shown move by move exactly as it was played."
+ },
+ "tal-botvinnik-1960": {
+  "name": "Mihail Tal vs Mikhail Botvinnik",
+  "white": "Mikhail Tal",
+  "black": "Mikhail Botvinnik",
+  "place": "World Championship 23th",
+  "summary": "Mikhail Tal vs Mikhail Botvinnik - World Championship 23th 1960. White won after 32 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 23th (1960), shown move by move exactly as it was played."
+ },
+ "portisch-tal-1964": {
+  "name": "Lajos Portisch vs Mihail Tal",
+  "white": "Lajos Portisch",
+  "black": "Mikhail Tal",
+  "place": "Amsterdam Interzonal",
+  "summary": "Lajos Portisch vs Mikhail Tal - Amsterdam Interzonal 1964. The game was drawn after 37 moves.",
+  "notes": {},
+  "lesson": "A game from Amsterdam Interzonal (1964), shown move by move exactly as it was played."
+ },
+ "geller-smyslov-1965": {
+  "name": "Efim P Geller vs Vassily Smyslov",
+  "white": "Efim Geller",
+  "black": "Vasily Smyslov",
+  "place": "Candidats qf4",
+  "summary": "Efim Geller vs Vasily Smyslov - Candidats qf4 1965. White won after 58 moves.",
+  "notes": {},
+  "lesson": "A game from Candidats qf4 (1965), shown move by move exactly as it was played."
+ },
+ "petrosian-spassky-1966": {
+  "name": "Tigran V Petrosian vs Boris V Spassky",
+  "white": "Tigran Petrosian",
+  "black": "Boris Spassky",
+  "place": "World Championship 26th",
+  "summary": "Tigran Petrosian vs Boris Spassky - World Championship 26th 1966. The game was drawn after 37 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 26th (1966), shown move by move exactly as it was played."
+ },
+ "fischer-stein-1967": {
+  "name": "Robert James Fischer vs Leonid Stein",
+  "white": "Bobby Fischer",
+  "black": "Leonid Stein",
+  "place": "Sousse Interzonal+",
+  "summary": "Bobby Fischer vs Leonid Stein - Sousse Interzonal+ 1967. White won after 56 moves.",
+  "notes": {},
+  "lesson": "A game from Sousse Interzonal+ (1967), shown move by move exactly as it was played."
+ },
+ "spassky-petrosian-1969": {
+  "name": "Boris V Spassky vs Tigran V Petrosian",
+  "white": "Boris Spassky",
+  "black": "Tigran Petrosian",
+  "place": "World Championship 27th",
+  "summary": "Boris Spassky vs Tigran Petrosian - World Championship 27th 1969. Black won after 56 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 27th (1969), shown move by move exactly as it was played."
+ },
+ "larsen-spassky-1970": {
+  "name": "Bent Larsen vs Boris V Spassky",
+  "white": "Bent Larsen",
+  "black": "Boris Spassky",
+  "place": "Leiden",
+  "summary": "Bent Larsen vs Boris Spassky - Leiden 1970. The game was drawn after 34 moves.",
+  "notes": {},
+  "lesson": "A game from Leiden (1970), shown move by move exactly as it was played."
+ },
+ "fischer-spassky-g6": {
+  "name": "Fischer - Spassky 1972, Game 6",
+  "white": "Bobby Fischer",
+  "black": "Boris Spassky",
+  "place": "Reykjavik",
+  "summary": "Fischer plays an opening completely unlike his style and delivers a masterpiece of the center: pawns that look broken turn into a storm of attack. Spassky stood and applauded after the resignation.",
+  "notes": {
+   "0": "Fischer had almost never played `c4` before: Spassky and his team prepared only for `e4`, and all the preparation went to waste.",
+   "37": "**...fxe6** The doubled pawns on the e file look weak, but Fischer sees that the dark squares around them will be his playground.",
+   "38": "**e4!** Without rushing: Fischer builds a center and chokes Black's plans piece by piece.",
+   "60": "**e6!** The pawn breaks in: the black structure that was solid begins to crack.",
+   "74": "**Rxf6!** The deciding rook sacrifice: the king's pawns are broken and the knight is removed from its best square.",
+   "80": "**Qf4** and Spassky resigned here: the mate is coming with no defense, and the audience and Spassky himself applauded Fischer."
+  },
+  "lesson": "A structural weakness isn't always a real weakness: what decides the value of pawns is the pieces behind them and the squares they control, not how they look in the structure."
+ },
+ "fischer-spassky-1972": {
+  "name": "Robert James Fischer vs Boris V Spassky",
+  "white": "Bobby Fischer",
+  "black": "Boris Spassky",
+  "place": "World Championship 28th",
+  "summary": "Bobby Fischer vs Boris Spassky - World Championship 28th 1972. White won after 56 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 28th (1972), shown move by move exactly as it was played."
+ },
+ "spassky-fischer-1972": {
+  "name": "Boris V Spassky vs Robert James Fischer",
+  "white": "Boris Spassky",
+  "black": "Bobby Fischer",
+  "place": "World Championship 28th",
+  "summary": "Boris Spassky vs Bobby Fischer - World Championship 28th 1972. White won after 56 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 28th (1972), shown move by move exactly as it was played."
+ },
+ "spassky-fischer-1972-2": {
+  "name": "Boris V Spassky vs Robert James Fischer",
+  "white": "Boris Spassky",
+  "black": "Bobby Fischer",
+  "place": "World Championship 28th",
+  "summary": "Boris Spassky vs Bobby Fischer - World Championship 28th 1972. White won after 56 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 28th (1972), shown move by move exactly as it was played."
+ },
+ "bronstein-ljubojevic-1973": {
+  "name": "David I Bronstein vs Ljubomir Ljubojevic",
+  "white": "David Bronstein",
+  "black": "Ljubomir Ljubojevic",
+  "place": "Petropolis Interzonal",
+  "summary": "David Bronstein vs Ljubomir Ljubojevic - Petropolis Interzonal 1973. White won after 41 moves.",
+  "notes": {},
+  "lesson": "A game from Petropolis Interzonal (1973), shown move by move exactly as it was played."
+ },
+ "karpov-spassky-1974": {
+  "name": "Anatoly Karpov vs Boris V Spassky",
+  "white": "Anatoly Karpov",
+  "black": "Boris Spassky",
+  "place": "Candidats sf1",
+  "summary": "Anatoly Karpov vs Boris Spassky - Candidats sf1 1974. Black won after 63 moves.",
+  "notes": {},
+  "lesson": "A game from Candidats sf1 (1974), shown move by move exactly as it was played."
+ },
+ "tatai-karpov-1977": {
+  "name": "Stefano Tatai vs Anatoly Karpov",
+  "white": "Stefano Tatai",
+  "black": "Anatoly Karpov",
+  "place": "Las Palmas",
+  "summary": "Stefano Tatai vs Anatoly Karpov - Las Palmas 1977. Black won after 30 moves.",
+  "notes": {},
+  "lesson": "A game from Las Palmas (1977), shown move by move exactly as it was played."
+ },
+ "kasparov-gavrikov-1981": {
+  "name": "Gary Kasparov vs Viktor Gavrikov",
+  "white": "Garry Kasparov",
+  "black": "Viktor Gavrikov",
+  "place": "URS-ch49",
+  "summary": "Garry Kasparov vs Viktor Gavrikov - URS-ch49 1981. White won after 33 moves.",
+  "notes": {},
+  "lesson": "A game from URS-ch49 (1981), shown move by move exactly as it was played."
+ },
+ "kavalek-kasparov-1982": {
+  "name": "Lubomir Kavalek vs Gary Kasparov",
+  "white": "Lubomir Kavalek",
+  "black": "Garry Kasparov",
+  "place": "Bugojno",
+  "summary": "Lubomir Kavalek vs Garry Kasparov - Bugojno 1982. Black won after 27 moves.",
+  "notes": {},
+  "lesson": "A game from Bugojno (1982), shown move by move exactly as it was played."
+ },
+ "karpov-geller-1983": {
+  "name": "Anatoly Karpov vs Efim P Geller",
+  "white": "Anatoly Karpov",
+  "black": "Efim Geller",
+  "place": "URS-ch50",
+  "summary": "Anatoly Karpov vs Efim Geller - URS-ch50 1983. White won after 31 moves.",
+  "notes": {},
+  "lesson": "A game from URS-ch50 (1983), shown move by move exactly as it was played."
+ },
+ "octopus-knight": {
+  "name": "The Octopus Knight",
+  "white": "Anatoly Karpov",
+  "black": "Garry Kasparov",
+  "place": "Moscow",
+  "summary": "Game 16 of the 1985 World Championship: Kasparov's knight on `d3` becomes the most famous knight in history - it paralyzes all of Karpov's pieces.",
+  "notes": {
+   "15": "**...d5!** Kasparov breaks Karpov's center with a calculated pawn sacrifice.",
+   "31": "**...Nd3** The octopus knight arrives: from `d3` it paralyzes both rooks, the queen and everything.",
+   "35": "**...b4!** Karpov can't find a useful move - the white pieces have gone back home.",
+   "65": "**...Ne4** The second knight joins the attack and Karpov is forced to give a rook.",
+   "79": "**...Re1+** and Karpov resigned: the loss is decided. This game turned the whole World Championship around."
+  },
+  "lesson": "A supported knight in the heart of the opponent's camp that can't be kicked out is stronger than a rook: the pieces around it are working, and the opponent's pieces are decoration."
+ },
+ "karpov-kasparov-g24": {
+  "name": "Karpov - Kasparov 1985, Game 24",
+  "white": "Anatoly Karpov",
+  "black": "Garry Kasparov",
+  "place": "Moscow",
+  "summary": "The last game of the 1985 World Championship: Kasparov as Black needed only a draw to take the title, but chose to attack and win in a spectacular way from the heart of the Sicilian.",
+  "notes": {
+   "28": "Karpov attacks with `g4-g5` on the kingside: he must win the game to keep the title, so there's no room for caution.",
+   "49": "**...f5!** Kasparov answers the wing attack with a break in the center: the golden rule against flank attacks.",
+   "61": "**...g5!** A bold break: the black king is exposed, but the counterattack became faster than White's attack.",
+   "67": "**...Nxc2!** The knight jumps into the heart of the white camp and all the tactics explode in Black's favor.",
+   "83": "**...Nd4** and Karpov resigned: Kasparov became the 13th world champion at age 22, the youngest champion in history at that time."
+  },
+  "lesson": "When your opponent attacks your kingside, the strongest reply is often a break in the center or a faster counterattack: don't move to his rhythm."
+ },
+ "karpov-kasparov-1985": {
+  "name": "Anatoly Karpov vs Gary Kasparov",
+  "white": "Anatoly Karpov",
+  "black": "Garry Kasparov",
+  "place": "World Championship 32th-KK2",
+  "summary": "Anatoly Karpov vs Garry Kasparov - World Championship 32th-KK2 1985. White won after 42 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 32th-KK2 (1985), shown move by move exactly as it was played."
+ },
+ "karpov-kasparov-1985-2": {
+  "name": "Anatoly Karpov vs Gary Kasparov",
+  "white": "Anatoly Karpov",
+  "black": "Garry Kasparov",
+  "place": "World Championship 32th-KK2",
+  "summary": "Anatoly Karpov vs Garry Kasparov - World Championship 32th-KK2 1985. White won after 42 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 32th-KK2 (1985), shown move by move exactly as it was played."
+ },
+ "kasparov-karpov-1986": {
+  "name": "Gary Kasparov vs Anatoly Karpov",
+  "white": "Garry Kasparov",
+  "black": "Anatoly Karpov",
+  "place": "World Championship 33th-KK3",
+  "summary": "Garry Kasparov vs Anatoly Karpov - World Championship 33th-KK3 1986. The game was drawn after 21 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 33th-KK3 (1986), shown move by move exactly as it was played."
+ },
+ "kasparov-karpov-1987": {
+  "name": "Gary Kasparov vs Anatoly Karpov",
+  "white": "Garry Kasparov",
+  "black": "Anatoly Karpov",
+  "place": "World Championship 34th-KK4",
+  "summary": "Garry Kasparov vs Anatoly Karpov - World Championship 34th-KK4 1987. The game was drawn after 30 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 34th-KK4 (1987), shown move by move exactly as it was played."
+ },
+ "piket-kasparov-1989": {
+  "name": "Jeroen Piket vs Gary Kasparov",
+  "white": "Jerome Beckett",
+  "black": "Garry Kasparov",
+  "place": "Tilburg",
+  "summary": "Jerome Beckett vs Garry Kasparov - Tilburg 1989. White won after 40 moves.",
+  "notes": {},
+  "lesson": "A game from Tilburg (1989), shown move by move exactly as it was played."
+ },
+ "karpov-kasparov-1990": {
+  "name": "Anatoly Karpov vs Gary Kasparov",
+  "white": "Anatoly Karpov",
+  "black": "Garry Kasparov",
+  "place": "World Championship 35th-KK5",
+  "summary": "Anatoly Karpov vs Garry Kasparov - World Championship 35th-KK5 1990. The game was drawn after 30 moves.",
+  "notes": {},
+  "lesson": "A game from World Championship 35th-KK5 (1990), shown move by move exactly as it was played."
+ },
+ "immortal-king-walk": {
+  "name": "Short - Timman 1991, The King Walk",
+  "white": "Nigel Short",
+  "black": "Jan Timman",
+  "place": "Tilburg",
+  "summary": "Short wins with a mate built by his own king: he walks it from g1 to g5 in front of all of the opponent's pieces, and nobody can touch it.",
+  "notes": {
+   "56": "**Qf6+** The queen plants herself: the mate threat on `g7` ties all of Black's pieces to the defense.",
+   "58": "**h4!** The start of the crazy plan: the white king intends to come up himself to support the mate on `h6`.",
+   "60": "**Kh2!** The first step of the journey. An idea you don't see every day: the king is an attacking piece.",
+   "64": "**Kf4!!** The king walks in the middle of the board and all of Black's pieces look at him helplessly: any move opens a mate on `g7`.",
+   "66": "**Kg5** and Timman resigned: `Kh6` is coming and then `Qg7#` with no defense. The most famous king walk in chess history."
+  },
+  "lesson": "When all of the opponent's pieces are tied to defending against one threat, the king can turn into an attacking piece and walk in front of the whole world."
+ },
+ "ivanchuk-anand-1992": {
+  "name": "Vassily Ivanchuk vs Viswanathan Anand",
+  "white": "Vasily Ivanchuk",
+  "black": "Vishy Anand",
+  "place": "Linares",
+  "summary": "Vasily Ivanchuk vs Vishy Anand - Linares 1992. The game was drawn after 36 moves.",
+  "notes": {},
+  "lesson": "A game from Linares (1992), shown move by move exactly as it was played."
+ },
+ "short-kasparov-1993": {
+  "name": "Nigel D Short vs Gary Kasparov",
+  "white": "Nigel Short",
+  "black": "Garry Kasparov",
+  "place": "PCA-World Championship",
+  "summary": "Nigel Short vs Garry Kasparov - PCA-World Championship 1993. White won after 39 moves.",
+  "notes": {},
+  "lesson": "A game from PCA-World Championship (1993), shown move by move exactly as it was played."
+ },
+ "shirov-polgar-1994": {
+  "name": "Alexei Shirov vs Judit Polgar",
+  "white": "Alexei Shirov",
+  "black": "Judit Polgar",
+  "place": "Buenos Aires Sicilian",
+  "summary": "Alexei Shirov vs Judit Polgar - Buenos Aires Sicilian 1994. White won after 41 moves.",
+  "notes": {},
+  "lesson": "A game from Buenos Aires Sicilian (1994), shown move by move exactly as it was played."
+ },
+ "topalov-kramnik-1995": {
+  "name": "Veselin Topalov vs Vladimir Kramnik",
+  "white": "Veselin Topalov",
+  "black": "Vladimir Kramnik",
+  "place": "Novgorod",
+  "summary": "Veselin Topalov vs Vladimir Kramnik - Novgorod 1995. The game was drawn after 36 moves.",
+  "notes": {},
+  "lesson": "A game from Novgorod (1995), shown move by move exactly as it was played."
+ },
+ "kasparov-deepblue": {
+  "name": "Kasparov - Deep Blue, Game 6, 1997",
+  "white": "Deep Blue",
+  "black": "Garry Kasparov",
+  "place": "New York",
+  "summary": "The deciding game of the most famous match between a human and a machine: Deep Blue sacrifices a knight in the opening and wins in only 19 moves, and Kasparov collapses.",
+  "notes": {
+   "8": "**Ng5!** Deep Blue provokes: the knight comes forward in the opening with its eye on `e6`.",
+   "13": "**...h6?** Kasparov rushes to kick the knight: the move he regretted.",
+   "14": "**Nxe6!!** The shocking sacrifice: the knight is thrown at the heart of Black's center, and the immediate capture is forbidden because of `Bg6+`.",
+   "19": "**...Kd8** A king with no home and no future: the machine broke Black's whole structure.",
+   "32": "**Bf5!** Total strangulation: Black has an extra piece but is paralyzed, and Kasparov resigned soon after.",
+   "36": "**c4** The end: Deep Blue won the deciding game and the match 3.5-2.5 - the first computer to beat a world champion in a full match."
+  },
+  "lesson": "Don't rush to kick an advanced knight: an early `...h6` can open lines that you'll pay for. And respect the machine's sacrifices: it calculates deeper than you."
+ },
+ "topalov-shirov-1998": {
+  "name": "Veselin Topalov vs Alexei Shirov",
+  "white": "Veselin Topalov",
+  "black": "Alexei Shirov",
+  "place": "Linares",
+  "summary": "Veselin Topalov vs Alexei Shirov - Linares 1998. White won after 34 moves.",
+  "notes": {},
+  "lesson": "A game from Linares (1998), shown move by move exactly as it was played."
+ },
+ "kasparovs-immortal": {
+  "name": "Kasparov's Immortal",
+  "white": "Garry Kasparov",
+  "black": "Veselin Topalov",
+  "place": "Wijk aan Zee",
+  "summary": "Kasparov sacrifices his rook on d4 and calculates 20 moves ahead: the greatest calculated attack in the history of the game.",
+  "notes": {
+   "46": "Rxd4!! The brilliant sacrifice: Kasparov saw the mate ten moves before it.",
+   "51": "b4+! The black king is dragged out to the wilderness without protection.",
+   "56": "Ra7! A mate threat without a check: the peak of attacking play.",
+   "60": "The black king walks in the middle of the board like someone walking down the street without clothes.",
+   "86": "Black resigned here: the knight protects the king and the mate is inevitable."
+  },
+  "lesson": "The greatest attacks are calculated move by move, and a sacrifice is worth it when all your lines lead to the king."
+ },
+ "kasparov-topalov-1999": {
+  "name": "Gary Kasparov vs Veselin Topalov",
+  "white": "Garry Kasparov",
+  "black": "Veselin Topalov",
+  "place": "Linares16th",
+  "summary": "Garry Kasparov vs Veselin Topalov - Linares16th 1999. Black won after 61 moves.",
+  "notes": {},
+  "lesson": "A game from Linares16th (1999), shown move by move exactly as it was played."
+ },
+ "kasparov-kramnik-2000": {
+  "name": "Kasparov vs Kramnik",
+  "white": "Garry Kasparov",
+  "black": "Vladimir Kramnik",
+  "place": "Braingames WCC",
+  "summary": "Garry Kasparov vs Vladimir Kramnik - Braingames WCC 2000. The game was drawn after 25 moves.",
+  "notes": {},
+  "lesson": "A game from Braingames WCC (2000), shown move by move exactly as it was played."
+ },
+ "ponomariov-ivanchuk-2002": {
+  "name": "Ponomariov vs Ivanchuk",
+  "white": "Ruslan Ponomariov",
+  "black": "Vasily Ivanchuk",
+  "place": "FIDE WCh KO Final",
+  "summary": "Ruslan Ponomariov vs Vasily Ivanchuk - FIDE WCh KO Final 2002. White won after 23 moves.",
+  "notes": {},
+  "lesson": "A game from FIDE WCh KO Final (2002), shown move by move exactly as it was played."
+ },
+ "kramnik-leko-2004": {
+  "name": "Kramnik vs Leko",
+  "white": "Vladimir Kramnik",
+  "black": "Peter Leko",
+  "place": "WCh",
+  "summary": "Vladimir Kramnik vs Peter Leko - WCh 2004. Black won after 65 moves.",
+  "notes": {},
+  "lesson": "A game from WCh (2004), shown move by move exactly as it was played."
+ },
+ "anand-topalov-2005": {
+  "name": "Anand vs Topalov",
+  "white": "Vishy Anand",
+  "black": "Veselin Topalov",
+  "place": "WCh-FIDE",
+  "summary": "Vishy Anand vs Veselin Topalov - WCh-FIDE 2005. The game was drawn after 97 moves.",
+  "notes": {},
+  "lesson": "A game from WCh-FIDE (2005), shown move by move exactly as it was played."
+ },
+ "karjakin-anand-2006": {
+  "name": "Sergey Karjakin vs Anand",
+  "white": "Sergey Karjakin",
+  "black": "Vishy Anand",
+  "place": "Corus A",
+  "summary": "Sergey Karjakin vs Vishy Anand - Corus A 2006. Black won after 37 moves.",
+  "notes": {},
+  "lesson": "A game from Corus A (2006), shown move by move exactly as it was played."
+ },
+ "kramnik-topalov-2006": {
+  "name": "Kramnik vs Topalov",
+  "white": "Vladimir Kramnik",
+  "black": "Veselin Topalov",
+  "place": "WCh",
+  "summary": "Vladimir Kramnik vs Veselin Topalov - WCh 2006. White won after 75 moves.",
+  "notes": {},
+  "lesson": "A game from WCh (2006), shown move by move exactly as it was played."
+ },
+ "anand-immortal": {
+  "name": "Anand's Immortal",
+  "white": "Levon Aronian",
+  "black": "Viswanathan Anand",
+  "place": "Wijk aan Zee",
+  "summary": "Anand gives a master class in only 23 moves: sacrifices one after another in the classical way, and Aronian resigns with nothing gained.",
+  "notes": {
+   "24": "**Nxh7?!** The knight goes deep to `h7` - and Anand answers with a chain of sacrifices that never ends.",
+   "29": "**...Bc5!** The first sacrifice: the bishop is offered for free and the white king becomes exposed.",
+   "33": "**...Bxd4+!** The bishop takes with check, and the king is forced to `h1`.",
+   "37": "**...f5!** The `f8` knight doesn't need anyone to save it: the attack on the king matters more than material.",
+   "45": "**...Be3!** The last move: there's no defense against the coming `g1` mate, so Aronian resigned."
+  },
+  "lesson": "When the opponent's pieces are scattered on a far edge, strike in the center at once: Anand sacrificed nearly two pieces and every piece he had left was attacking directly."
+ },
+ "anand-carlsen-2013": {
+  "name": "Viswanathan Anand vs Magnus Carlsen",
+  "white": "Vishy Anand",
+  "black": "Magnus Carlsen",
+  "place": "WCh 2013",
+  "summary": "Vishy Anand vs Magnus Carlsen - WCh 2013 2013. The game was drawn after 16 moves.",
+  "notes": {},
+  "lesson": "A game from WCh 2013 (2013), shown move by move exactly as it was played."
+ },
+ "carlsen-karjakin-2016": {
+  "name": "Magnus Carlsen vs Sergey Karjakin",
+  "white": "Magnus Carlsen",
+  "black": "Sergey Karjakin",
+  "place": "WCh 2016",
+  "summary": "Magnus Carlsen vs Sergey Karjakin - WCh 2016 2016. The game was drawn after 42 moves.",
+  "notes": {},
+  "lesson": "A game from WCh 2016 (2016), shown move by move exactly as it was played."
+ },
+ "carlsen-nepomniachtchi-2021": {
+  "name": "Carlsen vs Nepomniachtchi",
+  "white": "Magnus Carlsen",
+  "black": "Ian Nepomniachtchi",
+  "place": "WCh 2021",
+  "summary": "Magnus Carlsen vs Ian Nepomniachtchi - WCh 2021 2021. The game was drawn after 45 moves.",
+  "notes": {},
+  "lesson": "A game from WCh 2021 (2021), shown move by move exactly as it was played."
+ },
+ "nepomniachtchi-liren-2023": {
+  "name": "Nepomniachtchi vs Ding Liren",
+  "white": "Ian Nepomniachtchi",
+  "black": "Ding Liren",
+  "place": "WCh 2023",
+  "summary": "Ian Nepomniachtchi vs Ding Liren - WCh 2023 2023. The game was drawn after 49 moves.",
+  "notes": {},
+  "lesson": "A game from WCh 2023 (2023), shown move by move exactly as it was played."
+ }
+}
