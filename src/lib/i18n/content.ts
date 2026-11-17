@@ -31,3 +31,60 @@ export function usePuzzleLoc() {
     [locale, dict],
   )
 }
+
+type StepEn = { text: string; hint?: string; success?: string; notes?: Record<string, string> }
+type LessonEn = { title: string; summary: string; steps: StepEn[] }
+type LessonsEn = { chapters: Record<string, { title: string; desc: string }>; lessons: Record<string, LessonEn> }
+type LessonLike = { id: string; title: string; summary: string; steps: any[] }
+type ChapterLike = { id: string; title: string; desc: string }
+
+let lcache: LessonsEn | null = null
+
+/** Localized lesson/chapter text. Falls back to the original (Arabic) when a translation is missing. */
+export function useLessonLoc() {
+  const { locale } = useI18n()
+  const [dict, setDict] = useState<LessonsEn | null>(lcache)
+  useEffect(() => {
+    if (locale !== 'en') return
+    if (lcache) {
+      setDict(lcache)
+      return
+    }
+    void import('../../data/en/lessons.json').then((m) => {
+      lcache = (m as any).default as LessonsEn
+      setDict(lcache)
+    })
+  }, [locale])
+  const en = locale === 'en' ? dict : null
+  const lesson = useCallback(
+    <T extends LessonLike>(l: T): T => {
+      const h = en?.lessons[l.id]
+      if (!h) return l
+      return {
+        ...l,
+        title: h.title,
+        summary: h.summary,
+        steps: l.steps.map((s, i) => {
+          const e = h.steps[i]
+          if (!e) return s
+          const out = { ...s, text: e.text }
+          if (e.hint) out.hint = e.hint
+          if (e.success) out.success = e.success
+          if (e.notes) out.notes = { ...(s.notes ?? {}), ...Object.fromEntries(Object.entries(e.notes).map(([k, v]) => [Number(k), v])) }
+          return out
+        }),
+      }
+    },
+    [en],
+  )
+  const chapter = useCallback(
+    <T extends ChapterLike>(c: T): T => {
+      const h = en?.chapters[c.id]
+      return h ? { ...c, title: h.title, desc: h.desc } : c
+    },
+    [en],
+  )
+  const title = useCallback((id: string, fallback: string) => en?.lessons[id]?.title ?? fallback, [en])
+  const chapterTitle = useCallback((id: string | undefined, fallback: string) => (id && en?.chapters[id]?.title) || fallback, [en])
+  return { lesson, chapter, title, chapterTitle }
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import LessonPlayer from '../../../components/LessonPlayer'
+import LessonHeader from '../../../components/LessonHeader'
 import LessonCrumb from '../../../components/LessonCrumb'
 import LessonPager from '../../../components/LessonPager'
 import { ALL_LESSONS } from '../../../data/lessons'
@@ -49,9 +50,8 @@ export default async function LessonPage({ params }: Props) {
   return (
     <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <LessonCrumb chapterTitle={lesson.chapter.title} />
-      <h1 className="font-display text-2xl font-bold sm:text-3xl">{lesson.title}</h1>
-      <p className="mt-1 mb-5 text-muted">{lesson.summary}</p>
+      <LessonCrumb chapterTitle={lesson.chapter.title} chapterId={lesson.chapter.id} />
+      <LessonHeader id={lesson.id} title={lesson.title} summary={lesson.summary} />
       <LessonPlayer lessonId={lesson.id} nextId={next?.id} nextTitle={next?.title} />
       <noscript>
         <ol className="mt-6 list-decimal space-y-2 ps-6">
