@@ -5,7 +5,8 @@ import OpeningViewer from './OpeningViewer'
 import { Badge, LinkButton } from './ui'
 import { OPENINGS } from '../data/openings'
 import { useI18n } from '../lib/i18n'
-import { useOpeningLoc } from '../lib/i18n/content'
+import { TRAPS } from '../data/traps'
+import { useOpeningLoc, useTrapLoc } from '../lib/i18n/content'
 
 type Related = { id: string; name: string; summary: string }
 
@@ -17,6 +18,7 @@ export default function OpeningPageBody({ openingId, nextId, related }: { openin
   const { locale } = useI18n()
   const en = locale === 'en'
   const lo = useOpeningLoc()
+  const lt = useTrapLoc()
   const o = lo(OPENINGS.find((x) => x.id === openingId)!)
   const next = lo(OPENINGS.find((x) => x.id === nextId)!)
   const sideLabel = o.side === 'w' ? (en ? 'For White' : 'للأبيض') : o.side === 'b' ? (en ? 'For Black' : 'للأسود') : en ? 'For both sides' : 'للجانبين'
@@ -55,12 +57,16 @@ export default function OpeningPageBody({ openingId, nextId, related }: { openin
         <section aria-labelledby="related" className="mt-6 rounded-2xl border border-line bg-surface p-5">
           <h2 id="related" className="mb-2 font-display text-lg font-bold">{en ? 'Traps from the same family' : 'فخاخ من نفس العيلة'}</h2>
           <ul className="space-y-1 text-sm">
-            {related.map((t) => (
+            {related.map((r) => {
+              const tr = TRAPS.find((x) => x.id === r.id)
+              const t = tr ? lt(tr) : r
+              return (
               <li key={t.id}>
                 <Link href={`/traps/${t.id}`} className="text-gold hover:underline">{t.name}</Link>
                 <span className="text-muted"> - {t.summary.slice(0, 60)}…</span>
               </li>
-            ))}
+              )
+            })}
           </ul>
         </section>
       )}
