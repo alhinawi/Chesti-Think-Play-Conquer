@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { GAMES } from '../data/games'
+import { useI18n } from '../lib/i18n'
+import { useGameLoc } from '../lib/i18n/content'
 import { replay, START_FEN } from '../lib/chess'
 import { play } from '../lib/sound'
 import ChessBoard from './ChessBoard'
@@ -42,6 +44,8 @@ export default function GameViewer({ gameId }: { gameId: string }) {
 
 function ReplayViewer({ gameId }: { gameId: string }) {
   const g = GAMES.find((x) => x.id === gameId)!
+  const gl = useGameLoc()(g)
+  const en = useI18n().locale === 'en'
   const { fens, history } = useMemo(() => replay(START_FEN, g.moves), [g])
   const [ply, setPly] = useState(0)
   const [auto, setAuto] = useState(false)
@@ -82,7 +86,7 @@ function ReplayViewer({ gameId }: { gameId: string }) {
   }, [go, ply])
 
   const last = ply > 0 ? history[ply - 1] : null
-  const note = ply > 0 ? g.notes[ply - 1] : 'اضغط "اللي بعده" أو شغّل العرض عشان تشوف الدور نقلة بنقلة.'
+  const note = ply > 0 ? gl.notes[ply - 1] : en ? 'Press "Next" or start the replay to watch the game move by move.' : 'اضغط "اللي بعده" أو شغّل العرض عشان تشوف الدور نقلة بنقلة.'
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,520px)_1fr]">
@@ -113,7 +117,7 @@ function ReplayViewer({ gameId }: { gameId: string }) {
           <p>{note || ' '}</p>
           {ply === n && (
             <p className="mt-2 border-t border-line pt-2 text-sm font-bold text-emerald">
-              النتيجة: {g.result === '1-0' ? 'كسب الأبيض' : g.result === '0-1' ? 'كسب الأسود' : 'تعادل'} {g.result}
+              {en ? 'Result' : 'النتيجة'}: {g.result === '1-0' ? (en ? 'White won' : 'كسب الأبيض') : g.result === '0-1' ? (en ? 'Black won' : 'كسب الأسود') : en ? 'Draw' : 'تعادل'} {g.result}
             </p>
           )}
         </div>

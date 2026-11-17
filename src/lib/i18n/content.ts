@@ -175,3 +175,34 @@ export function useEndgameLoc() {
     [locale, dict],
   )
 }
+
+type GameEn = { name: string; white: string; black: string; place: string; summary: string; notes: Record<string, string>; lesson: string }
+type GameLike = { id: string; name: string; white: string; black: string; place: string; summary: string; notes: Record<number, string>; lesson: string }
+let gcache: Record<string, GameEn> | null = null
+
+/** Localized famous-game text. Falls back to the original (Arabic) when a translation is missing. */
+export function useGameLoc() {
+  const { locale } = useI18n()
+  const [dict, setDict] = useState<Record<string, GameEn> | null>(gcache)
+  useEffect(() => {
+    if (locale !== 'en') return
+    if (gcache) {
+      setDict(gcache)
+      return
+    }
+    void import('../../data/en/games.json').then((m) => {
+      gcache = (m as any).default as Record<string, GameEn>
+      setDict(gcache)
+    })
+  }, [locale])
+  return useCallback(
+    <T extends GameLike>(g: T): T => {
+      const h = locale === 'en' && dict ? dict[g.id] : undefined
+      if (!h) return g
+      const notes: Record<number, string> = { ...g.notes }
+      for (const k of Object.keys(g.notes)) notes[Number(k)] = h.notes[k] ?? g.notes[Number(k)]
+      return { ...g, name: h.name, white: h.white, black: h.black, place: h.place, summary: h.summary, lesson: h.lesson, notes }
+    },
+    [locale, dict],
+  )
+}
