@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { OPENINGS } from '../data/openings'
+import { useI18n } from '../lib/i18n'
+import { useOpeningLoc } from '../lib/i18n/content'
 import { replay, START_FEN } from '../lib/chess'
 import { play } from '../lib/sound'
 import { markDone } from '../lib/progress'
@@ -9,8 +11,11 @@ import ChessBoard from './ChessBoard'
 import MoveControls from './MoveControls'
 
 export default function OpeningViewer({ openingId }: { openingId: string }) {
-  const o = OPENINGS.find((x) => x.id === openingId)!
-  const { fens, history } = useMemo(() => replay(START_FEN, o.moves), [o])
+  const { locale } = useI18n()
+  const en = locale === 'en'
+  const lo = useOpeningLoc()
+  const o = lo(OPENINGS.find((x) => x.id === openingId)!)
+  const { fens, history } = useMemo(() => replay(START_FEN, o.moves), [o.moves])
   const [ply, setPly] = useState(0)
   const [auto, setAuto] = useState(false)
   const n = o.moves.length
@@ -54,7 +59,7 @@ export default function OpeningViewer({ openingId }: { openingId: string }) {
   }, [go, ply])
 
   const last = ply > 0 ? history[ply - 1] : null
-  const note = ply > 0 ? o.notes[ply - 1] : 'اضغط "اللي بعده" أو شغّل العرض عشان تشوف الخط الرئيسي نقلة بنقلة.'
+  const note = ply > 0 ? o.notes[ply - 1] : (en ? 'Press "Next" or start the show to see the main line move by move.' : 'اضغط "اللي بعده" أو شغّل العرض عشان تشوف الخط الرئيسي نقلة بنقلة.')
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,520px)_1fr]">
@@ -72,7 +77,7 @@ export default function OpeningViewer({ openingId }: { openingId: string }) {
           go={go}
           auto={auto}
           onToggle={() => (ply >= n && !auto ? (setPly(0), setAuto(true)) : setAuto((a) => !a))}
-          playLabel={auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
+          playLabel={en ? (auto ? 'Stop' : ply === n ? 'Restart' : 'Play') : auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
         />
       </div>
       <div className="flex flex-col gap-4">
@@ -86,15 +91,15 @@ export default function OpeningViewer({ openingId }: { openingId: string }) {
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-line bg-surface p-4">
-            <h3 className="mb-1 text-sm font-bold text-gold">خطة الأبيض</h3>
+            <h3 className="mb-1 text-sm font-bold text-gold">{en ? "White's plan" : 'خطة الأبيض'}</h3>
             <p className="text-sm text-muted">{o.planW}</p>
           </div>
           <div className="rounded-2xl border border-line bg-surface p-4">
-            <h3 className="mb-1 text-sm font-bold text-emerald">خطة الأسود</h3>
+            <h3 className="mb-1 text-sm font-bold text-emerald">{en ? "Black's plan" : 'خطة الأسود'}</h3>
             <p className="text-sm text-muted">{o.planB}</p>
           </div>
         </div>
-        <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label="النقلات">
+        <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label={en ? 'Moves' : 'النقلات'}>
           {o.moves.map((m, i) => (
             <li key={i}>
               <button

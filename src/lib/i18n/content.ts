@@ -88,3 +88,32 @@ export function useLessonLoc() {
   const chapterTitle = useCallback((id: string | undefined, fallback: string) => (id && en?.chapters[id]?.title) || fallback, [en])
   return { lesson, chapter, title, chapterTitle }
 }
+
+type OpeningEn = { name: string; summary: string; notes: Record<string, string>; planW: string; planB: string }
+type OpeningLike = { id: string; name: string; summary: string; notes: Record<number, string>; planW: string; planB: string }
+let ocache: Record<string, OpeningEn> | null = null
+
+/** Localized opening text. Falls back to the original (Arabic) when a translation is missing. */
+export function useOpeningLoc() {
+  const { locale } = useI18n()
+  const [dict, setDict] = useState<Record<string, OpeningEn> | null>(ocache)
+  useEffect(() => {
+    if (locale !== 'en') return
+    if (ocache) {
+      setDict(ocache)
+      return
+    }
+    void import('../../data/en/openings.json').then((m) => {
+      ocache = (m as any).default as Record<string, OpeningEn>
+      setDict(ocache)
+    })
+  }, [locale])
+  return useCallback(
+    <T extends OpeningLike>(o: T): T => {
+      const h = locale === 'en' && dict ? dict[o.id] : undefined
+      if (!h) return o
+      return { ...o, name: h.name, summary: h.summary, planW: h.planW, planB: h.planB, notes: { ...o.notes, ...Object.fromEntries(Object.entries(h.notes).map(([k, v]) => [Number(k), v])) } }
+    },
+    [locale, dict],
+  )
+}
