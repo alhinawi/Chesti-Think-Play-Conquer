@@ -8,6 +8,7 @@ import { ChipRow, FilterCard, levelOpts, matchesProgress, progressOpts, useDone 
 import { OPENINGS } from '../data/openings'
 import { replay, START_FEN } from '../lib/chess'
 import { useI18n } from '../lib/i18n'
+import { useOpeningLoc } from '../lib/i18n/content'
 import { levelSlug } from '../lib/i18n/dataLabels'
 
 const colorOpts = (t: (k: string) => string) => [
@@ -33,6 +34,7 @@ const TYPE_KEYS: Record<string, string> = { open: 'lb.typeOpen', semi: 'lb.typeS
 
 export default function OpeningsList() {
   const { t } = useI18n()
+  const lo = useOpeningLoc()
   const [q, setQ] = useState('')
   const [side, setSide] = useState('all')
   const [level, setLevel] = useState('all')
@@ -65,7 +67,8 @@ export default function OpeningsList() {
           <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">{t('lb.emptyOpen')}</p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((o) => {
+            {filtered.map((o0) => {
+              const o = lo(o0)
               const { fens } = replay(START_FEN, o.moves)
               return (
                 <li key={o.id}>
