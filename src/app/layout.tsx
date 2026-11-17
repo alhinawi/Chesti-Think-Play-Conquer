@@ -1,3 +1,4 @@
+import TitleSync from '../components/TitleSync'
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <Providers>
+          <TitleSync />
           <Shell>{children}</Shell>
         </Providers>
       </body>
