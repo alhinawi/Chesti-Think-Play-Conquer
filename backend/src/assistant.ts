@@ -53,6 +53,18 @@ const MSG = {
   },
 }
 
+/** Short, correct rule sheets. The model answers from these when the question touches them. */
+export const RULE_SHEET = [
+  'RULE SHEET (facts to answer from; never contradict it):',
+  'CASTLING: needs all of: (1) the king has never moved; (2) the rook you castle with has never moved; (3) every square between king and that rook is empty; (4) the king is not in check now; (5) the king does not pass through an attacked square; (6) the king does not land on an attacked square. The king moves 2 squares toward the rook and the rook jumps to the square the king crossed. You can NOT castle while in check. If the king moves out of check it has moved, so castling is gone for the rest of the game. The rook may be attacked, that is allowed.',
+  'EN PASSANT: only right after an enemy pawn moves 2 squares from its start and lands next to your pawn (your pawn is on your 5th rank). On your very next move only, your pawn captures diagonally onto the square the enemy pawn skipped, and the enemy pawn is removed. Example: white pawn e5, black plays d7-d5, white can play exd6 and the d5 pawn disappears. If you do not do it at once, the chance is gone.',
+  'PROMOTION: a pawn reaching the last rank must become a queen, rook, bishop or knight of its own color (not a king, not a pawn). Almost always a queen; a knight when it gives mate or a fork.',
+  'CHECK: the king is attacked. You must (a) move the king, (b) capture the attacker, or (c) block the line (not possible against a knight or pawn). CHECKMATE: in check and none of these works, the game is over. STALEMATE: not in check but no legal move, the game is a draw.',
+  'PIN: a piece cannot move because it shields a more valuable piece (or the king) behind it. FORK: one piece attacks two or more targets at once. SKEWER: a valuable piece is attacked and must move, exposing a piece behind it.',
+  'DRAWS: stalemate; agreement; threefold repetition of the same position; 50 moves with no capture and no pawn move; not enough material to mate (king vs king, king+bishop or king+knight vs king); perpetual check.',
+  'If a question is about a rule not in this sheet, answer only what you are sure of and say when you are not.',
+].join('\n')
+
 export function systemPrompt(locale: 'eg' | 'en'): string {
   const lang =
     locale === 'en'
@@ -67,6 +79,8 @@ export function systemPrompt(locale: 'eg' | 'en'): string {
     'Keep answers very short: 60 to 80 words at most, in simple words for a beginner. Plain text only: no asterisks, no bold, no markdown, no headings. If you list things, put each on its own line starting with a dash and a space. No emoji.',
     'Reply in the language the student wrote in. If the language is unclear, use the default below.',
     'Do not ask for or store personal information.',
+    RULE_SHEET,
+    'When the question touches a topic in the rule sheet, give ALL the relevant conditions from it, completely and without repeating any.',
     lang,
   ].join('\n')
 }
