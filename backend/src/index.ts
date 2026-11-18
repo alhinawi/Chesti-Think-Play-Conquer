@@ -8,6 +8,7 @@ import { cleanTelemetry, engineBump, FLAG_THRESHOLD, scoreGame } from './antiche
 import { liveRoutes } from './live'
 import { recordAccountSignals } from './signals'
 import { maybeWarn } from './warnings'
+import { handleHelper } from './assistant'
 
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
 
@@ -664,5 +665,8 @@ app.post('/api/warnings/:id/seen', async (c) => {
     .run()
   return res.meta.changes > 0 ? c.json({ ok: true }) : c.json({ error: 'not_found' }, 404)
 })
+
+// ---------- learning helper (free-tier guarded, see assistant.ts) ----------
+app.post('/api/assistant', async (c) => handleHelper(c, c.env, await json(c)))
 
 export default app

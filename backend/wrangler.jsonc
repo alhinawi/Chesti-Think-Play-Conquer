@@ -7,6 +7,8 @@
     // Comma separated. The site address(es) allowed to call the API from a browser.
     "ALLOWED_ORIGINS": "https://chesti.pages.dev,http://localhost:3000"
   },
+  // Workers AI: free allocation only (10,000 Neurons/day per account, shared). No API key needed.
+  "ai": { "binding": "AI" },
   "d1_databases": [
     {
       "binding": "DB",
