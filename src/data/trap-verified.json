@@ -97,6 +97,13 @@
   "after": 1.9,
   "end": 5.8
  },
+ "tarrasch-trap": {
+  "sig": "76662c04a3705b52",
+  "mate": false,
+  "before": 0.3,
+  "after": 1.4,
+  "end": 5.5
+ },
  "budapest-trap": {
   "sig": "a218c797f4724929",
   "mate": true,
