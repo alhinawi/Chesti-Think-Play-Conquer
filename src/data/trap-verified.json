@@ -1,0 +1,443 @@
+{
+ "fools-mate": {
+  "sig": "b33547e9291ffeef",
+  "mate": true,
+  "before": 0.8,
+  "after": 100,
+  "end": 100
+ },
+ "scholars-mate": {
+  "sig": "05c2ec0622f18d37",
+  "mate": true,
+  "before": -0.2,
+  "after": 100,
+  "end": 100
+ },
+ "legals-mate": {
+  "sig": "386f9fcbef70e316",
+  "mate": true,
+  "before": 2.6,
+  "after": 100,
+  "end": 100
+ },
+ "blackburne-shilling": {
+  "sig": "63c7c491e9050c5c",
+  "mate": true,
+  "before": 0.6,
+  "after": 7.7,
+  "end": 100
+ },
+ "fishing-pole": {
+  "sig": "1f813b376eac17d8",
+  "mate": false,
+  "before": -2.1,
+  "after": 4.3,
+  "end": 100
+ },
+ "elephant-trap": {
+  "sig": "257e955774a0e6de",
+  "mate": false,
+  "before": -0.4,
+  "after": 5.5,
+  "end": 5.3
+ },
+ "englund-trap": {
+  "sig": "af456709c2ec5639",
+  "mate": true,
+  "before": -2.5,
+  "after": 6.2,
+  "end": 100
+ },
+ "lasker-trap": {
+  "sig": "303f6d7202ba1696",
+  "mate": false,
+  "before": 0.1,
+  "after": 6.6,
+  "end": 10.3
+ },
+ "noahs-ark": {
+  "sig": "3558993a0548fdd2",
+  "mate": false,
+  "before": -0.1,
+  "after": 3.6,
+  "end": 4.4
+ },
+ "siberian-trap": {
+  "sig": "5cc1034dcd407746",
+  "mate": false,
+  "before": -0.2,
+  "after": 5.3,
+  "end": 4.8
+ },
+ "kieninger-trap": {
+  "sig": "fe1a17b35786f39c",
+  "mate": true,
+  "before": -0.3,
+  "after": 100,
+  "end": 100
+ },
+ "caro-smother": {
+  "sig": "9aa15c3f7991f413",
+  "mate": true,
+  "before": 0.2,
+  "after": 100,
+  "end": 100
+ },
+ "halosar-trap": {
+  "sig": "ef17768da3bee320",
+  "mate": false,
+  "before": -0.7,
+  "after": 4.5,
+  "end": 4.7
+ },
+ "damiano-trap": {
+  "sig": "bd189701c96da813",
+  "mate": false,
+  "before": 0.2,
+  "after": 1.9,
+  "end": 5.8
+ },
+ "budapest-trap": {
+  "sig": "a218c797f4724929",
+  "mate": true,
+  "before": -0.3,
+  "after": 100,
+  "end": 100
+ },
+ "tennison-gambit": {
+  "sig": "2cfad03d352c4182",
+  "mate": false,
+  "before": -1.2,
+  "after": 4.4,
+  "end": 4
+ },
+ "rubinstein-trap": {
+  "sig": "1c11014ebb1b956a",
+  "mate": false,
+  "before": 0.4,
+  "after": 4,
+  "end": 3.8
+ },
+ "qga-queen-trap": {
+  "sig": "5d2692b95ab6dedf",
+  "mate": false,
+  "before": 1.9,
+  "after": 5.8,
+  "end": 5.6
+ },
+ "smith-morra-trap": {
+  "sig": "17cc14269087454e",
+  "mate": false,
+  "before": 0.5,
+  "after": 5.5,
+  "end": 4.1
+ },
+ "boden-kieseritzky": {
+  "sig": "d53a3c67cdb2e66c",
+  "mate": false,
+  "before": -0.5,
+  "after": 4.8,
+  "end": 5.3
+ },
+ "london-queen-trap": {
+  "sig": "d928dd6563ba02bc",
+  "mate": false,
+  "before": 0.3,
+  "after": 4.1,
+  "end": 4.5
+ },
+ "giuoco-piano-trap": {
+  "sig": "6ba988e7fbfdc1cb",
+  "mate": false,
+  "before": 1.4,
+  "after": 5.2,
+  "end": 7.3
+ },
+ "philidor-trap": {
+  "sig": "df31fd198fab4119",
+  "mate": false,
+  "before": 0.6,
+  "after": 2.4,
+  "end": 2.4
+ },
+ "dutch-trap": {
+  "sig": "4132e96c2a52c1b8",
+  "mate": true,
+  "before": 2.6,
+  "after": 100,
+  "end": 100
+ },
+ "smyslov-caro-trap": {
+  "sig": "27e60242f1f7913a",
+  "mate": false,
+  "before": 0.6,
+  "after": 0.5,
+  "end": 100
+ },
+ "magnus-smith-trap": {
+  "sig": "9ff66e9157ea3c63",
+  "mate": false,
+  "before": 0.6,
+  "after": 8.5,
+  "end": 8.1
+ },
+ "petrov-trap": {
+  "sig": "95e2add2754a4ac4",
+  "mate": false,
+  "before": 0.6,
+  "after": 8.3,
+  "end": 8.2
+ },
+ "greco-trap": {
+  "sig": "6ba988e7fbfdc1cb",
+  "mate": false,
+  "before": 1,
+  "after": 5.3,
+  "end": 7.1
+ },
+ "wayward-queen-trap": {
+  "sig": "045fcae4f5d581d7",
+  "mate": false,
+  "before": 0.3,
+  "after": 0.2,
+  "end": 9.7
+ },
+ "fajarowicz-trap": {
+  "sig": "efa94da621c2a4cb",
+  "mate": false,
+  "before": -0.5,
+  "after": 6.1,
+  "end": 5.8
+ },
+ "wing-gambit-trap": {
+  "sig": "8c77f204cb9205ba",
+  "mate": false,
+  "before": 0.3,
+  "after": 6.5,
+  "end": 5.9
+ },
+ "reti-tartakower": {
+  "sig": "fca5d109c34d593c",
+  "mate": true,
+  "before": 1.8,
+  "after": 100,
+  "end": 100
+ },
+ "petrov-nc6-check": {
+  "sig": "5353a24484fa4c20",
+  "mate": false,
+  "before": 0.6,
+  "after": 8.6,
+  "end": 8.3
+ },
+ "hopton-trap": {
+  "sig": "c7a0ef05553fcf74",
+  "mate": true,
+  "before": 1.6,
+  "after": 100,
+  "end": 100
+ },
+ "wurzburger-trap": {
+  "sig": "d16ede31c3db5621",
+  "mate": false,
+  "before": 0.1,
+  "after": 2.4,
+  "end": 3.4
+ },
+ "mt-c33-0a3e24": {
+  "sig": "e64c723030e2ff4f",
+  "mate": true,
+  "before": -0.1,
+  "after": 100,
+  "end": 100
+ },
+ "mt-a71-a2d79a": {
+  "sig": "0286a7dd181fa39e",
+  "mate": false,
+  "before": 0.5,
+  "after": 7.6,
+  "end": 7.1
+ },
+ "mt-c39-f7158f": {
+  "sig": "99f111a3caab4d4c",
+  "mate": false,
+  "before": 0.4,
+  "after": 7.2,
+  "end": 7.2
+ },
+ "mt-d00-1d4df7": {
+  "sig": "15c98497fb567111",
+  "mate": false,
+  "before": -1.4,
+  "after": 9.2,
+  "end": 10.1
+ },
+ "mt-c42-f7bf01": {
+  "sig": "cd8ab1886189f1b5",
+  "mate": false,
+  "before": 0.2,
+  "after": 5.9,
+  "end": 5.7
+ },
+ "mt-b18-8079b1": {
+  "sig": "827c4f29d61e1eaf",
+  "mate": false,
+  "before": -1.1,
+  "after": 11.8,
+  "end": 11.5
+ },
+ "mt-c56-2e937e": {
+  "sig": "03432a15ee5cf0f1",
+  "mate": false,
+  "before": -0.7,
+  "after": 7,
+  "end": 6.7
+ },
+ "mt-c31-cd5ebf": {
+  "sig": "22c33e9a05a21052",
+  "mate": false,
+  "before": 0.1,
+  "after": 7.7,
+  "end": 7.8
+ },
+ "mt-d50-46b10f": {
+  "sig": "3826fefd2d9297a7",
+  "mate": false,
+  "before": -0.4,
+  "after": 8.7,
+  "end": 6.9
+ },
+ "mt-b19-059a2b": {
+  "sig": "92279ac261314d8c",
+  "mate": false,
+  "before": 0.4,
+  "after": 7.6,
+  "end": 6.7
+ },
+ "mt-c31-bbece7": {
+  "sig": "a791b272fab0efc8",
+  "mate": false,
+  "before": -0.6,
+  "after": 5.7,
+  "end": 5.6
+ },
+ "mt-c78-3e811e": {
+  "sig": "19300ca8a456c7d0",
+  "mate": false,
+  "before": 0.3,
+  "after": 6.3,
+  "end": 6
+ },
+ "mt-b00-8066c9": {
+  "sig": "f25c95c833cb5891",
+  "mate": false,
+  "before": 0.8,
+  "after": 4.9,
+  "end": 5
+ },
+ "mt-b12-f9088e": {
+  "sig": "316209de29ef97d6",
+  "mate": false,
+  "before": 0,
+  "after": 6.4,
+  "end": 6.5
+ },
+ "mt-d00-8368d2": {
+  "sig": "8979e411b8d1aedd",
+  "mate": false,
+  "before": 0.5,
+  "after": 3.2,
+  "end": 3.3
+ },
+ "mt-c40-dc8318": {
+  "sig": "e5d29fc4214b7fdd",
+  "mate": false,
+  "before": -1.1,
+  "after": 3.2,
+  "end": 3.2
+ },
+ "mt-c45-e9e69b": {
+  "sig": "1d5838fe60120fb9",
+  "mate": false,
+  "before": -0.9,
+  "after": 4.9,
+  "end": 5.2
+ },
+ "mt-d08-26adf5": {
+  "sig": "ffd36ee38c665a74",
+  "mate": false,
+  "before": 0.1,
+  "after": 7.6,
+  "end": 7.2
+ },
+ "mt-c47-88e01c": {
+  "sig": "14a9806094baf96a",
+  "mate": false,
+  "before": -0.5,
+  "after": 7.6,
+  "end": 7.5
+ },
+ "mt-c44-4cd6cc": {
+  "sig": "406d451db7a33b0a",
+  "mate": false,
+  "before": 0.3,
+  "after": 8.4,
+  "end": 7.8
+ },
+ "mt-c39-9f9e26": {
+  "sig": "5f709b5671b37d86",
+  "mate": false,
+  "before": -0.7,
+  "after": 8.9,
+  "end": 8.6
+ },
+ "mt-c44-d1f7b3": {
+  "sig": "a79d5a17ee2626e2",
+  "mate": false,
+  "before": 0,
+  "after": 4.1,
+  "end": 4.2
+ },
+ "mt-c45-729a30": {
+  "sig": "88c7fe35356d63ea",
+  "mate": false,
+  "before": 0.1,
+  "after": 4.9,
+  "end": 5.1
+ },
+ "mt-d30-288756": {
+  "sig": "3488753fe7f8a43b",
+  "mate": false,
+  "before": -0.6,
+  "after": 3.3,
+  "end": 2.7
+ },
+ "mt-c52-f0c2e8": {
+  "sig": "4e70df7274232741",
+  "mate": false,
+  "before": 0.3,
+  "after": 5,
+  "end": 4.9
+ },
+ "mt-c56-1b2716": {
+  "sig": "01b95404003e3d9d",
+  "mate": false,
+  "before": 0,
+  "after": 3.5,
+  "end": 3.2
+ },
+ "mt-c42-e5d358": {
+  "sig": "c91853ab5affcf69",
+  "mate": false,
+  "before": -0.8,
+  "after": 5.9,
+  "end": 5.7
+ },
+ "mt-c80-d1739a": {
+  "sig": "c6c5d4416c45dc64",
+  "mate": false,
+  "before": 0.3,
+  "after": 6.5,
+  "end": 6.2
+ }
+}

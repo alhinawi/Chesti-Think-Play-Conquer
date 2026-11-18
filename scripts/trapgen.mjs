@@ -57,16 +57,26 @@ for (const r of all) {
   } catch { continue }
   if (cut < 0 || cut - m < 3) continue
   const moves = r.line.slice(0, cut + 1)
+  // بوابة الجودة: فخ حقيقي مش مجرد قطعة معلقة. بعد أول رد من الفخّاخ لازم المكسب يبقى لسه صغير (العقاب بيحتاج تكتيك)،
+  // وآخر نقلة لازم تكون مات أو أخذ قطعة تقيلة، والعقاب 3 نقلات على الأقل.
+  {
+    const q = new Chess(); r.line.slice(0, m).forEach((x) => q.move(x))
+    const b0 = sgn * mat(q); q.move(r.line[m]); q.move(r.line[m + 1])
+    const g1 = sgn * mat(q) - b0
+    const q2 = new Chess(); let lm; moves.forEach((x) => (lm = q2.move(x)))
+    if (!mate && (g1 >= 1.5 || !lm.captured || VAL[lm.captured] < 3)) continue
+  }
   const vmv = new Chess(); r.line.slice(0, m).forEach((x) => vmv.move(x))
   const vm = vmv.move(r.line[m])
   cands.push({ r, moves, m, trapper, gain: Math.max(0, gain), mate, vm, key: moves.join(' ') })
 }
-const seen = new Set(), seenPos = new Set(), uniq = []
+const seen = new Set(), seenPos = new Set(), seenCont = new Set(), uniq = []
 cands.sort((a, b) => Number(b.mate) - Number(a.mate) || b.gain - a.gain || a.moves.length - b.moves.length || (a.key < b.key ? -1 : 1))
 for (const c of cands) {
   const pos = c.moves.slice(0, c.m + 1).join(' ')
-  if (seen.has(c.key) || seenPos.has(pos)) continue
-  seen.add(c.key); seenPos.add(pos); uniq.push(c)
+  const cont = c.moves.slice(c.m).join(' ')
+  if (seen.has(c.key) || seenPos.has(pos) || seenCont.has(cont)) continue
+  seenCont.add(cont); seen.add(c.key); seenPos.add(pos); uniq.push(c)
 }
 const exist = new Set()
 const ex = fs.readFileSync('src/data/traps.ts', 'utf8') // لا نكرر خطوط الفخاخ اليدوية
