@@ -1708,6 +1708,17 @@
   },
   "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
+ "mt-c82-d9d40d": {
+  "name": "Ruy Lopez (C82) trap: pawn grab on c3",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxc3 in the Ruy Lopez. It looks like a win, but White has Nxc3 and then wins about 11 pawns of material.",
+  "notes": {
+   "17": "The mistake! Black plays Nxc3. It looks tempting, but it is the trap.",
+   "18": "White answers Nxc3 and the punishment starts.",
+   "26": "White wins about 11 pawns of material."
+  },
+  "avoid": "Before playing Nxc3 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-b05-15d256": {
   "name": "Alekhine Defense (B05) trap: pawn grab on e5 #2",
   "opening": "Alekhine Defense",
@@ -1751,6 +1762,17 @@
    "13": "Black wins about 9 pawns of material."
   },
   "avoid": "Before playing Nxd7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d00-1d4df7": {
+  "name": "Blackmar-Diemer Gambit Accepted (D00) trap: pawn grab on d4",
+  "opening": "Blackmar-Diemer Gambit Accepted",
+  "summary": "Black plays Qxd4 in the Blackmar-Diemer Gambit Accepted. It looks like a win, but White has Bxf7+ and then wins about 9 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Qxd4. It looks tempting, but it is the trap.",
+   "14": "White answers Bxf7+ and the punishment starts.",
+   "16": "White wins about 9 pawns of material."
+  },
+  "avoid": "Before playing Qxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
  "mt-c42-f7bf01": {
   "name": "Petrov's Defense (C42) trap: pawn grab on f2",
@@ -2015,6 +2037,17 @@
    "14": "White wins about 5 pawns of material."
   },
   "avoid": "Before playing Nxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c86-d0abc3": {
+  "name": "Ruy Lopez (C86) trap: pawn grab on e4",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxe4 in the Ruy Lopez. It looks like a win, but White has Qxe4 and then wins about 5 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers Qxe4 and the punishment starts.",
+   "14": "White wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
  "mt-c80-107238": {
   "name": "Ruy Lopez (C80) trap: pawn grab on f2",
@@ -2445,6 +2478,17 @@
   },
   "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
+ "mt-c80-437e7f": {
+  "name": "Ruy Lopez (C80) trap: pawn grab on e5",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxe5 in the Ruy Lopez. It looks like a win, but White has Nxe5 and then wins about 5 pawns of material.",
+  "notes": {
+   "17": "The mistake! Black plays Nxe5. It looks tempting, but it is the trap.",
+   "18": "White answers Nxe5 and the punishment starts.",
+   "20": "White wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-c77-f950a9": {
   "name": "Ruy Lopez (C77) trap: pawn grab on e4",
   "opening": "Ruy Lopez",
@@ -2609,6 +2653,17 @@
    "26": "White wins about 5 pawns of material."
   },
   "avoid": "Before playing Bxf2+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c92-3e6b90": {
+  "name": "Ruy Lopez (C92) trap: pawn grab on e5",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Nxe5 in the Ruy Lopez. It looks like a win, but Black has dxe5 and then wins about 5 pawns of material.",
+  "notes": {
+   "18": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "19": "Black answers dxe5 and the punishment starts.",
+   "27": "Black wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
  "mt-b15-cc2a31": {
   "name": "Caro-Kann Defense (B15) trap: pawn grab on b5",
@@ -3126,6 +3181,17 @@
    "11": "Black wins about 3 pawns of material."
   },
   "avoid": "Before playing Nxd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d00-8368d2": {
+  "name": "Blackmar-Diemer Gambit Declined (D00) trap: pawn grab on e4",
+  "opening": "Blackmar-Diemer Gambit Declined",
+  "summary": "White plays fxe4 in the Blackmar-Diemer Gambit Declined. It looks like a win, but Black has cxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays fxe4. It looks tempting, but it is the trap.",
+   "9": "Black answers cxd4 and the punishment starts.",
+   "11": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing fxe4 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
  "mt-c70-68b003": {
   "name": "Ruy Lopez (C70) trap: pawn grab on a6",
@@ -3985,6 +4051,17 @@
   },
   "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
+ "mt-c88-d563ac": {
+  "name": "Ruy Lopez (C88) trap: pawn grab on e4",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxe4 in the Ruy Lopez. It looks like a win, but White has Rxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "14": "White answers Rxe4 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-c80-62580e": {
   "name": "Ruy Lopez (C80) trap: pawn grab on f2 #2",
   "opening": "Ruy Lopez",
@@ -4172,6 +4249,17 @@
   },
   "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
+ "mt-c88-25bd62": {
+  "name": "Ruy Lopez (C88) trap: pawn grab on f7",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Bxf7+ in the Ruy Lopez. It looks like a win, but Black has Rxf7 and then wins about 3 pawns of material.",
+  "notes": {
+   "14": "The mistake! White plays Bxf7+. It looks tempting, but it is the trap.",
+   "15": "Black answers Rxf7 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
  "mt-c68-975781": {
   "name": "Ruy Lopez (C68) trap: pawn grab on c6",
   "opening": "Ruy Lopez",
@@ -4314,6 +4402,28 @@
    "18": "White wins about 3 pawns of material."
   },
   "avoid": "Before playing Nxc4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c88-89cc77": {
+  "name": "Ruy Lopez (C88) trap: pawn grab on e4 #2",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxe4 in the Ruy Lopez. It looks like a win, but White has Rxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "16": "White answers Rxe4 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c84-b4e34c": {
+  "name": "Ruy Lopez (C84) trap: pawn grab on f2",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxf2 in the Ruy Lopez. It looks like a win, but White has Rxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Nxf2. It looks tempting, but it is the trap.",
+   "16": "White answers Rxf2 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxf2 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
  "mt-c52-f0c2e8": {
   "name": "Italian Game (C52) trap: pawn grab on c3 #3",
@@ -4458,6 +4568,28 @@
   },
   "avoid": "Before playing Bxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
+ "mt-c90-64b589": {
+  "name": "Ruy Lopez (C90) trap: pawn grab on e4",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxe4 in the Ruy Lopez. It looks like a win, but White has Rxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "17": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "18": "White answers Rxe4 and the punishment starts.",
+   "20": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c91-37c593": {
+  "name": "Ruy Lopez (C91) trap: pawn grab on d4",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxd4 in the Ruy Lopez. It looks like a win, but White has cxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "17": "The mistake! Black plays Nxd4. It looks tempting, but it is the trap.",
+   "18": "White answers cxd4 and the punishment starts.",
+   "20": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-c54-bbb970": {
   "name": "Italian Game (C54) trap: pawn grab on e4 #2",
   "opening": "Italian Game",
@@ -4490,6 +4622,39 @@
    "21": "Black wins about 3 pawns of material."
   },
   "avoid": "Before playing Bxa6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c90-169b88": {
+  "name": "Ruy Lopez (C90) trap: pawn grab on e5",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Nxe5 in the Ruy Lopez. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "16": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "17": "Black answers dxe5 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c91-90dab3": {
+  "name": "Ruy Lopez (C91) trap: pawn grab on f7",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Bxf7+ in the Ruy Lopez. It looks like a win, but Black has Rxf7 and then wins about 3 pawns of material.",
+  "notes": {
+   "18": "The mistake! White plays Bxf7+. It looks tempting, but it is the trap.",
+   "19": "Black answers Rxf7 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c87-78f5a9": {
+  "name": "Ruy Lopez (C87) trap: pawn grab on e5",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Nxe5 in the Ruy Lopez. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "13": "Black answers dxe5 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
  "mt-c78-1995b5": {
   "name": "Ruy Lopez (C78) trap: pawn grab on f7",
@@ -4568,6 +4733,17 @@
   },
   "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
+ "mt-c80-5fb1e9": {
+  "name": "Ruy Lopez (C80) trap: pawn grab on f2 #3",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxf2 in the Ruy Lopez. It looks like a win, but White has Rxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Nxf2. It looks tempting, but it is the trap.",
+   "14": "White answers Rxf2 and the punishment starts.",
+   "22": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxf2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-c49-400c22": {
   "name": "Four Knights Game (C49) trap: pawn grab on e5 #3",
   "opening": "Four Knights Game",
@@ -4578,6 +4754,17 @@
    "23": "Black wins about 3 pawns of material."
   },
   "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c80-d1739a": {
+  "name": "Ruy Lopez (C80) trap: pawn grab on e5 #2",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxe5 in the Ruy Lopez. It looks like a win, but White has Qxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Nxe5. It looks tempting, but it is the trap.",
+   "16": "White answers Qxd5 and the punishment starts.",
+   "24": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
  "mt-d08-c57555": {
   "name": "Queen's Gambit Declined (D08) trap: pawn grab on d4 #3",
@@ -4590,6 +4777,17 @@
   },
   "avoid": "Before playing Nxd4 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
+ "mt-c80-f620df": {
+  "name": "Ruy Lopez (C80) trap: pawn grab on d5",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Bxd5 in the Ruy Lopez. It looks like a win, but Black has Qxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "16": "The mistake! White plays Bxd5. It looks tempting, but it is the trap.",
+   "17": "Black answers Qxd5 and the punishment starts.",
+   "25": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
  "mt-a65-343028": {
   "name": "Benoni Defense (A65) trap: pawn grab on d5",
   "opening": "Benoni Defense",
@@ -4600,5 +4798,16 @@
    "26": "White wins about 3 pawns of material."
   },
   "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c92-658874": {
+  "name": "Ruy Lopez (C92) trap: pawn grab on h3",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Bxh3 in the Ruy Lopez. It looks like a win, but White has gxh3 and then wins about 3 pawns of material.",
+  "notes": {
+   "17": "The mistake! Black plays Bxh3. It looks tempting, but it is the trap.",
+   "18": "White answers gxh3 and the punishment starts.",
+   "26": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxh3 here, ask yourself first how White will reply and what is left unprotected after the move."
  }
 }
