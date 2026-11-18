@@ -919,7 +919,8 @@ export default function World3DPro() {
         )}
         {status && (
           <div className="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 rounded-xl bg-black/60 px-4 py-1.5 text-sm font-bold text-ink backdrop-blur">
-            {status} {thinking && mode === 'play' ? '⏳' : ''}
+            {status}{' '}
+            {thinking && mode === 'play' && <span aria-hidden className="ms-1 inline-block h-2 w-2 animate-pulse rounded-full bg-gold align-middle" />}
           </div>
         )}
         <div className="pointer-events-none absolute bottom-3 right-3 left-3 hidden flex-wrap items-center gap-2 sm:flex">
