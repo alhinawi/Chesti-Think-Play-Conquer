@@ -52,6 +52,11 @@ export default function HelperChat() {
         >
           <header className="flex items-center justify-between border-b border-line px-4 py-3">
             <h2 className="font-display text-base font-bold text-gold">{t('hp.title')}</h2>
+            {turns.length > 0 && !busy && (
+              <button type="button" onClick={() => setTurns([])} className="ms-auto me-2 rounded-lg px-2 py-1 text-xs text-muted hover:text-ink">
+                {t('hp.reset')}
+              </button>
+            )}
             <button type="button" onClick={() => setOpen(false)} aria-label={t('hp.close')} className="rounded-lg p-1 text-muted hover:text-ink">
               <Icon name="x" className="h-5 w-5" />
             </button>
