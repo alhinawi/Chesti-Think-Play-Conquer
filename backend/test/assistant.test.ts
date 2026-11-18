@@ -211,3 +211,11 @@ describe('plainReply', () => {
     expect(plainReply('* **الفيل** بيتحرك\n* قطري\n\n\n## عنوان `e4`')).toBe('- الفيل بيتحرك\n- قطري\n\nعنوان e4')
   })
 })
+
+describe('rule sheet', () => {
+  it('is in the prompt with the key castling and en passant facts', () => {
+    const p = systemPrompt('eg')
+    for (const k of ['never moved', 'not in check now', 'skipped', 'enemy pawn is removed', 'stalemate'.toUpperCase()]) expect(p).toContain(k)
+    expect(p).not.toMatch(/\bAI\b|GPT/)
+  })
+})
