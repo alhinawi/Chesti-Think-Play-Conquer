@@ -13,11 +13,16 @@ export default function HelperChat() {
   const [text, setText] = useState('')
   const [busy, setBusy] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const lang = locale === 'en' ? 'en' : 'eg'
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: 'end' })
   }, [turns, busy, open])
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus()
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -92,6 +97,7 @@ export default function HelperChat() {
           >
             <div className="flex gap-2">
               <input
+                ref={inputRef}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 maxLength={600}
