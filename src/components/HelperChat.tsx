@@ -19,6 +19,15 @@ export default function HelperChat() {
     endRef.current?.scrollIntoView({ block: 'end' })
   }, [turns, busy, open])
 
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   async function send(q: string) {
     const question = q.trim()
     if (!question || busy) return
