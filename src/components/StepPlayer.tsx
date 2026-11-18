@@ -179,7 +179,6 @@ function matches(expected: string, uci: string) {
 
 export function TaskRunner({ step, onDone, alreadyDone, onWrong }: { step: TaskStep; onDone: () => void; alreadyDone?: boolean; onWrong?: () => void }) {
   const { t } = useI18n()
-  const PRAISE = [t('ln.praise1'), t('ln.praise2'), t('ln.praise3'), t('ln.praise4'), t('ln.praise5'), t('ln.praise6')]
   const WRONG = [t('ln.wrong1'), t('ln.wrong2'), t('ln.wrong3'), t('ln.wrong4')]
   const PROGRESS = [t('ln.progress1'), t('ln.progress2'), t('ln.progress3')]
   const userColor = step.userColor ?? (new Chess(step.fen).turn() as 'w' | 'b')
@@ -211,11 +210,11 @@ export function TaskRunner({ step, onDone, alreadyDone, onWrong }: { step: TaskS
   const finish = useCallback(
     (text?: string) => {
       setStatus('done')
-      setMsg({ tone: 'good', text: text ?? step.success ?? pick(PRAISE) })
+      setMsg({ tone: 'good', text: text ?? step.success ?? pick([t('ln.praise1'), t('ln.praise2'), t('ln.praise3'), t('ln.praise4'), t('ln.praise5'), t('ln.praise6')]) })
       setTimeout(() => play('success'), 250)
       onDone()
     },
-    [onDone, step.success],
+    [onDone, step.success, t],
   )
 
   // the computer plays its replies from the solution
