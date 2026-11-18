@@ -163,4 +163,45 @@ describe('POST /api/assistant', () => {
     expect(res.status).toBe(503)
     expect(calls.n).toBe(0)
   })
+
+  it('reads the chat-completions reply shape (choices) and passes the documented parameters', async () => {
+    let seen: { model: string; input: Record<string, unknown> } | undefined
+    const e = {
+      ...base(),
+      AI: {
+        run: async (model: string, input: Record<string, unknown>) => {
+          seen = { model, input }
+          return { choices: [{ message: { content: [{ type: 'text', text: 'الفيل ' }, { type: 'text', text: 'قطري.' }] }, finish_reason: 'stop' }], usage: { prompt_tokens: 300, completion_tokens: 40 } }
+        },
+      },
+    }
+    const res = await ask(e, q('سؤال'))
+    expect(res.status).toBe(200)
+    expect(((await res.json()) as { reply: string }).reply).toBe('الفيل قطري.')
+    expect(seen!.model).toBe('@cf/google/gemma-4-26b-a4b-it')
+    expect(Array.isArray(seen!.input.messages)).toBe(true)
+    expect(seen!.input.max_completion_tokens).toBe(700)
+    expect(seen!.input.chat_template_kwargs).toEqual({ enable_thinking: false })
+  })
+
+  it('reports a safe reason code for each failure, without user text', async () => {
+    const secret = 'سؤال-سري-123'
+    const get = async (e: unknown) => (await (await ask(e, q(secret))).json()) as { reason?: string; message: string; error?: string }
+    expect((await get({ ...ok({ n: 0 }), HELPER_LIMITER: undefined })).reason).toBe('no_limiter_binding')
+    expect((await get({ ...base() })).reason).toBe('no_ai_binding')
+    const broken = { idFromName: () => 'x', get: () => ({ reserve: async () => { throw new Error('do exploded') } }) }
+    const r1 = await get({ ...ok({ n: 0 }), HELPER_LIMITER: broken })
+    expect(r1.reason).toBe('reserve_failed')
+    const r2 = await get({ ...base(), AI: { run: async () => { throw new Error('InferenceUpstreamError: bad model') } } })
+    expect(r2.reason).toBe('model_error')
+    const r3 = await get({ ...base(), AI: { run: async () => ({ choices: [{ message: { content: null }, finish_reason: 'length' }], usage: { prompt_tokens: 100, completion_tokens: 700 } }) } })
+    expect(r3.reason).toBe('empty_reply')
+    expect(JSON.stringify([r1, r2, r3])).not.toContain(secret)
+  })
+
+  it('keeps an empty reply counted at its real cost (no quota burn by retries)', async () => {
+    const empty = { ...base(), AI: { run: async () => ({ choices: [{ message: { content: null }, finish_reason: 'length' }], usage: { prompt_tokens: 100, completion_tokens: 700 } }) } }
+    for (let i = 0; i < LIMITS.userPerMinute; i++) expect((await ask(empty, q('سؤال'))).status).toBe(503)
+    expect((await ask(empty, q('سؤال'))).status).toBe(429) // still rate-limited: the calls were counted
+  })
 })
