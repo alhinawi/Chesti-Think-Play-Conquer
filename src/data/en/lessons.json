@@ -1042,6 +1042,34 @@
      "success": "Mate! The queen is next to the king and yours protects it."
     }
    ]
+  },
+  "castle-early": {
+   "title": "Castle early",
+   "summary": "Castling puts the king in a safe place and brings the rook into play.",
+   "steps": [
+    {
+     "text": "Castling is one move that does two things: **the king goes somewhere safer** and the rook leaves the corner and gets ready.\n\nIt needs no pieces between the king and the rook, and the king must not be in check."
+    },
+    {
+     "text": "The bishop and knight are out. Castle on the kingside.",
+     "hint": "Move the king two squares towards the rook.",
+     "success": "Now the king is safe and the rook is in the middle."
+    }
+   ]
+  },
+  "keep-developing": {
+   "title": "Keep developing",
+   "summary": "After castling, bring out the remaining pieces and don't move at random.",
+   "steps": [
+    {
+     "text": "White has castled, but the **knight on `b1` and the bishop on `c1`** are still at home. These pieces must join the game before any attack.\n\nEvery opening move should do something useful: develop a piece or control the center."
+    },
+    {
+     "text": "Keep developing with a calm, useful move.",
+     "hint": "Bring out the knight that is still at home, or support the center with a pawn.",
+     "success": "Nice! `Nc3` develops a piece, and `d3` supports the center and opens the bishop."
+    }
+   ]
   }
  }
 }
