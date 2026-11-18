@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Badge } from './ui'
 import { MiniBoard } from './MiniBoard'
-import { ChipRow, FilterCard, FilterSelect, levelOpts, matchesProgress, progressOpts, useDone } from './LibraryFilters'
+import { ChipRow, usePersisted, FilterCard, FilterSelect, levelOpts, matchesProgress, progressOpts, useDone } from './LibraryFilters'
 import { MINIATURES } from '../data/miniatures'
 import { replay, START_FEN } from '../lib/chess'
 import { useI18n } from '../lib/i18n'
@@ -31,15 +31,15 @@ function mateBucket(plies: number) {
 export default function MiniaturesList() {
   const { t: i18n } = useI18n()
   const lt = useTrapLoc()
-  const [q, setQ] = useState('')
-  const [winner, setWinner] = useState('all')
-  const [level, setLevel] = useState('all')
-  const [prog, setProg] = useState('all')
-  const [mate, setMate] = useState('all')
+  const [q, setQ] = usePersisted('miniatures', 'q', '')
+  const [winner, setWinner] = usePersisted('miniatures', 'winner', 'all')
+  const [level, setLevel] = usePersisted('miniatures', 'level', 'all')
+  const [prog, setProg] = usePersisted('miniatures', 'prog', 'all')
+  const [mate, setMate] = usePersisted('miniatures', 'mate', 'all')
   const isDone = useDone('miniatures')
 
   const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(MINIATURES.map((x) => x.opening))].sort().map((o) => ({ v: o, label: lt(MINIATURES.find((x) => x.opening === o)!).opening }))]
-  const [opening, setOpening] = useState('all')
+  const [opening, setOpening] = usePersisted('miniatures', 'opening', 'all')
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase()

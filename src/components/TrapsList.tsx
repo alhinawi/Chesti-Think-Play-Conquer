@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Badge } from './ui'
 import { MiniBoard } from './MiniBoard'
-import { ChipRow, FilterCard, FilterSelect, levelOpts, matchesProgress, progressOpts, sideOpts, useDone } from './LibraryFilters'
+import { ChipRow, usePersisted, FilterCard, FilterSelect, levelOpts, matchesProgress, progressOpts, sideOpts, useDone } from './LibraryFilters'
 import { TRAPS } from '../data/traps'
 import { TRAP_STRENGTH } from '../data/trap-strength'
 import { replay, START_FEN } from '../lib/chess'
@@ -27,12 +27,12 @@ function lenBucket(plies: number) {
 export default function TrapsList() {
   const { t: i18n } = useI18n()
   const lt = useTrapLoc()
-  const [q, setQ] = useState('')
-  const [side, setSide] = useState('all')
-  const [level, setLevel] = useState('all')
-  const [prog, setProg] = useState('all')
-  const [opening, setOpening] = useState('all')
-  const [len, setLen] = useState('all')
+  const [q, setQ] = usePersisted('traps', 'q', '')
+  const [side, setSide] = usePersisted('traps', 'side', 'all')
+  const [level, setLevel] = usePersisted('traps', 'level', 'all')
+  const [prog, setProg] = usePersisted('traps', 'prog', 'all')
+  const [opening, setOpening] = usePersisted('traps', 'opening', 'all')
+  const [len, setLen] = usePersisted('traps', 'len', 'all')
   const [limit, setLimit] = useState(60)
   const isDone = useDone('traps')
 
