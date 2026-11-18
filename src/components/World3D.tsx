@@ -10,6 +10,8 @@ import { useI18n } from '../lib/i18n'
 import { useW3Loc } from '../lib/i18n/content'
 
 const FILES = 'abcdefgh'
+type FsDoc = Document & { webkitFullscreenElement?: Element | null; webkitExitFullscreen?: () => Promise<void> | void }
+type FsEl = HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void }
 
 type PieceSpec = { type: string; color: 'w' | 'b'; square: string }
 
@@ -126,6 +128,9 @@ export default function World3D() {
   const [index, setIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
   const [picked, setPicked] = useState<string | null>(null)
+  // fullscreen: the browser's Fullscreen API when it works, else a fixed full-viewport overlay (iPhone Safari, blocked APIs)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const [fs, setFs] = useState<'off' | 'native' | 'css'>('off')
   const indexRef = useRef(index)
   const autoRef = useRef(autoRotate)
   indexRef.current = index
@@ -332,6 +337,64 @@ export default function World3D() {
     setPicked(null)
   }, [index])
 
+  useEffect(() => {
+    const onChange = () => {
+      const d = document as FsDoc
+      const el = d.fullscreenElement ?? d.webkitFullscreenElement ?? null
+      setFs((m) => (el && el === stageRef.current ? 'native' : m === 'native' ? 'off' : m))
+    }
+    document.addEventListener('fullscreenchange', onChange)
+    document.addEventListener('webkitfullscreenchange', onChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', onChange)
+      document.removeEventListener('webkitfullscreenchange', onChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (fs !== 'css') return
+    const html = document.documentElement
+    const prev = html.style.overflow
+    html.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setFs('off')
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      html.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [fs])
+
+  const toggleFs = useCallback(async () => {
+    const d = document as FsDoc
+    if (fs === 'native') {
+      if (d.fullscreenElement && d.exitFullscreen) void d.exitFullscreen().catch(() => setFs('off'))
+      else if (d.webkitFullscreenElement && d.webkitExitFullscreen) void d.webkitExitFullscreen()
+      else setFs('off')
+      return
+    }
+    if (fs === 'css') {
+      setFs('off')
+      return
+    }
+    const el = stageRef.current as FsEl | null
+    if (!el) return
+    try {
+      if (typeof el.requestFullscreen === 'function') {
+        await el.requestFullscreen({ navigationUI: 'hide' })
+        return
+      }
+      if (typeof el.webkitRequestFullscreen === 'function') {
+        await el.webkitRequestFullscreen()
+        if (d.webkitFullscreenElement === el) return
+      }
+    } catch {
+      /* refused by the browser: use the overlay */
+    }
+    setFs('css')
+  }, [fs])
+
   const go = useCallback((dir: 1 | -1) => {
     setIndex((i) => (i + dir + WORLD3D_POSITIONS.length) % WORLD3D_POSITIONS.length)
   }, [])
@@ -341,8 +404,22 @@ export default function World3D() {
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-b from-[#0d1420] to-[#090d15]">
-        <div ref={mountRef} className="h-[60vh] min-h-[380px] w-full touch-none md:h-[65vh]" />
+      <div
+        ref={stageRef}
+        className={`relative overflow-hidden border border-line bg-gradient-to-b from-[#0d1420] to-[#090d15] ${
+          fs === 'css' ? 'fixed inset-0 z-[60] rounded-none' : 'rounded-2xl'
+        }`}
+      >
+        <div ref={mountRef} className={`w-full touch-none ${fs === 'off' ? 'h-[60vh] min-h-[380px] md:h-[65vh]' : 'h-screen h-dvh'}`} />
+        <button
+          type="button"
+          onClick={toggleFs}
+          aria-label={fs === 'off' ? t('ln.fs') : t('ln.exitFs')}
+          title={fs === 'off' ? t('ln.fs') : t('ln.exitFs')}
+          className="absolute top-3 left-3 grid h-11 w-11 place-items-center rounded-xl bg-black/55 text-gold backdrop-blur transition hover:bg-black/75"
+        >
+          <Icon name={fs === 'off' ? 'expand' : 'shrink'} />
+        </button>
         <div className="pointer-events-none absolute top-3 right-3 rounded-lg bg-black/50 px-3 py-1 text-sm font-bold text-gold backdrop-blur" dir="ltr">
           {index + 1} / {WORLD3D_POSITIONS.length}
         </div>
@@ -383,9 +460,10 @@ export default function World3D() {
             type="button"
             onClick={() => apiRef.current?.resetView()}
             aria-label={t('w3.resetCam')}
+            title={t('w3.resetCam')}
             className="grid h-11 w-11 place-items-center rounded-xl bg-black/55 text-gold backdrop-blur transition hover:bg-black/75"
           >
-            <Icon name="expand" />
+            <Icon name="compass" />
           </button>
         </div>
       </div>
