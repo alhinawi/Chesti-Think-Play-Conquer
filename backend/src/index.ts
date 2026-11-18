@@ -10,6 +10,8 @@ import { recordAccountSignals } from './signals'
 import { maybeWarn } from './warnings'
 import { handleHelper } from './assistant'
 
+export { HelperLimiter } from './assistant'
+
 type Env = { Bindings: Cloudflare.Env; Variables: { userId: number } }
 
 const RESULTS = ['win', 'loss', 'draw'] as const
