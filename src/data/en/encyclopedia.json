@@ -624,5 +624,15 @@
   "[3,\"l\",0]": "Bring your king close to the enemy king before looking for mate.",
   "[3,\"l\",1]": "The queen cuts the board, and the rook closes a rank or file.",
   "[3,\"l\",2]": "Before the last move ask: does the enemy king have a square to go to? If not and there is no check, it is stalemate."
+ },
+ "escape-check": {
+  "\"title\"": "How to get out of check",
+  "\"summary\"": "Only three ways: move the king, capture the checking piece, or block the path.",
+  "[0,\"p\"]": "When your king is in check, you **must** answer on the same move. No other move is allowed. You have only three ways:",
+  "[1,\"bc\"]": "White's king is in check from the rook on e8. He can move (Kd1, Kf1 or Kf2), capture the rook (Rxe8), or block with the bishop (Be3).",
+  "[2,\"l\",0]": "**Move the king** to a square that is not attacked.",
+  "[2,\"l\",1]": "**Capture** the checking piece (if you can).",
+  "[2,\"l\",2]": "**Block** the line with a piece between the checker and your king (not possible against a knight check).",
+  "[3,\"p\"]": "If none of the three works, it is **checkmate** and the game is over."
  }
 }
