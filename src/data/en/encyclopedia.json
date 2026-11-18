@@ -614,5 +614,15 @@
   "The classic bishop sacrifice on h7 (or h2) against a castled king with no defense.",
   "Keeping both of your bishops against an opponent who traded one of his: a strong advantage in open games.",
   "A mate with a rook or queen on the first rank against a king locked behind his pawns."
- ]
+ ],
+ "basic-mates-guide": {
+  "\"title\"": "Basic endgame mates",
+  "\"summary\"": "King with queen or rook: the fixed plan and the trap to avoid.",
+  "[0,\"p\"]": "When only the enemy king is left, a king with a **queen** or a **rook** always wins. The idea is the same: your king comes closer and closes the escape squares, and the heavy piece closes the rank or file and delivers mate.",
+  "[1,\"bc\"]": "The rook on a8 closes the back rank, and your king on g6 covers the seventh-rank squares. Mate.",
+  "[2,\"bc\"]": "The queen on g7 is mate. If you play Qg6 instead, it is stalemate and a draw.",
+  "[3,\"l\",0]": "Bring your king close to the enemy king before looking for mate.",
+  "[3,\"l\",1]": "The queen cuts the board, and the rook closes a rank or file.",
+  "[3,\"l\",2]": "Before the last move ask: does the enemy king have a square to go to? If not and there is no check, it is stalemate."
+ }
 }
