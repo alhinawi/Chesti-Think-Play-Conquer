@@ -76,5 +76,23 @@
   "theme": "Mate in 1",
   "text": "Black's king is hemmed in between two rooks like a military shoulder epaulette. Mate in one with the queen.",
   "explain": "**Qe6#**: the queen strikes from a distance on the `e` file, and the king can't move left or right because his own rooks block the way (`d8` and `f8`), and he can't go back because the queen covers `d7` and `f7` diagonally. The harshest kind of confinement is when your own pieces become your cage."
+ },
+ "opposition-rook-mate": {
+  "name": "Opposition and Rook",
+  "theme": "Mate in 1",
+  "text": "The kings face each other with one square between them. Find the mate in one move.",
+  "explain": "**Rh8#**: the white king on `e6` covers `d7`, `e7` and `f7`, and the rook closes the eighth rank with check. The black king has no square to run to."
+ },
+ "queen-guard-mate": {
+  "name": "Queen with King Support",
+  "theme": "Mate in 1",
+  "text": "The queen is far away on the first rank. Find the mate in one move.",
+  "explain": "**Qf8#**: the queen attacks the whole eighth rank, and the white king on `g6` covers `g7` and `h7`. The black king has no square."
+ },
+ "corner-rook-mate": {
+  "name": "Rook in the Corner",
+  "theme": "Mate in 1",
+  "text": "The black king is in the corner. Deliver mate with the rook in one move.",
+  "explain": "**Rh8#**: the white king on `b6` covers `a7` and `b7`, and the rook closes the eighth rank. No other piece is needed."
  }
 }
