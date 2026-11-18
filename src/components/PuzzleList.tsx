@@ -51,7 +51,7 @@ export default function PuzzleList() {
           return (
             <li key={p.id}>
               <Link href={`/puzzles/${p.id}`} className={`block rounded-xl border p-2 transition hover:border-gold/60 ${ok ? 'border-emerald/40' : 'border-line'} bg-surface`}>
-                <MiniBoard fen={p.fen} />
+                <MiniBoard fen={p.fen} label={t2('lx.boardAria')} />
                 <div className="mt-2 flex items-center justify-between gap-1 px-1">
                   <span className="truncate text-sm font-bold">{lp(p).name}</span>
                   {ok ? <Icon name="check" className="h-4 w-4 shrink-0 text-emerald" /> : null}
