@@ -1070,6 +1070,34 @@
      "success": "Nice! `Nc3` develops a piece, and `d3` supports the center and opens the bishop."
     }
    ]
+  },
+  "battery-mate": {
+   "title": "Queen and bishop on one line",
+   "summary": "A bishop protects the queen from afar, and the king cannot capture it.",
+   "steps": [
+    {
+     "text": "The bishop on `b2` hits the long diagonal as far as `g7`. If the queen lands on `g7`, the bishop **protects her** from a distance.\n\nThe black king cannot take the queen, and his other squares are blocked by his own pawns, so it is mate."
+    },
+    {
+     "text": "Deliver mate with the queen.",
+     "hint": "The queen goes up the g-file to the square the bishop protects.",
+     "success": "Mate! The bishop protected the queen from the diagonal, and the king has nowhere to go."
+    }
+   ]
+  },
+  "queen-back-rank": {
+   "title": "Back-rank mate with the queen",
+   "summary": "The king's own pawns lock it in, and the queen hits the rank.",
+   "steps": [
+    {
+     "text": "The pawns on `f7`, `g7` and `h7` locked their own king in. Any check on the back rank cannot be blocked.\n\nThe queen goes up the `a` file to `a8` with checkmate."
+    },
+    {
+     "text": "Deliver mate on the back rank.",
+     "hint": "The queen goes to the end of the rank, on the same line as the black king.",
+     "success": "Mate! The king is boxed in behind his pawns and no piece can block."
+    }
+   ]
   }
  }
 }
