@@ -1048,7 +1048,7 @@
    "summary": "Castling puts the king in a safe place and brings the rook into play.",
    "steps": [
     {
-     "text": "Castling is one move that does two things: **the king goes somewhere safer** and the rook leaves the corner and gets ready.\n\nIt needs no pieces between the king and the rook, and the king must not be in check."
+     "text": "Castling is one move that does two things: **the king goes somewhere safer** and the rook leaves the corner and gets ready.\n\nConditions:\n\n- Neither the king nor the rook has moved before.\n- No pieces between them.\n- The king is not in check.\n- The king does not pass through or land on an attacked square."
     },
     {
      "text": "The bishop and knight are out. Castle on the kingside.",
@@ -1062,7 +1062,7 @@
    "summary": "After castling, bring out the remaining pieces and don't move at random.",
    "steps": [
     {
-     "text": "White has castled, but the **knight on `b1` and the bishop on `c1`** are still at home. These pieces must join the game before any attack.\n\nEvery opening move should do something useful: develop a piece or control the center."
+     "text": "White has castled, but the **knight and bishop** are still at home on `b1` and `c1`. These pieces must join the game before any attack.\n\nEvery opening move should do something useful: develop a piece or control the center."
     },
     {
      "text": "Keep developing with a calm, useful move.",
