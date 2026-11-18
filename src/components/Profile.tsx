@@ -131,7 +131,7 @@ export default function Profile() {
             const on = unlocked.includes(a0)
             return (
               <li key={a.id} className={`rounded-2xl border p-3 text-center transition ${on ? 'border-gold/50 bg-gold-soft' : 'border-line bg-surface opacity-55 grayscale'}`}>
-                <span className="block text-3xl" aria-hidden>{a.icon}</span>
+                <span className="flex justify-center text-gold" aria-hidden><Icon name={a.icon} className="h-8 w-8" /></span>
                 <span className="mt-1 block text-sm font-bold">{a.name}</span>
                 <span className="block text-xs text-muted">{a.desc}</span>
                 {!on && <span className="sr-only">{t('me.notEarned')}</span>}
