@@ -1006,7 +1006,7 @@
    "summary": "Your king seals the escape, the rook delivers mate on the last rank.",
    "steps": [
     {
-     "text": "Black's king is on the edge, and your king on `g6` covers the whole seventh rank (`f7`, `g7`, `h7`).\n\nOnly one line is left: the last rank. The rook closes it with check."
+     "text": "Black's king is on the edge, and your king on `g6` covers its escape squares on the seventh rank: `f7`, `g7` and `h7`.\n\nOnly the last rank is left. The rook closes it with check."
     },
     {
      "text": "Deliver mate with the rook.",
@@ -1020,7 +1020,7 @@
    "summary": "One wrong move turns a win into a draw.",
    "steps": [
     {
-     "text": "White is winning easily here, but the **queen on `g6` stalemates the king**: no check, and no square to move to, so the game is a draw.\n\nThe right move is the queen to `g7`, checkmate."
+     "text": "White is winning easily here, but if the queen goes to `g6` it **stalemates the king**: no check, and no square to move to, so the game is a draw.\n\nThe right move is the queen to `g7`, checkmate."
     },
     {
      "text": "Win with checkmate, and do not stalemate the king.",
@@ -1034,7 +1034,7 @@
    "summary": "The queen next to the king, protected by yours, and mate is ready.",
    "steps": [
     {
-     "text": "When the enemy king is in the corner and yours is on `b6`, every square next to it is covered by your king.\n\nThe queen lands next to the king, and Black cannot capture it because your king protects it."
+     "text": "Black's king is in the corner on `a8`, and its escape squares are `a7`, `b7` and `b8`. Your king on `b6` covers `a7` and `b7`, and the queen on `c7` covers `b8`.\n\nThe queen lands next to the king on `a7` or `b7`, and Black cannot capture it because your king protects it."
     },
     {
      "text": "Deliver mate.",
