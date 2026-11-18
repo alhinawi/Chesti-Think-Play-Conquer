@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Badge } from './ui'
 import { MiniBoard } from './MiniBoard'
-import { ChipRow, FilterCard, levelOpts, matchesProgress, progressOpts, useDone } from './LibraryFilters'
+import { ChipRow, usePersisted, FilterCard, levelOpts, matchesProgress, progressOpts, useDone } from './LibraryFilters'
 import { OPENINGS } from '../data/openings'
 import { replay, START_FEN } from '../lib/chess'
 import { useI18n } from '../lib/i18n'
@@ -35,11 +35,11 @@ const TYPE_KEYS: Record<string, string> = { open: 'lb.typeOpen', semi: 'lb.typeS
 export default function OpeningsList() {
   const { t } = useI18n()
   const lo = useOpeningLoc()
-  const [q, setQ] = useState('')
-  const [side, setSide] = useState('all')
-  const [level, setLevel] = useState('all')
-  const [prog, setProg] = useState('all')
-  const [type, setType] = useState('all')
+  const [q, setQ] = usePersisted('openings', 'q', '')
+  const [side, setSide] = usePersisted('openings', 'side', 'all')
+  const [level, setLevel] = usePersisted('openings', 'level', 'all')
+  const [prog, setProg] = usePersisted('openings', 'prog', 'all')
+  const [type, setType] = usePersisted('openings', 'type', 'all')
   const isDone = useDone('openings')
 
   const filtered = useMemo(() => {
