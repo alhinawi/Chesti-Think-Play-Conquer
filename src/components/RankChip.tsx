@@ -7,6 +7,7 @@ import { today, useProgress } from '../lib/progress'
 import { rankOf, streakOf, xpOf } from '../lib/rank'
 import { useI18n } from '../lib/i18n'
 import { useRankLoc } from '../lib/i18n/content'
+import { Icon } from './ui'
 
 /** Small rank + streak pill in the header; links to the profile. */
 export default function RankChip() {
@@ -36,7 +37,8 @@ export default function RankChip() {
           aria-label={t('lx.streakAria', { n: streak })}
           className="ltr flex shrink-0 items-center gap-0.5 whitespace-nowrap rounded-full border border-[#f39c4a]/40 bg-[#f39c4a]/10 px-2 py-1 text-xs font-bold text-[#f39c4a] transition hover:border-[#f39c4a]"
         >
-          🔥{streak}
+          <Icon name="flame" className="h-3.5 w-3.5" />
+          {streak}
         </Link>
       )}
     </span>
