@@ -300,3 +300,23 @@ export function liveMove(id: number, uci: string) {
 export function liveEnd(id: number, result: 'win' | 'loss' | 'draw', signals?: unknown) {
   return req<{ ok: boolean; game_id?: number }>(`/live/${id}/end`, { method: 'POST', body: { result, signals }, auth: true })
 }
+
+export interface HelperTurn {
+  role: 'user' | 'assistant'
+  content: string
+}
+
+/** The learning helper. Never throws: failures come back as a friendly message to show as is. */
+export async function askHelper(messages: HelperTurn[], locale: 'eg' | 'en', fallback: string): Promise<{ reply?: string; message?: string }> {
+  try {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    const token = getToken()
+    if (token) headers.Authorization = `Bearer ${token}`
+    const r = await fetch(`${BASE}/api/assistant`, { method: 'POST', headers, body: JSON.stringify({ messages, locale }) })
+    const d = (await r.json().catch(() => ({}))) as { reply?: unknown; message?: unknown }
+    if (r.ok && typeof d.reply === 'string' && d.reply) return { reply: d.reply }
+    return { message: typeof d.message === 'string' && d.message ? d.message : fallback }
+  } catch {
+    return { message: fallback }
+  }
+}

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import AuthButtons from './AuthButtons'
 import Celebrate from './Celebrate'
 import RankChip from './RankChip'
+import HelperChat from './HelperChat'
 import { useEffect, useState, type ReactNode } from 'react'
 import { NAV, SITE } from '../lib/site'
 import { useSettings } from '../lib/settings'
@@ -196,6 +197,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         <CheatWarningBanner />
         {children}
       </main>
+      <HelperChat />
 
       <footer className="hidden border-t border-line py-8 text-sm text-muted md:block md:ps-72 md:pe-8">
         <div className="flex flex-wrap items-center justify-between gap-4 px-4">
