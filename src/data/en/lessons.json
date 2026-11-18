@@ -1098,6 +1098,20 @@
      "success": "Mate! The king is boxed in behind his pawns and no piece can block."
     }
    ]
+  },
+  "double-check": {
+   "title": "Double check",
+   "summary": "Two checks in one move, and the king is the one who must move.",
+   "steps": [
+    {
+     "text": "The rook on `e1` is behind the knight, and the knight blocks the `e` file. When the knight moves with check, it is a **double check**: the knight gives check, and the rook gives check once its line opens.\n\nAgainst a double check you cannot capture or block, so **the king must move**. If he has no square, it is mate."
+    },
+    {
+     "text": "Make a double check with the knight and deliver mate.",
+     "hint": "Move the knight to a square where it gives check, and the rook will be uncovered.",
+     "success": "Mate! The knight and the rook gave check together, and the king is boxed in by his own pieces."
+    }
+   ]
   }
  }
 }
