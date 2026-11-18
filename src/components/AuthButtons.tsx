@@ -15,7 +15,7 @@ function AvatarImg({ user, size }: { user: { name: string; avatar?: string | nul
       aria-hidden
       className={`grid ${cls} shrink-0 place-items-center rounded-full bg-gradient-to-b from-gold-2 to-gold font-bold text-[#1a1408]`}
     >
-      {user.name.trim().charAt(0) || '؟'}
+      {user.name.trim().charAt(0) || '?'}
     </span>
   )
 }
