@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { beforeEach, describe, expect, it } from 'vitest'
 import app from '../src/index'
-import { cleanMessages, estimateNeurons, LIMITS, systemPrompt, type LimiterApi } from '../src/assistant'
+import { cleanMessages, estimateNeurons, LIMITS, reserveCost, systemPrompt, type LimiterApi } from '../src/assistant'
 
 const ask = (e: unknown, body: unknown, ip = '1.1.1.1') =>
   app.request(
@@ -10,6 +10,8 @@ const ask = (e: unknown, body: unknown, ip = '1.1.1.1') =>
     e as typeof env,
   )
 
+const day = () => new Date().toISOString().slice(0, 10)
+const minute = () => new Date().toISOString().slice(0, 16)
 let scope = ''
 const base = () => ({ DB: env.DB, ALLOWED_ORIGINS: env.ALLOWED_ORIGINS, HELPER_LIMITER: env.HELPER_LIMITER, HELPER_SCOPE: scope })
 const limiter = () => env.HELPER_LIMITER!.get(env.HELPER_LIMITER!.idFromName(scope)) as unknown as LimiterApi
@@ -46,8 +48,12 @@ describe('helper input handling', () => {
     expect(systemPrompt('eg')).toMatch(/only help with learning chess/i)
   })
   it('estimates neurons from usage, with a fallback from text length', () => {
-    expect(estimateNeurons(0, 0, { prompt_tokens: 1000, completion_tokens: 100 })).toBe(Math.ceil(1000 * 0.031371 + 100 * 0.05056))
+    expect(estimateNeurons(0, 0, { prompt_tokens: 1000, completion_tokens: 100 })).toBe(Math.ceil(1000 * 0.009091 + 100 * 0.027273))
     expect(estimateNeurons(900, 300)).toBeGreaterThan(0)
+  })
+  it('reserves more than a realistic worst case and never less than the settled cost', () => {
+    expect(reserveCost(5000)).toBeGreaterThanOrEqual(estimateNeurons(5000, 320 * 3, { prompt_tokens: 2500, completion_tokens: 320 }))
+    expect(reserveCost(1500)).toBeLessThan(LIMITS.siteDailyNeurons / 50)
   })
 })
 
@@ -64,10 +70,8 @@ describe('POST /api/assistant', () => {
     expect(res.status).toBe(200)
     expect(((await res.json()) as { reply: string }).reply).toContain('قطري')
     expect(calls.n).toBe(1)
-    // the counters live in the limiter; a second call by the same visitor is counted, and nothing readable is kept
-    const day = new Date().toISOString().slice(0, 10)
-    const minute = new Date().toISOString().slice(0, 16)
-    expect(await limiter().check('u:unknown', day, minute)).toBe('ok')
+    // the reservation was settled down to the real cost (about 3 neurons), so almost the whole budget is still free
+    expect(await limiter().reserve('u:probe', day(), minute(), LIMITS.siteDailyNeurons - 8)).toBe('ok')
   })
 
   it('answers in English when asked to', async () => {
@@ -89,25 +93,43 @@ describe('POST /api/assistant', () => {
   })
 
   it('stops at the per-user daily limit', async () => {
-    const e = ok({ n: 0 })
-    const day = new Date().toISOString().slice(0, 10)
-    // Space calls across minutes so only the daily cap can trigger.
-    for (let i = 0; i < LIMITS.userDaily; i++) await limiter().record('u:me', day, `${day}T00:${String(i).padStart(2, '0')}`, 5)
-    expect(await limiter().check('u:me', day, `${day}T09:59`)).toBe('user_limit')
-    expect(await limiter().check('u:other', day, `${day}T09:59`)).toBe('ok')
-    void e
+    for (let i = 0; i < LIMITS.userDaily; i++) expect(await limiter().reserve('u:me', day(), `${day()}T00:${String(i).padStart(2, '0')}`, 5)).toBe('ok')
+    expect(await limiter().reserve('u:me', day(), `${day()}T09:59`, 5)).toBe('user_limit')
+    expect(await limiter().reserve('u:other', day(), `${day()}T09:59`, 5)).toBe('ok')
   })
 
   it('stops for everyone when the site budget is used, without calling the model', async () => {
     const calls = { n: 0 }
-    const day = new Date().toISOString().slice(0, 10)
-    await limiter().record('', day, `${day}T00:00`, LIMITS.siteDailyNeurons)
+    await limiter().reserve('', day(), `${day()}T00:00`, LIMITS.siteDailyNeurons)
     const res = await ask(ok(calls), q('سؤال'))
     expect(res.status).toBe(429)
     const j = (await res.json()) as { error: string; message: string }
     expect(j.error).toBe('quota')
     expect(j.message).toMatch(/بكرة/)
     expect(calls.n).toBe(0)
+  })
+
+  it('reserves atomically: concurrent requests cannot exceed the per-minute limit', async () => {
+    const calls = { n: 0 }
+    const e = ok(calls)
+    const results = await Promise.all(Array.from({ length: 12 }, () => ask(e, q('سؤال'))))
+    expect(results.filter((r) => r.status === 200)).toHaveLength(LIMITS.userPerMinute)
+    expect(results.filter((r) => r.status === 429)).toHaveLength(12 - LIMITS.userPerMinute)
+    expect(calls.n).toBe(LIMITS.userPerMinute)
+  })
+
+  it('reserves atomically against the site budget', async () => {
+    const verdicts = await Promise.all(Array.from({ length: 8 }, (_, i) => limiter().reserve(`u:${i}`, day(), minute(), 1000)))
+    expect(verdicts.filter((v) => v === 'ok')).toHaveLength(2) // 2 x 1000 fits in 2500, the third does not
+    expect(verdicts.filter((v) => v === 'quota')).toHaveLength(6)
+  })
+
+  it('gives the reservation back when the model fails, so failures do not eat the allowance', async () => {
+    const dead = { ...base(), AI: { run: async () => { throw new Error('boom') } } }
+    for (let i = 0; i < LIMITS.userPerMinute + 2; i++) expect((await ask(dead, q('سؤال'))).status).toBe(503)
+    const calls = { n: 0 }
+    expect((await ask(ok(calls), q('سؤال'))).status).toBe(200)
+    expect(calls.n).toBe(1)
   })
 
   it('turns the account quota error (3036) into the friendly message and pauses for the day', async () => {

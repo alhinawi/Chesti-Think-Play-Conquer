@@ -13,22 +13,26 @@ export interface ChatMsg {
   content: string
 }
 
-export const DEFAULT_MODEL = '@cf/google/gemma-3-12b-it'
-// Pricing page (Nov 2026): gemma-3-12b-it = 31371 neurons per M input tokens, 50560 per M output tokens.
-const IN_RATE = 31371 / 1e6
-const OUT_RATE = 50560 / 1e6
+export const DEFAULT_MODEL = '@cf/google/gemma-4-26b-a4b-it'
+// Pricing page (Nov 2026): gemma-4-26b-a4b-it = 9091 neurons per M input tokens, 27273 per M output tokens.
+// (gemma-3-12b-it was retired on 2026-05-30.)
+const IN_RATE = 9091 / 1e6
+const OUT_RATE = 27273 / 1e6
 
 const MAX_MESSAGES = 6
 const MAX_CHARS = 600
 const MAX_OUT_TOKENS = 320
+
+/** Conservative cost of one call, reserved before the model runs (assumes 2 characters per token). */
+export function reserveCost(promptChars: number): number {
+  return Math.ceil((promptChars / 2) * IN_RATE + MAX_OUT_TOKENS * OUT_RATE) + 1
+}
 
 export const LIMITS = {
   userDaily: 15,
   userPerMinute: 4,
   /** The account's free allocation (10,000 neurons/day) is shared by every site, so each site keeps a small slice. */
   siteDailyNeurons: 2500,
-  /** Worst-case cost of one call, reserved before calling the model. */
-  reserveNeurons: 40,
 }
 
 const MSG = {
@@ -88,8 +92,14 @@ export function estimateNeurons(promptChars: number, outChars: number, usage?: {
 type AiBinding = { run(model: string, input: unknown): Promise<unknown> }
 export type Verdict = 'ok' | 'quota' | 'rate' | 'user_limit'
 export interface LimiterApi {
-  check(key: string, day: string, minute: string): Promise<Verdict>
-  record(key: string, day: string, minute: string, neurons: number): Promise<void>
+  /** Atomically checks the limits and, if all pass, reserves one call and `cost` neurons. */
+  reserve(key: string, day: string, minute: string, cost: number): Promise<Verdict>
+  /** After the model answered: replace the reserved cost with the actual one (the call stays counted). */
+  settle(key: string, day: string, minute: string, reserved: number, actual: number): Promise<void>
+  /** The model did not run or failed: give the reservation back. */
+  refund(key: string, day: string, minute: string, reserved: number): Promise<void>
+  /** The account quota is gone: stop for the rest of the day. */
+  exhaust(day: string): Promise<void>
 }
 type HelperEnv = { DB: D1Database; AI?: AiBinding; AI_MODEL?: string; HELPER_LIMITER?: DurableObjectNamespace<HelperLimiter>; HELPER_SCOPE?: string }
 
@@ -108,24 +118,40 @@ export class HelperLimiter extends DurableObject implements LimiterApi {
     return r ?? { calls: 0, neurons: 0 }
   }
 
-  async check(key: string, day: string, minute: string): Promise<Verdict> {
-    if (this.row(day, 'site').neurons + LIMITS.reserveNeurons > LIMITS.siteDailyNeurons) return 'quota'
+  async reserve(key: string, day: string, minute: string, cost: number): Promise<Verdict> {
+    // One Durable Object instance runs these statements one request at a time, so the
+    // check and the reservation below cannot interleave with another request.
+    if (this.row(day, 'site').neurons + cost > LIMITS.siteDailyNeurons) return 'quota'
     if (this.row(minute, key).calls >= LIMITS.userPerMinute) return 'rate'
     if (this.row(day, key).calls >= LIMITS.userDaily) return 'user_limit'
+    this.add(day, 'site', 1, cost)
+    this.add(day, key, 1, cost)
+    this.add(minute, key, 1, cost)
+    this.ctx.storage.sql.exec('DELETE FROM usage WHERE bucket < ?', new Date(Date.parse(day) - 2 * 86_400_000).toISOString().slice(0, 10))
     return 'ok'
   }
 
-  async record(key: string, day: string, minute: string, neurons: number): Promise<void> {
+  async settle(key: string, day: string, minute: string, reserved: number, actual: number): Promise<void> {
+    const d = actual - reserved
+    this.add(day, 'site', 0, d)
+    this.add(day, key, 0, d)
+    this.add(minute, key, 0, d)
+  }
+
+  async refund(key: string, day: string, minute: string, reserved: number): Promise<void> {
+    this.add(day, 'site', -1, -reserved)
+    this.add(day, key, -1, -reserved)
+    this.add(minute, key, -1, -reserved)
+  }
+
+  async exhaust(day: string): Promise<void> {
+    this.add(day, 'site', 0, LIMITS.siteDailyNeurons)
+  }
+
+  private add(bucket: string, key: string, calls: number, neurons: number): void {
     const sql = this.ctx.storage.sql
-    const bump = (bucket: string, k: string, n: number) =>
-      sql.exec('INSERT INTO usage (bucket, key, calls, neurons) VALUES (?, ?, 1, ?) ON CONFLICT(bucket, key) DO UPDATE SET calls = calls + 1, neurons = neurons + excluded.neurons', bucket, k, n)
-    bump(day, 'site', neurons)
-    if (key) {
-      bump(day, key, neurons)
-      bump(minute, key, neurons)
-    }
-    // housekeeping: counters older than 2 days are useless ('YYYY-MM-DD' sorts before newer buckets)
-    sql.exec('DELETE FROM usage WHERE bucket < ?', new Date(Date.parse(day) - 2 * 86_400_000).toISOString().slice(0, 10))
+    sql.exec('INSERT OR IGNORE INTO usage (bucket, key, calls, neurons) VALUES (?, ?, 0, 0)', bucket, key)
+    sql.exec('UPDATE usage SET calls = MAX(0, calls + ?), neurons = MAX(0, neurons + ?) WHERE bucket = ? AND key = ?', calls, neurons, bucket, key)
   }
 }
 
@@ -156,14 +182,18 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
   const day = isoDay(now)
   const minute = isoMinute(now)
   const key = await userKey(c, env, day)
+  const prompt = [{ role: 'system', content: systemPrompt(locale) }, ...messages]
+  const promptChars = prompt.reduce((n, m) => n + m.content.length, 0)
+  const cost = reserveCost(promptChars)
 
-  // Fail closed: without a working limiter we do not call the model at all.
+  // Atomic reservation before the model runs. Fail closed: without a working limiter
+  // (binding missing, Durable Object error) the model is never called.
   let limiter: LimiterApi
   let verdict: Verdict
   try {
     if (!env.HELPER_LIMITER) throw new Error('no limiter')
     limiter = env.HELPER_LIMITER.get(env.HELPER_LIMITER.idFromName(env.HELPER_SCOPE || 'site')) as unknown as LimiterApi
-    verdict = await limiter.check(key, day, minute)
+    verdict = await limiter.reserve(key, day, minute, cost)
   } catch {
     return c.json({ error: 'unavailable', message: t.down }, 503)
   }
@@ -171,9 +201,8 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
   if (verdict === 'rate') return c.json({ error: 'rate', message: t.rate }, 429)
   if (verdict === 'user_limit') return c.json({ error: 'user_limit', message: t.user }, 429)
 
-  const prompt = [{ role: 'system', content: systemPrompt(locale) }, ...messages]
-  const promptChars = prompt.reduce((n, m) => n + m.content.length, 0)
-
+  // From here on the reservation stays counted unless we can prove the model did not answer.
+  const giveBack = () => limiter.refund(key, day, minute, cost).catch(() => {})
   let reply = ''
   let usage: { prompt_tokens?: number; completion_tokens?: number } | undefined
   try {
@@ -189,14 +218,19 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
     const text = String((e as Error)?.message ?? e)
     // 3036 = the account's free Neurons are used up for the day (shared by all sites)
     if (/3036|neurons|quota|429/i.test(text)) {
-      await limiter.record('', day, minute, LIMITS.siteDailyNeurons).catch(() => {}) // stop trying for the rest of the day
+      await giveBack()
+      await limiter.exhaust(day).catch(() => {}) // stop trying for the rest of the day
       return c.json({ error: 'quota', message: t.quota }, 429)
     }
+    await giveBack()
     return c.json({ error: 'unavailable', message: t.down }, 503)
   }
-  if (!reply) return c.json({ error: 'unavailable', message: t.down }, 503)
+  if (!reply) {
+    await giveBack()
+    return c.json({ error: 'unavailable', message: t.down }, 503)
+  }
 
-  const spent = estimateNeurons(promptChars, reply.length, usage)
-  await limiter.record(key, day, minute, spent).catch(() => {})
+  // Replace the conservative reservation with the real cost. If this write fails the reservation stays: safe side.
+  await limiter.settle(key, day, minute, cost, estimateNeurons(promptChars, reply.length, usage)).catch(() => {})
   return c.json({ reply: reply.slice(0, 1500) })
 }
