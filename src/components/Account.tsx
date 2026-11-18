@@ -55,7 +55,7 @@ export default function Account() {
             <img src={user.avatar} alt="" className="h-14 w-14 rounded-2xl object-cover" />
           ) : (
             <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-b from-gold-2 to-gold text-2xl font-bold text-[#1a1408]" aria-hidden>
-              {user.name.trim().charAt(0) || '؟'}
+              {user.name.trim().charAt(0) || '?'}
             </span>
           )}
           <div className="min-w-0 flex-1">
