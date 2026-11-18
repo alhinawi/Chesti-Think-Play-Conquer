@@ -53,11 +53,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "material": 2,
     "plies": 1
   },
-  "mortimer-trap": {
-    "mate": false,
-    "material": 0,
-    "plies": 1
-  },
   "kieninger-trap": {
     "mate": true,
     "material": 1,
@@ -67,21 +62,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "mate": true,
     "material": 1,
     "plies": 1
-  },
-  "marshall-trap": {
-    "mate": false,
-    "material": 3,
-    "plies": 3
-  },
-  "fried-liver": {
-    "mate": false,
-    "material": 2,
-    "plies": 7
-  },
-  "traxler": {
-    "mate": false,
-    "material": 4,
-    "plies": 9
   },
   "tarrasch-trap": {
     "mate": false,
@@ -98,11 +78,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "material": 7,
     "plies": 9
   },
-  "stafford-gambit": {
-    "mate": false,
-    "material": 7,
-    "plies": 3
-  },
   "budapest-trap": {
     "mate": true,
     "material": 1,
@@ -111,16 +86,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
   "tennison-gambit": {
     "mate": false,
     "material": 11,
-    "plies": 5
-  },
-  "owen-trap": {
-    "mate": true,
-    "material": 3,
-    "plies": 3
-  },
-  "evans-gambit": {
-    "mate": false,
-    "material": 1,
     "plies": 5
   },
   "rubinstein-trap": {
@@ -168,11 +133,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "material": 3,
     "plies": 5
   },
-  "french-advance-trap": {
-    "mate": false,
-    "material": 16,
-    "plies": 5
-  },
   "magnus-smith-trap": {
     "mate": false,
     "material": 14,
@@ -206,7 +166,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
   "reti-tartakower": {"mate":true,"material":0,"plies":5},
   "petrov-nc6-check": {"mate":false,"material":6,"plies":4},
   "hopton-trap": {"mate":true,"material":0,"plies":3},
-  "tarrasch-dresden": {"mate":false,"material":1,"plies":7},
   "wurzburger-trap": {"mate":false,"material":0,"plies":1}
 }
 
