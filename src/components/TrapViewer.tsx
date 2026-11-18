@@ -48,7 +48,7 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
 
   useEffect(() => {
     if (ply === n) markDone(bucket ?? 'traps', t.id)
-  }, [ply, n, t.id])
+  }, [ply, n, t.id, bucket])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
