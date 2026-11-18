@@ -345,6 +345,7 @@ const en: Messages = {
     moveCountLabel: 'Move count',
     trapsAria: 'All traps sorted by strength',
     emptyTraps: 'No traps match these filters. Try widening the search.',
+    showMoreTraps: 'Show more traps ({n} left)',
     doneBadge: 'Done ✓',
     mateBadge: 'Checkmate',
     materialBadge: '+{n} material',
