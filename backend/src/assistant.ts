@@ -1,9 +1,10 @@
+import { DurableObject } from 'cloudflare:workers'
 import type { Context } from 'hono'
 import { sha256Hex } from './crypto'
 
 // In-site learning helper: a small chat that answers chess-learning questions.
 // Runs on Cloudflare Workers AI (free allocation only). It never logs message text,
-// stores only daily-salted hashed counters, and degrades to a friendly message when
+// keeps only daily-salted hashed counters inside a small SQLite-backed Durable Object (free plan, no D1 tables), and degrades to a friendly message when
 // the per-user, per-minute or per-site daily budget is used up (or the account quota returns 429).
 
 export type Role = 'user' | 'assistant'
@@ -85,7 +86,48 @@ export function estimateNeurons(promptChars: number, outChars: number, usage?: {
 }
 
 type AiBinding = { run(model: string, input: unknown): Promise<unknown> }
-type HelperEnv = { DB: D1Database; AI?: AiBinding; AI_MODEL?: string }
+export type Verdict = 'ok' | 'quota' | 'rate' | 'user_limit'
+export interface LimiterApi {
+  check(key: string, day: string, minute: string): Promise<Verdict>
+  record(key: string, day: string, minute: string, neurons: number): Promise<void>
+}
+type HelperEnv = { DB: D1Database; AI?: AiBinding; AI_MODEL?: string; HELPER_LIMITER?: DurableObjectNamespace<HelperLimiter>; HELPER_SCOPE?: string }
+
+/**
+ * One instance serves the whole site, so every check and update is serialized (no races).
+ * Rows: (bucket, key) with a day or minute bucket, key 'site' or a hashed visitor id.
+ */
+export class HelperLimiter extends DurableObject implements LimiterApi {
+  constructor(ctx: DurableObjectState, env: unknown) {
+    super(ctx, env as never)
+    ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS usage (bucket TEXT NOT NULL, key TEXT NOT NULL, calls INTEGER NOT NULL DEFAULT 0, neurons INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (bucket, key))')
+  }
+
+  private row(bucket: string, key: string): { calls: number; neurons: number } {
+    const r = this.ctx.storage.sql.exec('SELECT calls, neurons FROM usage WHERE bucket = ? AND key = ?', bucket, key).toArray()[0] as { calls: number; neurons: number } | undefined
+    return r ?? { calls: 0, neurons: 0 }
+  }
+
+  async check(key: string, day: string, minute: string): Promise<Verdict> {
+    if (this.row(day, 'site').neurons + LIMITS.reserveNeurons > LIMITS.siteDailyNeurons) return 'quota'
+    if (this.row(minute, key).calls >= LIMITS.userPerMinute) return 'rate'
+    if (this.row(day, key).calls >= LIMITS.userDaily) return 'user_limit'
+    return 'ok'
+  }
+
+  async record(key: string, day: string, minute: string, neurons: number): Promise<void> {
+    const sql = this.ctx.storage.sql
+    const bump = (bucket: string, k: string, n: number) =>
+      sql.exec('INSERT INTO usage (bucket, key, calls, neurons) VALUES (?, ?, 1, ?) ON CONFLICT(bucket, key) DO UPDATE SET calls = calls + 1, neurons = neurons + excluded.neurons', bucket, k, n)
+    bump(day, 'site', neurons)
+    if (key) {
+      bump(day, key, neurons)
+      bump(minute, key, neurons)
+    }
+    // housekeeping: counters older than 2 days are useless ('YYYY-MM-DD' sorts before newer buckets)
+    sql.exec('DELETE FROM usage WHERE bucket < ?', new Date(Date.parse(day) - 2 * 86_400_000).toISOString().slice(0, 10))
+  }
+}
 
 const isoDay = (d: Date) => d.toISOString().slice(0, 10)
 const isoMinute = (d: Date) => d.toISOString().slice(0, 16)
@@ -103,17 +145,6 @@ async function userKey(c: Context, env: HelperEnv, day: string): Promise<string>
   return `u:${(await sha256Hex(`${who}|${day}|chesti-helper`)).slice(0, 24)}`
 }
 
-async function read(db: D1Database, bucket: string, key: string) {
-  return (await db.prepare('SELECT calls, neurons FROM helper_usage WHERE bucket = ? AND key = ?').bind(bucket, key).first<{ calls: number; neurons: number }>()) ?? { calls: 0, neurons: 0 }
-}
-
-async function bump(db: D1Database, bucket: string, key: string, neurons: number) {
-  await db
-    .prepare('INSERT INTO helper_usage (bucket, key, calls, neurons) VALUES (?, ?, 1, ?) ON CONFLICT(bucket, key) DO UPDATE SET calls = calls + 1, neurons = neurons + excluded.neurons')
-    .bind(bucket, key, neurons)
-    .run()
-}
-
 export async function handleHelper(c: Context, env: HelperEnv, body: Record<string, unknown>): Promise<Response> {
   const locale = body.locale === 'en' ? 'en' : 'eg'
   const t = MSG[locale]
@@ -126,12 +157,19 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
   const minute = isoMinute(now)
   const key = await userKey(c, env, day)
 
-  const site = await read(env.DB, day, 'site')
-  if (site.neurons + LIMITS.reserveNeurons > LIMITS.siteDailyNeurons) return c.json({ error: 'quota', message: t.quota }, 429)
-  const perMin = await read(env.DB, minute, key)
-  if (perMin.calls >= LIMITS.userPerMinute) return c.json({ error: 'rate', message: t.rate }, 429)
-  const perDay = await read(env.DB, day, key)
-  if (perDay.calls >= LIMITS.userDaily) return c.json({ error: 'user_limit', message: t.user }, 429)
+  // Fail closed: without a working limiter we do not call the model at all.
+  let limiter: LimiterApi
+  let verdict: Verdict
+  try {
+    if (!env.HELPER_LIMITER) throw new Error('no limiter')
+    limiter = env.HELPER_LIMITER.get(env.HELPER_LIMITER.idFromName(env.HELPER_SCOPE || 'site')) as unknown as LimiterApi
+    verdict = await limiter.check(key, day, minute)
+  } catch {
+    return c.json({ error: 'unavailable', message: t.down }, 503)
+  }
+  if (verdict === 'quota') return c.json({ error: 'quota', message: t.quota }, 429)
+  if (verdict === 'rate') return c.json({ error: 'rate', message: t.rate }, 429)
+  if (verdict === 'user_limit') return c.json({ error: 'user_limit', message: t.user }, 429)
 
   const prompt = [{ role: 'system', content: systemPrompt(locale) }, ...messages]
   const promptChars = prompt.reduce((n, m) => n + m.content.length, 0)
@@ -151,7 +189,7 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
     const text = String((e as Error)?.message ?? e)
     // 3036 = the account's free Neurons are used up for the day (shared by all sites)
     if (/3036|neurons|quota|429/i.test(text)) {
-      await bump(env.DB, day, 'site', LIMITS.siteDailyNeurons) // stop trying for the rest of the day
+      await limiter.record('', day, minute, LIMITS.siteDailyNeurons).catch(() => {}) // stop trying for the rest of the day
       return c.json({ error: 'quota', message: t.quota }, 429)
     }
     return c.json({ error: 'unavailable', message: t.down }, 503)
@@ -159,12 +197,6 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
   if (!reply) return c.json({ error: 'unavailable', message: t.down }, 503)
 
   const spent = estimateNeurons(promptChars, reply.length, usage)
-  await bump(env.DB, day, 'site', spent)
-  await bump(env.DB, day, key, spent)
-  await bump(env.DB, minute, key, spent)
-  if (now.getUTCMinutes() % 10 === 0) {
-    // housekeeping: counters older than 2 days are useless
-    await env.DB.prepare('DELETE FROM helper_usage WHERE bucket < ?').bind(isoDay(new Date(now.getTime() - 2 * 86_400_000))).run()
-  }
+  await limiter.record(key, day, minute, spent).catch(() => {})
   return c.json({ reply: reply.slice(0, 1500) })
 }

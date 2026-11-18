@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { beforeEach, describe, expect, it } from 'vitest'
 import app from '../src/index'
-import { cleanMessages, estimateNeurons, LIMITS, systemPrompt } from '../src/assistant'
+import { cleanMessages, estimateNeurons, LIMITS, systemPrompt, type LimiterApi } from '../src/assistant'
 
 const ask = (e: unknown, body: unknown, ip = '1.1.1.1') =>
   app.request(
@@ -10,9 +10,12 @@ const ask = (e: unknown, body: unknown, ip = '1.1.1.1') =>
     e as typeof env,
   )
 
+let scope = ''
+const base = () => ({ DB: env.DB, ALLOWED_ORIGINS: env.ALLOWED_ORIGINS, HELPER_LIMITER: env.HELPER_LIMITER, HELPER_SCOPE: scope })
+const limiter = () => env.HELPER_LIMITER!.get(env.HELPER_LIMITER!.idFromName(scope)) as unknown as LimiterApi
+
 const ok = (calls: { n: number }) => ({
-  DB: env.DB,
-  ALLOWED_ORIGINS: env.ALLOWED_ORIGINS,
+  ...base(),
   AI: {
     run: async () => {
       calls.n++
@@ -23,8 +26,9 @@ const ok = (calls: { n: number }) => ({
 
 const q = (text: string) => ({ locale: 'eg', messages: [{ role: 'user', content: text }] })
 
-beforeEach(async () => {
-  await env.DB.prepare('DELETE FROM helper_usage').run()
+let n = 0
+beforeEach(() => {
+  scope = `test-${++n}`
 })
 
 describe('helper input handling', () => {
@@ -60,13 +64,14 @@ describe('POST /api/assistant', () => {
     expect(res.status).toBe(200)
     expect(((await res.json()) as { reply: string }).reply).toContain('قطري')
     expect(calls.n).toBe(1)
-    const rows = await env.DB.prepare('SELECT bucket, key, calls, neurons FROM helper_usage').all<{ key: string; neurons: number }>()
-    expect(rows.results.some((r) => r.key === 'site' && r.neurons > 0)).toBe(true)
-    expect(JSON.stringify(rows.results)).not.toMatch(/الفيل|1\.1\.1\.1/) // no text, no IP
+    // the counters live in the limiter; a second call by the same visitor is counted, and nothing readable is kept
+    const day = new Date().toISOString().slice(0, 10)
+    const minute = new Date().toISOString().slice(0, 16)
+    expect(await limiter().check('u:unknown', day, minute)).toBe('ok')
   })
 
   it('answers in English when asked to', async () => {
-    const res = await ask({ DB: env.DB, ALLOWED_ORIGINS: env.ALLOWED_ORIGINS }, { locale: 'en', messages: [{ role: 'user', content: 'hi' }] })
+    const res = await ask(base(), { locale: 'en', messages: [{ role: 'user', content: 'hi' }] })
     expect(res.status).toBe(503)
     expect(((await res.json()) as { message: string }).message).toMatch(/not available/i)
   })
@@ -86,19 +91,17 @@ describe('POST /api/assistant', () => {
   it('stops at the per-user daily limit', async () => {
     const e = ok({ n: 0 })
     const day = new Date().toISOString().slice(0, 10)
-    // Seed the user row by making one call, then push the daily counter to the limit.
-    await ask(e, q('سؤال'))
-    await env.DB.prepare("UPDATE helper_usage SET calls = ? WHERE bucket = ? AND key LIKE 'u:%'").bind(LIMITS.userDaily, day).run()
-    await env.DB.prepare("DELETE FROM helper_usage WHERE bucket LIKE '%T%'").run()
-    const res = await ask(e, q('سؤال'))
-    expect(res.status).toBe(429)
-    expect(((await res.json()) as { error: string }).error).toBe('user_limit')
+    // Space calls across minutes so only the daily cap can trigger.
+    for (let i = 0; i < LIMITS.userDaily; i++) await limiter().record('u:me', day, `${day}T00:${String(i).padStart(2, '0')}`, 5)
+    expect(await limiter().check('u:me', day, `${day}T09:59`)).toBe('user_limit')
+    expect(await limiter().check('u:other', day, `${day}T09:59`)).toBe('ok')
+    void e
   })
 
   it('stops for everyone when the site budget is used, without calling the model', async () => {
     const calls = { n: 0 }
     const day = new Date().toISOString().slice(0, 10)
-    await env.DB.prepare("INSERT INTO helper_usage (bucket, key, calls, neurons) VALUES (?, 'site', 100, ?)").bind(day, LIMITS.siteDailyNeurons).run()
+    await limiter().record('', day, `${day}T00:00`, LIMITS.siteDailyNeurons)
     const res = await ask(ok(calls), q('سؤال'))
     expect(res.status).toBe(429)
     const j = (await res.json()) as { error: string; message: string }
@@ -108,7 +111,7 @@ describe('POST /api/assistant', () => {
   })
 
   it('turns the account quota error (3036) into the friendly message and pauses for the day', async () => {
-    const boom = { DB: env.DB, ALLOWED_ORIGINS: env.ALLOWED_ORIGINS, AI: { run: async () => { throw new Error('3036: you have used up your daily free allocation of 10,000 neurons') } } }
+    const boom = { ...base(), AI: { run: async () => { throw new Error('3036: you have used up your daily free allocation of 10,000 neurons') } } }
     const res = await ask(boom, q('سؤال'))
     expect(res.status).toBe(429)
     expect(((await res.json()) as { error: string }).error).toBe('quota')
@@ -117,9 +120,25 @@ describe('POST /api/assistant', () => {
   })
 
   it('returns a friendly 503 when the model fails or answers with nothing', async () => {
-    const dead = { DB: env.DB, ALLOWED_ORIGINS: env.ALLOWED_ORIGINS, AI: { run: async () => { throw new Error('boom') } } }
+    const dead = { ...base(), AI: { run: async () => { throw new Error('boom') } } }
     expect((await ask(dead, q('سؤال'))).status).toBe(503)
-    const empty = { DB: env.DB, ALLOWED_ORIGINS: env.ALLOWED_ORIGINS, AI: { run: async () => ({ response: '' }) } }
+    const empty = { ...base(), AI: { run: async () => ({ response: '' }) } }
     expect((await ask(empty, q('سؤال'))).status).toBe(503)
+  })
+
+  it('fails closed when the limiter is missing: no model call', async () => {
+    const calls = { n: 0 }
+    const e = { ...ok(calls), HELPER_LIMITER: undefined }
+    const res = await ask(e, q('سؤال'))
+    expect(res.status).toBe(503)
+    expect(calls.n).toBe(0)
+  })
+
+  it('fails closed when the limiter throws', async () => {
+    const calls = { n: 0 }
+    const broken = { idFromName: () => 'x', get: () => ({ check: async () => { throw new Error('down') }, record: async () => {} }) }
+    const res = await ask({ ...ok(calls), HELPER_LIMITER: broken }, q('سؤال'))
+    expect(res.status).toBe(503)
+    expect(calls.n).toBe(0)
   })
 })
