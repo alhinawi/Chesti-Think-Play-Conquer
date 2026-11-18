@@ -1,6 +1,8 @@
+import mined from './trap-strength-mined.json'
+
 // قوة كل فخ محسوبة برمجياً من الخط نفسه (chess.js): مات، أو المادة اللي بيخسرها الواقع في الفخ عند آخر الخط.
 // المعيار: مات أولاً، وبعدين أكبر مادة مكتسبة، والتعادل يتكسر بالسرعة (عقاب أسرع بعد الغلطة = أقوى).
-export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; plies: number }> = {
+const BASE: Record<string, { mate: boolean; material: number; plies: number }> = {
   "fools-mate": {
     "mate": true,
     "material": 0,
@@ -200,5 +202,12 @@ export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; pl
     "mate": false,
     "material": 7,
     "plies": 3
-  }
+  },
+  "reti-tartakower": {"mate":true,"material":0,"plies":5},
+  "petrov-nc6-check": {"mate":false,"material":6,"plies":4},
+  "hopton-trap": {"mate":true,"material":0,"plies":3},
+  "tarrasch-dresden": {"mate":false,"material":1,"plies":7},
+  "wurzburger-trap": {"mate":false,"material":0,"plies":1}
 }
+
+export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; plies: number }> = { ...BASE, ...mined }
