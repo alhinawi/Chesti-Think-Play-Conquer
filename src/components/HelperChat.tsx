@@ -117,10 +117,11 @@ export default function HelperChat() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex items-center gap-2 rounded-full bg-gold px-4 py-3 text-sm font-bold text-black shadow-lg transition hover:brightness-110"
+        aria-label={t('hp.open')}
+        title={t('hp.open')}
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-gold text-black shadow-lg transition hover:brightness-110"
       >
-        <Icon name="chat" className="h-5 w-5" />
-        {t('hp.open')}
+        <Icon name="chat" className="h-6 w-6" />
       </button>
     </div>
   )
