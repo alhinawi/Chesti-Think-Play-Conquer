@@ -672,6 +672,7 @@ const en: Messages = {
     title: 'Learning helper',
     close: 'Close the helper',
     placeholder: 'Ask about chess...',
+    reset: 'New chat',
     send: 'Send',
     thinking: 'Typing...',
     hello: 'Hi! Ask me anything about chess: rules, tactics, openings, endgames, or how to improve.',
