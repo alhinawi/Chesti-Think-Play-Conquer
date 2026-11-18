@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { Chess, type Move } from 'chess.js'
@@ -12,6 +12,9 @@ import { play as sfx } from '../lib/sound'
 import { Icon } from './ui'
 import { useI18n } from '../lib/i18n'
 import { useGameLoc } from '../lib/i18n/content'
+
+type FsDoc = Document & { webkitFullscreenElement?: Element | null; webkitExitFullscreen?: () => Promise<void> | void }
+type FsEl = HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void }
 
 const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1)
 
@@ -80,6 +83,68 @@ export default function World3DPro() {
   const [replayId, setReplayId] = useState<string>(GAMES[0].id)
   const [replayPlaying, setReplayPlaying] = useState(false)
   const [replayPos, setReplayPos] = useState(0)
+  // fullscreen: the browser's Fullscreen API when it works, else a fixed full-viewport overlay (iPhone Safari, blocked APIs)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const [fs, setFs] = useState<'off' | 'native' | 'css'>('off')
+
+  useEffect(() => {
+    const onChange = () => {
+      const d = document as FsDoc
+      const el = d.fullscreenElement ?? d.webkitFullscreenElement ?? null
+      setFs((m) => (el && el === stageRef.current ? 'native' : m === 'native' ? 'off' : m))
+    }
+    document.addEventListener('fullscreenchange', onChange)
+    document.addEventListener('webkitfullscreenchange', onChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', onChange)
+      document.removeEventListener('webkitfullscreenchange', onChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (fs !== 'css') return
+    const html = document.documentElement
+    const prev = html.style.overflow
+    html.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setFs('off')
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      html.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [fs])
+
+  const toggleFs = useCallback(async () => {
+    const d = document as FsDoc
+    if (fs === 'native') {
+      if (d.fullscreenElement && d.exitFullscreen) void d.exitFullscreen().catch(() => setFs('off'))
+      else if (d.webkitFullscreenElement && d.webkitExitFullscreen) void d.webkitExitFullscreen()
+      else setFs('off')
+      return
+    }
+    if (fs === 'css') {
+      setFs('off')
+      return
+    }
+    const el = stageRef.current as FsEl | null
+    if (!el) return
+    try {
+      if (typeof el.requestFullscreen === 'function') {
+        await el.requestFullscreen({ navigationUI: 'hide' })
+        return
+      }
+      if (typeof el.webkitRequestFullscreen === 'function') {
+        await el.webkitRequestFullscreen()
+        if (d.webkitFullscreenElement === el) return
+      }
+    } catch {
+      /* refused by the browser: use the overlay */
+    }
+    setFs('css')
+  }, [fs])
+
   const themeRef = useRef(themeId)
   themeRef.current = themeId
   const apiRef = useRef<{
@@ -828,8 +893,20 @@ export default function World3DPro() {
         )}
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl border border-line">
-        <div ref={mountRef} className="h-[62vh] min-h-[400px] w-full touch-none md:h-[70vh]" />
+      <div
+        ref={stageRef}
+        className={`relative overflow-hidden border border-line bg-bg ${fs === 'css' ? 'fixed inset-0 z-[60] rounded-none' : 'rounded-2xl'}`}
+      >
+        <div ref={mountRef} className={`w-full touch-none ${fs === 'off' ? 'h-[62vh] min-h-[400px] md:h-[70vh]' : 'h-screen h-dvh'}`} />
+        <button
+          type="button"
+          onClick={toggleFs}
+          aria-label={fs === 'off' ? tr('ln.fs') : tr('ln.exitFs')}
+          title={fs === 'off' ? tr('ln.fs') : tr('ln.exitFs')}
+          className="absolute top-3 right-3 grid h-11 w-11 place-items-center rounded-xl bg-black/55 text-gold backdrop-blur transition hover:bg-black/75"
+        >
+          <Icon name={fs === 'off' ? 'expand' : 'shrink'} />
+        </button>
         {!ready && !error && (
           <div className="absolute inset-0 grid place-items-center bg-black/40 text-ink backdrop-blur-sm">
             {tr('wp.loading')}
