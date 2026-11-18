@@ -1686,6 +1686,17 @@
   },
   "avoid": "Before playing dxe5 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
+ "mt-d26-db1d29": {
+  "name": "Queen's Gambit Accepted (D26) trap: pawn grab on e6",
+  "opening": "Queen's Gambit Accepted",
+  "summary": "White plays Bxe6 in the Queen's Gambit Accepted. It looks like a win, but Black has Bxe6 and then wins about 11 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Bxe6. It looks tempting, but it is the trap.",
+   "13": "Black answers Bxe6 and the punishment starts.",
+   "19": "Black wins about 11 pawns of material."
+  },
+  "avoid": "Before playing Bxe6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
  "mt-a71-a2d79a": {
   "name": "Benoni Defense (A71) trap: pawn grab on e4",
   "opening": "Benoni Defense",
@@ -2093,6 +2104,17 @@
   },
   "avoid": "Before playing Bxe4 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
+ "mt-d25-3a5cc9": {
+  "name": "Queen's Gambit Accepted (D25) trap: pawn grab on c4",
+  "opening": "Queen's Gambit Accepted",
+  "summary": "White plays Bxc4 in the Queen's Gambit Accepted. It looks like a win, but Black has Bxc4 and then wins about 5 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Bxc4. It looks tempting, but it is the trap.",
+   "9": "Black answers Bxc4 and the punishment starts.",
+   "17": "Black wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Bxc4 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
  "mt-b35-1a9b93": {
   "name": "Sicilian Defense (B35) trap: pawn grab on f7",
   "opening": "Sicilian Defense",
@@ -2103,6 +2125,17 @@
    "17": "Black wins about 5 pawns of material."
   },
   "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c70-4005a6": {
+  "name": "Ruy Lopez (C70) trap: pawn grab on e5",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Nxe5 in the Ruy Lopez. It looks like a win, but Black has Nxe5 and then wins about 5 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "9": "Black answers Nxe5 and the punishment starts.",
+   "17": "Black wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
  "mt-c48-6bb4e5": {
   "name": "Four Knights Game (C48) trap: pawn grab on d7 #2",
@@ -2136,6 +2169,39 @@
    "17": "Black wins about 5 pawns of material."
   },
   "avoid": "Before playing exd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d07-365ca5": {
+  "name": "Queen's Gambit Declined (D07) trap: pawn grab on a3",
+  "opening": "Queen's Gambit Declined",
+  "summary": "Black plays Bxa3 in the Queen's Gambit Declined. It looks like a win, but White has Rxa3 and then wins about 5 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Bxa3. It looks tempting, but it is the trap.",
+   "10": "White answers Rxa3 and the punishment starts.",
+   "18": "White wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Bxa3 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b41-471f26": {
+  "name": "Sicilian Defense (B41) trap: pawn grab on e4",
+  "opening": "Sicilian Defense",
+  "summary": "Black plays Nxe4 in the Sicilian Defense. It looks like a win, but White has Bxe4 and then wins about 5 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "16": "White answers Bxe4 and the punishment starts.",
+   "18": "White wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b14-398438": {
+  "name": "Caro-Kann Defense (B14) trap: pawn grab on d4",
+  "opening": "Caro-Kann Defense",
+  "summary": "Black plays Nxd4 in the Caro-Kann Defense. It looks like a win, but White has Qxd4 and then wins about 5 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Nxd4. It looks tempting, but it is the trap.",
+   "14": "White answers Qxd4 and the punishment starts.",
+   "18": "White wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
  "mt-c54-60ac71": {
   "name": "Italian Game (C54) trap: pawn grab on f2",
@@ -2180,6 +2246,39 @@
    "18": "White wins about 5 pawns of material."
   },
   "avoid": "Before playing Nxf2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-d12-bf605c": {
+  "name": "Slav Defense (D12) trap: pawn grab on d5",
+  "opening": "Slav Defense",
+  "summary": "White plays Nxd5 in the Slav Defense. It looks like a win, but Black has exd5 and then wins about 5 pawns of material.",
+  "notes": {
+   "14": "The mistake! White plays Nxd5. It looks tempting, but it is the trap.",
+   "15": "Black answers exd5 and the punishment starts.",
+   "19": "Black wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b41-af539a": {
+  "name": "Sicilian Defense (B41) trap: pawn grab on e6",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Nxe6 in the Sicilian Defense. It looks like a win, but Black has dxe6 and then wins about 5 pawns of material.",
+  "notes": {
+   "14": "The mistake! White plays Nxe6. It looks tempting, but it is the trap.",
+   "15": "Black answers dxe6 and the punishment starts.",
+   "19": "Black wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxe6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b17-102824": {
+  "name": "Caro-Kann Defense (B17) trap: pawn grab on h7",
+  "opening": "Caro-Kann Defense",
+  "summary": "White plays Nxh7 in the Caro-Kann Defense. It looks like a win, but Black has Rxh7 and then wins about 5 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxh7. It looks tempting, but it is the trap.",
+   "11": "Black answers Rxh7 and the punishment starts.",
+   "19": "Black wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Nxh7 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
  "mt-c66-71c68a": {
   "name": "Ruy Lopez (C66) trap: pawn grab on e5",
@@ -2324,6 +2423,17 @@
   },
   "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
+ "mt-b19-059a2b": {
+  "name": "Caro-Kann Defense (B19) trap: check on a5",
+  "opening": "Caro-Kann Defense",
+  "summary": "Black plays Qa5+ in the Caro-Kann Defense. It looks like a win, but White has Bd2 and then wins about 5 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Qa5+. It looks tempting, but it is the trap.",
+   "16": "White answers Bd2 and the punishment starts.",
+   "24": "White wins about 5 pawns of material."
+  },
+  "avoid": "Before playing Qa5+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-b21-8d8a4d": {
   "name": "Sicilian Defense (B21) trap: pawn grab on e6",
   "opening": "Sicilian Defense",
@@ -2467,6 +2577,17 @@
   },
   "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
+ "mt-b07-8a6008": {
+  "name": "Pirc Defense (B07) trap: pawn grab on e4 #2",
+  "opening": "Pirc Defense",
+  "summary": "Black plays Nxe4 in the Pirc Defense. It looks like a win, but White has Nxe4 and then wins about 4 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "8": "White answers Nxe4 and the punishment starts.",
+   "16": "White wins about 4 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-c52-07e19c": {
   "name": "Italian Game (C52) trap: pawn grab on c3 #2",
   "opening": "Italian Game",
@@ -2488,6 +2609,17 @@
    "16": "White wins about 4 pawns of material."
   },
   "avoid": "Before playing Nxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c70-7df28c": {
+  "name": "Ruy Lopez (C70) trap: pawn grab on b5",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Bxb5 in the Ruy Lopez. It looks like a win, but Black has axb5 and then wins about 4 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Bxb5. It looks tempting, but it is the trap.",
+   "9": "Black answers axb5 and the punishment starts.",
+   "17": "Black wins about 4 pawns of material."
+  },
+  "avoid": "Before playing Bxb5 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
  "mt-b31-29e0c1": {
   "name": "Sicilian Defense (B31) trap: pawn grab on d4",
@@ -2554,6 +2686,17 @@
    "8": "White wins about 3 pawns of material."
   },
   "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-d07-842f94": {
+  "name": "Queen's Gambit Declined (D07) trap: pawn grab on d4",
+  "opening": "Queen's Gambit Declined",
+  "summary": "Black plays Nxd4 in the Queen's Gambit Declined. It looks like a win, but White has Qxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "5": "The mistake! Black plays Nxd4. It looks tempting, but it is the trap.",
+   "6": "White answers Qxd4 and the punishment starts.",
+   "8": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
  "mt-b00-8066c9": {
   "name": "Nimzowitsch Defense (B00) trap: check on b4",
@@ -2698,6 +2841,17 @@
   },
   "avoid": "Before playing Qa5+ here, ask yourself first how White will reply and what is left unprotected after the move."
  },
+ "mt-b07-dc0c55": {
+  "name": "Lion Defense (B07) trap: pawn grab on e4",
+  "opening": "Lion Defense",
+  "summary": "Black plays Nxe4 in the Lion Defense. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "8": "White answers Nxe4 and the punishment starts.",
+   "10": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
  "mt-c64-2288b5": {
   "name": "Ruy Lopez (C64) trap: pawn grab on f2 #2",
   "opening": "Ruy Lopez",
@@ -2763,6 +2917,17 @@
    "11": "Black wins about 3 pawns of material."
   },
   "avoid": "Before playing Bxg7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d07-492873": {
+  "name": "Queen's Gambit Declined (D07) trap: pawn grab on d5",
+  "opening": "Queen's Gambit Declined",
+  "summary": "White plays Nxd5 in the Queen's Gambit Declined. It looks like a win, but Black has exd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Nxd5. It looks tempting, but it is the trap.",
+   "9": "Black answers exd5 and the punishment starts.",
+   "11": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
  },
  "mt-c62-edd239": {
   "name": "Ruy Lopez (C62) trap: pawn grab on e5",
@@ -2896,17 +3061,6 @@
   },
   "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
  },
- "mt-b07-7d4272": {
-  "name": "Pirc Defense (B07) trap: pawn grab on e4 #2",
-  "opening": "Pirc Defense",
-  "summary": "Black plays Nxe4 in the Pirc Defense. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
-  "notes": {
-   "7": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
-   "8": "White answers Nxe4 and the punishment starts.",
-   "12": "White wins about 3 pawns of material."
-  },
-  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
- },
  "mt-c43-4964e0": {
   "name": "Bishop's Opening (C43) trap: pawn grab on f2",
   "opening": "Bishop's Opening",
@@ -2983,5 +3137,1061 @@
    "12": "White wins about 3 pawns of material."
   },
   "avoid": "Before playing Bxb2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b07-f8fe0d": {
+  "name": "Modern Defense (B07) trap: pawn grab on d4",
+  "opening": "Modern Defense",
+  "summary": "Black plays Bxd4 in the Modern Defense. It looks like a win, but White has cxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Bxd4. It looks tempting, but it is the trap.",
+   "8": "White answers cxd4 and the punishment starts.",
+   "12": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-d08-d86a14": {
+  "name": "Queen's Gambit Declined (D08) trap: pawn grab on d4",
+  "opening": "Queen's Gambit Declined",
+  "summary": "White plays Nxd4 in the Queen's Gambit Declined. It looks like a win, but Black has Nxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxd4. It looks tempting, but it is the trap.",
+   "11": "Black answers Nxd4 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd4 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d08-952f2f": {
+  "name": "Queen's Gambit Declined (D08) trap: pawn grab on d4 #2",
+  "opening": "Queen's Gambit Declined",
+  "summary": "White plays Nxd4 in the Queen's Gambit Declined. It looks like a win, but Black has Qxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxd4. It looks tempting, but it is the trap.",
+   "11": "Black answers Qxd4 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd4 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d08-26adf5": {
+  "name": "Queen's Gambit Declined (D08) trap: bishop grab on b4",
+  "opening": "Queen's Gambit Declined",
+  "summary": "White plays Bxb4 in the Queen's Gambit Declined. It looks like a win, but Black has exf2+ and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Bxb4. It looks tempting, but it is the trap.",
+   "11": "Black answers exf2+ and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxb4 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b28-5cbe0b": {
+  "name": "Sicilian Defense (B28) trap: pawn grab on a6 #2",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Bxa6 in the Sicilian Defense. It looks like a win, but Black has bxa6 and then wins about 3 pawns of material.",
+  "notes": {
+   "6": "The mistake! White plays Bxa6. It looks tempting, but it is the trap.",
+   "7": "Black answers bxa6 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxa6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c66-91a90d": {
+  "name": "Ruy Lopez (C66) trap: pawn grab on e5 #3",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Nxe5 in the Ruy Lopez. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "9": "Black answers dxe5 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c70-52eec5": {
+  "name": "Ruy Lopez (C70) trap: pawn grab on f7",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Bxf7+ in the Ruy Lopez. It looks like a win, but Black has Kxf7 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Bxf7+. It looks tempting, but it is the trap.",
+   "11": "Black answers Kxf7 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c60-77b95f": {
+  "name": "Ruy Lopez (C60) trap: pawn grab on e5 #2",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Nxe5 in the Ruy Lopez. It looks like a win, but Black has Nxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "6": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "7": "Black answers Nxe5 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c51-8d5a06": {
+  "name": "Italian Game (C51) trap: pawn grab on f7",
+  "opening": "Italian Game",
+  "summary": "White plays Bxf7+ in the Italian Game. It looks like a win, but Black has Kxf7 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Bxf7+. It looks tempting, but it is the trap.",
+   "9": "Black answers Kxf7 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c54-da417e": {
+  "name": "Italian Game (C54) trap: pawn grab on a6",
+  "opening": "Italian Game",
+  "summary": "White plays Bxa6 in the Italian Game. It looks like a win, but Black has bxa6 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Bxa6. It looks tempting, but it is the trap.",
+   "11": "Black answers bxa6 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxa6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c57-c1132d": {
+  "name": "Italian Game (C57) trap: pawn grab on h7",
+  "opening": "Italian Game",
+  "summary": "White plays Nxh7 in the Italian Game. It looks like a win, but Black has Rxh7 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxh7. It looks tempting, but it is the trap.",
+   "11": "Black answers Rxh7 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxh7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c46-7d91cc": {
+  "name": "Three Knights Opening (C46) trap: pawn grab on c7",
+  "opening": "Three Knights Opening",
+  "summary": "White plays Nxc7+ in the Three Knights Opening. It looks like a win, but Black has Qxc7 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Nxc7+. It looks tempting, but it is the trap.",
+   "9": "Black answers Qxc7 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxc7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c47-88e01c": {
+  "name": "Four Knights Game (C47) trap: pawn grab on d7",
+  "opening": "Four Knights Game",
+  "summary": "White plays Nxd7 in the Four Knights Game. It looks like a win, but Black has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxd7. It looks tempting, but it is the trap.",
+   "11": "Black answers Nxe4 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c44-4cd6cc": {
+  "name": "Ponziani Opening (C44) trap: pawn grab on e5",
+  "opening": "Ponziani Opening",
+  "summary": "White plays Nxe5 in the Ponziani Opening. It looks like a win, but Black has Bxf2+ and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "11": "Black answers Bxf2+ and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c44-4f180c": {
+  "name": "Ponziani Opening (C44) trap: pawn grab on e5 #2",
+  "opening": "Ponziani Opening",
+  "summary": "White plays Nxe5 in the Ponziani Opening. It looks like a win, but Black has Nxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "6": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "7": "Black answers Nxe5 and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c39-9f9e26": {
+  "name": "King's Gambit Accepted (C39) trap: pawn grab on d7 #3",
+  "opening": "King's Gambit Accepted",
+  "summary": "White plays Nxd7 in the King's Gambit Accepted. It looks like a win, but Black has Bxh4+ and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxd7. It looks tempting, but it is the trap.",
+   "11": "Black answers Bxh4+ and the punishment starts.",
+   "13": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-a25-a9eed9": {
+  "name": "English Opening (A25) trap: pawn grab on e4",
+  "opening": "English Opening",
+  "summary": "Black plays Nxe4 in the English Opening. It looks like a win, but White has Bxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers Bxe4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a45-b4a62b": {
+  "name": "Trompowsky Attack (A45) trap: pawn grab on f2",
+  "opening": "Trompowsky Attack",
+  "summary": "Black plays Nxf2 in the Trompowsky Attack. It looks like a win, but White has Bxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "5": "The mistake! Black plays Nxf2. It looks tempting, but it is the trap.",
+   "6": "White answers Bxf2 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxf2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a42-394d11": {
+  "name": "Modern Defense (A42) trap: pawn grab on e4",
+  "opening": "Modern Defense",
+  "summary": "Black plays Nxe4 in the Modern Defense. It looks like a win, but White has fxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "10": "White answers fxe4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b12-2187bf": {
+  "name": "Caro-Kann Defense (B12) trap: pawn grab on c2",
+  "opening": "Caro-Kann Defense",
+  "summary": "Black plays Bxc2 in the Caro-Kann Defense. It looks like a win, but White has Qxc2 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Bxc2. It looks tempting, but it is the trap.",
+   "8": "White answers Qxc2 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxc2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b12-5c421d": {
+  "name": "Caro-Kann Defense (B12) trap: pawn grab on c2 #2",
+  "opening": "Caro-Kann Defense",
+  "summary": "Black plays Bxc2 in the Caro-Kann Defense. It looks like a win, but White has Qxc2 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Bxc2. It looks tempting, but it is the trap.",
+   "8": "White answers Qxc2 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxc2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b12-2be2be": {
+  "name": "Caro-Kann Defense (B12) trap: pawn grab on c2 #3",
+  "opening": "Caro-Kann Defense",
+  "summary": "Black plays Bxc2 in the Caro-Kann Defense. It looks like a win, but White has Qxc2 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Bxc2. It looks tempting, but it is the trap.",
+   "8": "White answers Qxc2 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxc2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b01-deff65": {
+  "name": "Scandinavian Defense (B01) trap: pawn grab on d5 #2",
+  "opening": "Scandinavian Defense",
+  "summary": "Black plays Nxd5 in the Scandinavian Defense. It looks like a win, but White has cxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxd5. It looks tempting, but it is the trap.",
+   "12": "White answers cxd5 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b07-4c7434": {
+  "name": "Lion Defense (B07) trap: pawn grab on g4",
+  "opening": "Lion Defense",
+  "summary": "Black plays Nxg4 in the Lion Defense. It looks like a win, but White has Qxg4 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxg4. It looks tempting, but it is the trap.",
+   "8": "White answers Qxg4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxg4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b07-984ce8": {
+  "name": "Pirc Defense (B07) trap: pawn grab on e4 #3",
+  "opening": "Pirc Defense",
+  "summary": "Black plays Nxe4 in the Pirc Defense. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "10": "White answers Nxe4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b08-23e38e": {
+  "name": "Pirc Defense (B08) trap: pawn grab on e4",
+  "opening": "Pirc Defense",
+  "summary": "Black plays Nxe4 in the Pirc Defense. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "8": "White answers Nxe4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b09-d3dc1f": {
+  "name": "Pirc Defense (B09) trap: pawn grab on e4",
+  "opening": "Pirc Defense",
+  "summary": "Black plays Nxe4 in the Pirc Defense. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers Nxe4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b00-63df31": {
+  "name": "Lion Defense (B00) trap: pawn grab on e4",
+  "opening": "Lion Defense",
+  "summary": "Black plays Nxe4 in the Lion Defense. It looks like a win, but White has fxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "5": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "6": "White answers fxe4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c51-d463fb": {
+  "name": "Italian Game (C51) trap: pawn grab on f2",
+  "opening": "Italian Game",
+  "summary": "Black plays Bxf2+ in the Italian Game. It looks like a win, but White has Kxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Bxf2+. It looks tempting, but it is the trap.",
+   "10": "White answers Kxf2 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf2+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c57-aed630": {
+  "name": "Italian Game (C57) trap: pawn grab on e4",
+  "opening": "Italian Game",
+  "summary": "Black plays Nxe4 in the Italian Game. It looks like a win, but White has dxc5 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers dxc5 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c44-d1f7b3": {
+  "name": "Scotch Game (C44) trap: check on b4",
+  "opening": "Scotch Game",
+  "summary": "Black plays Bb4+ in the Scotch Game. It looks like a win, but White has c3 and then wins about 3 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Bb4+. It looks tempting, but it is the trap.",
+   "10": "White answers c3 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bb4+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c45-729a30": {
+  "name": "Scotch Game (C45) trap: check on b4 #2",
+  "opening": "Scotch Game",
+  "summary": "Black plays Bb4+ in the Scotch Game. It looks like a win, but White has c3 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Bb4+. It looks tempting, but it is the trap.",
+   "12": "White answers c3 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bb4+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c43-015d0d": {
+  "name": "Petrov's Defense (C43) trap: pawn grab on f2 #2",
+  "opening": "Petrov's Defense",
+  "summary": "Black plays Nxf2 in the Petrov's Defense. It looks like a win, but White has Kxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Nxf2. It looks tempting, but it is the trap.",
+   "10": "White answers Kxf2 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxf2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c38-b391f7": {
+  "name": "King's Gambit Accepted (C38) trap: pawn grab on d4",
+  "opening": "King's Gambit Accepted",
+  "summary": "Black plays Bxd4 in the King's Gambit Accepted. It looks like a win, but White has Qxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Bxd4. It looks tempting, but it is the trap.",
+   "12": "White answers Qxd4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a02-cdfeea": {
+  "name": "Bird Opening (A02) trap: pawn grab on g4",
+  "opening": "Bird Opening",
+  "summary": "Black plays Nxg4 in the Bird Opening. It looks like a win, but White has Qxg4 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxg4. It looks tempting, but it is the trap.",
+   "8": "White answers Qxg4 and the punishment starts.",
+   "14": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxg4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a48-d2a189": {
+  "name": "London System, with Be2 (A48) trap: pawn grab on d6",
+  "opening": "London System, with Be2",
+  "summary": "White plays Bxd6 in the London System, with Be2. It looks like a win, but Black has exd6 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Bxd6. It looks tempting, but it is the trap.",
+   "11": "Black answers exd6 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxd6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d17-48ca89": {
+  "name": "Slav Defense (D17) trap: pawn grab on c6",
+  "opening": "Slav Defense",
+  "summary": "White plays Nxc6 in the Slav Defense. It looks like a win, but Black has Nxc6 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxc6. It looks tempting, but it is the trap.",
+   "13": "Black answers Nxc6 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxc6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b23-22861a": {
+  "name": "Sicilian Defense (B23) trap: pawn grab on d5",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Nxd5 in the Sicilian Defense. It looks like a win, but Black has exd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "6": "The mistake! White plays Nxd5. It looks tempting, but it is the trap.",
+   "7": "Black answers exd5 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b30-8b674e": {
+  "name": "Sicilian Defense (B30) trap: pawn grab on f7 #2",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Bxf7+ in the Sicilian Defense. It looks like a win, but Black has Kxf7 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Bxf7+. It looks tempting, but it is the trap.",
+   "11": "Black answers Kxf7 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b28-3d30e2": {
+  "name": "Sicilian Defense (B28) trap: pawn grab on a6 #3",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Bxa6 in the Sicilian Defense. It looks like a win, but Black has Qa5+ and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Bxa6. It looks tempting, but it is the trap.",
+   "9": "Black answers Qa5+ and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxa6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c50-7c4073": {
+  "name": "Italian Game (C50) trap: pawn grab on e5",
+  "opening": "Italian Game",
+  "summary": "White plays Nxe5 in the Italian Game. It looks like a win, but Black has Nxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "6": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "7": "Black answers Nxe5 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c57-1ec8cf": {
+  "name": "Italian Game (C57) trap: pawn grab on h7 #2",
+  "opening": "Italian Game",
+  "summary": "White plays Nxh7 in the Italian Game. It looks like a win, but Black has dxc4 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Nxh7. It looks tempting, but it is the trap.",
+   "9": "Black answers dxc4 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxh7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c35-710a2d": {
+  "name": "King's Gambit Accepted (C35) trap: pawn grab on f7",
+  "opening": "King's Gambit Accepted",
+  "summary": "White plays Bxf7+ in the King's Gambit Accepted. It looks like a win, but Black has Kxf7 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Bxf7+. It looks tempting, but it is the trap.",
+   "9": "Black answers Kxf7 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf7+ here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c39-2b4e03": {
+  "name": "King's Gambit Accepted (C39) trap: pawn grab on d7 #4",
+  "opening": "King's Gambit Accepted",
+  "summary": "White plays Nxd7 in the King's Gambit Accepted. It looks like a win, but Black has Qxd7 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxd7. It looks tempting, but it is the trap.",
+   "11": "Black answers Qxd7 and the punishment starts.",
+   "15": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-a58-082325": {
+  "name": "Benko Gambit Accepted (A58) trap: pawn grab on e2",
+  "opening": "Benko Gambit Accepted",
+  "summary": "Black plays Bxe2 in the Benko Gambit Accepted. It looks like a win, but White has Bxe2 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Bxe2. It looks tempting, but it is the trap.",
+   "14": "White answers Bxe2 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxe2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a57-1b2cbe": {
+  "name": "Benko Gambit (A57) trap: pawn grab on d5 #3",
+  "opening": "Benko Gambit",
+  "summary": "Black plays Nxd5 in the Benko Gambit. It looks like a win, but White has cxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxd5. It looks tempting, but it is the trap.",
+   "8": "White answers cxd5 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b04-0827f7": {
+  "name": "Alekhine Defense (B04) trap: pawn grab on a4",
+  "opening": "Alekhine Defense",
+  "summary": "Black plays Nxa4 in the Alekhine Defense. It looks like a win, but White has Bxa4+ and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Nxa4. It looks tempting, but it is the trap.",
+   "14": "White answers Bxa4+ and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxa4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b31-938003": {
+  "name": "Sicilian Defense (B31) trap: pawn grab on e4",
+  "opening": "Sicilian Defense",
+  "summary": "Black plays Nxe4 in the Sicilian Defense. It looks like a win, but White has Qxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers Qxe4 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b12-d4c590": {
+  "name": "Caro-Kann Defense (B12) trap: pawn grab on c2 #4",
+  "opening": "Caro-Kann Defense",
+  "summary": "Black plays Bxc2 in the Caro-Kann Defense. It looks like a win, but White has Qxc2 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Bxc2. It looks tempting, but it is the trap.",
+   "8": "White answers Qxc2 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxc2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b09-b2d880": {
+  "name": "Pirc Defense (B09) trap: pawn grab on e4 #2",
+  "opening": "Pirc Defense",
+  "summary": "Black plays Nxe4 in the Pirc Defense. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers Nxe4 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c53-7dc27c": {
+  "name": "Italian Game (C53) trap: pawn grab on f2",
+  "opening": "Italian Game",
+  "summary": "Black plays Bxf2+ in the Italian Game. It looks like a win, but White has Kxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Bxf2+. It looks tempting, but it is the trap.",
+   "8": "White answers Kxf2 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf2+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c54-09985d": {
+  "name": "Italian Game (C54) trap: pawn grab on d4 #2",
+  "opening": "Italian Game",
+  "summary": "Black plays Nxd4 in the Italian Game. It looks like a win, but White has Qxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Nxd4. It looks tempting, but it is the trap.",
+   "14": "White answers Qxd4 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c55-753979": {
+  "name": "Italian Game (C55) trap: pawn grab on e4",
+  "opening": "Italian Game",
+  "summary": "Black plays Nxe4 in the Italian Game. It looks like a win, but White has dxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "8": "White answers dxe4 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c49-62c9b2": {
+  "name": "Four Knights Game (C49) trap: pawn grab on e4",
+  "opening": "Four Knights Game",
+  "summary": "Black plays Nxe4 in the Four Knights Game. It looks like a win, but White has Bxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers Bxe4 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c42-7c4674": {
+  "name": "Petrov's Defense (C42) trap: pawn grab on f2 #2",
+  "opening": "Petrov's Defense",
+  "summary": "Black plays Nxf2 in the Petrov's Defense. It looks like a win, but White has Qe2+ and then wins about 3 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Nxf2. It looks tempting, but it is the trap.",
+   "10": "White answers Qe2+ and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxf2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c42-92e068": {
+  "name": "Petrov's Defense (C42) trap: pawn grab on e4 #2",
+  "opening": "Petrov's Defense",
+  "summary": "Black plays Nxe4 in the Petrov's Defense. It looks like a win, but White has d5 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "8": "White answers d5 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c43-3271cf": {
+  "name": "Petrov's Defense (C43) trap: pawn grab on f2 #3",
+  "opening": "Petrov's Defense",
+  "summary": "Black plays Nxf2 in the Petrov's Defense. It looks like a win, but White has Kxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "7": "The mistake! Black plays Nxf2. It looks tempting, but it is the trap.",
+   "8": "White answers Kxf2 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxf2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c38-3b4e37": {
+  "name": "King's Gambit Accepted (C38) trap: pawn grab on d4 #2",
+  "opening": "King's Gambit Accepted",
+  "summary": "Black plays Bxd4 in the King's Gambit Accepted. It looks like a win, but White has Qxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Bxd4. It looks tempting, but it is the trap.",
+   "14": "White answers Qxd4 and the punishment starts.",
+   "16": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxd4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a33-867a01": {
+  "name": "English Opening (A33) trap: pawn grab on e6",
+  "opening": "English Opening",
+  "summary": "White plays Nxe6 in the English Opening. It looks like a win, but Black has dxe6 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxe6. It looks tempting, but it is the trap.",
+   "11": "Black answers dxe6 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d26-66d0be": {
+  "name": "Queen's Gambit Accepted (D26) trap: pawn grab on e6 #2",
+  "opening": "Queen's Gambit Accepted",
+  "summary": "White plays Bxe6 in the Queen's Gambit Accepted. It looks like a win, but Black has Bxe6 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Bxe6. It looks tempting, but it is the trap.",
+   "13": "Black answers Bxe6 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxe6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b40-33a892": {
+  "name": "Sicilian Defense (B40) trap: pawn grab on e6",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Nxe6 in the Sicilian Defense. It looks like a win, but Black has dxe6 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxe6. It looks tempting, but it is the trap.",
+   "11": "Black answers dxe6 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b12-92adfd": {
+  "name": "Caro-Kann Defense (B12) trap: pawn grab on d5",
+  "opening": "Caro-Kann Defense",
+  "summary": "White plays Nxd5 in the Caro-Kann Defense. It looks like a win, but Black has cxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "8": "The mistake! White plays Nxd5. It looks tempting, but it is the trap.",
+   "9": "Black answers cxd5 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c66-7861ce": {
+  "name": "Ruy Lopez (C66) trap: pawn grab on e5 #4",
+  "opening": "Ruy Lopez",
+  "summary": "White plays Nxe5 in the Ruy Lopez. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "11": "Black answers dxe5 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c54-632487": {
+  "name": "Italian Game (C54) trap: pawn grab on h6",
+  "opening": "Italian Game",
+  "summary": "White plays Bxh6 in the Italian Game. It looks like a win, but Black has Rxh6 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Bxh6. It looks tempting, but it is the trap.",
+   "13": "Black answers Rxh6 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxh6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c52-8f39a6": {
+  "name": "Italian Game (C52) trap: pawn grab on e5",
+  "opening": "Italian Game",
+  "summary": "White plays Nxe5 in the Italian Game. It looks like a win, but Black has Nxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "11": "Black answers Nxe5 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c52-358bc9": {
+  "name": "Italian Game (C52) trap: pawn grab on e5 #2",
+  "opening": "Italian Game",
+  "summary": "White plays Nxe5 in the Italian Game. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "13": "Black answers dxe5 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c57-b8868e": {
+  "name": "Italian Game (C57) trap: pawn grab on f7",
+  "opening": "Italian Game",
+  "summary": "White plays Nxf7 in the Italian Game. It looks like a win, but Black has Kxf7 and then wins about 3 pawns of material.",
+  "notes": {
+   "10": "The mistake! White plays Nxf7. It looks tempting, but it is the trap.",
+   "11": "Black answers Kxf7 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxf7 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c49-d0b9c4": {
+  "name": "Four Knights Game (C49) trap: pawn grab on e5",
+  "opening": "Four Knights Game",
+  "summary": "White plays Nxe5 in the Four Knights Game. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "14": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "15": "Black answers dxe5 and the punishment starts.",
+   "17": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-a29-93ee63": {
+  "name": "English Opening (A29) trap: pawn grab on f2 #2",
+  "opening": "English Opening",
+  "summary": "Black plays Bxf2+ in the English Opening. It looks like a win, but White has Kxf2 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Bxf2+. It looks tempting, but it is the trap.",
+   "12": "White answers Kxf2 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxf2+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a25-71bda6": {
+  "name": "English Opening (A25) trap: pawn grab on e4 #2",
+  "opening": "English Opening",
+  "summary": "Black plays Nxe4 in the English Opening. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "12": "White answers Nxe4 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-a66-6e00ac": {
+  "name": "Benoni Defense (A66) trap: pawn grab on d5",
+  "opening": "Benoni Defense",
+  "summary": "Black plays Nxd5 in the Benoni Defense. It looks like a win, but White has Qxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Nxd5. It looks tempting, but it is the trap.",
+   "16": "White answers Qxd5 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b03-674544": {
+  "name": "Alekhine Defense (B03) trap: pawn grab on c4",
+  "opening": "Alekhine Defense",
+  "summary": "Black plays Nxc4 in the Alekhine Defense. It looks like a win, but White has Bxc4 and then wins about 3 pawns of material.",
+  "notes": {
+   "11": "The mistake! Black plays Nxc4. It looks tempting, but it is the trap.",
+   "12": "White answers Bxc4 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxc4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c65-9f366d": {
+  "name": "Ruy Lopez (C65) trap: pawn grab on e4",
+  "opening": "Ruy Lopez",
+  "summary": "Black plays Nxe4 in the Ruy Lopez. It looks like a win, but White has dxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "9": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "10": "White answers dxe4 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c52-f0c2e8": {
+  "name": "Italian Game (C52) trap: pawn grab on c3 #3",
+  "opening": "Italian Game",
+  "summary": "Black plays Bxc3 in the Italian Game. It looks like a win, but White has Bxf7+ and then wins about 3 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Bxc3. It looks tempting, but it is the trap.",
+   "16": "White answers Bxf7+ and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxc3 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c56-fdb053": {
+  "name": "Italian Game (C56) trap: pawn grab on h2",
+  "opening": "Italian Game",
+  "summary": "Black plays Nxh2 in the Italian Game. It looks like a win, but White has Nxh2 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Nxh2. It looks tempting, but it is the trap.",
+   "14": "White answers Nxh2 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxh2 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c49-793206": {
+  "name": "Four Knights Game (C49) trap: pawn grab on e4 #2",
+  "opening": "Four Knights Game",
+  "summary": "Black plays Nxe4 in the Four Knights Game. It looks like a win, but White has dxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays Nxe4. It looks tempting, but it is the trap.",
+   "16": "White answers dxe4 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c44-dac607": {
+  "name": "Scotch Game (C44) trap: pawn grab on c3",
+  "opening": "Scotch Game",
+  "summary": "Black plays Bxc3+ in the Scotch Game. It looks like a win, but White has Nxc3 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Bxc3+. It looks tempting, but it is the trap.",
+   "14": "White answers Nxc3 and the punishment starts.",
+   "18": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxc3+ here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b13-b551bd": {
+  "name": "Caro-Kann Defense (B13) trap: pawn grab on d5",
+  "opening": "Caro-Kann Defense",
+  "summary": "White plays Nxd5 in the Caro-Kann Defense. It looks like a win, but Black has exd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxd5. It looks tempting, but it is the trap.",
+   "13": "Black answers exd5 and the punishment starts.",
+   "19": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c54-0bb3b5": {
+  "name": "Italian Game (C54) trap: pawn grab on e5 #2",
+  "opening": "Italian Game",
+  "summary": "White plays Nxe5 in the Italian Game. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "13": "Black answers dxe5 and the punishment starts.",
+   "19": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c52-48a331": {
+  "name": "Italian Game (C52) trap: pawn grab on e5 #3",
+  "opening": "Italian Game",
+  "summary": "White plays Nxe5 in the Italian Game. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "14": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "15": "Black answers dxe5 and the punishment starts.",
+   "19": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c54-8db12f": {
+  "name": "Italian Game (C54) trap: pawn grab on a6 #2",
+  "opening": "Italian Game",
+  "summary": "White plays Bxa6 in the Italian Game. It looks like a win, but Black has bxa6 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Bxa6. It looks tempting, but it is the trap.",
+   "13": "Black answers bxa6 and the punishment starts.",
+   "19": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxa6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c56-1b2716": {
+  "name": "Italian Game (C56) trap: pawn grab on d4",
+  "opening": "Italian Game",
+  "summary": "White plays Qxd4 in the Italian Game. It looks like a win, but Black has Bc5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Qxd4. It looks tempting, but it is the trap.",
+   "13": "Black answers Bc5 and the punishment starts.",
+   "19": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Qxd4 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c49-718675": {
+  "name": "Four Knights Game (C49) trap: pawn grab on e5 #2",
+  "opening": "Four Knights Game",
+  "summary": "White plays Nxe5 in the Four Knights Game. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "13": "Black answers dxe5 and the punishment starts.",
+   "19": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-a00-3031a0": {
+  "name": "Formation (A00) trap: pawn grab on a3",
+  "opening": "Formation",
+  "summary": "Black plays Bxa3 in the Formation. It looks like a win, but White has bxa3 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Bxa3. It looks tempting, but it is the trap.",
+   "14": "White answers bxa3 and the punishment starts.",
+   "20": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxa3 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b43-7b0f1e": {
+  "name": "Sicilian Defense (B43) trap: pawn grab on e4",
+  "opening": "Sicilian Defense",
+  "summary": "Black plays Bxe4 in the Sicilian Defense. It looks like a win, but White has Nxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "13": "The mistake! Black plays Bxe4. It looks tempting, but it is the trap.",
+   "14": "White answers Nxe4 and the punishment starts.",
+   "20": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxe4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c42-92a361": {
+  "name": "Petrov's Defense (C42) trap: pawn grab on c4",
+  "opening": "Petrov's Defense",
+  "summary": "Black plays dxc4 in the Petrov's Defense. It looks like a win, but White has Bxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "15": "The mistake! Black plays dxc4. It looks tempting, but it is the trap.",
+   "16": "White answers Bxe4 and the punishment starts.",
+   "20": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing dxc4 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-b21-eba940": {
+  "name": "Sicilian Defense (B21) trap: pawn grab on e6 #2",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Bxe6 in the Sicilian Defense. It looks like a win, but Black has fxe6 and then wins about 3 pawns of material.",
+  "notes": {
+   "16": "The mistake! White plays Bxe6. It looks tempting, but it is the trap.",
+   "17": "Black answers fxe6 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxe6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-b21-fab505": {
+  "name": "Sicilian Defense (B21) trap: pawn grab on a6",
+  "opening": "Sicilian Defense",
+  "summary": "White plays Bxa6 in the Sicilian Defense. It looks like a win, but Black has bxa6 and then wins about 3 pawns of material.",
+  "notes": {
+   "16": "The mistake! White plays Bxa6. It looks tempting, but it is the trap.",
+   "17": "Black answers bxa6 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxa6 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c54-0ee69a": {
+  "name": "Italian Game (C54) trap: pawn grab on e5 #3",
+  "opening": "Italian Game",
+  "summary": "White plays Nxe5 in the Italian Game. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "13": "Black answers dxe5 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c54-f0d772": {
+  "name": "Italian Game (C54) trap: pawn grab on e5 #4",
+  "opening": "Italian Game",
+  "summary": "White plays Nxe5 in the Italian Game. It looks like a win, but Black has dxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "13": "Black answers dxe5 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c51-3ddf8f": {
+  "name": "Italian Game (C51) trap: pawn grab on e5",
+  "opening": "Italian Game",
+  "summary": "White plays dxe5 in the Italian Game. It looks like a win, but Black has Nxc4 and then wins about 3 pawns of material.",
+  "notes": {
+   "12": "The mistake! White plays dxe5. It looks tempting, but it is the trap.",
+   "13": "Black answers Nxc4 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing dxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-c42-e5d358": {
+  "name": "Petrov's Defense (C42) trap: knight grab on e4",
+  "opening": "Petrov's Defense",
+  "summary": "White plays Bxe4 in the Petrov's Defense. It looks like a win, but Black has dxe4 and then wins about 3 pawns of material.",
+  "notes": {
+   "16": "The mistake! White plays Bxe4. It looks tempting, but it is the trap.",
+   "17": "Black answers dxe4 and the punishment starts.",
+   "21": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Bxe4 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-a68-2de6e0": {
+  "name": "Benoni Defense (A68) trap: pawn grab on d5",
+  "opening": "Benoni Defense",
+  "summary": "Black plays Nxd5 in the Benoni Defense. It looks like a win, but White has Nxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "17": "The mistake! Black plays Nxd5. It looks tempting, but it is the trap.",
+   "18": "White answers Nxd5 and the punishment starts.",
+   "22": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "mt-c49-400c22": {
+  "name": "Four Knights Game (C49) trap: pawn grab on e5 #3",
+  "opening": "Four Knights Game",
+  "summary": "White plays Nxe5 in the Four Knights Game. It looks like a win, but Black has Qxe5 and then wins about 3 pawns of material.",
+  "notes": {
+   "14": "The mistake! White plays Nxe5. It looks tempting, but it is the trap.",
+   "15": "Black answers Qxe5 and the punishment starts.",
+   "23": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxe5 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-d08-c57555": {
+  "name": "Queen's Gambit Declined (D08) trap: pawn grab on d4 #3",
+  "opening": "Queen's Gambit Declined",
+  "summary": "White plays Nxd4 in the Queen's Gambit Declined. It looks like a win, but Black has Nxd4 and then wins about 3 pawns of material.",
+  "notes": {
+   "16": "The mistake! White plays Nxd4. It looks tempting, but it is the trap.",
+   "17": "Black answers Nxd4 and the punishment starts.",
+   "25": "Black wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd4 here, ask yourself first how Black will reply and what is left unprotected after the move."
+ },
+ "mt-a65-343028": {
+  "name": "Benoni Defense (A65) trap: pawn grab on d5",
+  "opening": "Benoni Defense",
+  "summary": "Black plays Nxd5 in the Benoni Defense. It looks like a win, but White has Nxd5 and then wins about 3 pawns of material.",
+  "notes": {
+   "17": "The mistake! Black plays Nxd5. It looks tempting, but it is the trap.",
+   "18": "White answers Nxd5 and the punishment starts.",
+   "26": "White wins about 3 pawns of material."
+  },
+  "avoid": "Before playing Nxd5 here, ask yourself first how White will reply and what is left unprotected after the move."
  }
 }
