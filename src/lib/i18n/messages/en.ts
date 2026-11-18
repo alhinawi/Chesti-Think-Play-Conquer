@@ -712,6 +712,7 @@ const en: Messages = {
     nfTitle: 'This page does not exist',
     nfText: 'Looks like the knight jumped to the wrong square. Head back home and continue from there.',
     nfHome: 'Home',
+    loading3d: 'Preparing the chess world...',
     nfLessons: 'Lessons',
   },
 }
