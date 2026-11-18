@@ -714,7 +714,7 @@
    "summary": "A knight, a queen and a bishop trap the castled king.",
    "steps": [
     {
-     "text": "Joseph Blackburne, the Englishman nicknamed \"the Black Death\", specialized in kingside mates.\n\nHis net: a **knight on `g5`** protects `h7`, and a **bishop** locks the escape square `f8` from afar."
+     "text": "Joseph Blackburne, the Englishman nicknamed \"the Black Death\", specialized in kingside mates.\n\nHis net: a **knight** on `g5` protects `h7`, and a **bishop** locks the escape square `f8` from afar."
     },
     {
      "text": "You're White. Deliver Blackburne's mate in one move.",
