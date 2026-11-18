@@ -9,6 +9,9 @@
   },
   // Workers AI: free allocation only (10,000 Neurons/day per account, shared). No API key needed.
   "ai": { "binding": "AI" },
+  // Usage counters for the learning helper: a small SQLite-backed Durable Object (free plan, additive).
+  "durable_objects": { "bindings": [{ "name": "HELPER_LIMITER", "class_name": "HelperLimiter" }] },
+  "migrations": [{ "tag": "helper-limiter-v1", "new_sqlite_classes": ["HelperLimiter"] }],
   "d1_databases": [
     {
       "binding": "DB",
