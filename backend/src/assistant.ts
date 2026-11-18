@@ -21,7 +21,8 @@ const OUT_RATE = 27273 / 1e6
 
 const MAX_MESSAGES = 6
 const MAX_CHARS = 600
-const MAX_OUT_TOKENS = 320
+// Gemma 4 is a reasoning model: thinking tokens count against this cap, so leave room for the visible answer.
+const MAX_OUT_TOKENS = 700
 
 /** Conservative cost of one call, reserved before the model runs (assumes 2 characters per token). */
 export function reserveCost(promptChars: number): number {
@@ -162,21 +163,43 @@ async function userKey(c: Context, env: HelperEnv, day: string): Promise<string>
   const m = /^Bearer (.+)$/.exec(c.req.header('Authorization') ?? '')
   let who = ''
   if (m) {
-    const row = await env.DB.prepare('SELECT user_id FROM sessions WHERE token_hash = ? AND expires_at > ?')
-      .bind(await sha256Hex(m[1]), new Date().toISOString())
-      .first<{ user_id: number }>()
-    if (row) who = `acct:${row.user_id}`
+    try {
+      const row = await env.DB.prepare('SELECT user_id FROM sessions WHERE token_hash = ? AND expires_at > ?')
+        .bind(await sha256Hex(m[1]), new Date().toISOString())
+        .first<{ user_id: number }>()
+      if (row) who = `acct:${row.user_id}`
+    } catch {
+      // fall back to the per-IP key
+    }
   }
   if (!who) who = `ip:${c.req.header('CF-Connecting-IP') ?? 'local'}`
   return `u:${(await sha256Hex(`${who}|${day}|chesti-helper`)).slice(0, 24)}`
+}
+
+export type Reason = 'bad_request' | 'no_ai_binding' | 'no_limiter_binding' | 'reserve_failed' | 'model_error' | 'empty_reply' | 'quota' | 'rate' | 'user_limit'
+
+/** Non-secret diagnostics: a reason code plus the error class and a short message. Never user text. */
+function diag(reason: Reason, err?: unknown) {
+  const e = err as { name?: string; message?: string } | undefined
+  const detail = e ? { error: String(e.name ?? 'Error').slice(0, 40), message: String(e.message ?? e).replace(/\s+/g, ' ').slice(0, 160) } : {}
+  console.warn(JSON.stringify({ helper: 'fail', reason, ...detail }))
+  return { reason, ...detail }
+}
+
+function replyText(out: unknown): { text: string; finish?: string } {
+  const o = out as { response?: unknown; choices?: { message?: { content?: unknown }; finish_reason?: string }[] } | null
+  const ch = o?.choices?.[0]
+  let c: unknown = ch?.message?.content ?? o?.response
+  if (Array.isArray(c)) c = c.map((p) => (typeof p === 'string' ? p : String((p as { text?: unknown })?.text ?? ''))).join('')
+  return { text: typeof c === 'string' ? c.trim() : '', finish: ch?.finish_reason }
 }
 
 export async function handleHelper(c: Context, env: HelperEnv, body: Record<string, unknown>): Promise<Response> {
   const locale = body.locale === 'en' ? 'en' : 'eg'
   const t = MSG[locale]
   const messages = cleanMessages(body.messages)
-  if (!messages) return c.json({ error: 'bad_request', message: t.bad }, 400)
-  if (!env.AI) return c.json({ error: 'unavailable', message: t.down }, 503)
+  if (!messages) return c.json({ error: 'bad_request', reason: 'bad_request', message: t.bad }, 400)
+  if (!env.AI) return c.json({ error: 'unavailable', ...diag('no_ai_binding'), message: t.down }, 503)
 
   const now = new Date()
   const day = isoDay(now)
@@ -191,43 +214,45 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
   let limiter: LimiterApi
   let verdict: Verdict
   try {
-    if (!env.HELPER_LIMITER) throw new Error('no limiter')
+    if (!env.HELPER_LIMITER) return c.json({ error: 'unavailable', ...diag('no_limiter_binding'), message: t.down }, 503)
     limiter = env.HELPER_LIMITER.get(env.HELPER_LIMITER.idFromName(env.HELPER_SCOPE || 'site')) as unknown as LimiterApi
     verdict = await limiter.reserve(key, day, minute, cost)
-  } catch {
-    return c.json({ error: 'unavailable', message: t.down }, 503)
+  } catch (e) {
+    return c.json({ error: 'unavailable', ...diag('reserve_failed', e), message: t.down }, 503)
   }
-  if (verdict === 'quota') return c.json({ error: 'quota', message: t.quota }, 429)
-  if (verdict === 'rate') return c.json({ error: 'rate', message: t.rate }, 429)
-  if (verdict === 'user_limit') return c.json({ error: 'user_limit', message: t.user }, 429)
+  if (verdict === 'quota') return c.json({ error: 'quota', reason: 'quota', message: t.quota }, 429)
+  if (verdict === 'rate') return c.json({ error: 'rate', reason: 'rate', message: t.rate }, 429)
+  if (verdict === 'user_limit') return c.json({ error: 'user_limit', reason: 'user_limit', message: t.user }, 429)
 
   // From here on the reservation stays counted unless we can prove the model did not answer.
   const giveBack = () => limiter.refund(key, day, minute, cost).catch(() => {})
   let reply = ''
   let usage: { prompt_tokens?: number; completion_tokens?: number } | undefined
   try {
-    const out = (await env.AI.run(env.AI_MODEL || DEFAULT_MODEL, { messages: prompt, max_tokens: MAX_OUT_TOKENS, temperature: 0.3 })) as {
-      response?: unknown
-      choices?: { message?: { content?: unknown } }[]
-      usage?: { prompt_tokens?: number; completion_tokens?: number }
-    }
-    const r = out?.response ?? out?.choices?.[0]?.message?.content
-    reply = typeof r === 'string' ? r.trim() : ''
+    const out = (await env.AI.run(env.AI_MODEL || DEFAULT_MODEL, {
+      messages: prompt,
+      max_completion_tokens: MAX_OUT_TOKENS,
+      temperature: 0.3,
+      chat_template_kwargs: { enable_thinking: false },
+    })) as { usage?: { prompt_tokens?: number; completion_tokens?: number } }
+    const r = replyText(out)
+    reply = r.text
     usage = out?.usage
+    if (!reply) {
+      // The model ran (and may have spent its tokens on thinking): keep the call counted at its real cost.
+      await limiter.settle(key, day, minute, cost, estimateNeurons(promptChars, 0, usage)).catch(() => {})
+      return c.json({ error: 'unavailable', ...diag('empty_reply', new Error(`finish_reason=${r.finish ?? 'none'}`)), message: t.down }, 503)
+    }
   } catch (e) {
     const text = String((e as Error)?.message ?? e)
     // 3036 = the account's free Neurons are used up for the day (shared by all sites)
     if (/3036|neurons|quota|429/i.test(text)) {
       await giveBack()
       await limiter.exhaust(day).catch(() => {}) // stop trying for the rest of the day
-      return c.json({ error: 'quota', message: t.quota }, 429)
+      return c.json({ error: 'quota', reason: 'quota', message: t.quota }, 429)
     }
     await giveBack()
-    return c.json({ error: 'unavailable', message: t.down }, 503)
-  }
-  if (!reply) {
-    await giveBack()
-    return c.json({ error: 'unavailable', message: t.down }, 503)
+    return c.json({ error: 'unavailable', ...diag('model_error', e), message: t.down }, 503)
   }
 
   // Replace the conservative reservation with the real cost. If this write fails the reservation stays: safe side.
