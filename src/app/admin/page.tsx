@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Admin from '../../components/Admin'
-import { PageHeader } from '../../components/ui'
+import AdminHeader from '../../components/AdminHeader'
 
 export const metadata: Metadata = {
   title: 'لوحة التحكم',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHeader kicker="للأدمن" title="لوحة التحكم" desc="نظرة سريعة على اللاعبين والأدوار والنتايج - متاحة لحساب الأدمن بس." />
+      <AdminHeader />
       <Admin />
     </>
   )
