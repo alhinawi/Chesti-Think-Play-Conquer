@@ -20,6 +20,18 @@ opening traps — and when you feel ready, play the computer or a friend. Free, 
 
 ---
 
+## Live preview
+
+Captured from the current live site on 18 November 2026. The short GIF cycles through home, the lesson library and computer-opponent selection. These are real navigation captures, not mockups or a claim to show a completed game.
+
+[![Chesti live home, lessons and computer-play setup tour](docs/media/demo.gif)](https://chesti.pages.dev/)
+
+| Desktop | Mobile |
+| --- | --- |
+| ![Chesti home on desktop](docs/media/desktop.webp) | ![Chesti home on mobile](docs/media/mobile.webp) |
+
+[Browse lessons](https://chesti.pages.dev/learn/) · [Choose a computer opponent](https://chesti.pages.dev/play/computer/)
+
 ## What you'll find here
 
 - **Lessons** — interactive, hands-on: every idea is played out on the board, move by move, with plain-Arabic explanations.
