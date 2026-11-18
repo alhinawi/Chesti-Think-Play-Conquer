@@ -388,6 +388,7 @@ const fr: Catalog = {
     moveCountLabel: "Nombre de coups",
     trapsAria: "Tous les pièges classés par force",
     emptyTraps: "Aucun piège ne correspond à ces filtres. Élargis la recherche.",
+    showMoreTraps: 'Afficher plus de pièges ({n} restants)',
     doneBadge: "Terminé ✓",
     mateBadge: "Échec et mat",
     materialBadge: "+{n} de matériel",

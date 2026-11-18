@@ -33,6 +33,7 @@ export default function TrapsList() {
   const [prog, setProg] = useState('all')
   const [opening, setOpening] = useState('all')
   const [len, setLen] = useState('all')
+  const [limit, setLimit] = useState(60)
   const isDone = useDone('traps')
 
   const openingOpts = [{ v: 'all', label: i18n('lb.openingsAll') }, ...[...new Set(TRAPS.map((x) => x.opening))].sort().map((o) => ({ v: o, label: lt(TRAPS.find((x) => x.opening === o)!).opening }))]
@@ -72,7 +73,7 @@ export default function TrapsList() {
           <p className="rounded-xl border border-dashed border-line p-6 text-center text-sm text-muted">{i18n('lb.emptyTraps')}</p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((t0) => {
+            {filtered.slice(0, limit).map((t0) => {
               const t = lt(t0)
               const { fens } = replay(START_FEN, t.moves)
               return (
@@ -102,6 +103,15 @@ export default function TrapsList() {
               )
             })}
           </ul>
+        )}
+        {filtered.length > limit && (
+          <button
+            type="button"
+            onClick={() => setLimit((n) => n + 60)}
+            className="mx-auto mt-6 block rounded-full border border-gold/50 px-6 py-2.5 text-sm font-bold text-gold transition hover:bg-gold/10"
+          >
+            {i18n('lb.showMoreTraps', { n: filtered.length - limit })}
+          </button>
         )}
       </section>
     </>
