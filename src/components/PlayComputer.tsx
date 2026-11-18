@@ -433,7 +433,7 @@ export default function PlayComputer() {
             )}
             {coach && (
               <p key={`c-${coach}`} className="animate-bubble flex items-start gap-2 text-sm" aria-live="polite">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald/20 text-base text-emerald" aria-hidden>☕</span>
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald/20 text-base text-emerald" aria-hidden><Icon name="bulb" className="h-4 w-4" /></span>
                 <span className="rounded-2xl rounded-ss-sm border border-emerald/30 bg-emerald/5 px-3 py-2"><strong className="me-1 text-emerald">{coachName(locale)}:</strong>{coach}</span>
               </p>
             )}
