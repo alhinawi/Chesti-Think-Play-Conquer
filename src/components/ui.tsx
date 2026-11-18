@@ -105,6 +105,7 @@ export function Icon({ name, className = 'h-5 w-5' }: { name: string; className?
     reset: <path {...p} d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5" />,
     bulb: <path {...p} d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z" />,
     flag: <path {...p} d="M4 22V4M4 4h13l-2 4 2 4H4" />,
+    flame: <path {...p} d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-10z" />,
     check: <path {...p} d="M20 6L9 17l-5-5" />,
     shield: <path {...p} d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" />,
     sound: (
