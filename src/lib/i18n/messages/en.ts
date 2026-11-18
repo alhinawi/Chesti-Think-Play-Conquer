@@ -713,6 +713,7 @@ const en: Messages = {
     nfText: 'Looks like the knight jumped to the wrong square. Head back home and continue from there.',
     nfHome: 'Home',
     loading3d: 'Preparing the chess world...',
+    boardAria: 'Chess board',
     nfLessons: 'Lessons',
   },
 }
