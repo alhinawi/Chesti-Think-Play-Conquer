@@ -1,11 +1,37 @@
 'use client'
 
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
 import { useAuth } from '../lib/auth'
 import { useI18n } from '../lib/i18n'
 import { useProgress } from '../lib/progress'
 
 type Opt = { v: string; label: string }
+
+/** filter state kept in sessionStorage, so search and filters survive moving between pages and Back */
+export function usePersisted(list: string, name: string, initial: string) {
+  const key = `chesti-filters:${list}:${name}`
+  const [value, setValue] = useState(initial)
+  const ready = useRef(false)
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(key)
+      if (saved !== null) setValue(saved)
+    } catch {
+      // storage blocked: filters just won't persist
+    }
+    ready.current = true
+  }, [key])
+  useEffect(() => {
+    if (!ready.current) return
+    try {
+      if (value === initial) sessionStorage.removeItem(key)
+      else sessionStorage.setItem(key, value)
+    } catch {
+      // storage blocked: filters just won't persist
+    }
+  }, [key, value, initial])
+  return [value, setValue] as const
+}
 
 /** row of chip buttons for one filter dimension */
 export function ChipRow({ label, options, value, onChange }: { label: string; options: Opt[]; value: string; onChange: (v: string) => void }) {
