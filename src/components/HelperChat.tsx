@@ -27,7 +27,7 @@ export default function HelperChat() {
     setText('')
     setBusy(true)
     const r = await askHelper(next, lang, t('hp.error'))
-    setTurns((cur) => [...cur, { role: 'assistant', content: (r.reply ?? r.message ?? t('hp.error')).replace(/\*\*/g, '') }])
+    setTurns((cur) => [...cur, { role: 'assistant', content: (r.reply ?? r.message ?? t('hp.error')).replace(/^\s*[*•]\s+/gm, '- ').replace(/\*+/g, '') }])
     setBusy(false)
   }
 
