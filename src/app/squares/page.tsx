@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import SquareTrainer from '../../components/SquareTrainer'
-import { PageHeader } from '../../components/ui'
+import SquaresHeader from '../../components/SquaresHeader'
 
 export const metadata: Metadata = {
   title: 'تمرين الخانات',
@@ -11,11 +11,7 @@ export const metadata: Metadata = {
 export default function SquaresPage() {
   return (
     <>
-      <PageHeader
-        kicker="تمرين الخانات"
-        title="عينك على الرقعة"
-        desc="المحترف مش بيفكر إزاي يوصل للخانة، عينه بتروح لها لوحدها. التمرين ده بيبني الذاكرة دي: 30 ثانية وكل خانة صح بنقطة."
-      />
+      <SquaresHeader />
       <SquareTrainer />
     </>
   )
