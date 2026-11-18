@@ -3,7 +3,7 @@ import { ARTICLES, CATEGORIES, TERMS } from '../encyclopedia'
 import en from './encyclopedia.json'
 
 const AR = /[\u0600-\u06FF]/
-const d = en as Record<string, any>
+const d = en as unknown as Record<string, Record<string, string>> & { _cats: Record<string, [string, string]>; _terms: string[] }
 
 describe('English encyclopedia has no Arabic', () => {
   it('every article leaf resolves via the runtime key format and is Latin', () => {
@@ -11,7 +11,7 @@ describe('English encyclopedia has no Arabic', () => {
       const h = d[a.id] as Record<string, string>
       expect(h, a.id).toBeTruthy()
       const keys: unknown[] = ['title', 'summary', ...(a.tags ?? []).map((_, i) => ['tag', i])]
-      a.blocks.forEach((b: any, i) => {
+      a.blocks.forEach((b, i) => {
         if ('h' in b) keys.push([i, 'h'])
         else if ('p' in b) keys.push([i, 'p'])
         else if ('list' in b) b.list.forEach((_: string, j: number) => keys.push([i, 'l', j]))

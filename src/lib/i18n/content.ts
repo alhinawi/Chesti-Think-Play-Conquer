@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useI18n } from './index'
+import type { Block, Step } from '../../data/types'
 import { BOTS_EN, W3_EN } from '../../data/en/bots-w3'
 import { ACH_EN, RANK_EN } from '../../data/en/ui-misc'
 
@@ -37,7 +38,7 @@ export function usePuzzleLoc() {
 type StepEn = { text: string; hint?: string; success?: string; notes?: Record<string, string> }
 type LessonEn = { title: string; summary: string; steps: StepEn[] }
 type LessonsEn = { chapters: Record<string, { title: string; desc: string }>; lessons: Record<string, LessonEn> }
-type LessonLike = { id: string; title: string; summary: string; steps: any[] }
+type LessonLike = { id: string; title: string; summary: string; steps: Step[] }
 type ChapterLike = { id: string; title: string; desc: string }
 
 let lcache: LessonsEn | null = null
@@ -53,7 +54,7 @@ export function useLessonLoc() {
       return
     }
     void import('../../data/en/lessons.json').then((m) => {
-      lcache = (m as any).default as LessonsEn
+      lcache = (m as { default: unknown }).default as LessonsEn
       setDict(lcache)
     })
   }, [locale])
@@ -69,10 +70,10 @@ export function useLessonLoc() {
         steps: l.steps.map((s, i) => {
           const e = h.steps[i]
           if (!e) return s
-          const out = { ...s, text: e.text }
+          const out: Step & { hint?: string; success?: string; notes?: Record<number, string> } = { ...s, text: e.text }
           if (e.hint) out.hint = e.hint
           if (e.success) out.success = e.success
-          if (e.notes) out.notes = { ...(s.notes ?? {}), ...Object.fromEntries(Object.entries(e.notes).map(([k, v]) => [Number(k), v])) }
+          if (e.notes) out.notes = { ...((s as { notes?: Record<number, string> }).notes ?? {}), ...Object.fromEntries(Object.entries(e.notes).map(([k, v]) => [Number(k), v])) }
           return out
         }),
       }
@@ -106,7 +107,7 @@ export function useOpeningLoc() {
       return
     }
     void import('../../data/en/openings.json').then((m) => {
-      ocache = (m as any).default as Record<string, OpeningEn>
+      ocache = (m as { default: unknown }).default as Record<string, OpeningEn>
       setDict(ocache)
     })
   }, [locale])
@@ -135,7 +136,7 @@ export function useTrapLoc() {
       return
     }
     void import('../../data/en/traps.json').then((m) => {
-      tcache = (m as any).default as Record<string, TrapEn>
+      tcache = (m as { default: unknown }).default as Record<string, TrapEn>
       setDict(tcache)
     })
   }, [locale])
@@ -165,7 +166,7 @@ export function useEndgameLoc() {
       return
     }
     void import('../../data/en/endgames.json').then((m) => {
-      ecache = (m as any).default as Record<string, EndgameEn>
+      ecache = (m as { default: unknown }).default as Record<string, EndgameEn>
       setDict(ecache)
     })
   }, [locale])
@@ -193,7 +194,7 @@ export function useGameLoc() {
       return
     }
     void import('../../data/en/games.json').then((m) => {
-      gcache = (m as any).default as Record<string, GameEn>
+      gcache = (m as { default: unknown }).default as Record<string, GameEn>
       setDict(gcache)
     })
   }, [locale])
@@ -209,7 +210,7 @@ export function useGameLoc() {
   )
 }
 
-type EncEn = Record<string, any>
+type EncEn = Record<string, Record<string, string> & { _cats?: Record<string, [string, string]>; _terms?: string[] }>
 let enccache: EncEn | null = null
 
 /** Localized encyclopedia: articles, categories and glossary. Falls back to the original (Arabic). */
@@ -223,17 +224,17 @@ export function useEncLoc() {
       return
     }
     void import('../../data/en/encyclopedia.json').then((m) => {
-      enccache = (m as any).default as EncEn
+      enccache = (m as { default: unknown }).default as EncEn
       setDict(enccache)
     })
   }, [locale])
   const d = locale === 'en' ? dict : null
   const article = useCallback(
-    <T extends { id: string; title: string; summary: string; tags?: string[]; blocks: any[] }>(a: T): T => {
+    <T extends { id: string; title: string; summary: string; tags?: string[]; blocks: Block[] }>(a: T): T => {
       const h = d?.[a.id] as Record<string, string> | undefined
       if (!h) return a
       const g = (k: unknown, fb: string) => h[JSON.stringify(k)] ?? fb
-      const blocks = a.blocks.map((b: any, i: number) => {
+      const blocks = a.blocks.map((b, i): Block => {
         if ('h' in b) return { h: g([i, 'h'], b.h) }
         if ('p' in b) return { p: g([i, 'p'], b.p) }
         if ('list' in b) return { list: b.list.map((x: string, j: number) => g([i, 'l', j], x)) }
