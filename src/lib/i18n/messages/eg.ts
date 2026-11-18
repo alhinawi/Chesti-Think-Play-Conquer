@@ -344,6 +344,7 @@ const eg = {
     moveCountLabel: 'عدد النقلات',
     trapsAria: 'كل الفخاخ مرتبة بالقوة',
     emptyTraps: 'مفيش فخاخ مطابقة للفلاتر دي. جرّب توسّع البحث.',
+    showMoreTraps: 'اعرض فخاخ أكتر ({n} فاضل)',
     doneBadge: 'خلصته ✓',
     mateBadge: 'كش مات',
     materialBadge: '+{n} مادة',
