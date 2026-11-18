@@ -613,7 +613,13 @@
   "A series of repeated discovered checks that eat the opponent's pieces one after another.",
   "The classic bishop sacrifice on h7 (or h2) against a castled king with no defense.",
   "Keeping both of your bishops against an opponent who traded one of his: a strong advantage in open games.",
-  "A mate with a rook or queen on the first rank against a king locked behind his pawns."
+  "A mate with a rook or queen on the first rank against a king locked behind his pawns.",
+  "A mate by a knight giving check to a king boxed in by his own pieces.",
+  "A series of checks that never ends, and the result is a draw by repetition.",
+  "A piece moves and opens the line of another piece that gives check to the king.",
+  "If you touch a piece in an official game, you must move it if you can.",
+  "If fifty moves pass with no capture and no pawn move, either player can claim a draw.",
+  "When neither side has enough pieces to deliver mate, the game is drawn automatically."
  ],
  "basic-mates-guide": {
   "\"title\"": "Basic endgame mates",
