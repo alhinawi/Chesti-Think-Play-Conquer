@@ -42,8 +42,12 @@ function squareToVec(square: string): [number, number] {
   return [file - 3.5, 3.5 - (rank - 1)]
 }
 
+// A lathe is an open tube: close the top with a cap to the axis, or the piece looks hollow and see-through from above.
 function lathe(points: [number, number][], segments = 28): THREE.LatheGeometry {
-  return new THREE.LatheGeometry(points.map(([x, y]) => new THREE.Vector2(x, y)), segments)
+  const pts = points.map(([x, y]) => new THREE.Vector2(x, y))
+  const last = pts[pts.length - 1]
+  if (last.x > 0) pts.push(new THREE.Vector2(0, last.y))
+  return new THREE.LatheGeometry(pts, segments)
 }
 
 function buildPiece(type: string, color: 'w' | 'b'): THREE.Group {
