@@ -5,7 +5,6 @@ export function BotAvatar({ bot, className = 'h-9 w-9 text-xs' }: { bot: Bot; cl
   if (bot.photo)
     return (
       <span className={`grid shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-b from-gold-2 to-gold ${className}`} aria-hidden>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={bot.photo} alt="" className="h-full w-full object-cover" loading="lazy" />
       </span>
     )
