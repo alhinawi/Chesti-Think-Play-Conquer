@@ -82,7 +82,7 @@ export default function Home() {
             highlights={['f7']}
           />
           <div className="animate-bubble mt-3 flex items-start gap-2 text-sm" style={{ animationDelay: '0.5s' }}>
-            <span className="animate-float grid h-10 w-10 shrink-0 place-items-center rounded-full bg-emerald/20 text-xl" aria-hidden>☕</span>
+            <span className="animate-float grid h-10 w-10 shrink-0 place-items-center rounded-full bg-emerald/20 text-emerald" aria-hidden><Icon name="bulb" className="h-5 w-5" /></span>
             <p className="rounded-2xl rounded-ss-sm border border-emerald/30 bg-surface/90 px-3 py-2">
               <strong className="me-1 text-emerald">{coachName(locale)}:</strong>
               {t('home.coachLine')}
