@@ -64,10 +64,22 @@ export function systemPrompt(locale: 'eg' | 'en'): string {
     'If the question is about something else, say politely in one sentence that you only help with chess, and offer a chess topic.',
     'Be accurate. If you are not sure about a move, a variation or a fact, say so instead of guessing. Never invent games, players, ratings or statistics.',
     'Do not claim to be a person. Do not mention models, providers or technology. Call yourself "the helper".',
-    'Keep answers short: at most 120 words. Use short paragraphs or a short list. No emoji. Do not use markdown headings.',
+    'Keep answers very short: 60 to 80 words at most, in simple words for a beginner. Plain text only: no asterisks, no bold, no markdown, no headings. If you list things, put each on its own line starting with a dash and a space. No emoji.',
+    'Reply in the language the student wrote in. If the language is unclear, use the default below.',
     'Do not ask for or store personal information.',
     lang,
   ].join('\n')
+}
+
+/** The chat shows plain text: drop markdown marks and turn "* item" bullets into "- item". */
+export function plainReply(text: string): string {
+  return text
+    .replace(/^[ \t]*[*•][ \t]+/gm, '- ')
+    .replace(/\*+/g, '')
+    .replace(/^#{1,6}[ \t]+/gm, '')
+    .replace(/`+/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
 }
 
 export function cleanMessages(input: unknown): ChatMsg[] | null {
@@ -257,5 +269,5 @@ export async function handleHelper(c: Context, env: HelperEnv, body: Record<stri
 
   // Replace the conservative reservation with the real cost. If this write fails the reservation stays: safe side.
   await limiter.settle(key, day, minute, cost, estimateNeurons(promptChars, reply.length, usage)).catch(() => {})
-  return c.json({ reply: reply.slice(0, 1500) })
+  return c.json({ reply: plainReply(reply).slice(0, 1500) })
 }

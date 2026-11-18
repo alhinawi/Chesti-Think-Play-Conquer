@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { beforeEach, describe, expect, it } from 'vitest'
 import app from '../src/index'
-import { cleanMessages, estimateNeurons, LIMITS, reserveCost, systemPrompt, type LimiterApi } from '../src/assistant'
+import { cleanMessages, plainReply, estimateNeurons, LIMITS, reserveCost, systemPrompt, type LimiterApi } from '../src/assistant'
 
 const ask = (e: unknown, body: unknown, ip = '1.1.1.1') =>
   app.request(
@@ -203,5 +203,11 @@ describe('POST /api/assistant', () => {
     const empty = { ...base(), AI: { run: async () => ({ choices: [{ message: { content: null }, finish_reason: 'length' }], usage: { prompt_tokens: 100, completion_tokens: 700 } }) } }
     for (let i = 0; i < LIMITS.userPerMinute; i++) expect((await ask(empty, q('سؤال'))).status).toBe(503)
     expect((await ask(empty, q('سؤال'))).status).toBe(429) // still rate-limited: the calls were counted
+  })
+})
+
+describe('plainReply', () => {
+  it('turns star bullets into dashes and drops markdown marks', () => {
+    expect(plainReply('* **الفيل** بيتحرك\n* قطري\n\n\n## عنوان `e4`')).toBe('- الفيل بيتحرك\n- قطري\n\nعنوان e4')
   })
 })
