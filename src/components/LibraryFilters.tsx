@@ -104,7 +104,7 @@ export function matchesProgress(prog: string, done: boolean) {
   return prog === 'all' || (prog === 'done' ? done : !done)
 }
 
-/** compact search bar + a فلاتر toggle; the filter rows stay collapsed until needed */
+/** compact search bar + a filters icon toggle; the filter rows stay collapsed until needed */
 export function FilterCard({ q, setQ, shown, total, active, children }: { q: string; setQ: (v: string) => void; shown: number; total: number; active: number; children: ReactNode }) {
   const [open, setOpen] = useState(false)
   const { t } = useI18n()
@@ -123,13 +123,16 @@ export function FilterCard({ q, setQ, shown, total, active, children }: { q: str
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className={`flex shrink-0 items-center gap-1.5 rounded-xl border px-3 py-2.5 text-sm font-bold transition ${
+          aria-label={t('lb.filters')}
+          title={t('lb.filters')}
+          className={`relative grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition ${
             open || active ? 'border-gold bg-gold-soft text-gold' : 'border-line text-muted hover:border-gold/40 hover:text-ink'
           }`}
         >
-          {t('lb.filters')}
-          {active > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-xs font-bold text-[#1a1408]">{active}</span>}
-          <span aria-hidden className={`text-xs transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
+          <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 5h18l-7 8.5V20l-4-2v-4.5L3 5z" />
+          </svg>
+          {active > 0 && <span className="absolute -end-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-xs font-bold text-[#1a1408]">{active}</span>}
         </button>
       </div>
       {open && <div className="mt-3 flex flex-col gap-3 border-t border-line pt-3">{children}</div>}
