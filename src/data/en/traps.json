@@ -216,30 +216,6 @@
   },
   "avoid": "Never play ...f6 in the opening: it breaks the king's diagonal and paralyzes your knight. Defend the e5 pawn with ...Nc6 or ...d6 and develop your pieces."
  },
- "budapest-trap": {
-  "name": "Budapest Trap",
-  "opening": "Budapest Gambit",
-  "summary": "Mate by the knight in the heart of White's camp: the move that looks like it wins a bishop loses the game immediately.",
-  "notes": {
-   "0": "White starts with d4.",
-   "1": "Natural development.",
-   "2": "White occupies the other center square.",
-   "3": "The Budapest Gambit: Black offers the e5 pawn!",
-   "4": "White accepts the gambit.",
-   "5": "The knight chases the pawn right away.",
-   "6": "White protects the pawn with the bishop.",
-   "7": "Black develops and pressures.",
-   "8": "Natural development.",
-   "9": "Check with the bishop: it squeezes White.",
-   "10": "The knight blocks the check.",
-   "11": "The queen comes to the e file: look closely at the e2 square, this is the key to the coming mate.",
-   "12": "White kicks the bishop and is happy he'll capture it.",
-   "13": "The knight goes back to take the pawn.",
-   "14": "The disaster: axb4 takes the bishop \"for free\"...",
-   "15": "Nd3 mate! The knight gives check, and the king is locked by his own pieces: the queen on d1, the bishop on f1 and the pawn on f2, and the e2 pawn is pinned by the black queen on the e file."
-  },
-  "avoid": "In the Budapest, don't take the bishop on b4 with the wing pawn if your knight is still on d2. Play Nc3 or Nbd2 and continue developing, and the pieces will come calmly."
- },
  "tennison-gambit": {
   "name": "Tennison Gambit",
   "opening": "Réti Opening",

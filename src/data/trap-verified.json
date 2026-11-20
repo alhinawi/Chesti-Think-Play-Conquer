@@ -104,13 +104,6 @@
   "after": 1.4,
   "end": 5.5
  },
- "budapest-trap": {
-  "sig": "a218c797f4724929",
-  "mate": true,
-  "before": -0.3,
-  "after": 100,
-  "end": 100
- },
  "tennison-gambit": {
   "sig": "2cfad03d352c4182",
   "mate": false,
