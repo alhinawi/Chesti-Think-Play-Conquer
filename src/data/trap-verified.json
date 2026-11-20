@@ -293,6 +293,13 @@
   "after": 9.2,
   "end": 100
  },
+ "alien-bxh6-trap": {
+  "sig": "cca2c6e6dea18b70",
+  "mate": true,
+  "before": -1,
+  "after": 2.5,
+  "end": 100
+ },
  "reti-tartakower": {
   "sig": "fca5d109c34d593c",
   "mate": true,
