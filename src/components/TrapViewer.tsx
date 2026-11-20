@@ -145,7 +145,7 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
             </>
           ) : (
             <>
-              <Button onClick={startPractice}>{en ? 'Practice it yourself' : 'جرّب الفخ بنفسك'}</Button>
+              <Button onClick={startPractice}>{en ? 'Try the trap' : 'جرّب الفخ'}</Button>
               <Button variant="soft" onClick={() => go(t.mistake + 1)}>{en ? 'Show me the mistake' : 'ورّيني الغلطة'}</Button>
             </>
           )}
