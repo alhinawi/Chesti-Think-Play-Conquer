@@ -6,6 +6,7 @@ import { Badge } from './ui'
 import { MiniBoard } from './MiniBoard'
 import { ChipRow, usePersisted, FilterCard, FilterSelect, levelOpts, matchesProgress, progressOpts, sideOpts, useDone } from './LibraryFilters'
 import { TRAPS } from '../data/traps'
+import { FAMOUS_TRAPS } from '../data/trap-famous'
 import { TRAP_STRENGTH } from '../data/trap-strength'
 import { replay, START_FEN } from '../lib/chess'
 import { levelSlug } from '../lib/i18n/dataLabels'
@@ -33,6 +34,8 @@ export default function TrapsList() {
   const [prog, setProg] = usePersisted('traps', 'prog', 'all')
   const [opening, setOpening] = usePersisted('traps', 'opening', 'all')
   const [len, setLen] = usePersisted('traps', 'len', 'all')
+  const [fam, setFam] = usePersisted('traps', 'fam', 'all')
+  const [end, setEnd] = usePersisted('traps', 'end', 'all')
   const [limit, setLimit] = useState(60)
   const isDone = useDone('traps')
 
@@ -40,13 +43,17 @@ export default function TrapsList() {
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase()
+    const rank = (id: string) => FAMOUS_TRAPS.indexOf(id)
     return [...TRAPS]
       .sort((a, b) => {
+        if (fam === 'top') return rank(a.id) - rank(b.id)
         const sa = TRAP_STRENGTH[a.id] ?? { mate: false, material: 0, plies: 99 }
         const sb = TRAP_STRENGTH[b.id] ?? { mate: false, material: 0, plies: 99 }
         return Number(sb.mate) - Number(sa.mate) || sb.material - sa.material || sa.plies - sb.plies
       })
       .filter((t) => {
+        if (fam === 'top' && rank(t.id) < 0) return false
+        if (end === 'mate' && !TRAP_STRENGTH[t.id]?.mate) return false
         if (side !== 'all' && t.side !== side) return false
         if (level !== 'all' && t.level !== level) return false
         if (!matchesProgress(prog, isDone(t.id))) return false
@@ -55,11 +62,13 @@ export default function TrapsList() {
         if (needle && !`${t.name} ${t.en} ${t.opening}`.toLowerCase().includes(needle)) return false
         return true
       })
-  }, [q, side, level, prog, opening, len, isDone])
+  }, [q, side, level, prog, opening, len, fam, end, isDone])
 
   return (
     <>
-      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={TRAPS.length} active={[side, level, prog, opening, len].filter((v) => v !== 'all').length}>
+      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={TRAPS.length} active={[side, level, prog, opening, len, fam, end].filter((v) => v !== 'all').length}>
+        <ChipRow label={i18n('lb.famLabel')} options={[{ v: 'all', label: i18n('lb.famAll') }, { v: 'top', label: i18n('lb.famTop') }]} value={fam} onChange={setFam} />
+        <ChipRow label={i18n('lb.endLabel')} options={[{ v: 'all', label: i18n('lb.endAll') }, { v: 'mate', label: i18n('lb.endMate') }]} value={end} onChange={setEnd} />
         <ChipRow label={i18n('lb.setByLabel')} options={sideOpts(i18n)} value={side} onChange={setSide} />
         <ChipRow label={i18n('lb.levelLabel')} options={levelOpts(i18n)} value={level} onChange={setLevel} />
         <ChipRow label={i18n('lb.progLabel')} options={progressOpts(i18n)} value={prog} onChange={setProg} />
