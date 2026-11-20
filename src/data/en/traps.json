@@ -1817,5 +1817,19 @@
    "20": "Qxh7# Checkmate! The queen and knight close in on the king."
   },
   "avoid": "In the Bogo-Indian, don't trade away the only knight that guards your king: keep a knight on f6 or play h6 to stop Ng5 and Qxh7#."
+ },
+ "vienna-qxf7-trap": {
+  "name": "Vienna Queen Mate Trap",
+  "opening": "Vienna Game, Frankenstein-Dracula",
+  "summary": "Black takes the e4 pawn, and after Qh5 the knight goes back to f6 to attack the queen but does not guard f7: Qxf7# is mate.",
+  "notes": {
+   "3": "Nf6 A natural move that develops the knight.",
+   "4": "Bc4 The bishop aims at f7, Black's weakest point.",
+   "5": "Nxe4 Black takes the pawn: the Frankenstein-Dracula variation.",
+   "6": "Qh5! The queen joins the bishop on f7 and threatens Qxf7# mate.",
+   "7": "The mistake! Nf6?? The knight attacks the queen but does not guard f7. Nd6 was needed.",
+   "8": "Qxf7# Checkmate! The bishop guards the queen and the king has no square."
+  },
+  "avoid": "Against Qh5 put the knight back on d6: it guards f7 and attacks the bishop. Attacking the queen is no defense if she mates first."
  }
 }
