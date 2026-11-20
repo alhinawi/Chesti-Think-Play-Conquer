@@ -63,11 +63,11 @@
   "end": 4.4
  },
  "siberian-trap": {
-  "sig": "5cc1034dcd407746",
-  "mate": false,
-  "before": -0.2,
-  "after": 5.3,
-  "end": 4.8
+  "sig": "05e44eb02430c834",
+  "mate": true,
+  "before": -0.1,
+  "after": 5,
+  "end": 100
  },
  "kieninger-trap": {
   "sig": "fe1a17b35786f39c",
@@ -298,6 +298,13 @@
   "mate": true,
   "before": -1,
   "after": 2.5,
+  "end": 100
+ },
+ "alien-nbd7-trap": {
+  "sig": "857cec6b3caa2813",
+  "mate": true,
+  "before": -2.7,
+  "after": 100,
   "end": 100
  },
  "reti-tartakower": {

@@ -135,13 +135,15 @@
  "siberian-trap": {
   "name": "Siberian Trap",
   "opening": "Smith-Morra Gambit (Sicilian)",
-  "summary": "The black knight goes to d4 and the queen on c7 looks at h2, and the result is mate or winning the queen.",
+  "summary": "The black knight goes to d4 and the queen on c7 looks at h2. After h3?? Black mates with Qh2 even if White takes the knight.",
   "notes": {
    "4": "The Smith-Morra Gambit: White sacrifices a pawn.",
    "11": "The queen looks at h2 from afar.",
    "15": "The knight attacks h2 together with the queen.",
    "16": "The mistake! White kicks the knight, but Black has a strong move.",
-   "17": "The knight attacks the white queen, and if the queen moves, Qh2 is mate. White will lose the queen."
+   "17": "The knight attacks the white queen, and if the queen moves, Qh2 is mate.",
+   "18": "Nxd4 White takes the knight, but that leaves h2.",
+   "19": "Qh2# Checkmate! The queen checks, protected by the knight on g4, and the king is boxed in by his own pieces."
   },
   "avoid": "When the opponent's queen and knight look at a square next to your king, don't make a pawn move in front of your king. Better to bring a piece that protects that square."
  },
@@ -2030,5 +2032,26 @@
    "34": "Qg7# Checkmate! The queen checks and the king has no square."
   },
   "avoid": "In the Alien Gambit, do not trade your dark bishop on e5: it leaves h6 and g7 unguarded. Keep the bishop and cover h6."
+ },
+ "alien-nbd7-trap": {
+  "name": "Alien Gambit Qxg6 Mate Trap",
+  "opening": "Caro-Kann, Alien Gambit",
+  "summary": "White sacrifices a knight on f7 and then the bishop on e6, and after Nbd7?? the queen chases the king to Qxg6 mate.",
+  "notes": {
+   "10": "Nxf7! A knight sacrifice aimed at the king.",
+   "11": "Kxf7 The king comes out and loses castling.",
+   "14": "Bc4 The bishop aims at e6.",
+   "17": "Kg8 The king goes back home.",
+   "18": "Ne5 The knight pressures f7 and g6.",
+   "19": "The mistake! Nbd7?? Qd4 was needed.",
+   "20": "Bxe6+ The bishop takes the pawn with check.",
+   "21": "Kh7 The king goes to h7.",
+   "22": "Qd3+ A queen check.",
+   "23": "Ne4 Black blocks with the knight.",
+   "24": "Qxe4+ A queen check.",
+   "25": "g6 The pawn blocks.",
+   "26": "Qxg6# Checkmate! The queen checks and the king has no square."
+  },
+  "avoid": "In the Caro-Kann, when the king is pulled out by a sacrifice on f7, do not leave e6 and g6 unguarded. Count every queen check before you develop the knight."
  }
 }
