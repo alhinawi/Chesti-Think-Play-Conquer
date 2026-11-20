@@ -84,11 +84,11 @@
   "end": 100
  },
  "halosar-trap": {
-  "sig": "ef17768da3bee320",
-  "mate": false,
-  "before": -0.7,
-  "after": 4.5,
-  "end": 4.7
+  "sig": "25947d8ffda29864",
+  "mate": true,
+  "before": -0.5,
+  "after": 4.4,
+  "end": 100
  },
  "damiano-trap": {
   "sig": "bd189701c96da813",
