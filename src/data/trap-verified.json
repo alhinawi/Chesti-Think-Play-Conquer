@@ -272,6 +272,27 @@
   "after": 100,
   "end": 100
  },
+ "halloween-trap": {
+  "sig": "f3928b797f498bd1",
+  "mate": true,
+  "before": -1,
+  "after": 100,
+  "end": 100
+ },
+ "alien-bxe6-trap": {
+  "sig": "a25febb59d3b6679",
+  "mate": true,
+  "before": 1,
+  "after": 100,
+  "end": 100
+ },
+ "caro-qh3-trap": {
+  "sig": "ca46ec3a83465db3",
+  "mate": true,
+  "before": 0.2,
+  "after": 9.2,
+  "end": 100
+ },
  "reti-tartakower": {
   "sig": "fca5d109c34d593c",
   "mate": true,
