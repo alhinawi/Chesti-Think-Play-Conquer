@@ -1054,5 +1054,53 @@
   "lineMate": true,
   "material": -8,
   "plies": 3
+ },
+ "caro-ne6-trap": {
+  "sig": "9d88576853e91dda",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": 0.93,
+  "best": "d8b6",
+  "playedIsBest": false,
+  "after": 100,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": -3,
+  "plies": 1
+ },
+ "balode-sondore-trap": {
+  "sig": "be6a4059356d5d45",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": 0.53,
+  "best": "a7a6",
+  "playedIsBest": false,
+  "after": 3.4,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": -5,
+  "plies": 5
+ },
+ "froms-gambit-trap": {
+  "sig": "088bbab3fca21e99",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": -0.5,
+  "best": "g1f3",
+  "playedIsBest": false,
+  "after": 100,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": -7,
+  "plies": 5
  }
 }

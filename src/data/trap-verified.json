@@ -237,6 +237,27 @@
   "after": 4.4,
   "end": 100
  },
+ "caro-ne6-trap": {
+  "sig": "9d88576853e91dda",
+  "mate": true,
+  "before": 0.8,
+  "after": 100,
+  "end": 100
+ },
+ "balode-sondore-trap": {
+  "sig": "be6a4059356d5d45",
+  "mate": true,
+  "before": 0.6,
+  "after": 3.3,
+  "end": 100
+ },
+ "froms-gambit-trap": {
+  "sig": "088bbab3fca21e99",
+  "mate": true,
+  "before": -0.4,
+  "after": 100,
+  "end": 100
+ },
  "reti-tartakower": {
   "sig": "fca5d109c34d593c",
   "mate": true,
