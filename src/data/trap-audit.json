@@ -1102,5 +1102,37 @@
   "lineMate": true,
   "material": -7,
   "plies": 5
+ },
+ "tennison-trap": {
+  "sig": "cc852bed2928675f",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": -2.04,
+  "best": "b8c6",
+  "playedIsBest": false,
+  "after": 5.84,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": 1,
+  "plies": 7
+ },
+ "dutch-rh6-trap": {
+  "sig": "c7a0ef05553fcf74",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": 1.96,
+  "best": "d7d5",
+  "playedIsBest": false,
+  "after": 100,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": -8,
+  "plies": 3
  }
 }

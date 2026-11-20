@@ -258,6 +258,20 @@
   "after": 100,
   "end": 100
  },
+ "tennison-trap": {
+  "sig": "cc852bed2928675f",
+  "mate": true,
+  "before": -2.1,
+  "after": 4.9,
+  "end": 100
+ },
+ "dutch-rh6-trap": {
+  "sig": "c7a0ef05553fcf74",
+  "mate": true,
+  "before": 1.5,
+  "after": 100,
+  "end": 100
+ },
  "reti-tartakower": {
   "sig": "fca5d109c34d593c",
   "mate": true,
