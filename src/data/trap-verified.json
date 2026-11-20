@@ -209,6 +209,13 @@
   "after": 6.5,
   "end": 5.9
  },
+ "rosen-trap": {
+  "sig": "7224206dd4d6d749",
+  "mate": true,
+  "before": -2.1,
+  "after": 3.5,
+  "end": 100
+ },
  "reti-tartakower": {
   "sig": "fca5d109c34d593c",
   "mate": true,

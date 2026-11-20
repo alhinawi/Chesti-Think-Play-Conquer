@@ -1779,5 +1779,24 @@
    "24": "White wins about 3 pawns of material."
   },
   "avoid": "Before playing Nxe5 here, ask yourself first how White will reply and what is left unprotected after the move."
+ },
+ "rosen-trap": {
+  "name": "Rosen Trap (Stafford)",
+  "opening": "Stafford Gambit",
+  "summary": "White attacks the queen with the bishop (Bg5) and takes it, but Black checks on f2 with the bishop and mates with the other bishop on g4.",
+  "notes": {
+   "3": "Stafford Gambit: Black plays Nf6 and leaves a pawn for development.",
+   "4": "White takes the e5 pawn for free.",
+   "5": "Black develops and sets the trap.",
+   "8": "d3 is a quiet move that opens the bishop.",
+   "9": "Bc5! The bishop aims at f2 early.",
+   "10": "The mistake! Bg5 attacks the queen but leaves f2 without protection.",
+   "11": "Nxe4! The knight takes the pawn and opens the trap. If White takes the queen, Black mates.",
+   "12": "Bxd8 White got greedy for the queen.",
+   "13": "Bxf2+! The bishop checks and drags the king out.",
+   "14": "The king has to step to e2.",
+   "15": "Bg4# Checkmate! The king is boxed in by its own knight and pawns."
+  },
+  "avoid": "In the Stafford, don't get greedy for Black's queen when your bishop is on g5: watch f2 and Nxe4 before you take. Play Nc3 or Be3 first."
  }
 }
