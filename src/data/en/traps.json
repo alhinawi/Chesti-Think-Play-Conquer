@@ -360,19 +360,6 @@
   },
   "avoid": "In the Dutch, don't chase the bishop with h6 and g5 and f4 one after another: every pawn move weakens your king. Develop your knight first and open e6."
  },
- "smyslov-caro-trap": {
-  "name": "Smyslov Trap",
-  "opening": "Caro-Kann - Smyslov variation",
-  "summary": "A natural kicking move (h6) provokes the sacrifice: Nxf7! and the king gets pulled out to the middle of the board and the queen comes to e2 with a mate threat.",
-  "notes": {
-   "10": "Smyslov plays Ng5!? - it looks like a waste of time, and this is the start of the trap.",
-   "15": "The mistake: h6?? A natural kick of the knight... but it allows the sacrifice.",
-   "16": "Nxf7! The knight sacrifices itself on f7.",
-   "18": "Ng5+! Another check and the king is exposed in the middle.",
-   "20": "Qe6+ and the queen finishes it - mate is very near and there's no defense."
-  },
-  "avoid": "Against the Smyslov variation (Ng5), don't kick the knight with h6 before castling: play O-O first or Qc7, and always check Nxf7! before you move the pawn."
- },
  "magnus-smith-trap": {
   "name": "Magnus Smith Trap",
   "opening": "Sicilian - Sozin attack",
@@ -411,21 +398,6 @@
    "24": "Ne5! The knight in the center and mate is a matter of time."
   },
   "avoid": "In the Italian, after 9.O-O play 9...d5 or Bxc3 just once and with calculation: this position has been studied since Greco's time - the greedy capture loses to the attack."
- },
- "wayward-queen-trap": {
-  "name": "Wayward Queen counter-trap",
-  "opening": "Early queen attack (Wayward Queen)",
-  "summary": "White attacks with Qb3 on f7 and b7 and thinks he's winning, but Nd4! turns the tables: the king goes to e7 safely, and after b5! the bishop is besieged and White loses his queen or a piece.",
-  "notes": {
-   "4": "The mistake: Qb3?? A double strike that looks winning on f7 and b7 - and it's the start of the disaster.",
-   "5": "Nd4! The deadly reply: an attack on the queen and the c2 pawn is hanging.",
-   "6": "Bxf7+ White continues his plan and captures with check...",
-   "7": "Ke7! The king moves calmly - no mate, and the attack is over.",
-   "9": "b5! The pawn chases the queen and besieges the bishop on f7.",
-   "11": "Nxb3! The knight takes the queen.",
-   "13": "Kxf7 and the king takes the besieged bishop - Black wins a queen and a piece."
-  },
-  "avoid": "Don't bring your queen out early: an early attack with Qh5 and Bc4 against a player who knows the reply loses a piece - develop your pieces first."
  },
  "fajarowicz-trap": {
   "name": "Fajarowicz Trap",

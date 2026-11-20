@@ -174,13 +174,6 @@
   "after": 100,
   "end": 100
  },
- "smyslov-caro-trap": {
-  "sig": "27e60242f1f7913a",
-  "mate": false,
-  "before": 0.6,
-  "after": 0.5,
-  "end": 100
- },
  "magnus-smith-trap": {
   "sig": "9ff66e9157ea3c63",
   "mate": false,
@@ -201,13 +194,6 @@
   "before": 1,
   "after": 5.3,
   "end": 7.1
- },
- "wayward-queen-trap": {
-  "sig": "045fcae4f5d581d7",
-  "mate": false,
-  "before": 0.3,
-  "after": 0.2,
-  "end": 9.7
  },
  "fajarowicz-trap": {
   "sig": "efa94da621c2a4cb",
