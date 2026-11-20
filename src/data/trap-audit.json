@@ -1134,5 +1134,53 @@
   "lineMate": true,
   "material": -8,
   "plies": 3
+ },
+ "halloween-trap": {
+  "sig": "f3928b797f498bd1",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": -1.3,
+  "best": "c8e6",
+  "playedIsBest": false,
+  "after": 100,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": 0,
+  "plies": 1
+ },
+ "alien-bxe6-trap": {
+  "sig": "a25febb59d3b6679",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": 1.37,
+  "best": "f6d5",
+  "playedIsBest": false,
+  "after": 100,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": 1,
+  "plies": 1
+ },
+ "caro-qh3-trap": {
+  "sig": "ca46ec3a83465db3",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": 0.23,
+  "best": "d7b6",
+  "playedIsBest": false,
+  "after": 9.17,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": -1,
+  "plies": 7
  }
 }
