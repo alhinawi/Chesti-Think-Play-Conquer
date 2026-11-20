@@ -84,11 +84,11 @@
   "end": 100
  },
  "halosar-trap": {
-  "sig": "25947d8ffda29864",
-  "mate": true,
-  "before": -0.5,
-  "after": 4.4,
-  "end": 100
+  "sig": "ef17768da3bee320",
+  "mate": false,
+  "before": -0.7,
+  "after": 4.5,
+  "end": 4.7
  },
  "damiano-trap": {
   "sig": "bd189701c96da813",
@@ -228,6 +228,13 @@
   "mate": true,
   "before": 0.1,
   "after": 100,
+  "end": 100
+ },
+ "halosar-mate-trap": {
+  "sig": "25947d8ffda29864",
+  "mate": true,
+  "before": -0.5,
+  "after": 4.4,
   "end": 100
  },
  "reti-tartakower": {
