@@ -116,7 +116,7 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
 
   return (
     <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,520px)_1fr]">
-      <div className="sticky top-14 z-20 mx-auto -mt-2 w-full min-w-0 max-w-[min(100%,calc(100svh-11rem))] bg-bg pb-2 pt-2 lg:static lg:mt-0 lg:max-w-none lg:bg-transparent lg:p-0">
+      <div className="sticky top-14 z-20 mx-auto -mt-2 w-full min-w-0 max-w-[min(100%,calc(100svh-15rem))] bg-bg pb-2 pt-2 lg:static lg:mt-0 lg:max-w-none lg:bg-transparent lg:p-0">
         <ChessBoard
           fen={fens[ply]}
           movable={myTurn ? t.side : false}
@@ -136,19 +136,7 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
           onToggle={() => (ply >= n && !auto ? (setPly(0), setAuto(true)) : setAuto((a) => !a))}
           playLabel={en ? (auto ? 'Stop' : ply === n ? 'Restart' : 'Play') : auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
         />}
-      </div>
-      <div className="flex flex-col gap-4">
-        <div className={`min-h-28 rounded-2xl border p-4 ${isMistake ? 'border-danger/50 bg-danger/10' : 'border-line bg-surface'}`} aria-live="polite">
-          {last && (
-            <p dir="ltr" className="mb-1 text-start font-mono text-lg font-bold text-gold">
-              {Math.floor((ply - 1) / 2) + 1}.{(ply - 1) % 2 ? '..' : ''} {last.san}
-            </p>
-          )}
-          {isMistake && <p className="mb-1 text-sm font-bold text-danger">{en ? 'The fatal mistake' : 'الغلطة القاتلة'}</p>}
-          {prompt && <p className="mb-1 font-bold text-gold">{prompt}</p>}
-          {note ? <RichText text={note} /> : <p> </p>}
-        </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="mt-2 flex flex-wrap justify-center gap-2">
           {practice ? (
             <>
               <Button onClick={startPractice}>{en ? 'Restart' : 'من الأول'}</Button>
@@ -161,6 +149,18 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
               <Button variant="soft" onClick={() => go(t.mistake + 1)}>{en ? 'Show me the mistake' : 'ورّيني الغلطة'}</Button>
             </>
           )}
+        </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <div className={`min-h-28 rounded-2xl border p-4 ${isMistake ? 'border-danger/50 bg-danger/10' : 'border-line bg-surface'}`} aria-live="polite">
+          {last && (
+            <p dir="ltr" className="mb-1 text-start font-mono text-lg font-bold text-gold">
+              {Math.floor((ply - 1) / 2) + 1}.{(ply - 1) % 2 ? '..' : ''} {last.san}
+            </p>
+          )}
+          {isMistake && <p className="mb-1 text-sm font-bold text-danger">{en ? 'The fatal mistake' : 'الغلطة القاتلة'}</p>}
+          {prompt && <p className="mb-1 font-bold text-gold">{prompt}</p>}
+          {note ? <RichText text={note} /> : <p> </p>}
         </div>
         {!practice && <ol dir="ltr" className="flex flex-wrap gap-1 text-sm" aria-label={en ? 'Moves' : 'النقلات'}>
           {t.moves.map((m, i) => (
