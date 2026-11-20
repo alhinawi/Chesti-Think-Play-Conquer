@@ -149,11 +149,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "material": 7,
     "plies": 9
   },
-  "budapest-trap": {
-    "mate": true,
-    "material": 1,
-    "plies": 1
-  },
   "tennison-gambit": {
     "mate": false,
     "material": 11,

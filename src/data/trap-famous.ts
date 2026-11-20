@@ -10,7 +10,7 @@ export const FAMOUS_TRAPS: string[] = [
   'noahs-ark',
   'siberian-trap',
   'blackburne-shilling',
-  'budapest-trap',
+  'kieninger-trap',
   'rubinstein-trap',
   'smith-morra-trap',
   'tarrasch-trap',
