@@ -136,7 +136,7 @@ export default function TrapViewer({ trapId, items, bucket }: { trapId: string; 
           onToggle={() => (ply >= n && !auto ? (setPly(0), setAuto(true)) : setAuto((a) => !a))}
           playLabel={en ? (auto ? 'Stop' : ply === n ? 'Restart' : 'Play') : auto ? 'وقّف' : ply === n ? 'من الأول' : 'عرض'}
         />}
-        <div className="mt-2 flex flex-wrap justify-center gap-2">
+        <div className="mt-2 flex flex-wrap justify-between gap-2">
           {practice ? (
             <>
               <Button onClick={startPractice}>{en ? 'Restart' : 'من الأول'}</Button>
