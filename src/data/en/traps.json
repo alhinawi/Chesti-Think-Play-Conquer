@@ -1798,5 +1798,24 @@
    "15": "Bg4# Checkmate! The king is boxed in by its own knight and pawns."
   },
   "avoid": "In the Stafford, don't get greedy for Black's queen when your bishop is on g5: watch f2 and Nxe4 before you take. Play Nc3 or Be3 first."
+ },
+ "monticelli-trap": {
+  "name": "Monticelli Trap",
+  "opening": "Bogo-Indian Defence",
+  "summary": "Black trades the knight on c3 and leaves h7 unguarded. After Ng5! White threatens Qxh7# and if Black takes the bishop on g2 he gets mated at once.",
+  "notes": {
+   "1": "Black plays the Bogo-Indian after d4.",
+   "5": "Bb4+! A check with the bishop starts the Bogo-Indian.",
+   "7": "The bishops are exchanged.",
+   "11": "Bb7 The bishop eyes the white king from far away.",
+   "12": "Bg2 White's bishop guards the king and holds the diagonal.",
+   "15": "Ne4 The knight steps forward and becomes a target.",
+   "16": "Qc2! The queen hits the knight and eyes h7.",
+   "17": "Nxc3 takes the knight away from the king and leaves h7 open. The danger starts here.",
+   "18": "Ng5! A double threat: Qxh7# mate and Bxb7 winning bishop and rook.",
+   "19": "The mistake! Bxg2?? Black takes the bishop and misses the mate (Ne4 loses only the exchange).",
+   "20": "Qxh7# Checkmate! The queen and knight close in on the king."
+  },
+  "avoid": "In the Bogo-Indian, don't trade away the only knight that guards your king: keep a knight on f6 or play h6 to stop Ng5 and Qxh7#."
  }
 }

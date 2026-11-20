@@ -216,6 +216,13 @@
   "after": 3.5,
   "end": 100
  },
+ "monticelli-trap": {
+  "sig": "96b031cfc4098f37",
+  "mate": true,
+  "before": 0.8,
+  "after": 100,
+  "end": 100
+ },
  "reti-tartakower": {
   "sig": "fca5d109c34d593c",
   "mate": true,
