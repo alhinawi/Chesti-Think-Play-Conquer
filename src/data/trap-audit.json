@@ -144,20 +144,20 @@
   "plies": 7
  },
  "siberian-trap": {
-  "sig": "5cc1034dcd407746",
+  "sig": "05e44eb02430c834",
   "depth": 20,
   "lineOk": true,
   "victimMoves": true,
-  "before": -0.39,
+  "before": -0.14,
   "best": "f1d1",
   "playedIsBest": false,
-  "after": 5.12,
-  "end": 5.15,
-  "mateAtEnd": false,
-  "mateIn": null,
-  "lineMate": false,
-  "material": 0,
-  "plies": 1
+  "after": 4.93,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": -3,
+  "plies": 3
  },
  "kieninger-trap": {
   "sig": "fe1a17b35786f39c",
@@ -1198,5 +1198,21 @@
   "lineMate": true,
   "material": -1,
   "plies": 13
+ },
+ "alien-nbd7-trap": {
+  "sig": "857cec6b3caa2813",
+  "depth": 20,
+  "lineOk": true,
+  "victimMoves": true,
+  "before": -3.43,
+  "best": "d8d4",
+  "playedIsBest": false,
+  "after": 100,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": 5,
+  "plies": 7
  }
 }

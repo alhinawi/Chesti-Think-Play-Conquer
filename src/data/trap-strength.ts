@@ -4,6 +4,11 @@ import verified from './trap-verified.json'
 // قوة كل فخ محسوبة برمجياً من الخط نفسه (chess.js): مات، أو المادة اللي بيخسرها الواقع في الفخ عند آخر الخط.
 // المعيار: مات أولاً، وبعدين أكبر مادة مكتسبة، والتعادل يتكسر بالسرعة (عقاب أسرع بعد الغلطة = أقوى).
 const BASE: Record<string, { mate: boolean; material: number; plies: number }> = {
+  "alien-nbd7-trap": {
+    "mate": true,
+    "material": 0,
+    "plies": 7
+  },
   "alien-bxh6-trap": {
     "mate": true,
     "material": 0,
@@ -115,9 +120,9 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "plies": 7
   },
   "siberian-trap": {
-    "mate": false,
-    "material": 2,
-    "plies": 1
+    "mate": true,
+    "material": 0,
+    "plies": 3
   },
   "kieninger-trap": {
     "mate": true,
