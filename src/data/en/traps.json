@@ -1905,5 +1905,45 @@
    "11": "Bxg3# Checkmate! The bishop checks and the king is shut in by his own pieces."
   },
   "avoid": "Against From's Gambit, do not play Nc3 after Bxd6: play Nf3 to cover h4 and protect your king from the queen check."
+ },
+ "tennison-trap": {
+  "name": "Tennison Gambit Mate Trap",
+  "opening": "Tennison Gambit",
+  "summary": "Black takes a pawn and brings the queen out to d4, so White chases her with the queen to b7 and plays Qc8 mate.",
+  "notes": {
+   "3": "dxe4 Black takes the pawn.",
+   "4": "Ng5 The knight attacks e4 and prepares pressure.",
+   "5": "Bf5 The bishop guards the extra pawn.",
+   "6": "Nc3 The knight attacks the pawn on e4.",
+   "8": "Qe2 The queen prepares an attack on e4 and on the queenside.",
+   "9": "The mistake! Qd4?? The queen goes out early and leaves b7 unguarded.",
+   "10": "Qb5+! A check that drives the bishop to d7.",
+   "12": "Qxb7 The queen takes the pawn and enters Black's camp.",
+   "13": "Bc6 The bishop attacks the queen.",
+   "14": "Bb5 The white bishop guards the queen.",
+   "15": "Qb6 Black tries to trade queens.",
+   "16": "Qc8# Checkmate! The queen checks and the king is boxed in by his own pieces."
+  },
+  "avoid": "In this gambit, do not bring the queen out early to d4. Keep developing with e6 or Nc6, and keep b7 guarded."
+ },
+ "dutch-rh6-trap": {
+  "name": "Dutch Rh6 Mate Trap",
+  "opening": "Dutch Defence, Bg5 attack",
+  "summary": "Black rushes the kingside pawns and then plays Rh6??, so White sacrifices the queen on h5 and Bg6 is mate.",
+  "notes": {
+   "1": "f5 The Dutch Defence.",
+   "2": "Bg5 The bishop annoys Black and attacks the queen.",
+   "3": "h6 Black asks the bishop a question.",
+   "5": "g5 Black chases the bishop with pawns.",
+   "7": "f4 The pawn attacks the bishop.",
+   "8": "e3 White opens the bishop's line.",
+   "9": "h5 Black keeps rushing.",
+   "10": "Bd3 The bishop aims at g6.",
+   "11": "The mistake! Rh6?? The rook leaves the king's squares unguarded.",
+   "12": "Qxh5+! A queen sacrifice that opens the king.",
+   "13": "Rxh5 The rook takes the queen.",
+   "14": "Bg6# Checkmate! The bishop checks and the king is boxed in by his own pawns."
+  },
+  "avoid": "In the Dutch, do not push all the kingside pawns. Keep the king covered, and do not put the rook on h6."
  }
 }
