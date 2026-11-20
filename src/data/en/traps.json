@@ -1945,5 +1945,67 @@
    "14": "Bg6# Checkmate! The bishop checks and the king is boxed in by his own pawns."
   },
   "avoid": "In the Dutch, do not push all the kingside pawns. Keep the king covered, and do not put the rook on h6."
+ },
+ "halloween-trap": {
+  "name": "Halloween Gambit Mate Trap",
+  "opening": "Halloween Gambit",
+  "summary": "White sacrifices a knight on e5 and chases away the black knights. If Black takes the e5 pawn, Qxf7 is mate.",
+  "notes": {
+   "4": "Nc3 Quiet development before the sacrifice.",
+   "6": "Nxe5! The Halloween Gambit: a knight sacrifice on e5.",
+   "7": "Nxe5 Black takes the knight.",
+   "8": "d4 The pawn drives the knight away.",
+   "9": "Ng6 The knight runs.",
+   "10": "e5! The pawn drives the f6 knight away too.",
+   "11": "Ng8 The knight goes back home.",
+   "12": "Bc4 The bishop aims at f7.",
+   "13": "d6 Black attacks the pawn.",
+   "14": "Qf3 The queen joins the bishop on f7.",
+   "15": "The mistake! dxe5?? leaves f7 unguarded.",
+   "16": "Qxf7# Checkmate! The queen and bishop close the king in."
+  },
+  "avoid": "In the Halloween Gambit, when a bishop and queen aim at f7, do not take the pawn on e5. Cover f7 first with Qe7 or Nh6."
+ },
+ "alien-bxe6-trap": {
+  "name": "Alien Gambit Bxe6 Mate Trap",
+  "opening": "Caro-Kann, Alien Gambit",
+  "summary": "White sacrifices a knight on f7 and hunts the king. After e6?? comes Bxe6 mate.",
+  "notes": {
+   "6": "Nxe4 The knight takes the pawn.",
+   "8": "Ng5 The knight attacks f7.",
+   "10": "Nxf7! A knight sacrifice aimed at the king.",
+   "11": "Kxf7 The king comes out and loses his shelter.",
+   "12": "Nf3 The knight returns to the center.",
+   "13": "Bf5 The bishop develops.",
+   "14": "Ne5+ A knight check.",
+   "15": "Kg8 The king goes back home.",
+   "16": "g4! The pawn chases the bishop.",
+   "17": "Bh7 The bishop runs.",
+   "18": "Bc4+ A bishop check.",
+   "19": "The mistake! e6?? Kh8 or Qd5 was needed. The pawn opens the square.",
+   "20": "Bxe6# Checkmate! The bishop checks and the king is boxed in."
+  },
+  "avoid": "In the Caro-Kann, do not let the king be dragged out by a knight sacrifice on f7. If it comes out, count every knight and bishop check before blocking with a pawn."
+ },
+ "caro-qh3-trap": {
+  "name": "Caro-Kann Qh3 Mate Trap",
+  "opening": "Caro-Kann Defence, Bc4 attack",
+  "summary": "Black plays h6 and leaves f7 weak, so White sacrifices a knight, hunts the king to h5 and plays Qh3 mate.",
+  "notes": {
+   "6": "Nxe4 The knight takes the pawn.",
+   "8": "Bc4 The bishop aims at f7 and e6.",
+   "10": "Ng5 The knight attacks f7 and e6.",
+   "11": "e6 Black defends with the pawn.",
+   "12": "Qe2 The queen pressures e6.",
+   "13": "The mistake! h6?? asks the knight but leaves f7 weak.",
+   "14": "Nxf7! A knight sacrifice.",
+   "15": "Kxf7 The king takes the knight.",
+   "16": "Qxe6+ A queen check.",
+   "17": "Kg6 The king goes far out.",
+   "18": "Bd3+ A bishop check.",
+   "19": "Kh5 The king is pulled further in.",
+   "20": "Qh3# Checkmate! The queen checks and the king has no square."
+  },
+  "avoid": "In the Caro-Kann, do not ask the knight with h6 when f7 is weak. Cover f7 first with Nf8 or Be7."
  }
 }
