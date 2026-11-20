@@ -63,7 +63,7 @@ export default function OpeningViewer({ openingId }: { openingId: string }) {
 
   return (
     <div className="flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,520px)_1fr]">
-      <div className="sticky top-14 z-20 mx-auto -mt-2 w-full min-w-0 max-w-[min(100%,calc(100svh-11rem))] bg-bg pb-2 pt-2 lg:static lg:mt-0 lg:max-w-none lg:bg-transparent lg:p-0">
+      <div className="sticky top-14 z-20 mx-auto -mt-2 w-full min-w-0 max-w-[min(100%,calc(100svh-12rem))] bg-bg pb-2 pt-2 lg:static lg:mt-0 lg:max-w-none lg:bg-transparent lg:p-0">
         <ChessBoard
           fen={fens[ply]}
           movable={false}
