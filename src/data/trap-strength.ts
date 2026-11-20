@@ -129,11 +129,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "material": 0,
     "plies": 1
   },
-  "smyslov-caro-trap": {
-    "mate": false,
-    "material": 3,
-    "plies": 5
-  },
   "magnus-smith-trap": {
     "mate": false,
     "material": 14,
@@ -147,11 +142,6 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
   "greco-trap": {
     "mate": false,
     "material": 20,
-    "plies": 13
-  },
-  "wayward-queen-trap": {
-    "mate": false,
-    "material": 12,
     "plies": 13
   },
   "fajarowicz-trap": {
