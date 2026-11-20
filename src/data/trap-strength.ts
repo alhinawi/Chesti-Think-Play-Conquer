@@ -9,6 +9,11 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "material": 0,
     "plies": 5
   },
+  "monticelli-trap": {
+    "mate": true,
+    "material": 0,
+    "plies": 1
+  },
   "fools-mate": {
     "mate": true,
     "material": 0,
