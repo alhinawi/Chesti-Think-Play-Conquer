@@ -14,6 +14,11 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
     "material": 0,
     "plies": 1
   },
+  "vienna-qxf7-trap": {
+    "mate": true,
+    "material": 0,
+    "plies": 1
+  },
   "fools-mate": {
     "mate": true,
     "material": 0,
