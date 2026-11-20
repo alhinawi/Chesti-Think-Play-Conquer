@@ -63,7 +63,7 @@ function load(): Settings {
 }
 
 /** Runs before paint (inline in <head>) so the saved theme never flashes. */
-export const THEME_BOOT_SCRIPT = `try{var s=JSON.parse(localStorage.getItem('${SETTINGS_KEY}')||'{}');if(s.theme==='light')document.documentElement.classList.remove('dark')}catch(e){}`
+export const THEME_BOOT_SCRIPT = `try{var s=JSON.parse(localStorage.getItem('${SETTINGS_KEY}')||'{}');var r=document.documentElement;if(s.theme==='light')r.classList.remove('dark');var T=${JSON.stringify(Object.fromEntries(BOARD_THEMES.map((t) => [t.id, [t.light, t.dark, t.frame]])))};var b=s.board;if(!s.v&&b==='walnut')b=null;var t=T[b||'${DEFAULTS.board}'];if(t){r.style.setProperty('--bd-light',t[0]);r.style.setProperty('--bd-dark',t[1]);r.style.setProperty('--bd-frame',t[2])}}catch(e){}`
 
 interface Ctx {
   settings: Settings
@@ -95,7 +95,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, [settings, ready])
 
   const update = useCallback((patch: Partial<Settings>) => setSettings((s) => ({ ...s, ...patch })), [])
-  const boardTheme = BOARD_THEMES.find((t) => t.id === settings.board) ?? BOARD_THEMES[0]
+  const found = BOARD_THEMES.find((t) => t.id === settings.board) ?? BOARD_THEMES[0]
+  // Until the saved settings load, paint from the CSS variables the boot script set, so the board never flashes the default theme.
+  const boardTheme = useMemo<BoardTheme>(
+    () => (ready ? found : { ...found, light: `var(--bd-light, ${found.light})`, dark: `var(--bd-dark, ${found.dark})`, frame: `var(--bd-frame, ${found.frame})` }),
+    [ready, found],
+  )
   const value = useMemo(() => ({ settings, update, boardTheme }), [settings, update, boardTheme])
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>
 }
