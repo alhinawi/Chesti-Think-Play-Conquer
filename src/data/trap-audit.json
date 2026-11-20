@@ -239,22 +239,6 @@
   "material": 0,
   "plies": 21
  },
- "budapest-trap": {
-  "sig": "a218c797f4724929",
-  "depth": 20,
-  "lineOk": true,
-  "victimMoves": true,
-  "before": -0.34,
-  "best": "f3e5",
-  "playedIsBest": false,
-  "after": 100,
-  "end": 100,
-  "mateAtEnd": true,
-  "mateIn": 0,
-  "lineMate": true,
-  "material": -3,
-  "plies": 1
- },
  "tennison-gambit": {
   "sig": "2cfad03d352c4182",
   "depth": 20,
