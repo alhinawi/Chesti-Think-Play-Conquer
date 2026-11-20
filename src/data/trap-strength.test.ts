@@ -24,4 +24,7 @@ describe('trap strength', () => {
       if (A[t.id].mateAtEnd) expect(TRAP_STRENGTH[t.id].mate, t.id).toBe(true)
     }
   })
+  it('trap ids are unique', () => {
+    expect(new Set(TRAPS.map((t) => t.id)).size).toBe(TRAPS.length)
+  })
 })
