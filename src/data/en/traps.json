@@ -1849,5 +1849,61 @@
    "16": "Nxc7# Checkmate! The e7 and f7 pawns box the king in and the d1 rook covers d7 and d8."
   },
   "avoid": "Against the Ryder Gambit, after Nb5 never take the queen: play Na6 and cover c7. Any capture opens the mate."
+ },
+ "caro-ne6-trap": {
+  "name": "Caro-Kann Ne6 Mate Trap",
+  "opening": "Caro-Kann Defence, Nd7 variation",
+  "summary": "Black answers Ng5 with h6, so White sacrifices the knight on e6, and if Black takes it Bg6 is mate.",
+  "notes": {
+   "6": "Nxe4 The knight takes the pawn and opens the way for the bishop.",
+   "7": "Nd7 Black develops the knight.",
+   "8": "Ng5! The knight aims at e6 and f7.",
+   "9": "Ngf6 Black brings the other knight back.",
+   "10": "Bd3 The bishop aims at g6.",
+   "11": "h6 Black attacks the knight.",
+   "12": "Ne6! A knight sacrifice that opens the king.",
+   "13": "The mistake! fxe6?? opens the line and leaves g6 unguarded.",
+   "14": "Bg6# Checkmate! The bishop checks and the king is boxed in by his own pieces."
+  },
+  "avoid": "In the Caro-Kann, when the enemy knight sacrifices on e6 and his bishop is on d3, think before taking with the pawn: it can open a check on g6. Look for mate before every capture."
+ },
+ "balode-sondore-trap": {
+  "name": "Scandinavian Bxf7 Mate Trap",
+  "opening": "Scandinavian Defence",
+  "summary": "Black puts the bishop on g4 and then h5, letting the queen be taken. After Qxh5 Nxh5 comes Bxf7 mate.",
+  "notes": {
+   "2": "exd5 White takes the pawn at once.",
+   "3": "Qxd5 Black takes it back with the queen.",
+   "4": "Nc3 The knight hits the queen and gains time.",
+   "5": "Qd8 The queen goes home.",
+   "6": "Bc4 The bishop aims at f7.",
+   "8": "Nf3 Quiet development.",
+   "9": "The mistake! Bg4?? pins the knight but leaves f7 unguarded.",
+   "10": "Ne5! The knight pressures f7 and threatens Qxg4.",
+   "11": "Bh5? The bishop runs but leaves the queen on the board.",
+   "12": "Qxh5! A queen sacrifice that pulls the knight from f6.",
+   "13": "Nxh5 Black takes the queen and removes the guard of f7.",
+   "14": "Bxf7# Checkmate! The bishop and the knight on e5 box the king in."
+  },
+  "avoid": "In the Scandinavian, do not put the bishop on g4 before you guard f7. Always check for a bishop on c4 and a knight on e5."
+ },
+ "froms-gambit-trap": {
+  "name": "From's Gambit Mate Trap",
+  "opening": "Bird's Opening, From's Gambit",
+  "summary": "White plays Nc3 instead of Nf3, so Black checks with the queen, sacrifices her, and the bishop mates on g3.",
+  "notes": {
+   "1": "e5 From's Gambit: Black gives up a pawn.",
+   "2": "fxe5 White takes the pawn.",
+   "3": "d6 Black opens the bishop.",
+   "4": "exd6 White takes another pawn.",
+   "5": "Bxd6 The bishop aims at g3 and the king.",
+   "6": "The mistake! Nc3?? Nf3 was needed to cover h4 and g3.",
+   "7": "Qh4+! A queen check, and the king can only block on g3.",
+   "8": "g3 The pawn has to block.",
+   "9": "Qxg3+! The queen sacrifices herself and opens the line.",
+   "10": "hxg3 White takes the queen, there is no choice.",
+   "11": "Bxg3# Checkmate! The bishop checks and the king is shut in by his own pieces."
+  },
+  "avoid": "Against From's Gambit, do not play Nc3 after Bxd6: play Nf3 to cover h4 and protect your king from the queen check."
  }
 }
