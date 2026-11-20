@@ -43,16 +43,18 @@ export default function TrapsList() {
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase()
-    const rank = (id: string) => FAMOUS_TRAPS.indexOf(id)
+    const rank = (id: string) => {
+      const i = FAMOUS_TRAPS.indexOf(id)
+      return i < 0 ? 999 : i
+    }
     return [...TRAPS]
       .sort((a, b) => {
-        if (fam === 'top') return rank(a.id) - rank(b.id)
+        if (fam === 'top' && rank(a.id) !== rank(b.id)) return rank(a.id) - rank(b.id)
         const sa = TRAP_STRENGTH[a.id] ?? { mate: false, material: 0, plies: 99 }
         const sb = TRAP_STRENGTH[b.id] ?? { mate: false, material: 0, plies: 99 }
         return Number(sb.mate) - Number(sa.mate) || sb.material - sa.material || sa.plies - sb.plies
       })
       .filter((t) => {
-        if (fam === 'top' && rank(t.id) < 0) return false
         if (end === 'mate' && !TRAP_STRENGTH[t.id]?.mate) return false
         if (side !== 'all' && t.side !== side) return false
         if (level !== 'all' && t.level !== level) return false
@@ -66,7 +68,7 @@ export default function TrapsList() {
 
   return (
     <>
-      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={TRAPS.length} active={[side, level, prog, opening, len, fam, end].filter((v) => v !== 'all').length}>
+      <FilterCard q={q} setQ={setQ} shown={filtered.length} total={TRAPS.length} active={[side, level, prog, opening, len, end].filter((v) => v !== 'all').length}>
         <ChipRow label={i18n('lb.famLabel')} options={[{ v: 'all', label: i18n('lb.famAll') }, { v: 'top', label: i18n('lb.famTop') }]} value={fam} onChange={setFam} />
         <ChipRow label={i18n('lb.endLabel')} options={[{ v: 'all', label: i18n('lb.endAll') }, { v: 'mate', label: i18n('lb.endMate') }]} value={end} onChange={setEnd} />
         <ChipRow label={i18n('lb.setByLabel')} options={sideOpts(i18n)} value={side} onChange={setSide} />
