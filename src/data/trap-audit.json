@@ -192,19 +192,19 @@
   "plies": 1
  },
  "halosar-trap": {
-  "sig": "ef17768da3bee320",
+  "sig": "25947d8ffda29864",
   "depth": 20,
   "lineOk": true,
   "victimMoves": true,
-  "before": -0.66,
+  "before": -0.59,
   "best": "c7c6",
   "playedIsBest": false,
-  "after": 5.04,
-  "end": 5.31,
-  "mateAtEnd": false,
-  "mateIn": null,
-  "lineMate": false,
-  "material": 1,
+  "after": 5.63,
+  "end": 100,
+  "mateAtEnd": true,
+  "mateIn": 0,
+  "lineMate": true,
+  "material": -8,
   "plies": 3
  },
  "damiano-trap": {

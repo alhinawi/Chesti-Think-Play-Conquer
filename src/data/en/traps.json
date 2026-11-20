@@ -188,17 +188,21 @@
  },
  "halosar-trap": {
   "name": "Halosar Trap",
-  "opening": "Blackmar-Diemer",
-  "summary": "Black takes all the offered pawns and chases the queen with ...Bg4, and then comes the reply that turns the tables: Nb5!!",
+  "opening": "Blackmar-Diemer Gambit, Ryder Gambit",
+  "summary": "White sacrifices two pawns and then the queen itself: Nb5!! ignores the bishop attack, and if Black takes the queen, Nxc7# is mate.",
   "notes": {
-   "8": "**Qxf3** The Halosar trap starts here: the queen stands in the storm and looks exposed.",
-   "10": "**Be3** The black queen went deep into White's camp on her own...",
-   "13": "The mistake! **...Bg4?** attacks the queen and looks like a winning move, but it carries a disaster.",
-   "14": "**Nb5!!** The deadly reply: White ignores the attack on his queen and threatens **Nxc7 mate**!",
-   "15": "**...Na6** An attempt to cover `c7`...",
-   "16": "**Qxb7** and White wins a pawn with a crushing attack: the `a6` knight is under fire and the checks follow one after another. The most famous trap in the Blackmar-Diemer Gambit."
+   "2": "e4! The Blackmar-Diemer Gambit: White sacrifices a pawn.",
+   "6": "f3 Another pawn for fast development (the Ryder Gambit).",
+   "8": "Qxf3 The queen comes out early for development and pressure.",
+   "9": "Qxd4 Black takes the second pawn and is two pawns up.",
+   "10": "Be3 The bishop chases the queen and develops with a tempo.",
+   "12": "O-O-O White castles long and the rook takes the d-file.",
+   "13": "The mistake! Bg4? attacks the queen while far behind in development, and leaves c7 to the trap.",
+   "14": "Nb5!! The knight ignores the queen and threatens Nxc7# mate.",
+   "15": "Bxf3?? Taking the queen opens the mate. Na6 was needed to guard c7.",
+   "16": "Nxc7# Checkmate! The e7 and f7 pawns box the king in and the d1 rook covers d7 and d8."
   },
-  "avoid": "Against the Blackmar-Diemer, don't take all the offered pawns: keep developing and bring the queen back early. And never try to chase their queen with ...Bg4: Nb5 turns it against you."
+  "avoid": "Against the Ryder Gambit, after Nb5 never take the queen: play Na6 and cover c7. Any capture opens the mate."
  },
  "damiano-trap": {
   "name": "Damiano Defense Trap",
