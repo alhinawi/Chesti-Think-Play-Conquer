@@ -2007,5 +2007,28 @@
    "20": "Qh3# Checkmate! The queen checks and the king has no square."
   },
   "avoid": "In the Caro-Kann, do not ask the knight with h6 when f7 is weak. Cover f7 first with Nf8 or Be7."
+ },
+ "alien-bxh6-trap": {
+  "name": "Alien Gambit Bxh6 Mate Trap",
+  "opening": "Caro-Kann, Alien Gambit",
+  "summary": "Black trades the bishop on e5 and leaves h6 weak, so White sacrifices the bishop on h6 and Qg7 is mate.",
+  "notes": {
+   "10": "Nxf7! A knight sacrifice aimed at the king.",
+   "11": "Kxf7 The king comes out and loses castling.",
+   "14": "Bd3 The bishop aims at h7 and g6.",
+   "17": "Bd6 The bishop develops.",
+   "20": "Ne5+ A knight check.",
+   "21": "The mistake! Bxe5?? leaves the dark squares around the king without a bishop.",
+   "22": "dxe5 The pawn opens the queen's path to h5.",
+   "23": "Nd5 The knight develops.",
+   "24": "Qh5+ A queen check.",
+   "26": "Bxh6! A bishop sacrifice that opens the king.",
+   "27": "gxh6 Black takes the bishop.",
+   "28": "Qg6+ A queen check.",
+   "30": "Qxh6+ Another check.",
+   "32": "Bg6+ A bishop check.",
+   "34": "Qg7# Checkmate! The queen checks and the king has no square."
+  },
+  "avoid": "In the Alien Gambit, do not trade your dark bishop on e5: it leaves h6 and g7 unguarded. Keep the bishop and cover h6."
  }
 }
