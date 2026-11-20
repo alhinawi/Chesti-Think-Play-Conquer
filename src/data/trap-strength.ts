@@ -1,4 +1,5 @@
 import mined from './trap-strength-mined.json'
+import verified from './trap-verified.json'
 
 // قوة كل فخ محسوبة برمجياً من الخط نفسه (chess.js): مات، أو المادة اللي بيخسرها الواقع في الفخ عند آخر الخط.
 // المعيار: مات أولاً، وبعدين أكبر مادة مكتسبة، والتعادل يتكسر بالسرعة (عقاب أسرع بعد الغلطة = أقوى).
@@ -169,4 +170,11 @@ const BASE: Record<string, { mate: boolean; material: number; plies: number }> =
   "wurzburger-trap": {"mate":false,"material":0,"plies":1}
 }
 
-export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; plies: number }> = { ...BASE, ...mined }
+const RAW: Record<string, { mate: boolean; material: number; plies: number }> = { ...BASE, ...mined }
+
+// الفخ مات لو الخط نفسه بينتهي بمات، أو لو Stockfish شايف مات بالقوة في آخر الخط (التقييم 100)
+// زي Fishing Pole: الخط بيقف قبل Qh1# بنقلة، بس المات مفيش منه مفر.
+const V = verified as Record<string, { end: number }>
+export const TRAP_STRENGTH: Record<string, { mate: boolean; material: number; plies: number }> = Object.fromEntries(
+  Object.entries(RAW).map(([id, s]) => [id, { ...s, mate: s.mate || (V[id]?.end ?? 0) >= 99 }]),
+)
