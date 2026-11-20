@@ -211,9 +211,9 @@ export const TRAPS3: Trap[] = [
     avoid: 'ضد Qh5 رجّع الحصان لـ d6: بيحمي f7 وبيهاجم الفيل. الهجوم على الوزير مش دفاع لو الوزير بيمات الأول.',
   },
   {
-    id: 'halosar-trap',
-    name: 'فخ هالوسار',
-    en: 'Halosar Trap',
+    id: 'halosar-mate-trap',
+    name: 'هالوسار: المات على c7',
+    en: 'Halosar Mate (Nxc7#)',
     opening: 'جامبيت بلاكمار-ديمر - جامبيت رايدر',
     side: 'w',
     level: 'متوسط',
